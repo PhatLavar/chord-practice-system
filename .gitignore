@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.env
+.env.*
+credentials*.json
+kaggle.json
+data/raw/
+data/processed/
+runs/
+*.ckpt
+*.pt
+*.pth
