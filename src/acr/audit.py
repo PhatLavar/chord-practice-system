@@ -4,6 +4,8 @@ import argparse
 import csv
 import json
 import math
+import io
+import tarfile
 from bisect import bisect_right
 from html import escape
 from pathlib import Path
@@ -50,9 +52,20 @@ def audit(recording, data_root, output):
         raise ValueError("Use the four-digit Billboard recording ID.")
     labels = data_root / "billboard-2.0.1-lab" / recording / "full.lab"
     features = data_root / "billboard-2.0-chordino" / recording / "bothchroma.csv"
-    events = read_events(labels.read_text().splitlines())
-    with features.open(newline="") as stream:
-        rows = list(aligned_frames(stream, events))
+    if (data_root / "billboard-2.0-chordino.tar.xz").is_file():
+        def read_member(archive, filename):
+            with tarfile.open(data_root / archive, "r|xz") as tar:
+                for member in tar:
+                    if member.name.endswith(f"/{recording}/{filename}"):
+                        return tar.extractfile(member).read().decode()
+            raise ValueError(f"{recording}/{filename} missing from {archive}")
+
+        events = read_events(read_member("full.tar.xz", "full.lab").splitlines())
+        rows = list(aligned_frames(io.StringIO(read_member("billboard-2.0-chordino.tar.xz", "bothchroma.csv")), events))
+    else:
+        events = read_events(labels.read_text().splitlines())
+        with features.open(newline="") as stream:
+            rows = list(aligned_frames(stream, events))
     if not rows:
         raise ValueError("Empty chroma file")
 

@@ -8,7 +8,6 @@ import itertools
 import json
 import random
 import tarfile
-import zipfile
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -59,18 +58,32 @@ def run(raw, out):
         return i
 
     seen = {}
-    with tarfile.open(raw / "full.tar.xz") as lab, zipfile.ZipFile(raw / "kaggle-v1.zip") as z:
+    chroma = set()
+
+    def recordings():
+        with tarfile.open(raw / "billboard-2.0-chordino.tar.xz", "r|xz") as archive:
+            for member in archive:
+                if not member.name.endswith("/bothchroma.csv"):
+                    continue
+                i = Path(member.name).parent.name
+                if i not in index or i in chroma:
+                    raise ValueError(f"Unexpected or duplicate chroma ID: {i}")
+                chroma.add(i)
+                yield i, archive.extractfile(member).read()
+        for i in sorted(index.keys() - chroma):
+            yield i, None
+
+    with tarfile.open(raw / "full.tar.xz") as lab:
         labels = {Path(m.name).parent.name: m for m in lab if m.name.endswith("/full.lab")}
-        chroma = {Path(n).parent.name: n for n in z.namelist() if n.endswith("/bothchroma.csv")}
-        assert (labels.keys() | chroma.keys()) <= index.keys()
-        for i, meta in sorted(index.items()):
+        assert labels.keys() <= index.keys()
+        for i, data in recordings():
+            meta = index[i]
             frames = covered = zero = 0
             end_delta = ""
             status = "eligible"
             if i not in labels or i not in chroma:
                 status = "missing " + "/".join(k for k, source in (("labels", labels), ("features", chroma)) if i not in source)
             else:
-                data = z.read(chroma[i])
                 song = tuple(meta[k].strip().casefold() for k in ("artist", "title"))
                 if not all(song):
                     raise ValueError(f"Missing song identity for {i}")
@@ -96,7 +109,7 @@ def run(raw, out):
                 except ValueError as exc:
                     status = str(exc)
             inventory.append([i, status, frames, covered, end_delta, zero])
-    table(out / "inventory.csv", "id status frames labeled_frames end_delta_seconds zero_intervals", inventory)
+    table(out / "inventory.csv", "id status frames labeled_frames end_delta_seconds zero_intervals", sorted(inventory))
     groups = defaultdict(list)
     for i in valid:
         groups[group(i)].append(i)
@@ -142,11 +155,11 @@ def run(raw, out):
     for _,_,_,split,artist,_ in manifest:
         artists[split].add(artist.casefold())
     hashes = {}
-    for name in ("index.csv", "full.tar.xz", "kaggle-v1.zip"):
+    for name in ("index.csv", "full.tar.xz", "billboard-2.0-chordino.tar.xz"):
         with (raw / name).open("rb") as input_file:
             hashes[name] = hashlib.file_digest(input_file, "sha256").hexdigest()
     summary = dict(groups=dict(Counter(partitions.values())), eligible_slots=len(valid),
-                   paired=len(labels.keys() & chroma.keys()), indexed=len(index),
+                   paired=len(labels.keys() & chroma), indexed=len(index),
                    artist_credit_overlap={f"{a}/{b}":len(artists[a]&artists[b]) for a,b in itertools.combinations(sorted(artists),2)},
                    source_sha256=hashes)
     (out / "summary.json").write_text(json.dumps(summary,indent=2)+"\n")

@@ -4,13 +4,7 @@ The frozen pilot contains 734 song groups from 883 eligible chart slots. Use the
 
 ## Inputs and reproduction
 
-Place the following downloads in `data/raw/` with the indicated names. Keep both archives compressed. The [input hashes](summary.json) identify the exact files used. From the repository root run `python src/acr/corpus.py --raw data/raw --output runs/p0-corpus`. Compare its manifest.csv with the frozen manifest before using a different dataset version.
-
-| Local filename | Contents and source |
-|---|---|
-| kaggle-v1.zip | [Kaggle release v1](https://www.kaggle.com/api/v1/datasets/download/jacobvs/mcgill-billboard?datasetVersionNumber=1), including Chordino chroma and four reduced vocabularies. |
-| full.tar.xz | [McGill detailed chord labels v2.0.1](https://www.dropbox.com/s/t390alzrkx0c9yt/billboard-2.0.1-lab.tar.xz?dl=1) |
-| index.csv | [McGill index v2.0](https://www.dropbox.com/s/o0olz0uwl9z9stb/billboard-2.0-index.csv?dl=1) with recording ID, artist and title |
+Follow the [P0 instructions](P0_INSTRUCTION.md) for official downloads, local filenames, commands and expected outputs.
 
 McGill releases the data under CC0. Cite Burgoyne, Wild and Fujinaga (ISMIR 2011). McGill describes phrase-internal timings as interpolated. Frame coverage checks establish timestamp compatibility; musical alignment to the original audio was not measured. [Publisher and citation](https://ddmal.ca/research/The_McGill_Billboard_Project_%28Chord_Analysis_Dataset%29/)
 

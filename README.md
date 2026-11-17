@@ -15,7 +15,7 @@ Select the interpreter from `.venv` in your IDE. Place the detailed McGill Billb
 
 ## Run the first P0 audit
 
-From the project root, run `python src/acr/audit.py 0003 --output runs/p0-0003` or open [the audit notebook](notebooks/00_data_audit.ipynb) in Jupyter. The CLI uses only the Python standard library. Under `data/raw/`, preserve the paths `billboard-2.0.1-lab/0003/full.lab` and `billboard-2.0-chordino/0003/bothchroma.csv`. The pilot used [this dataset snapshot](https://github.com/boomerr1/The-McGill-Billboard-Project/tree/2234489f96e3cc69d4c000572011c7a717ed1ac5).
+From the project root, run `python src/acr/audit.py 0003 --output runs/p0-0003` or open [the audit notebook](notebooks/00_data_audit.ipynb) in Jupyter. The CLI uses only the Python standard library. The demo reads one recording directly from the official archives. See the [P0 instructions](docs/p0/P0_INSTRUCTION.md) for downloads and the full corpus command.
 
 Open `timeline.svg` in the output directory to inspect interval and frame coverage. `frames.csv` retains all 24 chroma bins and assigns each timestamp the reference label at that instant (start inclusive, end exclusive). A blank label means no annotation covers the frame. `N` is an annotated no-chord label. `summary.json` records the counts.
 
