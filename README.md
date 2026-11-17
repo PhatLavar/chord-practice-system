@@ -1,36 +1,42 @@
 # Chord Practice System
 
-Hệ thống phân tích bản thu để tạo hai dòng thời gian độc lập cho người luyện nhạc: hợp âm và ranh giới giữa các phần của bài. Các thí nghiệm dưới đây đang ở giai đoạn lập kế hoạch. [Model Architecture Plan v1.2, mục 7 và 13](https://drive.google.com/file/d/1gmz-JaN6I_5oCi65DYxmTpX5nlbG2_tO/view)
+**English** · [Tiếng Việt](docs/README-VIE.md)
 
-## Khởi động trên Windows
+This project aims to help musicians practice with a recording by providing two independent timelines. One shows the chords and when they change. The other marks boundaries between musical sections. The experiments below are planned. [Model Architecture Plan v1.2, sections 7 and 13](https://drive.google.com/file/d/1gmz-JaN6I_5oCi65DYxmTpX5nlbG2_tO/view)
+
+## Windows setup
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-Chọn interpreter trong `.venv` ở IDE. Đặt annotation chi tiết và Chordino features của McGill Billboard trong `data/raw/`. Khi chuyển lên Kaggle, truyền đường dẫn dữ liệu và đầu ra qua cấu hình để dùng lại cùng mã nguồn.
+Select the interpreter from `.venv` in your IDE. Place the detailed McGill Billboard annotations and Chordino features in `data/raw/`. Configure input and output paths when moving to Kaggle so the same code runs in both environments.
 
-## Bố cục
+## Project layout
 
-| Đường dẫn | Nội dung |
+| Path | Purpose |
 |---|---|
-| `src/acr/` | Reader, căn thời gian, ánh xạ nhãn, mô hình và đánh giá. Thêm từng module khi đến mốc tương ứng. |
-| `notebooks/` | Các notebook dự kiến: 00_data_audit, 01_teacher_f, 02_teacher_e_oracle. Logic dùng chung nằm trong src. |
-| `configs/`, `splits/` | Cấu hình từng thí nghiệm và manifest chia tập theo nhóm bài hát. |
-| `data/raw/`, `data/processed/` | Dữ liệu gốc và cache cục bộ. |
-| `runs/<run_id>/` | Cấu hình, Git commit, phiên bản dữ liệu, metrics, hình và checkpoint của một lần chạy. |
+| `src/acr/` | Dataset readers, time alignment, label mapping, models, and evaluation. Add modules as each milestone begins. |
+| `notebooks/` | Planned entry points include `00_data_audit`, `01_teacher_f`, and `02_teacher_e_oracle`. Shared logic belongs in `src/`. |
+| `configs/`, `splits/` | Experiment settings and manifests that assign songs to splits. |
+| `data/raw/`, `data/processed/` | Original data and local caches. |
+| `runs/<run_id>/` | Configuration, Git commit, data version, metrics, figures, and checkpoints for one run. |
 
-## Các mốc triển khai
+## Implementation milestones
 
-1. **P0 · Kiểm dữ liệu.** Ghép annotation với `bothchroma.csv` theo recording ID và timestamp trên một bản thu. Vẽ timeline để kiểm tra căn chỉnh trước khi chạy toàn bộ corpus. Gom các bản trùng theo bài, cố định split, rồi đếm số event, thời lượng và số bài độc lập của từng quality trên train trước augmentation. Dùng kết quả để chốt vocabulary và tiêu chí hiếm.
-2. **P1 · Frame teacher F.** Huấn luyện TCN nhỏ để overfit vài bài train nhằm kiểm tra pipeline. Sau đó train trên phần có nhãn và đánh giá trên bài validation chưa thấy. Lưu điểm theo quality, support, timeline, thời gian chạy và bộ nhớ.
-3. **P2 · Event teacher E với biên chuẩn.** Huấn luyện E với trọng số riêng, lấy trung bình hidden features trong từng khoảng chuẩn. Khi đánh giá, gộp xác suất của F trên cùng khoảng với E. Đếm bốn trường hợp cả hai đúng, chỉ F đúng, chỉ E đúng, cả hai sai theo quality và thành phần hợp âm.
-4. **P3 · Biên dự đoán.** Huấn luyện boundary head của E. Lặp lại so sánh theo quy tắc ghép event đã cố định và đo mức suy giảm so với P2.
-5. **Student.** So sánh S0 (chỉ nhãn người), S1 (một teacher), S2 (hai teacher đồng thuận toàn hợp âm), S3 (đồng thuận từng thành phần). Giữ cố định ngân sách nhãn, tập dữ liệu và năng lực student. Chỉ số chính là macro event recall trên các quality hiếm, chấm đúng toàn hợp âm. S4 selective KD và thay encoder là thí nghiệm tùy chọn.
+1. **P0 · Data audit.** Pair annotations with `bothchroma.csv` by recording ID and timestamp. Plot one recording to check alignment before processing the corpus. Group duplicate songs and freeze the split. For each chord quality, count events, total duration, and distinct songs in the training set before augmentation. Use the audit to define the vocabulary and the criterion for rarity.
+2. **P1 · Frame teacher F.** Overfit a small temporal convolutional network on a few training songs to check the pipeline. Then train on the labeled split and evaluate on unseen validation songs. Record per-quality scores and support, timelines, runtime, and memory use.
+3. **P2 · Event teacher E with reference boundaries.** Train E with independent weights by averaging hidden features within each reference interval. At evaluation, aggregate F’s probabilities over the same intervals. For each quality and chord component, count where both teachers are correct, only F is correct, only E is correct, or both are wrong.
+4. **P3 · Predicted boundaries.** Train E’s boundary head. Repeat the comparison using a fixed event-matching rule and measure any drop in performance from P2.
+5. **Student experiments.** Compare S0 (human labels only), S1 (one teacher), S2 (two teachers agreeing on the whole chord), and S3 (agreement on individual components). Hold the labeling budget, dataset, and student capacity fixed. The primary metric is macro event recall across rare qualities, scored on complete chords. Selective knowledge distillation (S4) and encoder substitutions are optional experiments.
 
-Nhánh MSA tạo các đoạn luyện tập độc lập với biên đổi hợp âm. Demo ghi rõ mỗi timeline lấy từ annotation hay dự đoán.
+The music structure analysis (MSA) branch identifies practice sections independently of chord changes. The demo will identify whether each timeline comes from annotations or predictions.
 
-## Commit theo bước
+## Commit conventions
 
-Mỗi commit có một mục đích có thể kiểm tra. Ví dụ: `[DOCS] document the Billboard split protocol`, `[FEAT] align Billboard features for one recording`, `[FIX] handle the final chord interval`. Ghi lại mã commit cho mỗi lần chạy thí nghiệm.
+Give each commit one verifiable purpose. Examples include `[DOCS] document the Billboard split protocol`, `[FEAT] align Billboard features for one recording`, and `[FIX] handle the final chord interval`. Record the commit ID for each experiment run.
+
+## Documentation language
+
+English is the primary language for project documentation. Place new documents under `docs/` and group them by topic as needed. Give Vietnamese translations the suffix `-VIE.md` and link them to the English original. Update both READMEs in the same commit when instructions or plans change.
