@@ -13,6 +13,12 @@ python -m venv .venv
 
 Chọn interpreter trong `.venv` ở IDE. Đặt annotation chi tiết và Chordino features của McGill Billboard trong `data/raw/`. Khi chuyển lên Kaggle, truyền đường dẫn dữ liệu và đầu ra qua cấu hình để dùng lại cùng mã nguồn.
 
+## Chạy P0 trên một bản thu
+
+Từ thư mục gốc, chạy `python src/acr/audit.py 0003 --output runs/p0-0003` hoặc mở [notebook kiểm tra](../notebooks/00_data_audit.ipynb) trong Jupyter. Lệnh Python chỉ dùng thư viện chuẩn. Trong `data/raw/`, giữ đường dẫn `billboard-2.0.1-lab/0003/full.lab` và `billboard-2.0-chordino/0003/bothchroma.csv`. Lần chạy thử dùng [bản dữ liệu này](https://github.com/boomerr1/The-McGill-Billboard-Project/tree/2234489f96e3cc69d4c000572011c7a717ed1ac5).
+
+Mở `timeline.svg` trong thư mục đầu ra để xem phạm vi các khoảng nhãn và frame. `frames.csv` giữ đủ 24 giá trị chroma và gán nhãn theo timestamp, tính cả đầu khoảng và loại cuối khoảng. Nhãn trống là frame ngoài vùng chú giải. `N` là nhãn đã chú giải cho đoạn không có hợp âm. Số liệu tổng hợp nằm trong `summary.json`.
+
 ## Bố cục
 
 | Đường dẫn | Nội dung |
