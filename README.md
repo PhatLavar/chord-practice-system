@@ -19,12 +19,14 @@ From the project root, run `python src/acr/audit.py 0003 --output runs/p0-0003` 
 
 Open `timeline.svg` in the output directory to inspect interval and frame coverage. `frames.csv` retains all 24 chroma bins and assigns each timestamp the reference label at that instant (start inclusive, end exclusive). A blank label means no annotation covers the frame. `N` is an annotated no-chord label. `summary.json` records the counts.
 
-The full CPU audit is complete. See the [P0 report](docs/p0/README.md) for data sources, exclusions, vocabulary and reproduction steps, and the [frozen song split](splits/billboard-v1.csv) for P1.
+The full CPU audit is complete. See the [P0 report](docs/p0/P0_REPORT.md) for data sources, exclusions, vocabulary and reproduction steps, and the [frozen song split](splits/billboard-v1.csv) for P1.
 
 ## Project layout
 
 | Path | Purpose |
 |---|---|
+| `docs/` | Markdown guides and written reports. |
+| `reports/p0/` | Versioned P0 audit tables and summary. |
 | `src/acr/` | Dataset readers, time alignment, label mapping, models, and evaluation. Add modules as each milestone begins. |
 | `notebooks/` | Planned entry points include `00_data_audit`, `01_teacher_f`, and `02_teacher_e_oracle`. Shared logic belongs in `src/`. |
 | `configs/`, `splits/` | Experiment settings and manifests that assign songs to splits. |

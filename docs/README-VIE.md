@@ -19,12 +19,14 @@ Từ thư mục gốc, chạy `python src/acr/audit.py 0003 --output runs/p0-000
 
 Mở `timeline.svg` trong thư mục đầu ra để xem phạm vi các khoảng nhãn và frame. `frames.csv` giữ đủ 24 giá trị chroma và gán nhãn theo timestamp, tính cả đầu khoảng và loại cuối khoảng. Nhãn trống là frame ngoài vùng chú giải. `N` là nhãn đã chú giải cho đoạn không có hợp âm. Số liệu tổng hợp nằm trong `summary.json`.
 
-Đã hoàn tất P0 trên CPU cho toàn bộ corpus. Xem [báo cáo P0](p0/README.md) để kiểm tra nguồn dữ liệu, tiêu chí loại, bộ nhãn và lệnh chạy lại. P1 sẽ dùng [danh sách chia tập đã cố định](../splits/billboard-v1.csv).
+Đã hoàn tất P0 trên CPU cho toàn bộ corpus. Xem [báo cáo P0](p0/P0_REPORT.md) để kiểm tra nguồn dữ liệu, tiêu chí loại, bộ nhãn và lệnh chạy lại. P1 sẽ dùng [danh sách chia tập đã cố định](../splits/billboard-v1.csv).
 
 ## Bố cục
 
 | Đường dẫn | Nội dung |
 |---|---|
+| `docs/` | Hướng dẫn và báo cáo bằng Markdown. |
+| `reports/p0/` | Các bảng và số liệu P0 đã chốt, lưu trên Git. |
 | `src/acr/` | Reader, căn thời gian, ánh xạ nhãn, mô hình và đánh giá. Thêm từng module khi đến mốc tương ứng. |
 | `notebooks/` | Các notebook dự kiến: 00_data_audit, 01_teacher_f, 02_teacher_e_oracle. Logic dùng chung nằm trong src. |
 | `configs/`, `splits/` | Cấu hình từng thí nghiệm và manifest chia tập theo nhóm bài hát. |

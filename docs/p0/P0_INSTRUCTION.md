@@ -4,7 +4,7 @@ P0 pairs each recording’s 24-bin Chordino features with detailed chord labels,
 
 ## 1. Prepare the three inputs
 
-From the [McGill Billboard release page](https://ddmal.ca/research/The_McGill_Billboard_Project_%28Chord_Analysis_Dataset%29/), download the following files into `data/raw/`. Use the local names in the table and keep both archives compressed. Check SHA-256 against [the recorded hashes](summary.json) with `Get-FileHash data/raw/* -Algorithm SHA256` in PowerShell.
+From the [McGill Billboard release page](https://ddmal.ca/research/The_McGill_Billboard_Project_%28Chord_Analysis_Dataset%29/), download the following files into `data/raw/`. Use the local names in the table and keep both archives compressed. Check SHA-256 against [the recorded hashes](../../reports/p0/summary.json) with `Get-FileHash data/raw/* -Algorithm SHA256` in PowerShell.
 
 | Download | Local filename | Used for |
 |---|---|---|
@@ -40,6 +40,8 @@ The command reads every available pair, records failures, then groups eligible s
 | symbols.csv | Mapping of observed training symbols to quality, pitch class, triad and extension. |
 | summary.json | Group counts, artist-credit overlap and input checksums. |
 
+The versioned audit results are stored under `reports/p0/`. Each execution writes its outputs to `runs/p0-corpus/`. Written documentation is stored under `docs/p0/`.
+
 ## 4. Verify the split and hand it to P1
 
 In PowerShell compare the generated manifest with the [frozen manifest](../../splits/billboard-v1.csv). The following command prints any differing lines; a matching pair produces no output.
@@ -48,4 +50,4 @@ In PowerShell compare the generated manifest with the [frozen manifest](../../sp
 Compare-Object (Get-Content splits/billboard-v1.csv) (Get-Content runs/p0-corpus/manifest.csv) -SyncWindow 0
 ```
 
-For P1, read IDs as strings to preserve leading zeros. Select rows with `partition == train_labeled` and `id == representative` to get 367 training songs. Select validation representatives for checkpoint selection. Use the ID to read feature and label entries from the same archives. Recording 0003 is already a training representative and needs no separate copy. The [P0 report](README.md) records the exclusion rules, label masks and rare-quality definition used in this split.
+For P1, read IDs as strings to preserve leading zeros. Select rows with `partition == train_labeled` and `id == representative` to get 367 training songs. Select validation representatives for checkpoint selection. Use the ID to read feature and label entries from the same archives. Recording 0003 is already a training representative and needs no separate copy. The [P0 report](P0_REPORT.md) records the exclusion rules, label masks and rare-quality definition used in this split.
