@@ -9,17 +9,15 @@ from html import escape
 from pathlib import Path
 
 
-def audit(recording, data_root, output):
-    if len(recording) != 4 or not recording.isascii() or not recording.isdigit():
-        raise ValueError("Use the four-digit Billboard recording ID.")
-    labels = data_root / "billboard-2.0.1-lab" / recording / "full.lab"
-    features = data_root / "billboard-2.0-chordino" / recording / "bothchroma.csv"
+def read_events(lines):
     events = []
-    for line in labels.read_text().splitlines():
+    for line in lines:
         if not line.strip():
             continue
         start, end, label = line.split()
         start, end = float(start), float(end)
+        if start == end and start >= 0 and math.isfinite(start):
+            continue
         # LAB exports can disagree at a shared boundary by floating-point roundoff.
         if events and abs(start - events[-1][1]) <= 1e-9:
             previous_start, _, previous_label = events[-1]
@@ -29,18 +27,32 @@ def audit(recording, data_root, output):
         events.append((start, end, label))
     if not events:
         raise ValueError("Empty annotation file")
+    return events
+
+
+def aligned_frames(stream, events):
     starts = [start for start, _, _ in events]
-    rows = []
+    previous = -math.inf
+    for number, row in enumerate(csv.reader(stream), 1):
+        if len(row) != 26:
+            raise ValueError(f"Expected metadata, seconds and 24 chroma bins at row {number}")
+        time, *bins = map(float, row[1:])
+        if not all(map(math.isfinite, [time, *bins])) or (time < 0 or time <= previous):
+            raise ValueError(f"Invalid feature or timestamp at row {number}")
+        index = bisect_right(starts, time) - 1
+        label = events[index][2] if index >= 0 and time < events[index][1] else ""
+        previous = time
+        yield time, label, *bins
+
+
+def audit(recording, data_root, output):
+    if len(recording) != 4 or not recording.isascii() or not recording.isdigit():
+        raise ValueError("Use the four-digit Billboard recording ID.")
+    labels = data_root / "billboard-2.0.1-lab" / recording / "full.lab"
+    features = data_root / "billboard-2.0-chordino" / recording / "bothchroma.csv"
+    events = read_events(labels.read_text().splitlines())
     with features.open(newline="") as stream:
-        for number, row in enumerate(csv.reader(stream), 1):
-            if len(row) != 26:
-                raise ValueError(f"Expected metadata, seconds and 24 chroma bins at row {number}")
-            time, *bins = map(float, row[1:])
-            if not all(map(math.isfinite, [time, *bins])) or (rows and time <= rows[-1][0]):
-                raise ValueError(f"Invalid feature or timestamp at row {number}")
-            index = bisect_right(starts, time) - 1
-            label = events[index][2] if index >= 0 and time < events[index][1] else ""
-            rows.append((time, label, *bins))
+        rows = list(aligned_frames(stream, events))
     if not rows:
         raise ValueError("Empty chroma file")
 

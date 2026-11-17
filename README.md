@@ -2,7 +2,7 @@
 
 **English** · [Tiếng Việt](docs/README-VIE.md)
 
-This project aims to help musicians practice with a recording by providing two independent timelines. One shows the chords and when they change. The other marks boundaries between musical sections. The experiments below are planned. [Model Architecture Plan v1.2, sections 7 and 13](https://drive.google.com/file/d/1gmz-JaN6I_5oCi65DYxmTpX5nlbG2_tO/view)
+This project aims to help musicians practice with a recording by providing two independent timelines. One shows the chords and when they change. The other marks boundaries between musical sections. The corpus audit (P0) is complete. Model training and evaluation are planned. [Model Architecture Plan v1.2, sections 7 and 13](https://drive.google.com/file/d/1gmz-JaN6I_5oCi65DYxmTpX5nlbG2_tO/view)
 
 ## Windows setup
 
@@ -18,6 +18,8 @@ Select the interpreter from `.venv` in your IDE. Place the detailed McGill Billb
 From the project root, run `python src/acr/audit.py 0003 --output runs/p0-0003` or open [the audit notebook](notebooks/00_data_audit.ipynb) in Jupyter. The CLI uses only the Python standard library. Under `data/raw/`, preserve the paths `billboard-2.0.1-lab/0003/full.lab` and `billboard-2.0-chordino/0003/bothchroma.csv`. The pilot used [this dataset snapshot](https://github.com/boomerr1/The-McGill-Billboard-Project/tree/2234489f96e3cc69d4c000572011c7a717ed1ac5).
 
 Open `timeline.svg` in the output directory to inspect interval and frame coverage. `frames.csv` retains all 24 chroma bins and assigns each timestamp the reference label at that instant (start inclusive, end exclusive). A blank label means no annotation covers the frame. `N` is an annotated no-chord label. `summary.json` records the counts.
+
+The full CPU audit is complete. See the [P0 report](docs/p0/README.md) for data sources, exclusions, vocabulary and reproduction steps, and the [frozen song split](splits/billboard-v1.csv) for P1.
 
 ## Project layout
 

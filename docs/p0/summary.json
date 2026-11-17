@@ -1,0 +1,24 @@
+{
+  "groups": {
+    "train_labeled": 367,
+    "train_hidden": 146,
+    "validation": 110,
+    "test": 111
+  },
+  "eligible_slots": 883,
+  "paired": 890,
+  "indexed": 1300,
+  "artist_credit_overlap": {
+    "test/train_hidden": 24,
+    "test/train_labeled": 40,
+    "test/validation": 24,
+    "train_hidden/train_labeled": 46,
+    "train_hidden/validation": 30,
+    "train_labeled/validation": 42
+  },
+  "source_sha256": {
+    "index.csv": "fc39435098814f1a4f1dd5c95c72aff399b648b78f33a59682924dfb9b5280fb",
+    "full.tar.xz": "718f870cbe37134c3f3a52add7c46058ad313f1a568518438887fcd2dcf27d01",
+    "kaggle-v1.zip": "55a7d0146f0ba923c3fe02cfabcb904535894390968023a3ff98823f1b99cefa"
+  }
+}

@@ -2,7 +2,7 @@
 
 [English](../README.md) · **Tiếng Việt**
 
-Hệ thống phân tích bản thu để tạo hai dòng thời gian độc lập cho người luyện nhạc: hợp âm và ranh giới giữa các phần của bài. Các thí nghiệm dưới đây đang ở giai đoạn lập kế hoạch. [Model Architecture Plan v1.2, mục 7 và 13](https://drive.google.com/file/d/1gmz-JaN6I_5oCi65DYxmTpX5nlbG2_tO/view)
+Hệ thống phân tích bản thu để tạo hai dòng thời gian độc lập cho người luyện nhạc: hợp âm và ranh giới giữa các phần của bài. Đã hoàn tất bước kiểm dữ liệu (P0). Huấn luyện và đánh giá mô hình là các bước tiếp theo. [Model Architecture Plan v1.2, mục 7 và 13](https://drive.google.com/file/d/1gmz-JaN6I_5oCi65DYxmTpX5nlbG2_tO/view)
 
 ## Khởi động trên Windows
 
@@ -18,6 +18,8 @@ Chọn interpreter trong `.venv` ở IDE. Đặt annotation chi tiết và Chord
 Từ thư mục gốc, chạy `python src/acr/audit.py 0003 --output runs/p0-0003` hoặc mở [notebook kiểm tra](../notebooks/00_data_audit.ipynb) trong Jupyter. Lệnh Python chỉ dùng thư viện chuẩn. Trong `data/raw/`, giữ đường dẫn `billboard-2.0.1-lab/0003/full.lab` và `billboard-2.0-chordino/0003/bothchroma.csv`. Lần chạy thử dùng [bản dữ liệu này](https://github.com/boomerr1/The-McGill-Billboard-Project/tree/2234489f96e3cc69d4c000572011c7a717ed1ac5).
 
 Mở `timeline.svg` trong thư mục đầu ra để xem phạm vi các khoảng nhãn và frame. `frames.csv` giữ đủ 24 giá trị chroma và gán nhãn theo timestamp, tính cả đầu khoảng và loại cuối khoảng. Nhãn trống là frame ngoài vùng chú giải. `N` là nhãn đã chú giải cho đoạn không có hợp âm. Số liệu tổng hợp nằm trong `summary.json`.
+
+Đã hoàn tất P0 trên CPU cho toàn bộ corpus. Xem [báo cáo P0](p0/README.md) để kiểm tra nguồn dữ liệu, tiêu chí loại, bộ nhãn và lệnh chạy lại. P1 sẽ dùng [danh sách chia tập đã cố định](../splits/billboard-v1.csv).
 
 ## Bố cục
 
