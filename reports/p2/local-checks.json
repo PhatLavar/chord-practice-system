@@ -1,0 +1,96 @@
+{
+  "local_runs": [
+    {
+      "run": "p2-overfit-local",
+      "config": {
+        "mode": "overfit",
+        "songs": 2,
+        "seed": 20261119,
+        "width": 48,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "epochs": 200,
+        "sampling": "natural"
+      },
+      "train_songs": 2,
+      "evaluation_songs": 2,
+      "train_events": 80,
+      "evaluation_events": 80,
+      "metrics": {
+        "event_accuracy": 1.0,
+        "scored_events": 80,
+        "rare_macro_event_recall": 1.0,
+        "macro_quality_event_recall": 1.0,
+        "best_epoch": 108,
+        "evaluation_partition": "training",
+        "overfit_pass": true,
+        "training_event_accuracy": 1.0,
+        "peak_cuda_bytes": null
+      },
+      "source_code_sha256": {
+        "src\\acr\\audit.py": "c6c6189dc6f311dd4077590388a4b81999a49581b4be605369d2ccf8d7581e79",
+        "src\\acr\\audit_exposure.py": "5bb0f696f7ee53c333085c0b9c4a090a7b3de602dca0e3a52d00c2b1235a26ba",
+        "src\\acr\\corpus.py": "ad9b8ed3c4354636dd454a500a6aa96a65fa6469ccc1b80fa2bdd9422ec812bf",
+        "src\\acr\\data_e.py": "aec7a599cb188ecfcf3773458c7b2388922887ae675c331ffdedb567c916ae56",
+        "src\\acr\\diagnose_f.py": "ee7e725181173f60c8d1ae413569fc7e756ffbc7ac9f1c96fbe37449401cead5",
+        "src\\acr\\p1_data.py": "139780dfc0d00d55de1a52e6f6654a8c47c7cd2905047ca04c6243e3052b1f24",
+        "src\\acr\\prepare_p2_reference.py": "6b36daaffe25314b4243143b5d4e9294f2eabe685d06476a588b6e9b17fdc119",
+        "src\\acr\\repeat_seeds.py": "2089a8557e83d0e0dd005540d1770c75928a5a3723f75af616332103c6bf4465",
+        "src\\acr\\teacher_e.py": "961ef568ecc5b8163e66621a45c127132843fc3da227be95372952bd9c924d42",
+        "src\\acr\\teacher_f.py": "f790d4a75933a694e5eeb1949a3ce05cb2ce59028afe98e7ae6540332c620d7e",
+        "src\\acr\\train_e.py": "941caea7c75ee6b14ae496914e41f318228092fbb2c4af5286693e0cc754d873",
+        "src\\acr\\train_f.py": "bf4086db803b421f730515d7409a778080df43831df001be7c780792ba03376f",
+        "src\\acr\\transformer_f.py": "cf8daed8b9162b58d186792c22e99f326d45f2a68350f31f18c548728a416aa7"
+      },
+      "git_dirty": true
+    },
+    {
+      "run": "p2-smoke-local",
+      "config": {
+        "mode": "oracle",
+        "seed": 20261119,
+        "width": 48,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "epochs": 1,
+        "sampling": "quality_song_mixture"
+      },
+      "train_songs": 367,
+      "evaluation_songs": 110,
+      "train_events": 31679,
+      "evaluation_events": 9673,
+      "metrics": {
+        "event_accuracy": 0.5269306316551225,
+        "scored_events": 9673,
+        "rare_macro_event_recall": 0.0,
+        "macro_quality_event_recall": 0.08944601563682299,
+        "best_epoch": 1,
+        "evaluation_partition": "validation",
+        "overfit_pass": null,
+        "training_event_accuracy": 0.5036143817671013,
+        "peak_cuda_bytes": null,
+        "F_reference_sha256": "78c16f3851266c7696dcf05892c195caf709176cafd8b4c9f1c8695de4b34c7f"
+      },
+      "source_code_sha256": {
+        "src\\acr\\audit.py": "c6c6189dc6f311dd4077590388a4b81999a49581b4be605369d2ccf8d7581e79",
+        "src\\acr\\audit_exposure.py": "5bb0f696f7ee53c333085c0b9c4a090a7b3de602dca0e3a52d00c2b1235a26ba",
+        "src\\acr\\corpus.py": "ad9b8ed3c4354636dd454a500a6aa96a65fa6469ccc1b80fa2bdd9422ec812bf",
+        "src\\acr\\data_e.py": "aec7a599cb188ecfcf3773458c7b2388922887ae675c331ffdedb567c916ae56",
+        "src\\acr\\diagnose_f.py": "ee7e725181173f60c8d1ae413569fc7e756ffbc7ac9f1c96fbe37449401cead5",
+        "src\\acr\\p1_data.py": "139780dfc0d00d55de1a52e6f6654a8c47c7cd2905047ca04c6243e3052b1f24",
+        "src\\acr\\prepare_p2_reference.py": "6b36daaffe25314b4243143b5d4e9294f2eabe685d06476a588b6e9b17fdc119",
+        "src\\acr\\repeat_seeds.py": "2089a8557e83d0e0dd005540d1770c75928a5a3723f75af616332103c6bf4465",
+        "src\\acr\\teacher_e.py": "961ef568ecc5b8163e66621a45c127132843fc3da227be95372952bd9c924d42",
+        "src\\acr\\teacher_f.py": "f790d4a75933a694e5eeb1949a3ce05cb2ce59028afe98e7ae6540332c620d7e",
+        "src\\acr\\train_e.py": "2d84e7861e28a13c72bb7d3b4b45e2f03be50187537fa169879e18cc10be6ae8",
+        "src\\acr\\train_f.py": "bf4086db803b421f730515d7409a778080df43831df001be7c780792ba03376f",
+        "src\\acr\\transformer_f.py": "cf8daed8b9162b58d186792c22e99f326d45f2a68350f31f18c548728a416aa7"
+      },
+      "git_dirty": true
+    }
+  ],
+  "F_correct_events": 5603,
+  "E_smoke_correct_events": 5097,
+  "complementarity_totals_verified": true,
+  "planned_full_GPU_run_completed": false
+}

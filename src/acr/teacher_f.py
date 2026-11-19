@@ -14,10 +14,14 @@ class FrameTeacher(nn.Module):
         self.heads = nn.ModuleList(nn.Conv1d(width, size, 1) for size in (2, 12, len(TRIADS), len(EXTENSIONS)))
         self.context = sum(dilations)
 
-    def forward(self, x):
+    def encode_features(self, x):
         h = F.relu(self.input(x))
         for block in self.blocks:
             h = h + F.relu(block(h))
+        return h
+
+    def forward(self, x):
+        h = self.encode_features(x)
         return [head(h) for head in self.heads]
 
 

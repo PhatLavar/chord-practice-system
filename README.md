@@ -25,6 +25,10 @@ The full CPU audit is complete. See the [P0 report](docs/p0/P0_REPORT.md) for da
 
 The first Kaggle baseline is complete: 57.11% whole-chord validation frame accuracy. See the [P1 report](docs/p1/P1_REPORT.md) for the verified results and rare-quality limitations. Follow [P1 instructions](docs/p1/P1_INSTRUCTION.md) and import [the Kaggle notebook](notebooks/01_teacher_f.ipynb). Store each run under a new name in `runs/`.
 
+## P2 oracle event teacher
+
+The independent event teacher and fixed F comparison are ready for the first Kaggle trial. See [P2 instructions](docs/p2/P2_INSTRUCTION.md), [P2 report](docs/p2/P2_REPORT.md) and [the oracle notebook](notebooks/02_teacher_e_oracle.ipynb).
+
 ## Project layout
 
 | Path | Purpose |

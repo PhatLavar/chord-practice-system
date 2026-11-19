@@ -25,6 +25,10 @@ Mở `timeline.svg` trong thư mục đầu ra để xem phạm vi các khoảng
 
 Đã kiểm chứng baseline đầu tiên trên Kaggle, đạt 57,11% frame hợp âm đúng trên validation. Xem [báo cáo P1](p1/P1_REPORT.md) để đọc kết quả và hạn chế với hợp âm hiếm. Xem [hướng dẫn P1](p1/P1_INSTRUCTION.md) và [notebook Kaggle](../notebooks/01_teacher_f.ipynb). Dùng tên thư mục mới trong `runs/` cho mỗi lần chạy.
 
+## P2 · Event teacher với biên chuẩn
+
+Đã có teacher E và mốc so sánh F cố định. Xem [hướng dẫn P2](p2/P2_INSTRUCTION.md), [báo cáo P2](p2/P2_REPORT.md) và [notebook](../notebooks/02_teacher_e_oracle.ipynb). Kết quả full Kaggle đang chờ chạy.
+
 ## Bố cục
 
 | Đường dẫn | Nội dung |

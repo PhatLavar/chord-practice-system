@@ -1,0 +1,20 @@
+{
+  "F_run": "runs\\p1-balanced-kaggle",
+  "F_config": {
+    "mode": "baseline",
+    "seed": 20261119,
+    "width": 48,
+    "window": 512,
+    "batch_size": 16,
+    "learning_rate": 0.001,
+    "epochs": 30,
+    "sampling": "quality_song_mixture"
+  },
+  "F_revision": "d250916f82a1a5e2f0310920209450465636b23e",
+  "events": 9673,
+  "events_without_frames": 1,
+  "F_run_record_sha256": "f5fa460d9cb7bf632dff08cbca8c026b8ce25539fdb142c8b43c5efaf5c00c9a",
+  "manifest_sha256": "b5015fb99982eb7fef3705faa5328c6dd49347fdcc31704fae13b71d8f36e0f0",
+  "reference_event_accuracy": 0.5792411868086426,
+  "protocol": "Mean probabilities from F on the same reference intervals supplied to E."
+}

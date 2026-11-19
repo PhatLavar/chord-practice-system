@@ -470,3 +470,8 @@ A useful next project step is to specify P2's oracle-event E with the compact TC
 - Preserve the original research question and test the planned frame-versus-event teacher distinction.
 
 Raw outputs are in runs/p1-transformer/overfit/ and runs/p1-transformer/balanced/. The downloaded ZIP remains in runs/imports/p1-transformer-results.zip. Versioned selected artifacts are in reports/p1/kaggle-transformer/ and reports/p1/transformer-diagnostics/.
+
+
+## Handoff to P2 · 19 November 2026
+
+The event teacher implementation is now documented in [P2_REPORT.md](../p2/P2_REPORT.md). The fixed comparator is the original balanced F at seed 20261119, with its uncertainty retained in the repeated-seed analysis above. P2 supplies the same reference intervals to both teachers and fits E independently using event targets. Full P2 validation and teacher complementarity remain pending the returned Kaggle run.
