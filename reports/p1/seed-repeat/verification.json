@@ -1,0 +1,34 @@
+{
+  "archive_sha256": "a3ad9f5d88b847a22d0d4777dbaecc0ce0a2919fef8bc9e752236c8e60f19ae5",
+  "verified_runs": [
+    {
+      "run": "baseline-20261120",
+      "correct_frames": 260853,
+      "best_epoch": 27,
+      "source_and_controls_verified": true,
+      "diagnostic_reproduced": true
+    },
+    {
+      "run": "balanced-20261120",
+      "correct_frames": 257421,
+      "best_epoch": 24,
+      "source_and_controls_verified": true,
+      "diagnostic_reproduced": true
+    },
+    {
+      "run": "baseline-20261121",
+      "correct_frames": 258982,
+      "best_epoch": 30,
+      "source_and_controls_verified": true,
+      "diagnostic_reproduced": true
+    },
+    {
+      "run": "balanced-20261121",
+      "correct_frames": 260383,
+      "best_epoch": 23,
+      "source_and_controls_verified": true,
+      "diagnostic_reproduced": true
+    }
+  ],
+  "paired_summary_recomputed": true
+}

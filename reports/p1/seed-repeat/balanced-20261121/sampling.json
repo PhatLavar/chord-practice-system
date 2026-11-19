@@ -1,0 +1,39 @@
+{
+  "policy": "quality_song_mixture",
+  "natural_probability": 0.5,
+  "balanced_probability": 0.5,
+  "windows_per_epoch": 3471,
+  "optimizer_steps_per_epoch": 217,
+  "supported_qualities": [
+    "maj",
+    "min",
+    "dim",
+    "aug",
+    "sus2",
+    "sus4",
+    "maj6",
+    "min6",
+    "7",
+    "min7",
+    "maj7",
+    "minmaj7",
+    "hdim7",
+    "dim7"
+  ],
+  "train_song_support": {
+    "maj": 339,
+    "min": 253,
+    "sus2": 18,
+    "7": 216,
+    "min7": 160,
+    "hdim7": 19,
+    "maj6": 57,
+    "dim": 30,
+    "sus4": 54,
+    "maj7": 87,
+    "minmaj7": 5,
+    "aug": 10,
+    "min6": 19,
+    "dim7": 3
+  }
+}

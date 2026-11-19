@@ -134,4 +134,7 @@ To execute the same workflow from the project root:
 python src/acr/repeat_seeds.py --output runs/p1-seed-repeat --device cuda
 ```
 
-The plan is configs/p1-seeds.json. Generated per-run config files live inside the ignored output root. The current stage is ready to run; no new seed-training results have been collected yet. See [P1_REPORT.md](P1_REPORT.md) for controls, provenance, limitations and the decision protocol.
+The plan is configs/p1-seeds.json. Generated per-run config files live inside the ignored output root. The first matched-seed sweep has completed and been verified; see the repeated-seed results in P1_REPORT.md. Use a fresh output root for a new independent sweep. See [P1_REPORT.md](P1_REPORT.md) for controls, provenance, limitations and the decision protocol.
+
+
+The imported four-run ZIP has been checked against logits, detailed annotations and run metadata. See [P1_REPORT.md](P1_REPORT.md) for the three-seed summary and the limited rare-event improvements. Selected results are in reports/p1/seed-repeat/; full predictions and checkpoints remain under runs/p1-seed-repeat/.

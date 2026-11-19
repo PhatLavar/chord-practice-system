@@ -1,0 +1,13 @@
+{
+  "plan": {
+    "seeds": [
+      20261120,
+      20261121
+    ],
+    "baseline_config": "configs/p1-baseline.json",
+    "balanced_config": "configs/p1-balanced.json"
+  },
+  "git_revision": "777ec9133cc9408910d5575d43d4f96ebcdf10de",
+  "original_seed": 20261119,
+  "device": "cuda"
+}

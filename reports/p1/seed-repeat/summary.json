@@ -1,0 +1,79 @@
+{
+  "seeds": [
+    20261119,
+    20261120,
+    20261121
+  ],
+  "n": 3,
+  "methods": {
+    "baseline": {
+      "frame_accuracy": {
+        "mean": 0.5703320863830987,
+        "sample_std": 0.0021624454457786035
+      },
+      "macro_chord_recall": {
+        "mean": 0.2015203909337118,
+        "sample_std": 0.007810240514850467
+      },
+      "event_accuracy": {
+        "mean": 0.5803439126089803,
+        "sample_std": 0.004958315966862029
+      },
+      "rare_macro_event_recall": {
+        "mean": 0.0,
+        "sample_std": 0.0
+      }
+    },
+    "balanced": {
+      "frame_accuracy": {
+        "mean": 0.5680486909946219,
+        "sample_std": 0.0032999544040962863
+      },
+      "macro_chord_recall": {
+        "mean": 0.2182693145997002,
+        "sample_std": 0.016273538515110087
+      },
+      "event_accuracy": {
+        "mean": 0.5771391157517488,
+        "sample_std": 0.002793826122017889
+      },
+      "rare_macro_event_recall": {
+        "mean": 0.02587991718426501,
+        "sample_std": 0.022626804342023178
+      }
+    }
+  },
+  "paired_delta": {
+    "frame_accuracy": {
+      "mean": -0.002283395388476883,
+      "sample_std": 0.0052997158558701915,
+      "positive_seeds": 1,
+      "negative_seeds": 2,
+      "tied_seeds": 0
+    },
+    "macro_chord_recall": {
+      "mean": 0.016748923665988385,
+      "sample_std": 0.019129078228238866,
+      "positive_seeds": 2,
+      "negative_seeds": 1,
+      "tied_seeds": 0
+    },
+    "event_accuracy": {
+      "mean": -0.003204796857231481,
+      "sample_std": 0.004852282312706089,
+      "positive_seeds": 1,
+      "negative_seeds": 2,
+      "tied_seeds": 0
+    },
+    "rare_macro_event_recall": {
+      "mean": 0.02587991718426501,
+      "sample_std": 0.022626804342023178,
+      "positive_seeds": 2,
+      "negative_seeds": 0,
+      "tied_seeds": 1
+    }
+  },
+  "original_pair_source": "Verified Kaggle outputs at 8ec616c (baseline) and d250916 (balanced)",
+  "new_pair_revision": "777ec9133cc9408910d5575d43d4f96ebcdf10de",
+  "interpretation": "Descriptive three-seed comparison on the same validation songs; no significance claim."
+}

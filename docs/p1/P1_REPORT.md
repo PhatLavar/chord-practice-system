@@ -312,7 +312,7 @@ Status: proposal only. No Transformer has been implemented or trained. A Transfo
 
 ## Matched-seed repeat protocol · 19 November 2026
 
-Status: implemented for Kaggle execution; four new training jobs are pending. This repeats the existing TCN comparison before changing the encoder or chord decomposition.
+Status: four new Kaggle jobs completed and independently verified; see the repeated-seed results below. This repeats the existing TCN comparison before changing the encoder or chord decomposition.
 
 Freeze additional seeds 20261120 and 20261121 in [p1-seeds.json](../../configs/p1-seeds.json). Each seed runs both the original baseline configuration and the balanced sampling configuration. Preserve 30 epochs, 367 labeled training songs, 110 validation songs, unweighted losses, model width, window/context, batch size, learning rate, decoder and best-checkpoint selection by validation frame accuracy. Each pair shares the initialization seed; their training sample sequences differ by design.
 
@@ -331,4 +331,60 @@ Before adopting balanced sampling for subsequent teachers, inspect whether rare-
 The next weekly update should include the three paired rows per method, variability, correct rare-event counts and the decision. Transformer replacement and richer decomposition remain proposed experiments while these repeats are pending.
 
 
-Local verification for the repeat workflow: all 11 tests passed. Hand-computed checks verified paired means and sample standard deviations, rejection of incomplete/duplicate pairs and nonfinite metrics. A mocked orchestration test verified exactly four new training launches, four diagnostics, inclusion of the original pair, and reuse of completed runs. Notebook cell syntax and local document links were checked. The mocked test does not validate Kaggle execution; the four new GPU runs remain pending.
+Local verification for the repeat workflow: all 11 tests passed. Hand-computed checks verified paired means and sample standard deviations, rejection of incomplete/duplicate pairs and nonfinite metrics. A mocked orchestration test verified exactly four new training launches, four diagnostics, inclusion of the original pair, and reuse of completed runs. Notebook cell syntax and local document links were checked. The mocked test does not validate Kaggle execution; the subsequent returned GPU runs are assessed below.
+
+
+## Matched-seed repeat results · 19 November 2026
+
+All four additional jobs completed at revision 777ec9133cc9408910d5575d43d4f96ebcdf10de. Source hashes match the recorded commit. Training/evaluation IDs, data, model capacity and configuration controls match the original experiment. Each job completed 30 epochs; the selected epochs were baseline-20261120: 27, balanced-20261120: 24, baseline-20261121: 30 and balanced-20261121: 23.
+
+The archive passed integrity checks. Recomputed predictions from all saved logits and original annotations reproduced all four diagnostic summaries and confusion matrices. Each run scored exactly 456,046 validation frames and 9,673 reference-interval events. Mean, sample standard deviation and paired differences were independently recomputed and matched the returned summary.
+
+### Individual seeds
+
+| Seed | Baseline frame accuracy | Balanced frame accuracy | Baseline rare macro event recall | Balanced rare macro event recall |
+|---|---:|---:|---:|---:|
+| 20261119 | 57.11% | 56.87% | 0% | 4.19% |
+| 20261120 | 57.20% | 56.45% | 0% | 0% |
+| 20261121 | 56.79% | 57.10% | 0% | 3.57% |
+
+The original seed pair is reused from the earlier verified runs; only the two additional seed pairs were newly trained. The original and repeat revisions are explicitly retained in the [plan and provenance](../../reports/p1/seed-repeat/plan.json).
+
+### Three-seed descriptive summary
+
+Values are mean ± sample standard deviation across the three seeds. Standard deviations are expressed in percentage points.
+
+| Metric | Baseline | Balanced |
+|---|---:|---:|
+| Complete-chord frame accuracy | 57.03% ± 0.22 | 56.80% ± 0.33 |
+| Macro complete-chord recall | 20.15% ± 0.78 | 21.83% ± 1.63 |
+| Oracle-event accuracy including N | 58.03% ± 0.50 | 57.71% ± 0.28 |
+| Rare macro oracle-event recall | 0% ± 0 | 2.59% ± 2.26 |
+
+Balanced-minus-baseline paired changes averaged -0.23 percentage points for frame accuracy, +1.67 for macro chord recall, -0.32 for oracle-event accuracy and +2.59 for rare macro event recall. Balanced improved rare-event recall on two seeds and tied on one. Frame accuracy improved on one seed and declined on two. These are descriptive results on the same fixed validation songs, without a statistical significance claim.
+
+### Rare-event detail and limitations
+
+The baseline recognized no complete rare reference events in any seed. Balanced seed 20261119 recognized one C:dim interval in song 0343 and one D:minmaj7 interval in song 1253. Balanced seed 20261120 recognized none. Balanced seed 20261121 recognized the same D:minmaj7 interval in song 1253 (108.489–110.295 s). The seed-21 macro score is (1/4) / 7 = 3.57%.
+
+Thus the rare gain appeared in two runs, but only two unique intervals across all balanced runs were ever correctly recognized. The dim success did not recur. The repeated minmaj7 success comes from the same recording and cannot establish generalization across additional independent songs. Five rare qualities remain at zero event recall in every run, and dim remains unstable.
+
+Three seeds reveal sensitivity to initialization and sampling, but do not increase the independent validation-song sample. Per-quality event counts and false positives must accompany the aggregate score. More frequent exposure to the existing rare training samples has provided a limited improvement, rather than reliable rare-chord recognition.
+
+[Per-seed metrics](../../reports/p1/seed-repeat/per_seed.csv) · [Means, standard deviations and paired deltas](../../reports/p1/seed-repeat/summary.json) · [Rare-event counts for every method/seed](../../reports/p1/seed-repeat/rare_events.csv) · [Independent verification](../../reports/p1/seed-repeat/verification.json)
+
+### Decision after repetition
+
+Balanced sampling remains a reasonable candidate setting for further encoder experiments because it occasionally recovers rare events with a small average frame-accuracy cost. It is not adopted as a proven solution for both teachers. Preserve the natural baseline and all balanced runs as comparators.
+
+The matched-seed check is now complete. In line with the user's architecture discussion, the next proposed step is to specify a compact bidirectional Transformer encoder comparison while keeping the current root/triad/extension targets, data split and chosen sampling controls. Record capacity, attention context, runtime and checkpoint-selection policy before training. Do not expand decomposition simultaneously. Teacher E still requires an independent implementation and standalone validation.
+
+### Weekly presentation update
+
+- Completed four new runs and independently checked three matched seed pairs.
+- Balanced increased average macro chord recall by 1.67 percentage points and rare macro oracle-event recall from 0% to 2.59%.
+- Average frame accuracy decreased by 0.23 percentage points.
+- Rare recognition remains concentrated in two unique validation intervals; the same minmaj7 interval recurred in two seeds.
+- Next experiment proposal concerns encoder capacity/context through a compact Transformer, with the current label decomposition retained.
+
+Full artifacts are stored locally in runs/p1-seed-repeat/. The original ZIP remains in runs/imports/p1-seed-repeat-results.zip. Selected metrics, histories and tables are versioned under reports/p1/seed-repeat/.
