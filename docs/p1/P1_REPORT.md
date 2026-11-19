@@ -120,7 +120,7 @@ The weighting proposal is motivated by the diagnostics; its effectiveness remain
 - Established a 57.11% validation frame baseline with a 37,225-parameter TCN.
 - Found that roots are often recognized while sevenths, sixths and rare triads are missed.
 - Confirmed zero rare recall even when reference interval times are provided.
-- Next experiment will change component-loss weighting alone; it has not been run.
+- Completed the weighted component-loss experiment. Macro chord recall improved, while overall accuracy fell and rare oracle-event recall stayed at zero.
 - These results concern teacher F; teacher complementarity and pseudo-label benefits remain open.
 
 For local inspection, imported runs are runs/p1-overfit-kaggle/ and runs/p1-baseline-kaggle/. The archive is retained under runs/imports/p1-results.zip. Large artifacts are ignored by Git; the linked summaries and tables are versioned.
@@ -128,7 +128,7 @@ For local inspection, imported runs are runs/p1-overfit-kaggle/ and runs/p1-base
 
 ## Weighted-loss experiment specification · 19 November 2026
 
-Status: implemented and locally checked; full Kaggle training pending. Use experiment name p1-weighted-kaggle and [configs/p1-weighted.json](../../configs/p1-weighted.json).
+Status: completed on Kaggle and independently verified. The results are recorded below. Use experiment name p1-weighted-kaggle and [configs/p1-weighted.json](../../configs/p1-weighted.json).
 
 For triad and extension separately, count observed frame targets across exactly the 367 labeled training representatives before augmentation. Mask N, OOV, unknown and uncovered component targets. For class c with positive count n_c, compute a_c = min(10, sqrt(max(n) / n_c)). Divide all positive weights by their frequency-weighted mean, sum(n_c a_c) / sum(n_c). An unobserved class receives zero weight and has no training targets. Weighted cross-entropy divides its loss sum by the sum of the observed target weights in that batch, following the existing mean-reduction convention.
 
@@ -136,6 +136,56 @@ Apply these weights only to triad and extension. Keep root and no-chord losses, 
 
 Six unit checks cover prior behavior, weight counting, bounded ratios, masked targets, and finite weighted gradients. A CPU batch from the actual labeled training cache passed forward, backward and optimizer update. [Local verification](../../reports/p1/weighted-setup/verification.json)
 
-This verifies the implementation only. No weighted validation scores have been measured yet. Compare its saved diagnostics against baseline frame accuracy 57.11%, macro chord recall 19.38%, oracle-event accuracy 58.57%, and rare oracle-event macro recall 0%. Also inspect per-quality precision to detect excessive rare-class predictions. Loss weighting can shift class probabilities and decrease frequent-class accuracy; use the unchanged decoder for this ablation and record any tradeoff.
+The local checks verified the implementation. The returned Kaggle results below now provide the weighted validation scores. Compare its saved diagnostics against baseline frame accuracy 57.11%, macro chord recall 19.38%, oracle-event accuracy 58.57%, and rare oracle-event macro recall 0%. Also inspect per-quality precision to detect excessive rare-class predictions. Loss weighting can shift class probabilities and decrease frequent-class accuracy; use the unchanged decoder for this ablation and record any tradeoff.
 
-The previous proposal to test component-loss weighting is now implemented. Its effectiveness remains pending the returned Kaggle run. The next weekly update should record the actual run revision, selected epoch, baseline differences, per-quality results and whether the evidence justifies further weighting, sampling or a separate transposition experiment.
+The component-loss weighting proposal has now been implemented, run and evaluated. The next section records the actual revision, comparison and decision.
+
+
+## Weighted-loss results and decision · 19 November 2026
+
+The returned p1-weighted-results.zip contains the completed 30-epoch CUDA run at revision d4557df803ddd680a2164c20c6669e56e9d67232, with checkpoint epoch 26 selected by validation frame accuracy. Source hashes match that commit. Training/evaluation IDs, source data, vocabulary, model capacity, software environment, seed and all baseline configuration values match the original experiment; component weighting is the added setting. The actual counts and weights exactly match the locally computed training-only setup.
+
+Independently rerunning the diagnostic reproduced the returned summary and confusion matrix, including predictions decoded from saved logits. The run scored the same 456,046 validation frames and 9,673 oracle-interval events. One short reference event contains no sampled frame and remains excluded from the event denominator.
+
+| Metric | Baseline | Weighted | Change (percentage points) |
+|---|---:|---:|---:|
+| Complete-chord frame accuracy | 57.11% | 54.12% | -3.00 |
+| Macro recall over observed complete-chord classes | 19.38% | 22.73% | +3.35 |
+| Oracle-interval event accuracy including N | 58.57% | 55.96% | -2.61 |
+| Rare-quality macro oracle-event recall | 0% | 0% | 0.00 |
+
+The weighted model correctly classified 246,791 validation frames versus 260,458 for the baseline. Its macro recall improvement indicates a redistribution of performance across observed root-quality classes; it does not establish improvement on the seven predeclared rare qualities.
+
+| Quality | Baseline frame recall | Weighted frame recall | Baseline event recall | Weighted event recall |
+|---|---:|---:|---:|---:|
+| maj | 79.42% | 72.16% | 79.43% | 72.78% |
+| min | 47.91% | 42.09% | 54.90% | 48.37% |
+| 7 | 13.10% | 16.31% | 10.48% | 14.62% |
+| min7 | 15.43% | 29.85% | 11.97% | 29.68% |
+| maj7 | 5.62% | 34.06% | 2.62% | 28.80% |
+| sus4 | 0% | 6.35% | 0% | 3.16% |
+| maj6 | 0% | 1.57% | 0% | 0.93% |
+| hdim7 | 0% | 1.37% | 0% | 0% |
+
+For hdim7 only four reference frames are exactly correct. The model predicts hdim7 on 2,722 scored frames, yielding complete-chord precision of 0.147%. Thus those four correct frames are accompanied by many false positives and provide little evidence of reliable rare-chord recognition. Every predeclared rare quality still has zero correctly classified oracle events.
+
+The aggregate standalone root/triad/extension accuracies changed from 81.48%/86.15%/77.37% to 80.98%/83.25%/74.97%. Per-quality extension recognition improved for sevenths, but accuracy on common unextended chords declined. Boundary-adjacent frame accuracy decreased from 38.03% to 34.91%, and the other scored frames from 58.85% to 55.87%.
+
+[Weighted metrics and provenance](../../reports/p1/kaggle-weighted/run.json) · [Numeric baseline comparison](../../reports/p1/kaggle-weighted/comparison.csv) · [Weighted quality precision/recall](../../reports/p1/kaggle-weighted/per_quality.csv) · [Oracle-event diagnostic](../../reports/p1/weighted-diagnostics/event_qualities.csv) · [Verification](../../reports/p1/kaggle-weighted/verification.json)
+
+### Interpretation and next decision
+
+Retain the unweighted run as the initial baseline and retain the weighted run as a completed ablation. The inverse-square-root component weighting with a tenfold ratio cap improved some seventh qualities but failed the rare-event objective. A single fixed-seed experiment supports this comparison of returned checkpoints; it does not establish robustness across seeds or broader superiority.
+
+The current checkpoint policy selects the highest overall validation frame accuracy. We have evaluated only the selected checkpoint's detailed logits. We cannot conclude that no earlier weighted epoch ever recognized a rare event. Any change to checkpoint selection must be documented as a separate protocol change and applied consistently to both comparators.
+
+Next proposed diagnostic, before launching another training run: count train windows containing each rare quality and inspect head/confusion behavior for the severely undersupported triads. Quality-balanced sampling is a candidate because changing component weights alone did not produce correct rare events. Define the sampling unit, sampling probabilities, epoch budget and controls before testing it. Pitch transposition remains a separate planned ablation.
+
+| Date | Status | Evidence and decision |
+|---|---|---|
+| 19 November 2026 | Completed | Weighted experiment: frame accuracy -3.00 pp, macro chord recall +3.35 pp, rare oracle-event recall unchanged at 0%. Keep both checkpoints. |
+| 19 November 2026 | Proposed | Audit training-window exposure before implementing a quality-balanced sampler. Full new training has not started. |
+
+For the weekly presentation, report this as a measured tradeoff: increasing rare component loss weights helped some seventh chords, reduced major/minor accuracy, and did not recover rare event recognition. Include both aggregate and per-quality metrics, plus the low support of the rarest validation classes.
+
+The diagnostic summary is printed twice in the Kaggle notebook because the script prints its result and the notebook prints summary.json again. Identical repeated output does not indicate a second training run.

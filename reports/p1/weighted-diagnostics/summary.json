@@ -1,0 +1,33 @@
+{
+  "protocol": "Mean per-head probabilities on merged reference intervals; frozen teacher decoder.",
+  "run_revision": "d4557df803ddd680a2164c20c6669e56e9d67232",
+  "reference_events": 9674,
+  "scored_events": 9673,
+  "events_without_frames": 1,
+  "event_accuracy": 0.5595988834901272,
+  "rare_macro_event_recall": 0.0,
+  "rare_qualities": [
+    "aug",
+    "dim",
+    "dim7",
+    "hdim7",
+    "min6",
+    "minmaj7",
+    "sus2"
+  ],
+  "gate_frame_accuracy": 0.9639488121812273,
+  "component_frame_accuracy": {
+    "root": 0.8098055436783105,
+    "triad": 0.8324952129538399,
+    "extension": 0.7496746667658158
+  },
+  "near_boundary": {
+    "frames": 38090,
+    "accuracy": 0.34909425045943815
+  },
+  "interior": {
+    "frames": 417956,
+    "accuracy": 0.5586568921130454
+  },
+  "near_boundary_seconds": 0.1
+}

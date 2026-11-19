@@ -1,0 +1,11 @@
+{
+  "archive_sha256": "bd3cd91accc02c6349e71e80f041b627051f27fd17806309060becd37797f8e6",
+  "train_validation_controls_match_baseline": true,
+  "weights_match_local_setup": true,
+  "source_hashes_match_recorded_commit": true,
+  "diagnostics_reproduced": true,
+  "correct_frames": 246791,
+  "scored_frames": 456046,
+  "checkpoint_selection_verified": true,
+  "epochs": 30
+}

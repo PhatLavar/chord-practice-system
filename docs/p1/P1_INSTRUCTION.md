@@ -97,3 +97,6 @@ print(shutil.make_archive("/kaggle/working/p1-weighted-results", "zip",
 ```
 
 Choose a fresh run name for a retry. Review the [P1 experiment log](P1_REPORT.md) for the weighting formula, fixed controls and interpretation rules. This is a new training run from the seeded initialization.
+
+
+The first weighted Kaggle run has been imported and verified. See the weighted-results section in [P1_REPORT.md](P1_REPORT.md) before rerunning or choosing another experiment. Raw imported artifacts are under runs/p1-weighted-kaggle/; the downloaded archive remains under runs/imports/. Selected results are versioned under reports/p1/kaggle-weighted/ and reports/p1/weighted-diagnostics/.
