@@ -359,3 +359,30 @@ Component weighting derived from E event counts remains another separate option 
 | 20 November 2026 | Proposed | Test 25% balanced exposure as a separate controlled sampling experiment; implementation/training pending. |
 
 Full runs remain in runs/p2-seed-repeat/. The downloaded archive is in runs/imports/p2-seed-repeat-results.zip; selected auditable outputs are versioned under reports/p2/seed-repeat/.
+
+
+## Intermediate mixture specification · 20 November 2026
+
+Status: implemented and locally checked; the 25% mixture's full Kaggle validation run is pending. Use [p2-mixture25.json](../../configs/p2-mixture25.json) with [02d_teacher_e_mixture25.ipynb](../../notebooks/02d_teacher_e_mixture25.ipynb).
+
+The sampler now takes balanced_probability. Its default is 0.5, preserving the previous balanced policy. The new configuration explicitly selects 0.25. Each shuffled natural-event index has a 75% chance of being retained. Otherwise choose uniformly among observed qualities, uniformly among their training songs, and uniformly among that song's matching events. These probabilities describe the two draw branches, not a guarantee that exactly 25% of each class or batch is rare.
+
+Preserve TCN width 48, the 367/110 train/validation split, normalization, event membership/pooling, targets, unweighted component losses, batch size 32, 30 epochs, learning rate 0.001, seed 20261119, clipping, fixed F reference and best-checkpoint criterion. Per-epoch budget stays 31,679 draws and 990 optimizer updates. Initialization and architecture are unchanged; realized training targets and their RNG sequence differ by sampling policy.
+
+Record actual natural/balanced probabilities in run.json along with event/step budget. Record sampled event counts by quality in history.json, as before. Natural and 50% configurations remain available.
+
+### Local checks
+
+All 25 unit checks passed. New checks confirm invalid probability rejection, the exact 25% branch threshold, zero-balanced behavior and preservation of the previous default 50% sampled sequence. Existing F, E, repeat-controller and Transformer checks remain passing.
+
+A train-only simulated epoch and one CPU forward/backward/optimizer update on actual event data were checked. [Exposure table](../../reports/p2/mixture25-setup/event_exposure.csv) · [Verification](../../reports/p2/mixture25-setup/verification.json)
+
+The simulated draws are repeated observations from the same training songs. Their precise sequence differs from training because initialization and shuffle also consume random numbers. They establish sampler behavior, not improved recognition.
+
+### Evaluation plan
+
+Start with the prespecified original seed 20261119 and compare against the existing natural and 50% E runs at that seed. Use overall event accuracy, macro quality recall, rare macro event recall, quality-level precision and E-only correct rare events. Check distinct event identities and song support, rather than treating an isolated macro gain as robust improvement.
+
+The hypothesis is that reducing balanced exposure could retain some rare-class learning while recovering common-quality accuracy. The measured endpoint tradeoff motivates this test, but the outcome is unknown. Do not assume linear interpolation between 0% and 50%.
+
+A promising screening result can be repeated on matched additional seeds before changing the preferred teacher policy. No model accuracy or pseudo-label precision is claimed from the local implementation checks. P2 development continues; P3 has not started.

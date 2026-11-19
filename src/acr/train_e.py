@@ -104,7 +104,11 @@ def train(cache,config,output,device):
     train_events=[e for e in events if e[0] in train_ids]
     eval_events=[e for e in events if e[0] in eval_ids]
     natural=Events(songs,train_events)
-    training=Events(songs,train_events,balanced=cfg["sampling"]=="quality_song_mixture")
+    probability=cfg.get("balanced_probability",.5) if cfg["sampling"]=="quality_song_mixture" else 0.
+    if cfg["sampling"]=="natural" and cfg.get("balanced_probability",0)!=0:
+        raise ValueError("Natural sampling cannot specify a nonzero balanced probability")
+    training=Events(songs,train_events,balanced=cfg["sampling"]=="quality_song_mixture",
+                    balanced_probability=probability)
     validation=Events(songs,eval_events)
     if cfg["mode"]=="oracle":
         reference=Path("reports/p2/f-reference/events.csv")
@@ -120,6 +124,8 @@ def train(cache,config,output,device):
         evaluation_partition="training" if cfg["mode"]=="overfit" else "validation",
         oracle_boundaries=True,data=meta,train_events=len(train_events),evaluation_events=len(eval_events),
         empty_events_total=empty,parameters=sum(p.numel() for p in model.parameters()),
+        sampling_policy=dict(balanced_probability=probability,natural_probability=1-probability,
+                             event_draws_per_epoch=len(training),optimizer_steps_per_epoch=len(loader)),
         git_revision=subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip(),
         git_dirty=bool(subprocess.check_output(["git","status","--porcelain"],text=True).strip()),
         device=device,torch=torch.__version__,numpy=np.__version__,

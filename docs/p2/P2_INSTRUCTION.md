@@ -105,3 +105,12 @@ The plan is configs/p2-seeds.json. The first E repeat sweep has completed and be
 
 
 The E seed-repeat archive has been independently checked. Selected results and per-seed quality tables are under reports/p2/seed-repeat/. Natural and balanced show a repeatable overall-versus-rare tradeoff over these three seeds; inspect the report's precision and distinct-interval analysis before choosing another sampling policy.
+
+
+## Run the 25% balanced-mixture screening
+
+Import [02d_teacher_e_mixture25.ipynb](../../notebooks/02d_teacher_e_mixture25.ipynb), stop an older active GPU session if needed, enable Internet/GPU and run its cells in order. The notebook trains one new E model for 30 epochs at seed 20261119. It compares the result with the committed natural and 50% balanced E results at the same seed.
+
+The new output is runs/p2-mixture25-kaggle/. Its run.json records balanced_probability=0.25 and natural_probability=0.75. The final cell exports /kaggle/working/p2-mixture25-results.zip. Save the executed version and download that ZIP to local runs/imports/.
+
+No repeat of the unchanged architecture's overfit check is required for this sampler-only trial. Existing output directories are protected; choose a fresh name for retries. The full validation results are pending. See [P2_REPORT.md](P2_REPORT.md) for controls and interpretation.

@@ -52,8 +52,11 @@ def partitions(cache):
 
 
 class Events(Dataset):
-    def __init__(self,songs,events,balanced=False,context=31):
+    def __init__(self,songs,events,balanced=False,context=31,balanced_probability=.5):
+        if not 0 <= balanced_probability <= 1:
+            raise ValueError("Balanced probability must be between zero and one")
         self.songs,self.events,self.balanced,self.context=songs,events,balanced,context
+        self.balanced_probability=balanced_probability
         self.groups={}
         for index,event in enumerate(events):
             label=event[-1]
@@ -67,7 +70,7 @@ class Events(Dataset):
         return len(self.events)
 
     def __getitem__(self,index):
-        if self.balanced and torch.rand(()).item()>=.5:
+        if self.balanced and torch.rand(()).item()>=1-self.balanced_probability:
             quality=self.qualities[torch.randint(len(self.qualities),()).item()]
             groups=list(self.groups[quality].values())
             candidates=groups[torch.randint(len(groups),()).item()]

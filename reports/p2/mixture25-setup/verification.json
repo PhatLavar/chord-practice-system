@@ -1,0 +1,18 @@
+{
+  "labeled_train_songs": 367,
+  "event_draws_per_epoch": 31679,
+  "optimizer_steps_per_epoch": 990,
+  "balanced_probability": 0.25,
+  "natural_probability": 0.75,
+  "seed": 20261119,
+  "batch_loss": 6.800966262817383,
+  "head_losses": [
+    0.9341753125190735,
+    2.511416435241699,
+    1.7615058422088623,
+    1.5938689708709717
+  ],
+  "finite_gradients": true,
+  "full_training_completed": false,
+  "note": "One simulated epoch and one CPU optimizer update. Actual training draws differ because model/shuffle also consume RNG."
+}

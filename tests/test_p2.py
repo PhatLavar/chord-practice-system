@@ -4,6 +4,7 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"src/acr"))
 import numpy as np
 import torch
+from unittest.mock import patch
 from data_e import Events,collate_events,load_events
 from teacher_e import EventTeacher
 from teacher_f import FrameTeacher,losses
@@ -61,6 +62,32 @@ class EventTests(unittest.TestCase):
         torch.manual_seed(3)
         self.assertEqual(first,[dataset[i%2][2] for i in range(50)])
         self.assertEqual(set(first),{1,14})
+
+    def test_original_half_mixture_sequence_is_preserved(self):
+        song={"x":np.zeros((100,24),dtype=np.float32)}
+        events=[("a",0.,1.,0,10,1),("a",1.,2.,10,11,14)]
+        dataset=Events({"a":song},events,balanced=True)
+        torch.manual_seed(3)
+        self.assertEqual([dataset[i%2][2] for i in range(12)],
+                         [1,14,1,14,1,14,14,14,14,14,1,1])
+
+    def test_quarter_mixture_threshold_and_endpoint(self):
+        song={"x":np.zeros((100,24),dtype=np.float32)}
+        events=[("a",0.,1.,0,10,1),("a",1.,2.,10,11,14)]
+        dataset=Events({"a":song},events,balanced=True,balanced_probability=.25)
+        with patch("data_e.torch.rand",return_value=torch.tensor(.74)), patch("data_e.torch.randint") as draw:
+            self.assertEqual(dataset[0][2],1)
+            draw.assert_not_called()
+        with patch("data_e.torch.rand",return_value=torch.tensor(.75)), patch(
+            "data_e.torch.randint",side_effect=[torch.tensor(1),torch.tensor(0),torch.tensor(0)]):
+            self.assertEqual(dataset[0][2],14)
+        natural=Events({"a":song},events,balanced=True,balanced_probability=0)
+        self.assertEqual([natural[i%2][2] for i in range(12)],[1,14]*6)
+
+    def test_invalid_mixture_probability_is_rejected(self):
+        for value in (-.1,1.1,float("nan")):
+            with self.assertRaises(ValueError):
+                Events({},[],balanced_probability=value)
 
     def test_frame_teacher_state_keys_are_preserved(self):
         torch.manual_seed(9);f=FrameTeacher()
