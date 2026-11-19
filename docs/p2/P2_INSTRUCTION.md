@@ -85,3 +85,20 @@ The output is runs/p2-natural-kaggle/. Its event logits, per-quality results and
 
 
 The natural-E results are recorded under reports/p2/kaggle-natural/. They show improved overall accuracy with zero rare-event recall for this seed. Read the report's natural-versus-balanced comparison before choosing the next E training policy. Both configurations remain available.
+
+
+## Repeat natural and balanced E with matched seeds
+
+Import [02c_teacher_e_seed_repeat.ipynb](../../notebooks/02c_teacher_e_seed_repeat.ipynb) into Kaggle. Stop an older GPU session if needed, enable Internet/GPU and run setup/data preparation. Then run the training cell once. It automatically runs natural and balanced E for seeds 20261120 and 20261121 in sequence, each for 30 epochs, including F/E comparison. There is no need to rerun the already verified two-song check.
+
+When all four jobs complete, inspect per_seed.csv and summary.json. Run the final cell, save the executed notebook version and download /kaggle/working/p2-seed-repeat-results.zip into runs/imports/.
+
+Outputs are in runs/p2-seed-repeat/. The original seed pair is read from committed verified reports and not retrained. Each run uses the same fixed F reference. If interrupted, rerun at the same code revision/config to reuse completed jobs. An incomplete job is identified by its path; preserve it for diagnosis and either use a fresh output root (which reruns all four jobs) or remove only that failed subdirectory before retrying.
+
+Local command, from the project root:
+
+```powershell
+python src/acr/repeat_e.py --output runs/p2-seed-repeat --device cuda
+```
+
+The plan is configs/p2-seeds.json. No new repeat-run metrics have been collected yet. See [P2_REPORT.md](P2_REPORT.md) for fixed controls, interpretation and the distinction between E-only seed variation and F/E paired-seed variation.

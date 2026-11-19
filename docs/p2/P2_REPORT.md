@@ -262,3 +262,35 @@ P2 development continues. P3 is not the immediate next action simply because one
 - Seed stability and component-level improvement remain open.
 
 Raw outputs are in runs/p2-natural-kaggle/. The original archive remains in runs/imports/p2-natural-results.zip. Selected records and tables are versioned under reports/p2/kaggle-natural/.
+
+
+## Matched E seed-repeat protocol · 20 November 2026
+
+Status: prepared and locally checked; four new GPU runs are pending. The user agreed to repeat natural and balanced E before selecting a policy.
+
+Use the fixed plan [p2-seeds.json](../../configs/p2-seeds.json): additional seeds 20261120 and 20261121, each with natural and balanced event sampling. The original verified seed 20261119 pair is reused. Run the four new jobs sequentially in one GPU notebook session, with fresh independently fitted E weights per job.
+
+Preserve the TCN, reference intervals, data split, normalization, component targets, unweighted losses, optimizer, batch size 32, learning rate 0.001, 30 epochs and checkpoint selection by validation complete-event accuracy. Each policy draws 31,679 training events per epoch. Natural visits each event once; balanced uses the declared mixture with replacement.
+
+F is held fixed at the original balanced TCN seed 20261119. Its reference CSV hash is checked for every imported or completed E result. This tests E's variation and its complementarity against one fixed F. It does not measure variability of independently reseeded F/E pairs.
+
+### Outputs and analysis plan
+
+Retain each new checkpoint, history, logits, per-quality scores and complementarity table under runs/p2-seed-repeat/<method>-<seed>/. The repeat controller exports per_seed.csv and summary.json. Report mean and sample standard deviation over all three seeds, plus paired balanced-minus-natural differences for overall event accuracy, macro quality event recall and rare macro event recall.
+
+Also record rare correct-event counts, total rare-event support and E-only rare successes relative to fixed F for every seed. Inspect per-quality precision and the actual event identities before interpreting nonzero macro recall. Repeated correctness on the same interval across seeds does not increase independent-song support.
+
+Reusing an existing completed new job requires the same config and code revision. An incomplete run is reported explicitly. Original seed provenance is preserved in the existing reports; new jobs share one recorded revision. No checkpoint criterion, seed or training budget should be chosen after observing the repeat results without declaring a new experiment.
+
+These three seeds provide descriptive stability evidence on the same validation songs, not statistical significance or certainty about new songs. The controller and aggregation are checked locally; actual GPU execution and the resulting comparisons remain pending.
+
+### Weekly decision log
+
+| Date | Status | Decision |
+|---|---|---|
+| 20 November 2026 | Prepared | Two additional matched seeds for natural/balanced E, four new training jobs. |
+| 20 November 2026 | Fixed control | Keep F's original reference predictions unchanged to isolate E seed variation. |
+| 20 November 2026 | Pending | Audit returned logits and rare-event identities before choosing the next component/sampling intervention. |
+
+
+Local checks for the repeat workflow passed all 22 tests. The E controller test verifies four new training launches, reuse of completed jobs and inclusion of the original pair without retraining. A separate check verifies the balanced-minus-natural delta direction. Original F repeat aggregation remains numerically identical after sharing the aggregation helper. The existing E reports and frozen F hash were read successfully, and notebook syntax/document links were checked. These checks do not replace the pending GPU training runs.

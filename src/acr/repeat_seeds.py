@@ -17,26 +17,26 @@ def result(name, seed, metrics, diagnostic):
                 **{key: metrics[key] if key in metrics else diagnostic[key] for key in METRICS})
 
 
-def aggregate(rows):
+def aggregate(rows, metrics=METRICS, methods=("baseline","balanced")):
     pairs = {}
     for row in rows:
         pair = pairs.setdefault(row["seed"], {})
         if row["method"] in pair:
             raise ValueError("Duplicate method/seed result")
         pair[row["method"]] = row
-    if not pairs or any(set(pair) != {"baseline", "balanced"} for pair in pairs.values()):
+    if not pairs or any(set(pair) != set(methods) for pair in pairs.values()):
         raise ValueError("Every seed needs both methods")
     summary = dict(seeds=sorted(pairs), n=len(pairs), methods={}, paired_delta={})
-    for method in ("baseline", "balanced"):
+    for method in methods:
         summary["methods"][method] = {}
-        for metric in METRICS:
+        for metric in metrics:
             values = np.array([pairs[seed][method][metric] for seed in sorted(pairs)])
             if not np.isfinite(values).all() or np.any((values<0)|(values>1)):
                 raise ValueError("Metrics must be finite proportions")
             summary["methods"][method][metric] = dict(mean=float(values.mean()),
                 sample_std=float(values.std(ddof=1)) if len(values)>1 else None)
-    for metric in METRICS:
-        values = np.array([pair["balanced"][metric]-pair["baseline"][metric] for pair in pairs.values()])
+    for metric in metrics:
+        values = np.array([pair[methods[1]][metric]-pair[methods[0]][metric] for pair in pairs.values()])
         summary["paired_delta"][metric] = dict(mean=float(values.mean()),
             sample_std=float(values.std(ddof=1)) if len(values)>1 else None,
             positive_seeds=int((values>0).sum()), negative_seeds=int((values<0).sum()),

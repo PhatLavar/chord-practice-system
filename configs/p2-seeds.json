@@ -1,0 +1,5 @@
+{
+  "seeds": [20261120, 20261121],
+  "natural_config": "configs/p2-natural.json",
+  "balanced_config": "configs/p2-oracle.json"
+}
