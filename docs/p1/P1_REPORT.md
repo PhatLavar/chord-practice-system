@@ -388,3 +388,32 @@ The matched-seed check is now complete. In line with the user's architecture dis
 - Next experiment proposal concerns encoder capacity/context through a compact Transformer, with the current label decomposition retained.
 
 Full artifacts are stored locally in runs/p1-seed-repeat/. The original ZIP remains in runs/imports/p1-seed-repeat-results.zip. Selected metrics, histories and tables are versioned under reports/p1/seed-repeat/.
+
+
+## Compact Transformer specification · 19 November 2026
+
+The initial project-specific Transformer encoder is implemented for teacher F. It follows the broader self-attention direction established by [BTC](https://arxiv.org/abs/1907.02698); the implementation and component heads are this project's adaptation. BTC's published results cannot be compared directly with this chroma/component-head pilot without matching inputs and protocols.
+
+Architecture: project each 24-bin chroma frame to width 48, add sinusoidal positions, pass through two independently initialized bidirectional TransformerEncoderLayer blocks with four attention heads, feed-forward width 96, GELU, pre-layer normalization and zero dropout, then apply final layer normalization and the existing four head dimensions (2,12,6,5). Parameters total 40,441 versus the TCN's 37,225 (about 8.6% more). No pretrained checkpoint is used.
+
+[Implementation](../../src/acr/transformer_f.py) · [PyTorch encoder layer](https://docs.pytorch.org/docs/stable/generated/torch.nn.TransformerEncoderLayer.html)
+
+### Context, padding and inference
+
+Training retains 512 target frames and 31 context frames on each side, with the same quality/song-balanced sampler and unweighted losses. Attention is unrestricted among the real frames within this 574-frame input, including future frames for offline analysis. Padding uses an explicit boolean key-padding mask. A real zero-chroma silence frame remains an unmasked observed frame. Padded targets stay ignored by the losses.
+
+At validation, run bounded 574-frame windows with stride 512 and retain only each central target segment. This includes unlabeled windows and short final tails so timestamps, labels and logits remain aligned for every frame. Each window uses local sinusoidal positions. Full-song attention is not used.
+
+The TCN sees at most 63 frames of contextual evidence per target, while this Transformer sees up to 574 real frames within the window. The experiment therefore compares encoder designs with different effective context and slightly different capacity, rather than isolating self-attention from every other factor. Transformer padding masks, layer normalization and GELU are also part of the encoder specification. Memory/runtime must be measured from the actual Kaggle execution.
+
+### Training and evaluation controls
+
+Use the existing two-song overfit protocol first (0003/0006, seed 20261119, 200 epochs, batch size 8, learning rate 0.001). Then train the full 367-song balanced run for 30 epochs, batch size 16, seed 20261119 and learning rate 0.001. Keep vocabulary, normalized features, optimizer, loss, gradient clipping, decoder, held-out validation songs and best-checkpoint criterion as in the balanced TCN.
+
+Compare the full run against the balanced TCN seed 20261119 and the descriptive three-seed range. A single Transformer seed is an initial screen; it does not establish a robust architecture advantage. Evaluate full-chord frame scores, rare oracle-event recall, per-quality precision and component scores. Any learning-rate or context revision after viewing results must be logged as a new experiment.
+
+### Local verification and status
+
+Fourteen unit checks passed, including all earlier TCN checks, Transformer padding invariance on real frames, distinction between silence and padding, finite masked-loss gradients, all-padding rejection and complete inference coverage through unlabeled windows and final tails. A local CPU two-song run passed: 99.69% whole-chord training frame accuracy (5,792/5,810), with best epoch 184 of 200. Saved predictions independently reproduced this metric. Full Kaggle execution and validation comparison are pending. The larger attention context and slightly higher capacity mean the overfit score alone cannot establish an architectural advantage. [Local run record](../../reports/p1/transformer-setup/local-overfit.json)
+
+The TCN path retains full-recording convolutional inference and its default configuration; Transformer windows are used only when encoder=transformer. New checkpoints record encoder and window metadata together with the state dictionary. The existing target decomposition is retained.

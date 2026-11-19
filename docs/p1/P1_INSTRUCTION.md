@@ -138,3 +138,12 @@ The plan is configs/p1-seeds.json. Generated per-run config files live inside th
 
 
 The imported four-run ZIP has been checked against logits, detailed annotations and run metadata. See [P1_REPORT.md](P1_REPORT.md) for the three-seed summary and the limited rare-event improvements. Selected results are in reports/p1/seed-repeat/; full predictions and checkpoints remain under runs/p1-seed-repeat/.
+
+
+## Compact Transformer experiment
+
+Import [01e_teacher_f_transformer.ipynb](../../notebooks/01e_teacher_f_transformer.ipynb) into Kaggle, enable Internet/GPU and stop an older GPU session if necessary. Run setup and preparation, then the two-song overfit cell. Inspect metrics.json; if overfit_pass is false, retain the outputs for diagnosis before full training.
+
+Once that check passes, set RUN_FULL = True and execute the full-run cell. It trains a new Transformer with the balanced sampler for 30 epochs and runs the existing reference-event diagnostic. The final cell produces /kaggle/working/p1-transformer-results.zip containing runs/p1-transformer/overfit and runs/p1-transformer/balanced. Save the executed Kaggle version and download that ZIP to runs/imports/.
+
+A retry needs a fresh output name, or the incomplete failed output must be handled explicitly. The notebook protects existing run directories from accidental overwriting. See [P1_REPORT.md](P1_REPORT.md) for the 40,441-parameter architecture, broader attention context, fixed controls and limitations.

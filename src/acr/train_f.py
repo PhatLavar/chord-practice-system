@@ -14,6 +14,7 @@ from torch.utils.data import Dataset, DataLoader
 from p1_data import CLASSES, QUALITIES
 from teacher_f import FrameTeacher, decode, losses, targets
 from p1_data import TRIADS, EXTENSIONS
+from transformer_f import TransformerFrameTeacher
 
 
 def component_weights(train_songs, device):
@@ -39,8 +40,9 @@ def component_weights(train_songs, device):
 
 
 class Windows(Dataset):
-    def __init__(self, songs, length, context):
+    def __init__(self, songs, length, context, include_padding_mask=False):
         self.songs, self.length, self.context = songs, length, context
+        self.include_padding_mask = include_padding_mask
         self.windows = [(rid, start) for rid, song in songs.items()
                         for start in range(0, len(song["y"]), length)
                         if np.any(song["y"][start:start+length] >= 0)]
@@ -61,14 +63,18 @@ class Windows(Dataset):
         x[:,offset:offset+hi-lo] = song["x"][lo:hi].T
         y = np.full(self.length, -100, dtype=np.int64)
         y[:stop-start] = song["y"][start:stop]
+        if self.include_padding_mask:
+            padding = np.ones(x.shape[-1], dtype=bool)
+            padding[offset:offset+hi-lo] = False
+            return torch.from_numpy(x), torch.from_numpy(y), torch.from_numpy(padding)
         return torch.from_numpy(x), torch.from_numpy(y)
 
 
 class QualityBalancedWindows(Windows):
     """Half natural windows, half quality/song-balanced centered windows."""
 
-    def __init__(self, songs, length, context):
-        super().__init__(songs, length, context)
+    def __init__(self, songs, length, context, include_padding_mask=False):
+        super().__init__(songs, length, context, include_padding_mask)
         self.anchors = {}
         for rid, song in songs.items():
             y = song["y"]
@@ -92,12 +98,28 @@ class QualityBalancedWindows(Windows):
 
 
 @torch.no_grad()
+def recording_logits(model, rid, song, device):
+    if isinstance(model, TransformerFrameTeacher):
+        windows = Windows({rid:song},model.window,model.context,include_padding_mask=True)
+        collected = [[] for _ in range(4)]
+        # Visit every frame, including windows with entirely masked reference labels.
+        for start in range(0,len(song["y"]),model.window):
+            x, _, padding = windows.get_window(rid,start)
+            heads = model(x.unsqueeze(0).to(device),padding.unsqueeze(0).to(device))
+            size = min(model.window,len(song["y"])-start)
+            for chunks,head in zip(collected,heads):
+                chunks.append(head[:,:,model.context:model.context+size].cpu())
+        return [torch.cat(chunks,dim=2) for chunks in collected]
+    return model(torch.from_numpy(song["x"].T.copy()).unsqueeze(0).to(device))
+
+
+@torch.no_grad()
 def evaluate(model, songs, device, output=None):
     model.eval()
     confusion = np.zeros((len(CLASSES),len(CLASSES)), dtype=np.int64)
     song_rows = []
     for rid, song in songs.items():
-        heads = model(torch.from_numpy(song["x"].T.copy()).unsqueeze(0).to(device))
+        heads = recording_logits(model,rid,song,device)
         pred = decode(heads)[0].cpu().numpy()
         y = song["y"]
         valid = y >= 0
@@ -155,12 +177,17 @@ def train(cache, config, output, device):
     class_weights, weight_record = None, None
     if weighting == "inverse_sqrt":
         class_weights, weight_record = component_weights(train_songs, device)
-    model=FrameTeacher(cfg["width"]).to(device)
+    encoder = cfg.get("encoder","tcn")
+    if encoder not in ("tcn","transformer"):
+        raise ValueError("Unknown encoder")
+    model = (TransformerFrameTeacher(cfg["width"],cfg["window"]) if encoder=="transformer"
+             else FrameTeacher(cfg["width"])).to(device)
     sampling = cfg.get("sampling", "natural")
     if sampling not in ("natural", "quality_song_mixture"):
         raise ValueError("Unknown sampling policy")
     dataset_class = QualityBalancedWindows if sampling == "quality_song_mixture" else Windows
-    dataset = dataset_class(train_songs,cfg["window"],model.context)
+    dataset = dataset_class(train_songs,cfg["window"],model.context,
+                            include_padding_mask=encoder=="transformer")
     loader=DataLoader(dataset,
                       batch_size=cfg["batch_size"],shuffle=True,num_workers=0)
     output.mkdir(parents=True,exist_ok=False)
@@ -188,13 +215,15 @@ def train(cache, config, output, device):
         started=time.perf_counter();model.train()
         sums=np.zeros(4);batches=0
         quality_exposure=np.zeros(len(QUALITIES),dtype=np.int64)
-        for x,y in loader:
+        for batch in loader:
+            x,y = batch[:2]
             if sampling == "quality_song_mixture":
                 observed=y[y>0]
                 quality_exposure += torch.bincount((observed-1)%len(QUALITIES),
                                                   minlength=len(QUALITIES)).numpy()
             x,y=x.to(device),y.to(device)
-            heads=[h[:,:,model.context:model.context+cfg["window"]] for h in model(x)]
+            logits = model(x,batch[2].to(device)) if encoder=="transformer" else model(x)
+            heads=[h[:,:,model.context:model.context+cfg["window"]] for h in logits]
             terms=losses(heads,y,class_weights);loss=sum(terms)
             if not torch.isfinite(loss):raise ValueError("Nonfinite loss")
             optimizer.zero_grad();loss.backward()
@@ -209,7 +238,8 @@ def train(cache, config, output, device):
         (output/"history.json").write_text(json.dumps(history,indent=2))
         if metrics["frame_accuracy"]>best:
             best=metrics["frame_accuracy"]
-            torch.save(dict(state_dict=model.state_dict(),width=cfg["width"],classes=CLASSES,epoch=epoch),output/"best.pt")
+            torch.save(dict(state_dict=model.state_dict(),width=cfg["width"],classes=CLASSES,epoch=epoch,
+                            encoder=encoder,window=cfg["window"]),output/"best.pt")
     checkpoint=torch.load(output/"best.pt",map_location=device,weights_only=True)
     model.load_state_dict(checkpoint["state_dict"])
     predictions=output/"predictions";predictions.mkdir()

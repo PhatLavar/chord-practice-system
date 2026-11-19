@@ -1,0 +1,43 @@
+{
+  "config": {
+    "mode": "overfit",
+    "seed": 20261119,
+    "songs": 2,
+    "width": 48,
+    "window": 512,
+    "batch_size": 8,
+    "learning_rate": 0.001,
+    "epochs": 200,
+    "encoder": "transformer"
+  },
+  "train_ids": [
+    "0003",
+    "0006"
+  ],
+  "metrics": {
+    "frame_accuracy": 0.9969018932874355,
+    "macro_chord_recall": 0.9972823478107469,
+    "scored_frames": 5810,
+    "best_epoch": 184,
+    "evaluation_partition": "training",
+    "overfit_pass": true,
+    "peak_cuda_bytes": null
+  },
+  "parameters": 40441,
+  "torch": "2.15.0+cpu",
+  "numpy": "2.5.5",
+  "source_code_sha256": {
+    "src\\acr\\audit.py": "c6c6189dc6f311dd4077590388a4b81999a49581b4be605369d2ccf8d7581e79",
+    "src\\acr\\audit_exposure.py": "5bb0f696f7ee53c333085c0b9c4a090a7b3de602dca0e3a52d00c2b1235a26ba",
+    "src\\acr\\corpus.py": "ad9b8ed3c4354636dd454a500a6aa96a65fa6469ccc1b80fa2bdd9422ec812bf",
+    "src\\acr\\diagnose_f.py": "ee7e725181173f60c8d1ae413569fc7e756ffbc7ac9f1c96fbe37449401cead5",
+    "src\\acr\\p1_data.py": "139780dfc0d00d55de1a52e6f6654a8c47c7cd2905047ca04c6243e3052b1f24",
+    "src\\acr\\repeat_seeds.py": "2089a8557e83d0e0dd005540d1770c75928a5a3723f75af616332103c6bf4465",
+    "src\\acr\\teacher_f.py": "81d9de31f91452c3957063bbab3f0326d11163c07e3872ca34496e0b2d00b210",
+    "src\\acr\\train_f.py": "bf4086db803b421f730515d7409a778080df43831df001be7c780792ba03376f",
+    "src\\acr\\transformer_f.py": "cf8daed8b9162b58d186792c22e99f326d45f2a68350f31f18c548728a416aa7"
+  },
+  "evaluation": "Two training songs; broader context and slightly larger model than TCN; no held-out comparison",
+  "correct_frames": 5792,
+  "all_frames": 5810
+}
