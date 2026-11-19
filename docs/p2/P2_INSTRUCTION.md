@@ -117,3 +117,20 @@ No repeat of the unchanged architecture's overfit check is required for this sam
 
 
 The 25% screening archive has been audited. Selected metrics, quality scores, complementarity counts and exact correct rare intervals are versioned under reports/p2/kaggle-mixture25/. The report distinguishes this one-seed screen from the earlier three-seed comparisons.
+
+
+## Repeat only the two missing 25% seeds
+
+Import [02e_teacher_e_mixture25_repeat.ipynb](../../notebooks/02e_teacher_e_mixture25_repeat.ipynb), stop an older GPU session if necessary, enable Internet/GPU and run cells in order. The training cell runs only seeds 20261120 and 20261121 with the 25% mixture. Each is 30 epochs and writes a separate run under runs/p2-mixture25-repeat/.
+
+The comparison cell combines those two runs with the seven verified results already in the repository. It writes analysis/per_seed.csv and analysis/summary.json inside the repeat directory, with all nine results and paired deltas for 25% versus each endpoint.
+
+The final cell creates /kaggle/working/p2-mixture25-repeat-results.zip. Save the executed notebook version and download the ZIP into local runs/imports/. If interrupted, completed jobs are reused only at the same revision/config; an incomplete job is reported explicitly. A fresh output root reruns both new jobs.
+
+The aggregate can also be regenerated locally after import:
+
+```powershell
+python src/acr/compare_e_mixtures.py --runs runs/p2-mixture25-repeat --output runs/p2-mixture25-repeat/analysis
+```
+
+These two full GPU runs are pending. The earlier single-seed screen and the two endpoint policies remain unchanged.

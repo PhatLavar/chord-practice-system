@@ -464,3 +464,23 @@ The 25% configuration remains a candidate. Neither this screening result nor its
 | 20 November 2026 | Proposed | Repeat seeds 20261120/20261121 before adopting the intermediate mixture. |
 
 Raw outputs are preserved in runs/p2-mixture25-kaggle/. The imported ZIP remains in runs/imports/p2-mixture25-results.zip, with selected records under reports/p2/kaggle-mixture25/.
+
+
+## Repeat 25% mixture before selecting the policy · 20 November 2026
+
+Status: prepared for Kaggle; the two new runs are pending. The user agreed to follow up the single-seed screen.
+
+Use [p2-mixture25-seeds.json](../../configs/p2-mixture25-seeds.json) and [02e_teacher_e_mixture25_repeat.ipynb](../../notebooks/02e_teacher_e_mixture25_repeat.ipynb) to train only the 25% mixture at seeds 20261120 and 20261121. Keep all settings in p2-mixture25.json except the seed. Each job retains 30 epochs, 31,679 event draws, 990 updates per epoch, unweighted losses and the frozen F reference.
+
+Reuse seven existing results: the six verified natural/50% runs across three seeds and the original 25% seed 20261119. Two new jobs complete a nine-result, three-policy matched-seed table. No endpoint or original-seed retraining is required.
+
+The summary reports mean and sample standard deviation of event accuracy, macro quality recall and rare macro event recall. Report paired 25%-minus-natural and 25%-minus-50% differences, including positive/negative/tied seed counts. Export rare correct counts and E-only rare correct counts per seed. Keep each quality's precision and the exact rare interval identities for the subsequent verification.
+
+This is E variation against fixed F, on the same validation songs. It does not establish new-song confidence intervals, significance or independently reseeded F/E complementarity. The single aug event's influence on the original 25% macro score is a reason to inspect the repeated results carefully.
+
+The notebook protects existing job directories and reuses completed jobs only at the same revision/configuration. Its comparison reads versioned endpoint results and records source revisions for all nine rows. The statistic helper rejects missing or duplicate policy/seed results.
+
+Decision after the repeat should consider accuracy, quality balance, rare-event precision and useful additional events beyond F together. The 25% setting remains a candidate until these results are measured. P2 development continues; no P3 training starts as part of this notebook.
+
+
+Local verification for the 25% repeat workflow passed all 28 tests. Hand-computed checks verified three-policy means, sample standard deviations and both paired-delta directions, with missing/duplicate policies rejected. A mocked execution of the actual notebook training cell launched exactly two 25% jobs at the designated seeds and reused them on rerun. Notebook syntax, document links and loading the original 25% result were checked. The two real GPU jobs and their measured results remain pending.
