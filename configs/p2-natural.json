@@ -1,0 +1,9 @@
+{
+  "mode": "oracle",
+  "seed": 20261119,
+  "width": 48,
+  "batch_size": 32,
+  "learning_rate": 0.001,
+  "epochs": 30,
+  "sampling": "natural"
+}

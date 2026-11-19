@@ -73,3 +73,12 @@ Compare that events.csv with reports/p2/f-reference/events.csv. The preparation 
 
 
 The first Kaggle run has completed and been independently verified. Read [P2_REPORT.md](P2_REPORT.md) for standalone results, F/E complementarity, agreement precision and limitations before rerunning. Oracle-event results use supplied reference times. Full artifacts are in runs/p2-oracle/, with selected tables in reports/p2/kaggle-oracle/.
+
+
+## Continue P2: natural-event E baseline
+
+Import [02b_teacher_e_natural.ipynb](../../notebooks/02b_teacher_e_natural.ipynb), stop an older GPU session if needed, and enable Internet/GPU. Run the setup/data cells, then the natural-baseline training cell. The already verified overfit stage need not be repeated for this sampler-only change.
+
+The cell trains 30 epochs from a new seeded initialization, using configs/p2-natural.json. The next cell compares its metrics with the completed balanced E run recorded in the repository. The final cell exports /kaggle/working/p2-natural-results.zip. Save the executed notebook version and download the ZIP into local runs/imports/.
+
+The output is runs/p2-natural-kaggle/. Its event logits, per-quality results and F/E complementarity use the same protocol as the original E run. Use a fresh output name if retrying an existing result. This experiment is prepared; its validation results are pending. Further E development and the deferred P3 transition are recorded in [P2_REPORT.md](P2_REPORT.md).
