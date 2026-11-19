@@ -284,3 +284,14 @@ After that check, P2 can train E with its own weights and reference-interval eve
 | 19 November 2026 | Proposed | Repeat both baseline and balanced training with matched additional seeds to test stability before adopting a teacher-training policy. |
 
 For the weekly presentation, state that sampling produced the first correct rare oracle events with a small overall-accuracy loss. Show the two-event count and the five unresolved qualities on the same slide as the 4.19% macro number. This is the current limit of the evidence.
+
+
+## Proposed richer chord decomposition · 19 November 2026
+
+The user proposed Root, Triad, Bass, Seventh, Ninth, Eleventh and Thirteenth components. This is a proposed representation revision; it has not been implemented or evaluated. The existing baseline remains root/triad/extension plus N, with slash bass collapsed and a 14-quality inventory.
+
+A richer representation could preserve inversions and supervise higher tensions currently mapped to OOV. Specify each head's states and masks before implementation. Distinguish an absent degree from an unknown or unsupported annotation. Preserve diminished seventh (bb7), suspended triads and alterations. Decide how sixth chords are represented without silently equating the sixth and thirteenth roles, or diminished sevenths and major sixths, just because they share pitch classes.
+
+If adopted, audit detailed symbols and training-only component/song support, define reconstruction and excluded-label policies, version the new vocabulary/cache, and evaluate against the current model on the same supported subset as well as expanded coverage. Existing checkpoints provide historical baselines but their heads and targets cannot be reused unchanged for the expanded prediction space. Additional heads do not by themselves establish improved recognition.
+
+Reference: [McGill annotation conventions](https://ddmal.ca/research/The_McGill_Billboard_Project_%28Chord_Analysis_Dataset%29/), which use Harte chord syntax with additional shorthand. The next step for this proposal is a representation and coverage audit, before changing teacher F or teacher E.
