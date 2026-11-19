@@ -1,0 +1,15 @@
+quality,events,songs,correct_complete_events,recall,precision,root_accuracy,triad_accuracy,extension_accuracy
+maj,62,2,62,1.0,1.0,1.0,1.0,1.0
+min,12,2,12,1.0,1.0,1.0,1.0,1.0
+dim,0,0,0,,,,,
+aug,0,0,0,,,,,
+sus2,1,1,1,1.0,1.0,1.0,1.0,1.0
+sus4,0,0,0,,,,,
+maj6,0,0,0,,,,,
+min6,0,0,0,,,,,
+7,1,1,1,1.0,1.0,1.0,1.0,1.0
+min7,0,0,0,,,,,
+maj7,0,0,0,,,,,
+minmaj7,0,0,0,,,,,
+hdim7,0,0,0,,,,,
+dim7,0,0,0,,,,,

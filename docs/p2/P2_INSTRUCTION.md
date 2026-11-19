@@ -70,3 +70,6 @@ python src/acr/prepare_p2_reference.py --run runs/p1-balanced-kaggle --output ru
 ```
 
 Compare that events.csv with reports/p2/f-reference/events.csv. The preparation script recomputes F probabilities on the gold intervals, matching the P1 diagnostic.
+
+
+The first Kaggle run has completed and been independently verified. Read [P2_REPORT.md](P2_REPORT.md) for standalone results, F/E complementarity, agreement precision and limitations before rerunning. Oracle-event results use supplied reference times. Full artifacts are in runs/p2-oracle/, with selected tables in reports/p2/kaggle-oracle/.

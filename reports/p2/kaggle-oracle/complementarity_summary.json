@@ -1,0 +1,22 @@
+{
+  "complete_counts": {
+    "both_correct": 4650,
+    "F_only": 953,
+    "E_only": 1004,
+    "both_wrong": 3066
+  },
+  "rare_counts": {
+    "both_correct": 1,
+    "F_only": 1,
+    "E_only": 3,
+    "both_wrong": 106
+  },
+  "F_event_accuracy": 0.5792411868086426,
+  "E_event_accuracy": 0.5845135945415073,
+  "oracle_correct_teacher_selector_accuracy": 0.6830352527654295,
+  "oracle_correct_teacher_selector_rare_macro_recall": 0.05665197355239431,
+  "interpretation": "Oracle teacher selection uses reference correctness; it is an upper bound, not an inference algorithm.",
+  "full_label_agreement_events": 6294,
+  "agreement_correct_events": 4650,
+  "full_label_agreement_precision": 0.7387988560533841
+}

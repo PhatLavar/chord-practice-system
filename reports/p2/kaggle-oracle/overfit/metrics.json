@@ -1,0 +1,11 @@
+{
+  "event_accuracy": 1.0,
+  "scored_events": 80,
+  "rare_macro_event_recall": 1.0,
+  "macro_quality_event_recall": 1.0,
+  "best_epoch": 112,
+  "evaluation_partition": "training",
+  "overfit_pass": true,
+  "training_event_accuracy": 1.0,
+  "peak_cuda_bytes": 23249920
+}

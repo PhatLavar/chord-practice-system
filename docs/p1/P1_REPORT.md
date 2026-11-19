@@ -474,4 +474,4 @@ Raw outputs are in runs/p1-transformer/overfit/ and runs/p1-transformer/balanced
 
 ## Handoff to P2 · 19 November 2026
 
-The event teacher implementation is now documented in [P2_REPORT.md](../p2/P2_REPORT.md). The fixed comparator is the original balanced F at seed 20261119, with its uncertainty retained in the repeated-seed analysis above. P2 supplies the same reference intervals to both teachers and fits E independently using event targets. Full P2 validation and teacher complementarity remain pending the returned Kaggle run.
+The event teacher implementation is now documented in [P2_REPORT.md](../p2/P2_REPORT.md). The fixed comparator is the original balanced F at seed 20261119, with its uncertainty retained in the repeated-seed analysis above. P2 supplies the same reference intervals to both teachers and fits E independently using event targets. The first P2 oracle trial has now been verified. Its measured F/E complementarity and rare-quality limitations are recorded in [P2_REPORT.md](../p2/P2_REPORT.md).

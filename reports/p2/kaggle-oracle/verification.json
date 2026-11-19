@@ -1,0 +1,23 @@
+{
+  "archive_sha256": "89825b5d8892a2531f61bef14f281dec385149156d14d4def4d22e725ea79661",
+  "runs": [
+    {
+      "run": "overfit",
+      "scored_events": 80,
+      "correct_events": 80,
+      "source_config_and_ids_verified": true,
+      "logits_and_intervals_verified": true,
+      "epoch_seconds": 12.323174087000382
+    },
+    {
+      "run": "full",
+      "scored_events": 9673,
+      "correct_events": 5654,
+      "source_config_and_ids_verified": true,
+      "logits_and_intervals_verified": true,
+      "epoch_seconds": 321.03055823700015
+    }
+  ],
+  "F_reference_hash_verified": true,
+  "complementarity_independently_recomputed": true
+}
