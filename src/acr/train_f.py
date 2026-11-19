@@ -12,7 +12,30 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset, DataLoader
 from p1_data import CLASSES, QUALITIES
-from teacher_f import FrameTeacher, decode, losses
+from teacher_f import FrameTeacher, decode, losses, targets
+from p1_data import TRIADS, EXTENSIONS
+
+
+def component_weights(train_songs, device):
+    counts = [torch.zeros(size, dtype=torch.int64) for size in (len(TRIADS), len(EXTENSIONS))]
+    for song in train_songs.values():
+        for count, target in zip(counts, targets(torch.from_numpy(song["y"]))[2:]):
+            observed = target[target >= 0]
+            count += torch.bincount(observed, minlength=len(count))
+    weights = []
+    for count in counts:
+        observed = count > 0
+        if not observed.any():
+            raise ValueError("No observed component targets in labeled training songs")
+        # Inverse square root reduces majority-class dominance with bounded ratios.
+        weight = torch.zeros(len(count), dtype=torch.float32)
+        weight[observed] = (count[observed].max() / count[observed].float()).sqrt().clamp(max=10)
+        weight /= (weight * count).sum() / count.sum()
+        weights.append(weight.to(device))
+    record = dict(method="inverse_sqrt",max_ratio=10,
+                  triad=dict(labels=TRIADS,counts=counts[0].tolist(),weights=weights[0].cpu().tolist()),
+                  extension=dict(labels=EXTENSIONS,counts=counts[1].tolist(),weights=weights[1].cpu().tolist()))
+    return [None, None, *weights], record
 
 
 class Windows(Dataset):
@@ -96,6 +119,12 @@ def train(cache, config, output, device):
             songs[rid]={k:data[k] for k in ("x","y","times")}
     train_songs={i:songs[i] for i in train_ids}
     eval_songs={i:songs[i] for i in eval_ids}
+    weighting = cfg.get("component_weighting", "none")
+    if weighting not in ("none", "inverse_sqrt"):
+        raise ValueError("Unknown component weighting")
+    class_weights, weight_record = None, None
+    if weighting == "inverse_sqrt":
+        class_weights, weight_record = component_weights(train_songs, device)
     model=FrameTeacher(cfg["width"]).to(device)
     loader=DataLoader(Windows(train_songs,cfg["window"],model.context),
                       batch_size=cfg["batch_size"],shuffle=True,num_workers=0)
@@ -109,6 +138,8 @@ def train(cache, config, output, device):
                 source_code_sha256={str(p):hashlib.sha256(p.read_bytes()).hexdigest()
                                     for p in sorted(Path("src/acr").glob("*.py"))})
     (output/"run.json").write_text(json.dumps(record,indent=2))
+    if weight_record is not None:
+        (output/"loss_weights.json").write_text(json.dumps(weight_record,indent=2))
     optimizer=torch.optim.Adam(model.parameters(),lr=cfg["learning_rate"])
     best=-1; history=[]
     for epoch in range(1,cfg["epochs"]+1):
@@ -117,7 +148,7 @@ def train(cache, config, output, device):
         for x,y in loader:
             x,y=x.to(device),y.to(device)
             heads=[h[:,:,model.context:model.context+cfg["window"]] for h in model(x)]
-            terms=losses(heads,y);loss=sum(terms)
+            terms=losses(heads,y,class_weights);loss=sum(terms)
             if not torch.isfinite(loss):raise ValueError("Nonfinite loss")
             optimizer.zero_grad();loss.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(),5)

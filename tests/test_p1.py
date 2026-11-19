@@ -8,7 +8,7 @@ import numpy as np
 import torch
 from p1_data import encode, CLASSES
 from teacher_f import targets, losses, decode
-from train_f import Windows
+from train_f import Windows, component_weights
 from diagnose_f import probabilities, decode_components, reference_events
 
 
@@ -52,6 +52,30 @@ class P1Tests(unittest.TestCase):
         np.testing.assert_array_equal(decode_components(pooled), decode(pooled_logits)[0].numpy())
         for p in probs:
             np.testing.assert_allclose(p.sum(axis=0),1.)
+
+    def test_weight_counts_and_masked_weighted_loss(self):
+        labels = np.array([encode("C:maj")]*100 + [encode("D:dim7"),0,-100])
+        weights, record = component_weights({"train":{"y":labels}}, "cpu")
+        self.assertEqual(sum(record["triad"]["counts"]),101)
+        self.assertEqual(sum(record["extension"]["counts"]),101)
+        self.assertIsNone(weights[0])
+        self.assertIsNone(weights[1])
+        for head in weights[2:]:
+            positive=head[head>0]
+            self.assertLessEqual(float(positive.max()/positive.min()),10.00001)
+        y=torch.from_numpy(labels).unsqueeze(0)
+        logits=[torch.randn(1,n,len(labels),requires_grad=True) for n in (2,12,6,5)]
+        terms=losses(logits,y,weights)
+        self.assertTrue(all(torch.isfinite(v) for v in terms))
+        # Ignored/N targets cannot change component losses.
+        changed=[h.detach().clone() for h in logits]
+        for h in changed[1:]:
+            h[:,:,-2:]=999.
+        for a,b in zip(terms[1:],losses(changed,y,weights)[1:]):
+            self.assertTrue(torch.allclose(a,b))
+        sum(terms).backward()
+        for h in logits:
+            self.assertTrue(torch.isfinite(h.grad).all())
 
     def test_tail_padding_and_context(self):
         x=np.arange(24*9,dtype=np.float32).reshape(9,24)

@@ -71,3 +71,29 @@ python src/acr/diagnose_f.py --output reports/p1/kaggle-diagnostics
 ```
 
 Choose a new output directory if it already exists. The script checks the detailed-label archive hash, reconstructs frame references and predictions, and reproduces the stored confusion matrix before reporting diagnostics. It averages probabilities on reference intervals and reports standalone component accuracy, per-quality event support, and a 0.1-second boundary diagnostic. See [P1_REPORT.md](P1_REPORT.md) for denominators, excluded events, limitations and the evolving experiment log.
+
+
+## Weighted component-loss experiment
+
+Import [01b_teacher_f_weighted.ipynb](../../notebooks/01b_teacher_f_weighted.ipynb) into Kaggle. Enable Internet and GPU, then run its cells in order. The setup clones the repository or fast-forwards an existing checkout, prints the revision and reuses a completed P1 cache. If a previous preparation was interrupted, verify that data/processed/p1/metadata.json exists before reusing it.
+
+The notebook trains with configs/p1-weighted.json, records the actual training counts and weights in loss_weights.json, evaluates the validation checkpoint, then runs the reference-event diagnostic. It produces /kaggle/working/p1-weighted-results.zip. Save the executed Kaggle version and download that archive for comparison.
+
+On an existing Kaggle notebook with the data prepared, you can instead add and run these cells:
+
+```python
+subprocess.run(["git", "pull", "--ff-only", "origin", "main"], check=True)
+subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "tests"], check=True)
+weighted_run = project / "runs/p1-weighted-kaggle"
+subprocess.run([sys.executable, "src/acr/train_f.py",
+                "--config", "configs/p1-weighted.json",
+                "--output", str(weighted_run), "--device", "cuda"], check=True)
+subprocess.run([sys.executable, "src/acr/diagnose_f.py",
+                "--run", str(weighted_run),
+                "--output", str(weighted_run / "diagnostics")], check=True)
+import shutil
+print(shutil.make_archive("/kaggle/working/p1-weighted-results", "zip",
+                         project, "runs/p1-weighted-kaggle"))
+```
+
+Choose a fresh run name for a retry. Review the [P1 experiment log](P1_REPORT.md) for the weighting formula, fixed controls and interpretation rules. This is a new training run from the seeded initialization.

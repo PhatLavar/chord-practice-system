@@ -124,3 +124,18 @@ The weighting proposal is motivated by the diagnostics; its effectiveness remain
 - These results concern teacher F; teacher complementarity and pseudo-label benefits remain open.
 
 For local inspection, imported runs are runs/p1-overfit-kaggle/ and runs/p1-baseline-kaggle/. The archive is retained under runs/imports/p1-results.zip. Large artifacts are ignored by Git; the linked summaries and tables are versioned.
+
+
+## Weighted-loss experiment specification · 19 November 2026
+
+Status: implemented and locally checked; full Kaggle training pending. Use experiment name p1-weighted-kaggle and [configs/p1-weighted.json](../../configs/p1-weighted.json).
+
+For triad and extension separately, count observed frame targets across exactly the 367 labeled training representatives before augmentation. Mask N, OOV, unknown and uncovered component targets. For class c with positive count n_c, compute a_c = min(10, sqrt(max(n) / n_c)). Divide all positive weights by their frequency-weighted mean, sum(n_c a_c) / sum(n_c). An unobserved class receives zero weight and has no training targets. Weighted cross-entropy divides its loss sum by the sum of the observed target weights in that batch, following the existing mean-reduction convention.
+
+Apply these weights only to triad and extension. Keep root and no-chord losses, random seed 20261119, initialization, 48-channel TCN, data normalization, training windows, shuffle, batch size 16, learning rate 0.001, 30 epochs, decoder and checkpoint selection by validation frame accuracy as in the baseline. Pitch augmentation and sampling are unchanged. The complete per-class frame counts and proposed weights are recorded in [weighted setup](../../reports/p1/weighted-setup/loss_weights.json); each actual run also records its own weights.
+
+Six unit checks cover prior behavior, weight counting, bounded ratios, masked targets, and finite weighted gradients. A CPU batch from the actual labeled training cache passed forward, backward and optimizer update. [Local verification](../../reports/p1/weighted-setup/verification.json)
+
+This verifies the implementation only. No weighted validation scores have been measured yet. Compare its saved diagnostics against baseline frame accuracy 57.11%, macro chord recall 19.38%, oracle-event accuracy 58.57%, and rare oracle-event macro recall 0%. Also inspect per-quality precision to detect excessive rare-class predictions. Loss weighting can shift class probabilities and decrease frequent-class accuracy; use the unchanged decoder for this ablation and record any tradeoff.
+
+The previous proposal to test component-loss weighting is now implemented. Its effectiveness remains pending the returned Kaggle run. The next weekly update should record the actual run revision, selected epoch, baseline differences, per-quality results and whether the evidence justifies further weighting, sampling or a separate transposition experiment.

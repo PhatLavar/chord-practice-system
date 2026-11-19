@@ -1,0 +1,13 @@
+{
+  "labeled_training_songs": 367,
+  "manifest_sha256": "b5015fb99982eb7fef3705faa5328c6dd49347fdcc31704fae13b71d8f36e0f0",
+  "one_batch_cpu_loss": 7.029603958129883,
+  "head_losses": [
+    0.9383221864700317,
+    2.632905960083008,
+    1.8209022283554077,
+    1.637473464012146
+  ],
+  "finite_gradients": true,
+  "full_training_completed": false
+}

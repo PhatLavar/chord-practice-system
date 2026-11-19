@@ -32,11 +32,12 @@ def targets(labels):
             torch.where(valid_chord, extensions[quality], -100)]
 
 
-def losses(logits, labels):
+def losses(logits, labels, class_weights=None):
     result = []
-    for head, target in zip(logits, targets(labels)):
+    for index, (head, target) in enumerate(zip(logits, targets(labels))):
         mask = target != -100
-        result.append(F.cross_entropy(head.transpose(1,2)[mask], target[mask])
+        weight = class_weights[index] if class_weights is not None else None
+        result.append(F.cross_entropy(head.transpose(1,2)[mask], target[mask], weight=weight)
                       if mask.any() else head.sum()*0)
     return result
 
