@@ -1,1 +1,4 @@
-# Add verified dependencies when implementing the P0 audit.
+# Local P1 validation used torch 2.15.0 and numpy 2.5.5.
+# Kaggle can use its preinstalled GPU build; actual versions are saved per run.
+torch>=2.2,<3
+numpy>=1.26,<3

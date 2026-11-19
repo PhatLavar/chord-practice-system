@@ -21,6 +21,10 @@ Mở `timeline.svg` trong thư mục đầu ra để xem phạm vi các khoảng
 
 Đã hoàn tất P0 trên CPU cho toàn bộ corpus. Xem [báo cáo P0](p0/P0_REPORT.md) để kiểm tra nguồn dữ liệu, tiêu chí loại, bộ nhãn và lệnh chạy lại. P1 sẽ dùng [danh sách chia tập đã cố định](../splits/billboard-v1.csv).
 
+## Huấn luyện P1
+
+Đã có teacher F, bước overfit hai bài và cấu hình baseline toàn tập. Xem [hướng dẫn P1](p1/P1_INSTRUCTION.md) và [notebook Kaggle](../notebooks/01_teacher_f.ipynb). Dùng tên thư mục mới trong `runs/` cho mỗi lần chạy.
+
 ## Bố cục
 
 | Đường dẫn | Nội dung |

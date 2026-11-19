@@ -21,6 +21,10 @@ Open `timeline.svg` in the output directory to inspect interval and frame covera
 
 The full CPU audit is complete. See the [P0 report](docs/p0/P0_REPORT.md) for data sources, exclusions, vocabulary and reproduction steps, and the [frozen song split](splits/billboard-v1.csv) for P1.
 
+## P1 training
+
+Teacher F implementation is ready for the two-song pipeline check and the full validation baseline. Follow [P1 instructions](docs/p1/P1_INSTRUCTION.md) and import [the Kaggle notebook](notebooks/01_teacher_f.ipynb). Store each run under a new name in `runs/`.
+
 ## Project layout
 
 | Path | Purpose |

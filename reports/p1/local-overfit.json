@@ -1,0 +1,74 @@
+[
+  {
+    "run": "p1-overfit-local",
+    "config": {
+      "mode": "overfit",
+      "seed": 20261119,
+      "songs": 2,
+      "width": 48,
+      "window": 512,
+      "batch_size": 8,
+      "learning_rate": 0.003,
+      "epochs": 100
+    },
+    "train_ids": [
+      "0003",
+      "0006"
+    ],
+    "metrics": {
+      "frame_accuracy": 0.9450946643717728,
+      "macro_chord_recall": 0.8353337442582601,
+      "scored_frames": 5810,
+      "best_epoch": 92,
+      "evaluation_partition": "training",
+      "overfit_pass": false,
+      "peak_cuda_bytes": null
+    },
+    "parameters": 37225,
+    "torch": "2.15.0+cpu",
+    "numpy": "2.5.5",
+    "source_code_sha256": {
+      "src\\acr\\audit.py": "c6c6189dc6f311dd4077590388a4b81999a49581b4be605369d2ccf8d7581e79",
+      "src\\acr\\corpus.py": "ad9b8ed3c4354636dd454a500a6aa96a65fa6469ccc1b80fa2bdd9422ec812bf",
+      "src\\acr\\p1_data.py": "139780dfc0d00d55de1a52e6f6654a8c47c7cd2905047ca04c6243e3052b1f24",
+      "src\\acr\\teacher_f.py": "54ee20d8ba2516d396a8b8da7642b6109937491d268511c6f33b7cfafff26670",
+      "src\\acr\\train_f.py": "fdd3349a1fb4dafca31c6ecd07b9f379ca8b9d72d316b949ccafd2864e9bde18"
+    }
+  },
+  {
+    "run": "p1-overfit-local-v2",
+    "config": {
+      "mode": "overfit",
+      "seed": 20261119,
+      "songs": 2,
+      "width": 48,
+      "window": 512,
+      "batch_size": 8,
+      "learning_rate": 0.001,
+      "epochs": 200
+    },
+    "train_ids": [
+      "0003",
+      "0006"
+    ],
+    "metrics": {
+      "frame_accuracy": 0.9557659208261617,
+      "macro_chord_recall": 0.8489310529991776,
+      "scored_frames": 5810,
+      "best_epoch": 195,
+      "evaluation_partition": "training",
+      "overfit_pass": true,
+      "peak_cuda_bytes": null
+    },
+    "parameters": 37225,
+    "torch": "2.15.0+cpu",
+    "numpy": "2.5.5",
+    "source_code_sha256": {
+      "src\\acr\\audit.py": "c6c6189dc6f311dd4077590388a4b81999a49581b4be605369d2ccf8d7581e79",
+      "src\\acr\\corpus.py": "ad9b8ed3c4354636dd454a500a6aa96a65fa6469ccc1b80fa2bdd9422ec812bf",
+      "src\\acr\\p1_data.py": "139780dfc0d00d55de1a52e6f6654a8c47c7cd2905047ca04c6243e3052b1f24",
+      "src\\acr\\teacher_f.py": "54ee20d8ba2516d396a8b8da7642b6109937491d268511c6f33b7cfafff26670",
+      "src\\acr\\train_f.py": "fdd3349a1fb4dafca31c6ecd07b9f379ca8b9d72d316b949ccafd2864e9bde18"
+    }
+  }
+]
