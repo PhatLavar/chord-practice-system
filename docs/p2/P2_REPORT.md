@@ -156,7 +156,7 @@ The new natural-event baseline uses [p2-natural.json](../../configs/p2-natural.j
 
 Compare complete-event accuracy, rare macro recall, per-quality precision/recall and component accuracy, plus the four-way F/E counts. A standalone E gain and complementary correct rare events are different outcomes and should both be reported. The original balanced run remains preserved.
 
-Status: the natural configuration and Kaggle notebook are prepared and checked. Full natural-E GPU training has not started. The existing E two-song pipeline check already passed, so this unchanged architecture does not require retraining that check before this sampling comparison.
+Status: the natural-E configuration has now completed its first Kaggle run and been verified; see the results below. The existing E two-song pipeline check already passed, so this unchanged architecture does not require retraining that check before this sampling comparison.
 
 ### Subsequent E experiments to decide from evidence
 
@@ -175,3 +175,90 @@ These are candidates and evaluation priorities, not a requirement to run every t
 | 19 November 2026 | Revised next step | Continue E development in P2 instead of moving directly from one pilot run to P3. |
 | 19 November 2026 | Prepared | Add natural-event E baseline with only sampling changed. |
 | 19 November 2026 | Pending | Run the natural configuration on Kaggle and compare with balanced E before selecting the next intervention. |
+
+
+## Natural-event E results · 20 November 2026
+
+The natural-event trial completed 30 epochs at revision cac35e5, with the exact Git revision recorded in run.json. Its best checkpoint is epoch 13. Source hashes match the recorded commit. Training and validation IDs, feature/label versions, architecture, parameter count, batch size, learning rate, seed and total epochs match balanced E. Sampling is the intended configuration difference.
+
+The imported archive passed integrity checks. Reference intervals and labels were rebuilt from the verified detailed annotation archive. Independent decoding of the saved logits reproduced all event predictions, component decisions and metrics. Per-quality recall/precision, the four-way F/E table and the fixed F reference hash were checked. All natural-sampling epochs visit the same 31,679 event targets once, in shuffled order.
+
+[Verification](../../reports/p2/kaggle-natural/verification.json) · [Run metadata](../../reports/p2/kaggle-natural/run.json) · [Training history](../../reports/p2/kaggle-natural/history.json)
+
+### Natural versus balanced E, seed 20261119
+
+| Metric | Balanced E | Natural E |
+|---|---:|---:|
+| Complete-event accuracy including N | 58.45% | 63.38% |
+| Correct events | 5,654 / 9,673 | 6,131 / 9,673 |
+| Macro quality event recall | 17.09% | 14.18% |
+| Rare macro event recall | 2.09% | 0% |
+| Correct rare events | 4 / 111 | 0 / 111 |
+| Selected epoch | 30 | 13 |
+
+Natural sampling improves overall event accuracy by 4.93 percentage points, but macro quality recall falls by 2.92 points and rare macro recall falls by 2.09 points. Overall accuracy therefore gives a different answer from the rare-quality objective.
+
+The gain is not explained by N alone: natural E correctly classifies 164/299 N events versus 159 for balanced E, a gain of five. On the 9,374 supported chord events excluding N, natural E correctly classifies 5,967 (63.66%) versus 5,495 (58.62%), a gain of 472 events.
+
+| Quality | Balanced E event recall | Natural E event recall |
+|---|---:|---:|
+| maj | 74.90% | 83.21% |
+| min | 40.32% | 49.24% |
+| 7 | 29.60% | 17.54% |
+| min7 | 29.55% | 33.79% |
+| maj7 | 29.84% | 12.04% |
+| sus4 | 12.11% | 2.63% |
+| maj6 | 8.33% | 0% |
+| dim | 13.04% | 0% |
+| sus2 | 1.61% | 0% |
+
+Every rare quality has zero complete-event recall in natural E. Some individual components remain recognizable: for min6 the root is correct on all six events, but extension recall is zero. For hdim7 the root is correct on 77.78% of events, but triad recall is zero. These observations support further component-level investigation; they do not by themselves identify a successful intervention.
+
+[Numeric comparison](../../reports/p2/kaggle-natural/comparison.csv) · [Per-quality results including precision and components](../../reports/p2/kaggle-natural/per_quality.csv)
+
+### Complementarity with the same fixed F
+
+| Outcome | F + balanced E | F + natural E |
+|---|---:|---:|
+| Both correct | 4,650 | 5,022 |
+| F only correct | 953 | 581 |
+| E only correct | 1,004 | 1,109 |
+| Both wrong | 3,066 | 2,961 |
+
+Natural E provides more correct events missed by F overall. For rare events, however, all E-only gains disappear: F alone gets two correct rare events and both teachers miss the remaining 109. Balanced E contributes three rare events beyond F, though with low precision and limited support.
+
+Full-label agreement for F + natural E occurs on 6,896 intervals, with 5,022 correct (72.82% precision before confidence filtering). F + balanced E has 73.88% agreement precision. Higher standalone accuracy thus does not automatically improve agreement reliability.
+
+An oracle that selects the correct teacher using known reference correctness would reach 69.39% overall accuracy for F + natural E. This is only a diagnostic ceiling, not an achieved inference system or a pseudo-label reliability estimate.
+
+[Four-way counts](../../reports/p2/kaggle-natural/complementarity.csv) · [Complementarity/agreeing-label summary](../../reports/p2/kaggle-natural/complementarity_summary.json)
+
+### Checkpoint and stability limitations
+
+The highest validation event accuracy occurs at epoch 13, while epochs 26–30 range from 61.05% to 62.04%. The natural-training accuracy at the selected checkpoint is 71.50%. The final epoch is not the reported checkpoint. Changing to rare-aware checkpoint selection after inspecting the results would be a separate experiment and must apply consistently to comparators.
+
+This remains one matched seed for E. We have not established that the large overall gain, or balanced E's four rare-event successes, are stable across initialization and sampling variation.
+
+### Decision and next planned E work
+
+Retain natural E as the strongest current E reference for overall event accuracy. Retain balanced E as the candidate with rare-event complementarity. Do not choose the pseudo-label teacher configuration solely from overall accuracy.
+
+The next proposed check is to repeat both E configurations with matched additional seeds before choosing which training policy to improve. Subsequent component weighting, if tested, must derive its weights from training events rather than F's frame counts. A lower balanced mixture or another optimization change is also a separate hypothesis; no such training change has been made.
+
+P2 development continues. P3 is not the immediate next action simply because one more E run has completed. Both configurations and their tradeoff remain documented so that weekly reporting can distinguish general recognition performance from the rare-quality research objective.
+
+| Date | Status | Evidence and decision |
+|---|---|---|
+| 20 November 2026 | Verified | Natural E reaches 63.38% overall event accuracy at epoch 13; all rare qualities retain zero event recall. |
+| 20 November 2026 | Recorded | Natural E improves common-chord performance, while balanced E retains the only E-specific rare successes. Preserve both. |
+| 20 November 2026 | Proposed | Repeat both E configurations with matched seeds, then select a justified component/sampling intervention. |
+
+### Weekly presentation notes
+
+- Established a controlled natural-versus-balanced event-teacher comparison.
+- Natural sampling improves overall event accuracy by 4.93 points.
+- Rare and macro quality recall decline, illustrating the effect of the training distribution.
+- F + natural E has more complementary correct events overall, but no new correct rare events.
+- Seed stability and component-level improvement remain open.
+
+Raw outputs are in runs/p2-natural-kaggle/. The original archive remains in runs/imports/p2-natural-results.zip. Selected records and tables are versioned under reports/p2/kaggle-natural/.

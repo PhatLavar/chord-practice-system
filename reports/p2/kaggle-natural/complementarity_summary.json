@@ -1,0 +1,19 @@
+{
+  "complete_counts": {
+    "both_correct": 5022,
+    "F_only": 581,
+    "E_only": 1109,
+    "both_wrong": 2961
+  },
+  "rare_counts": {
+    "both_correct": 0,
+    "F_only": 2,
+    "E_only": 0,
+    "both_wrong": 109
+  },
+  "full_label_agreement_events": 6896,
+  "agreement_correct_events": 5022,
+  "full_label_agreement_precision": 0.7282482598607889,
+  "oracle_correct_teacher_selector_accuracy": 0.6938902098625038,
+  "note": "Oracle selector requires reference correctness and is not an achieved inference method."
+}

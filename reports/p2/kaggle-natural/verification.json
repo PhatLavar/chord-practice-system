@@ -1,0 +1,10 @@
+{
+  "archive_sha256": "20d73eadd0ce36fae4470142498798206454141fb8bb1c69fb0e9432f74a8545",
+  "source_and_config_verified": true,
+  "validation_intervals_and_logits_verified": true,
+  "complementarity_and_quality_metrics_recomputed": true,
+  "correct_events": 6131,
+  "epochs": 30,
+  "best_epoch": 13,
+  "epoch_seconds": 305.0875930440002
+}

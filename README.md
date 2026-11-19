@@ -27,7 +27,7 @@ The first Kaggle baseline is complete: 57.11% whole-chord validation frame accur
 
 ## P2 oracle event teacher
 
-The first oracle-event E trial is verified: 58.45% event accuracy on validation reference intervals, with measured F/E complementarity. See [P2 instructions](docs/p2/P2_INSTRUCTION.md), [P2 report](docs/p2/P2_REPORT.md) and [the oracle notebook](notebooks/02_teacher_e_oracle.ipynb).
+Oracle-event E trials are verified: natural sampling reaches 63.38% overall validation accuracy but zero rare-event recall; balanced sampling reaches 58.45% with limited rare-event gains. See [P2 instructions](docs/p2/P2_INSTRUCTION.md), [P2 report](docs/p2/P2_REPORT.md) and [the oracle notebook](notebooks/02_teacher_e_oracle.ipynb).
 
 ## Project layout
 

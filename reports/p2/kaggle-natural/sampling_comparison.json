@@ -1,0 +1,16 @@
+{
+  "seed": 20261119,
+  "balanced": {
+    "event_accuracy": 0.5845135945415073,
+    "rare_macro_event_recall": 0.020937687838108596,
+    "macro_quality_event_recall": 0.1709314603275597,
+    "best_epoch": 30
+  },
+  "natural": {
+    "event_accuracy": 0.6338261139253593,
+    "rare_macro_event_recall": 0.0,
+    "macro_quality_event_recall": 0.14175396888436528,
+    "best_epoch": 13
+  },
+  "note": "Single-seed sampling comparison; inspect per-quality precision and F/E complementarity."
+}

@@ -81,4 +81,7 @@ Import [02b_teacher_e_natural.ipynb](../../notebooks/02b_teacher_e_natural.ipynb
 
 The cell trains 30 epochs from a new seeded initialization, using configs/p2-natural.json. The next cell compares its metrics with the completed balanced E run recorded in the repository. The final cell exports /kaggle/working/p2-natural-results.zip. Save the executed notebook version and download the ZIP into local runs/imports/.
 
-The output is runs/p2-natural-kaggle/. Its event logits, per-quality results and F/E complementarity use the same protocol as the original E run. Use a fresh output name if retrying an existing result. This experiment is prepared; its validation results are pending. Further E development and the deferred P3 transition are recorded in [P2_REPORT.md](P2_REPORT.md).
+The output is runs/p2-natural-kaggle/. Its event logits, per-quality results and F/E complementarity use the same protocol as the original E run. Use a fresh output name if retrying an existing result. The first natural-E run has completed and been verified; see the measured results in P2_REPORT.md. Further E development and the deferred P3 transition are recorded in [P2_REPORT.md](P2_REPORT.md).
+
+
+The natural-E results are recorded under reports/p2/kaggle-natural/. They show improved overall accuracy with zero rare-event recall for this seed. Read the report's natural-versus-balanced comparison before choosing the next E training policy. Both configurations remain available.

@@ -27,7 +27,7 @@ Mở `timeline.svg` trong thư mục đầu ra để xem phạm vi các khoảng
 
 ## P2 · Event teacher với biên chuẩn
 
-Đã có teacher E và mốc so sánh F cố định. Xem [hướng dẫn P2](p2/P2_INSTRUCTION.md), [báo cáo P2](p2/P2_REPORT.md) và [notebook](../notebooks/02_teacher_e_oracle.ipynb). Đã kiểm chứng kết quả Kaggle P2: E đạt 58,45% event accuracy với biên chuẩn; báo cáo ghi rõ độ bổ trợ F/E và hạn chế ở hợp âm hiếm.
+Đã có teacher E và mốc so sánh F cố định. Xem [hướng dẫn P2](p2/P2_INSTRUCTION.md), [báo cáo P2](p2/P2_REPORT.md) và [notebook](../notebooks/02_teacher_e_oracle.ipynb). Đã kiểm chứng P2: E natural đạt 63,38% event accuracy với biên chuẩn nhưng rare-event recall bằng 0%; E balanced đạt 58,45% với một số event hiếm đúng. Báo cáo ghi rõ sự đánh đổi.
 
 ## Bố cục
 
