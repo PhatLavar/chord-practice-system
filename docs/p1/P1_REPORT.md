@@ -295,3 +295,16 @@ A richer representation could preserve inversions and supervise higher tensions 
 If adopted, audit detailed symbols and training-only component/song support, define reconstruction and excluded-label policies, version the new vocabulary/cache, and evaluate against the current model on the same supported subset as well as expanded coverage. Existing checkpoints provide historical baselines but their heads and targets cannot be reused unchanged for the expanded prediction space. Additional heads do not by themselves establish improved recognition.
 
 Reference: [McGill annotation conventions](https://ddmal.ca/research/The_McGill_Billboard_Project_%28Chord_Analysis_Dataset%29/), which use Harte chord syntax with additional shorthand. The next step for this proposal is a representation and coverage audit, before changing teacher F or teacher E.
+
+
+## Proposed encoder comparison before richer decomposition · 19 November 2026
+
+The user prefers keeping the richer Root/Triad/Bass/Seventh/Ninth/Eleventh/Thirteenth decomposition as a reserve proposal, subject to a label and coverage audit. A compact bidirectional Transformer is a candidate encoder experiment before expanding the target inventory. The architecture plan already lists Transformer substitution as optional experiment B1.
+
+Research precedents include [BTC, Park et al., ISMIR 2019](https://arxiv.org/abs/1907.02698) and [Harmony Transformer, Chen and Su, ISMIR 2019](https://archives.ismir.net/ismir2019/paper/000030.pdf). BTC uses self-attention for chord recognition; Harmony Transformer jointly models segmentation and recognition. A compact encoder substituted into this project's component-head teacher would be an adaptation, requiring its own specification and comparison.
+
+Proposed comparison: retain 24-dimensional chroma, the 14-quality vocabulary, component heads, split, balanced sampling policy, unweighted losses, decoder and evaluation metrics. Compare TCN and Transformer with explicitly reported parameter counts, input context, optimizer/training budget, runtime and memory. Use the same seeds for both configurations. First change F's encoder alone; E should later be trained independently and evaluated before attributing any complementarity to architecture.
+
+Choose positional encoding, attention context, padding masks and overlap/cropping rules before implementation. Full-recording attention must be resource-tested; bounded inference windows may be needed. Report differences in effective context and capacity so improvements are not attributed solely to the model family.
+
+Status: proposal only. No Transformer has been implemented or trained. A Transformer may improve contextual modeling but is not established as better on this dataset or rare-quality objective. The two-event balanced-TCN gain and limited independent training support remain relevant. Broader decomposition stays deferred while the encoder experiment is specified.
