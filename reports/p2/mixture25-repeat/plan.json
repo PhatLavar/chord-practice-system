@@ -1,0 +1,10 @@
+{
+  "plan": {
+    "seeds": [
+      20261120,
+      20261121
+    ],
+    "config": "configs/p2-mixture25.json"
+  },
+  "revision": "8eb7e2dbf3ef82a9c4e33e2f9fcda7ca016535b9"
+}

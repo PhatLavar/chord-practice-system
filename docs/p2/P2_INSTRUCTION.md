@@ -133,4 +133,7 @@ The aggregate can also be regenerated locally after import:
 python src/acr/compare_e_mixtures.py --runs runs/p2-mixture25-repeat --output runs/p2-mixture25-repeat/analysis
 ```
 
-These two full GPU runs are pending. The earlier single-seed screen and the two endpoint policies remain unchanged.
+Both additional GPU runs have completed and been verified. See P2_REPORT.md for the full three-seed comparison. The earlier single-seed screen and endpoint outputs remain preserved.
+
+
+The verified E25 repeats and nine-policy/seed summary are recorded under reports/p2/mixture25-repeat/. The original table at seed 20261119 remains the single-seed screen; use analysis/per_seed.csv and summary.json for the matched three-seed comparison.

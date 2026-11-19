@@ -468,7 +468,7 @@ Raw outputs are preserved in runs/p2-mixture25-kaggle/. The imported ZIP remains
 
 ## Repeat 25% mixture before selecting the policy · 20 November 2026
 
-Status: prepared for Kaggle; the two new runs are pending. The user agreed to follow up the single-seed screen.
+Status: the two new runs have completed and been independently verified; see the measured three-policy comparison below. The user agreed to follow up the single-seed screen.
 
 Use [p2-mixture25-seeds.json](../../configs/p2-mixture25-seeds.json) and [02e_teacher_e_mixture25_repeat.ipynb](../../notebooks/02e_teacher_e_mixture25_repeat.ipynb) to train only the 25% mixture at seeds 20261120 and 20261121. Keep all settings in p2-mixture25.json except the seed. Each job retains 30 epochs, 31,679 event draws, 990 updates per epoch, unweighted losses and the frozen F reference.
 
@@ -483,4 +483,75 @@ The notebook protects existing job directories and reuses completed jobs only at
 Decision after the repeat should consider accuracy, quality balance, rare-event precision and useful additional events beyond F together. The 25% setting remains a candidate until these results are measured. P2 development continues; no P3 training starts as part of this notebook.
 
 
-Local verification for the 25% repeat workflow passed all 28 tests. Hand-computed checks verified three-policy means, sample standard deviations and both paired-delta directions, with missing/duplicate policies rejected. A mocked execution of the actual notebook training cell launched exactly two 25% jobs at the designated seeds and reused them on rerun. Notebook syntax, document links and loading the original 25% result were checked. The two real GPU jobs and their measured results remain pending.
+Local verification for the 25% repeat workflow passed all 28 tests. Hand-computed checks verified three-policy means, sample standard deviations and both paired-delta directions, with missing/duplicate policies rejected. A mocked execution of the actual notebook training cell launched exactly two 25% jobs at the designated seeds and reused them on rerun. Notebook syntax, document links and loading the original 25% result were checked. The two real GPU jobs have since completed; their verified results are recorded below.
+
+
+## Verified three-policy comparison after 25% repeats · 20 November 2026
+
+The two additional 25% E jobs completed at revision 8eb7e2dbf3ef82a9c4e33e2f9fcda7ca016535b9. Source hashes, configs, explicit 25% sampling probabilities, model capacity, frozen song split, data and F-reference hash were verified. Each run completed 30 epochs, and its checkpoint was selected by the declared event-accuracy criterion.
+
+For both jobs, the detailed-label archive reproduced every reference interval and target. Decoding saved logits reproduced complete predictions and component decisions. All quality-level counts, recall, precision, component scores and four-way F/E tables were independently recomputed. Aggregating the two new jobs with the seven prior results reproduced all nine-row summary statistics and paired deltas.
+
+[Verification](../../reports/p2/mixture25-repeat/verification.json) · [All nine seed/policy rows](../../reports/p2/mixture25-repeat/per_seed.csv) · [Full descriptive statistics and provenance](../../reports/p2/mixture25-repeat/summary.json)
+
+### Three-seed descriptive results
+
+Values are mean ± sample standard deviation across seeds 20261119, 20261120 and 20261121. Standard deviations are expressed in percentage points.
+
+| Metric | Natural 0% | Mixture 25% | Balanced 50% |
+|---|---:|---:|---:|
+| Complete-event accuracy | 63.33% ± 0.18 | 60.58% ± 0.67 | 58.44% ± 0.62 |
+| Macro quality event recall | 14.65% ± 1.04 | 17.68% ± 3.09 | 17.29% ± 1.59 |
+| Rare macro event recall | 0.21% ± 0.36 | 7.88% ± 4.06 | 3.95% ± 1.67 |
+
+Compared with 50%, the 25% mixture improves overall accuracy by 2.15 percentage points and rare macro recall by 3.93 points on average. Both changes are positive in all three matched seeds. Macro quality recall improves by 0.39 points on average, but is positive in only two seeds. Relative to natural sampling, the mixture loses 2.75 overall-accuracy points on average and gains 7.67 rare-recall points.
+
+These are descriptive comparisons on one frozen validation set. They do not establish statistical significance or performance on unseen test songs. The three-seed average should not be replaced with the best seed's score.
+
+### Rare-event results per seed
+
+| Seed | 25% event accuracy | 25% rare macro recall | Correct rare events | E-only correct rare events versus fixed F |
+|---|---:|---:|---:|---:|
+| 20261119 | 59.85% | 3.94% | 4 / 111 | 4 |
+| 20261120 | 61.14% | 12.05% | 10 / 111 | 10 |
+| 20261121 | 60.77% | 7.64% | 6 / 111 | 4 |
+
+The corresponding 50% E-only rare successes are 3, 5 and 2. Thus the intermediate mixture adds more correct rare information beyond the same F on every seed. F is fixed at its original balanced checkpoint; variation across independently reseeded F/E pairs is not measured here.
+
+Across 25% runs there are 20 correct rare-event occurrences, covering 16 distinct intervals in eight validation songs. Correct occurrences by quality are dim 11, aug 3, sus2 3, min6 1, minmaj7 1, hdim7 1 and dim7 0. Some intervals recur across seeds; the counts must not be interpreted as 20 independent examples.
+
+The 25% policy recognizes at least one complete event from six of the seven rare qualities somewhere across the runs. Min6 and hdim7 each succeed in only one event and one seed. Dim7 remains unrecognized in every tested policy. This is improved coverage, not reliable recognition of all rare qualities.
+
+[Per-quality support/precision by seed](../../reports/p2/mixture25-repeat/rare_quality_by_seed.csv) · [Exact rare successes and F correctness](../../reports/p2/mixture25-repeat/rare_successes.json)
+
+### Precision and seed sensitivity
+
+Rare recall remains variable (3.94% to 12.05%). Small denominators matter: a single min6 event represents 1/6 of that quality's support, and one aug event represents 1/5. Independent-song support is unchanged by repeating seeds.
+
+Precision also remains insufficient for unconditional pseudo-labeling. For seed 20261120, dim precision reaches 22.22%, but aug is 8.33%, sus2 0.95% and min6 4.17%. For seed 20261121, minmaj7 precision is 16.67% and hdim7 3.13%. Aggregate improvement does not make every class or predicted component trustworthy.
+
+### Policy decision for further P2 work
+
+Use the 25% mixture as the preferred current E candidate for the rare-oriented research branch. Keep natural E as the strongest overall-accuracy reference and preserve 50% E as a sampling ablation. This is a development choice supported by the matched validation comparisons, not a final test-set claim. Do not select a new seed solely because it produced the highest rare score.
+
+For a primary same-seed F/E diagnostic, retain the original E25 seed 20261119 checkpoint alongside fixed F seed 20261119, with the two repeats documenting variation. This avoids silently replacing the primary pair with the most favorable E seed. Any later checkpoint/seed choice must be recorded explicitly.
+
+The next proposed analysis is a confidence/partial-target reliability audit using saved F and E logits. Measure agreement precision and coverage per component and rare quality before accepting pseudo-labels. This can be performed locally without another full training run. It is development-set evidence because the same validation songs have already informed model choices; any fitted thresholds need a clearly specified calibration/evaluation protocol before final claims.
+
+P3 remains later: this entire comparison supplies gold intervals. No predicted-boundary or student improvement has been measured. The current result justifies preserving E25 for further analysis, rather than claiming the two-teacher method is already successful.
+
+### Weekly presentation update
+
+- Completed a matched three-seed comparison of 0%, 25% and 50% event sampling.
+- The 25% mixture improves both overall accuracy and rare recall over 50% in all three seeds.
+- It reaches 60.58% average event accuracy and 7.88% average rare macro recall.
+- Correct rare events span 16 intervals and eight validation songs, but precision and low support remain major limitations.
+- The next proposed step is to audit component confidence/partial-label reliability using the saved teacher outputs.
+
+| Date | Status | Decision |
+|---|---|---|
+| 20 November 2026 | Verified | Two new E25 jobs and all nine aggregate rows checked independently. |
+| 20 November 2026 | Selected candidate | Prefer E25 for further rare-oriented P2 analysis; retain natural/50% controls and the original seed as the primary pair. |
+| 20 November 2026 | Proposed | Audit component agreement precision, coverage and confidence before pseudo-label generation or P3 claims. |
+
+Raw runs remain in runs/p2-mixture25-repeat/. The ZIP is preserved in runs/imports/p2-mixture25-repeat-results.zip. Selected auditable outputs are versioned under reports/p2/mixture25-repeat/.

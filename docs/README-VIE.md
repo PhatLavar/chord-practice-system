@@ -27,7 +27,7 @@ Mở `timeline.svg` trong thư mục đầu ra để xem phạm vi các khoảng
 
 ## P2 · Event teacher với biên chuẩn
 
-Đã có teacher E và mốc so sánh F cố định. Xem [hướng dẫn P2](p2/P2_INSTRUCTION.md), [báo cáo P2](p2/P2_REPORT.md) và [notebook](../notebooks/02_teacher_e_oracle.ipynb). Đã kiểm chứng P2: E natural đạt 63,38% event accuracy với biên chuẩn nhưng rare-event recall bằng 0%; E balanced đạt 58,45% với một số event hiếm đúng. Báo cáo ghi rõ sự đánh đổi.
+Đã có teacher E và mốc so sánh F cố định. Xem [hướng dẫn P2](p2/P2_INSTRUCTION.md), [báo cáo P2](p2/P2_REPORT.md) và [notebook](../notebooks/02_teacher_e_oracle.ipynb). Đã kiểm chứng ba seed P2: E natural đạt trung bình 63,33% event accuracy; mixture 25% đạt 60,58% accuracy và 7,88% rare macro recall với biên chuẩn. Báo cáo ghi rõ giới hạn precision và số bài hỗ trợ.
 
 ## Bố cục
 

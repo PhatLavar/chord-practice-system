@@ -1,0 +1,21 @@
+{
+  "archive_sha256": "d34dca8e26ad5b5d7ec39da5150ca9ec908f857c938790b11efaaeb96b87f638",
+  "verified_runs": [
+    {
+      "run": "mixture25-20261120",
+      "correct_events": 5914,
+      "best_epoch": 10,
+      "source_config_intervals_and_logits_verified": true,
+      "quality_and_complementarity_recomputed": true
+    },
+    {
+      "run": "mixture25-20261121",
+      "correct_events": 5878,
+      "best_epoch": 22,
+      "source_config_intervals_and_logits_verified": true,
+      "quality_and_complementarity_recomputed": true
+    }
+  ],
+  "nine_row_three_policy_summary_recomputed": true,
+  "F_reference_hash_verified": true
+}

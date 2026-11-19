@@ -1,0 +1,155 @@
+{
+  "seeds": [
+    20261119,
+    20261120,
+    20261121
+  ],
+  "n": 3,
+  "methods": {
+    "natural": {
+      "event_accuracy": {
+        "mean": 0.633309211206451,
+        "sample_std": 0.0017635399678726123
+      },
+      "macro_quality_event_recall": {
+        "mean": 0.14647148857388767,
+        "sample_std": 0.010427059112364453
+      },
+      "rare_macro_event_recall": {
+        "mean": 0.0020703933747412005,
+        "sample_std": 0.00358602651670575
+      }
+    },
+    "mixture25": {
+      "event_accuracy": {
+        "mean": 0.6058444467417898,
+        "sample_std": 0.006652064717003842
+      },
+      "macro_quality_event_recall": {
+        "mean": 0.17678684733777672,
+        "sample_std": 0.030906401023273827
+      },
+      "rare_macro_event_recall": {
+        "mean": 0.07878217829129469,
+        "sample_std": 0.040617378085885926
+      }
+    },
+    "balanced": {
+      "event_accuracy": {
+        "mean": 0.584375753816465,
+        "sample_std": 0.006203981193269373
+      },
+      "macro_quality_event_recall": {
+        "mean": 0.17289038574624419,
+        "sample_std": 0.01589903512786463
+      },
+      "rare_macro_event_recall": {
+        "mean": 0.03952781673679289,
+        "sample_std": 0.01674194669654076
+      }
+    }
+  },
+  "mixture25_minus_natural": {
+    "event_accuracy": {
+      "mean": -0.0274647644646611,
+      "sample_std": 0.007708843447722066,
+      "positive_seeds": 0,
+      "negative_seeds": 3,
+      "tied_seeds": 0
+    },
+    "macro_quality_event_recall": {
+      "mean": 0.030315358763889088,
+      "sample_std": 0.029463255681131378,
+      "positive_seeds": 2,
+      "negative_seeds": 1,
+      "tied_seeds": 0
+    },
+    "rare_macro_event_recall": {
+      "mean": 0.07671178491655349,
+      "sample_std": 0.04095397700190636,
+      "positive_seeds": 3,
+      "negative_seeds": 0,
+      "tied_seeds": 0
+    }
+  },
+  "mixture25_minus_balanced": {
+    "event_accuracy": {
+      "mean": 0.02146869292532479,
+      "sample_std": 0.007821702074486897,
+      "positive_seeds": 3,
+      "negative_seeds": 0,
+      "tied_seeds": 0
+    },
+    "macro_quality_event_recall": {
+      "mean": 0.0038964615915325538,
+      "sample_std": 0.03181192310360609,
+      "positive_seeds": 2,
+      "negative_seeds": 1,
+      "tied_seeds": 0
+    },
+    "rare_macro_event_recall": {
+      "mean": 0.0392543615545018,
+      "sample_std": 0.025081993555235535,
+      "positive_seeds": 3,
+      "negative_seeds": 0,
+      "tied_seeds": 0
+    }
+  },
+  "interpretation": "Descriptive matched E seeds on fixed validation songs and fixed F; no significance claim.",
+  "provenance": [
+    {
+      "method": "natural",
+      "seed": 20261119,
+      "path": "reports/p2/kaggle-natural",
+      "revision": "cac35e5389456d7f270376052f16a7990ba5fe55"
+    },
+    {
+      "method": "mixture25",
+      "seed": 20261119,
+      "path": "reports/p2/kaggle-mixture25",
+      "revision": "df662dd3ffac14c5419f77137e94b01ba9ec6aa1"
+    },
+    {
+      "method": "balanced",
+      "seed": 20261119,
+      "path": "reports/p2/kaggle-oracle/full",
+      "revision": "dbd870a2693fea2e2ffb70bd47a065b8828a76c7"
+    },
+    {
+      "method": "natural",
+      "seed": 20261120,
+      "path": "reports/p2/seed-repeat/natural-20261120",
+      "revision": "f6a43eb73eb6ccac660f5bff5790fa523aa8884d"
+    },
+    {
+      "method": "mixture25",
+      "seed": 20261120,
+      "path": "/kaggle/working/chord-practice-system/runs/p2-mixture25-repeat/mixture25-20261120",
+      "revision": "8eb7e2dbf3ef82a9c4e33e2f9fcda7ca016535b9"
+    },
+    {
+      "method": "balanced",
+      "seed": 20261120,
+      "path": "reports/p2/seed-repeat/balanced-20261120",
+      "revision": "f6a43eb73eb6ccac660f5bff5790fa523aa8884d"
+    },
+    {
+      "method": "natural",
+      "seed": 20261121,
+      "path": "reports/p2/seed-repeat/natural-20261121",
+      "revision": "f6a43eb73eb6ccac660f5bff5790fa523aa8884d"
+    },
+    {
+      "method": "mixture25",
+      "seed": 20261121,
+      "path": "/kaggle/working/chord-practice-system/runs/p2-mixture25-repeat/mixture25-20261121",
+      "revision": "8eb7e2dbf3ef82a9c4e33e2f9fcda7ca016535b9"
+    },
+    {
+      "method": "balanced",
+      "seed": 20261121,
+      "path": "reports/p2/seed-repeat/balanced-20261121",
+      "revision": "f6a43eb73eb6ccac660f5bff5790fa523aa8884d"
+    }
+  ]
+}
