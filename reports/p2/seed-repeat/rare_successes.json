@@ -1,0 +1,132 @@
+[
+  {
+    "method": "balanced",
+    "seed": 20261119,
+    "quality": "dim",
+    "id": "0343",
+    "start": 16.74165532824999,
+    "end": 19.97403628049996,
+    "reference": 3,
+    "F_correct": true
+  },
+  {
+    "method": "balanced",
+    "seed": 20261119,
+    "quality": "sus2",
+    "id": "0859",
+    "start": 198.2523526072499,
+    "end": 199.24353458012487,
+    "reference": 145,
+    "F_correct": false
+  },
+  {
+    "method": "balanced",
+    "seed": 20261119,
+    "quality": "dim",
+    "id": "0964",
+    "start": 130.17836167724988,
+    "end": 130.61079875207486,
+    "reference": 3,
+    "F_correct": false
+  },
+  {
+    "method": "balanced",
+    "seed": 20261119,
+    "quality": "dim",
+    "id": "0964",
+    "start": 132.77298412619973,
+    "end": 133.2054212010247,
+    "reference": 87,
+    "F_correct": false
+  },
+  {
+    "method": "balanced",
+    "seed": 20261120,
+    "quality": "aug",
+    "id": "0303",
+    "start": 184.59597789062502,
+    "end": 186.62209183625004,
+    "reference": 74,
+    "F_correct": false
+  },
+  {
+    "method": "balanced",
+    "seed": 20261120,
+    "quality": "dim",
+    "id": "0343",
+    "start": 55.45472789075,
+    "end": 58.6899319725,
+    "reference": 3,
+    "F_correct": false
+  },
+  {
+    "method": "balanced",
+    "seed": 20261120,
+    "quality": "dim",
+    "id": "0927",
+    "start": 115.72535147375005,
+    "end": 117.55102040800007,
+    "reference": 129,
+    "F_correct": false
+  },
+  {
+    "method": "balanced",
+    "seed": 20261120,
+    "quality": "dim",
+    "id": "0964",
+    "start": 130.17836167724988,
+    "end": 130.61079875207486,
+    "reference": 3,
+    "F_correct": false
+  },
+  {
+    "method": "balanced",
+    "seed": 20261120,
+    "quality": "dim",
+    "id": "0964",
+    "start": 131.4756729017248,
+    "end": 131.90810997654978,
+    "reference": 129,
+    "F_correct": false
+  },
+  {
+    "method": "natural",
+    "seed": 20261121,
+    "quality": "dim",
+    "id": "0964",
+    "start": 130.17836167724988,
+    "end": 130.61079875207486,
+    "reference": 3,
+    "F_correct": false
+  },
+  {
+    "method": "balanced",
+    "seed": 20261121,
+    "quality": "sus2",
+    "id": "0859",
+    "start": 3.5262131515000017,
+    "end": 4.531337868000001,
+    "reference": 75,
+    "F_correct": false
+  },
+  {
+    "method": "balanced",
+    "seed": 20261121,
+    "quality": "dim",
+    "id": "0964",
+    "start": 133.2054212010247,
+    "end": 133.63785827584968,
+    "reference": 73,
+    "F_correct": false
+  },
+  {
+    "method": "balanced",
+    "seed": 20261121,
+    "quality": "minmaj7",
+    "id": "1253",
+    "start": 108.488554421,
+    "end": 110.29520408100001,
+    "reference": 40,
+    "F_correct": true
+  }
+]

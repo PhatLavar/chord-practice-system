@@ -101,4 +101,7 @@ Local command, from the project root:
 python src/acr/repeat_e.py --output runs/p2-seed-repeat --device cuda
 ```
 
-The plan is configs/p2-seeds.json. No new repeat-run metrics have been collected yet. See [P2_REPORT.md](P2_REPORT.md) for fixed controls, interpretation and the distinction between E-only seed variation and F/E paired-seed variation.
+The plan is configs/p2-seeds.json. The first E repeat sweep has completed and been verified; see the measured summary in P2_REPORT.md. See [P2_REPORT.md](P2_REPORT.md) for fixed controls, interpretation and the distinction between E-only seed variation and F/E paired-seed variation.
+
+
+The E seed-repeat archive has been independently checked. Selected results and per-seed quality tables are under reports/p2/seed-repeat/. Natural and balanced show a repeatable overall-versus-rare tradeoff over these three seeds; inspect the report's precision and distinct-interval analysis before choosing another sampling policy.

@@ -1,0 +1,12 @@
+{
+  "event_accuracy": 0.5781040008270444,
+  "scored_events": 9673,
+  "rare_macro_event_recall": 0.044229613303947105,
+  "macro_quality_event_recall": 0.15806158237735707,
+  "best_epoch": 7,
+  "evaluation_partition": "validation",
+  "overfit_pass": null,
+  "training_event_accuracy": 0.6465166198427981,
+  "peak_cuda_bytes": 341702656,
+  "F_reference_sha256": "78c16f3851266c7696dcf05892c195caf709176cafd8b4c9f1c8695de4b34c7f"
+}

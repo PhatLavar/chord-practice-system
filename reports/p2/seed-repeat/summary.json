@@ -1,0 +1,66 @@
+{
+  "seeds": [
+    20261119,
+    20261120,
+    20261121
+  ],
+  "n": 3,
+  "methods": {
+    "natural": {
+      "event_accuracy": {
+        "mean": 0.633309211206451,
+        "sample_std": 0.0017635399678726123
+      },
+      "macro_quality_event_recall": {
+        "mean": 0.14647148857388767,
+        "sample_std": 0.010427059112364453
+      },
+      "rare_macro_event_recall": {
+        "mean": 0.0020703933747412005,
+        "sample_std": 0.00358602651670575
+      }
+    },
+    "balanced": {
+      "event_accuracy": {
+        "mean": 0.584375753816465,
+        "sample_std": 0.006203981193269373
+      },
+      "macro_quality_event_recall": {
+        "mean": 0.17289038574624419,
+        "sample_std": 0.01589903512786463
+      },
+      "rare_macro_event_recall": {
+        "mean": 0.03952781673679289,
+        "sample_std": 0.01674194669654076
+      }
+    }
+  },
+  "paired_delta": {
+    "event_accuracy": {
+      "mean": -0.04893345738998589,
+      "sample_std": 0.007915421872833414,
+      "positive_seeds": 0,
+      "negative_seeds": 3,
+      "tied_seeds": 0
+    },
+    "macro_quality_event_recall": {
+      "mean": 0.026418897172356532,
+      "sample_std": 0.025513709217008483,
+      "positive_seeds": 2,
+      "negative_seeds": 1,
+      "tied_seeds": 0
+    },
+    "rare_macro_event_recall": {
+      "mean": 0.03745742336205169,
+      "sample_std": 0.016246496852622656,
+      "positive_seeds": 3,
+      "negative_seeds": 0,
+      "tied_seeds": 0
+    }
+  },
+  "delta_direction": "balanced minus natural",
+  "original_pair_source": "Verified P2 natural and balanced seed 20261119",
+  "new_pair_revision": "f6a43eb73eb6ccac660f5bff5790fa523aa8884d",
+  "F_reference_sha256": "78c16f3851266c7696dcf05892c195caf709176cafd8b4c9f1c8695de4b34c7f",
+  "interpretation": "Three E seeds on fixed validation songs; F stays fixed at its original balanced checkpoint. This does not measure variation across F/E seed pairs."
+}

@@ -1,0 +1,14 @@
+{
+  "plan": {
+    "seeds": [
+      20261120,
+      20261121
+    ],
+    "natural_config": "configs/p2-natural.json",
+    "balanced_config": "configs/p2-oracle.json"
+  },
+  "git_revision": "f6a43eb73eb6ccac660f5bff5790fa523aa8884d",
+  "device": "cuda",
+  "original_seed": 20261119,
+  "F_reference_sha256": "78c16f3851266c7696dcf05892c195caf709176cafd8b4c9f1c8695de4b34c7f"
+}

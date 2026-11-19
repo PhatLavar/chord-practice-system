@@ -1,0 +1,35 @@
+{
+  "archive_sha256": "2145c3bae3cfc5fa8203bb1cbb3d30139dd28b5d81ea4e9341bb206c69430c82",
+  "verified_runs": [
+    {
+      "run": "natural-20261120",
+      "correct_events": 6107,
+      "best_epoch": 16,
+      "source_config_intervals_logits_verified": true,
+      "quality_and_complementarity_recomputed": true
+    },
+    {
+      "run": "balanced-20261120",
+      "correct_events": 5712,
+      "best_epoch": 22,
+      "source_config_intervals_logits_verified": true,
+      "quality_and_complementarity_recomputed": true
+    },
+    {
+      "run": "natural-20261121",
+      "correct_events": 6140,
+      "best_epoch": 18,
+      "source_config_intervals_logits_verified": true,
+      "quality_and_complementarity_recomputed": true
+    },
+    {
+      "run": "balanced-20261121",
+      "correct_events": 5592,
+      "best_epoch": 7,
+      "source_config_intervals_logits_verified": true,
+      "quality_and_complementarity_recomputed": true
+    }
+  ],
+  "paired_aggregation_recomputed": true,
+  "F_reference_hash_verified": true
+}

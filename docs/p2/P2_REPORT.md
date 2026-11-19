@@ -266,7 +266,7 @@ Raw outputs are in runs/p2-natural-kaggle/. The original archive remains in runs
 
 ## Matched E seed-repeat protocol · 20 November 2026
 
-Status: prepared and locally checked; four new GPU runs are pending. The user agreed to repeat natural and balanced E before selecting a policy.
+Status: all four new GPU runs have completed and been independently verified; see the measured summary below. The user agreed to repeat natural and balanced E before selecting a policy.
 
 Use the fixed plan [p2-seeds.json](../../configs/p2-seeds.json): additional seeds 20261120 and 20261121, each with natural and balanced event sampling. The original verified seed 20261119 pair is reused. Run the four new jobs sequentially in one GPU notebook session, with fresh independently fitted E weights per job.
 
@@ -282,7 +282,7 @@ Also record rare correct-event counts, total rare-event support and E-only rare 
 
 Reusing an existing completed new job requires the same config and code revision. An incomplete run is reported explicitly. Original seed provenance is preserved in the existing reports; new jobs share one recorded revision. No checkpoint criterion, seed or training budget should be chosen after observing the repeat results without declaring a new experiment.
 
-These three seeds provide descriptive stability evidence on the same validation songs, not statistical significance or certainty about new songs. The controller and aggregation are checked locally; actual GPU execution and the resulting comparisons remain pending.
+These three seeds provide descriptive stability evidence on the same validation songs, not statistical significance or certainty about new songs. The controller and aggregation were checked locally; the subsequent GPU execution and verified comparison are reported below.
 
 ### Weekly decision log
 
@@ -293,4 +293,69 @@ These three seeds provide descriptive stability evidence on the same validation 
 | 20 November 2026 | Pending | Audit returned logits and rare-event identities before choosing the next component/sampling intervention. |
 
 
-Local checks for the repeat workflow passed all 22 tests. The E controller test verifies four new training launches, reuse of completed jobs and inclusion of the original pair without retraining. A separate check verifies the balanced-minus-natural delta direction. Original F repeat aggregation remains numerically identical after sharing the aggregation helper. The existing E reports and frozen F hash were read successfully, and notebook syntax/document links were checked. These checks do not replace the pending GPU training runs.
+Local checks for the repeat workflow passed all 22 tests. The E controller test verifies four new training launches, reuse of completed jobs and inclusion of the original pair without retraining. A separate check verifies the balanced-minus-natural delta direction. Original F repeat aggregation remains numerically identical after sharing the aggregation helper. The existing E reports and frozen F hash were read successfully, and notebook syntax/document links were checked. These checks preceded the returned GPU runs assessed below.
+
+
+## E repeated-seed results · 20 November 2026
+
+The four new E jobs completed from revision f6a43eb73eb6ccac660f5bff5790fa523aa8884d. All source hashes match that commit. Configs, frozen train/validation IDs, normalized data, detailed annotations and the 37,225-parameter TCN were checked. Each job completed 30 epochs. F's original reference hash is unchanged.
+
+Independent recomputation from event logits reproduced predictions, per-quality precision/recall and component correctness. Original reference intervals were reconstructed for all four jobs. Every four-way comparison count was rebuilt against fixed F. Finally, all three paired-seed aggregate means, sample standard deviations and deltas matched the notebook output.
+
+[Verification](../../reports/p2/seed-repeat/verification.json) · [Plan and code provenance](../../reports/p2/seed-repeat/plan.json) · [Per-seed metrics](../../reports/p2/seed-repeat/per_seed.csv)
+
+### Three-seed summary
+
+The original seed 20261119 pair is reused with the additional seeds 20261120 and 20261121. Values are mean ± sample standard deviation; standard deviations are in percentage points.
+
+| Metric | Natural E | Balanced E |
+|---|---:|---:|
+| Complete-event accuracy including N | 63.33% ± 0.18 | 58.44% ± 0.62 |
+| Macro quality event recall | 14.65% ± 1.04 | 17.29% ± 1.59 |
+| Rare macro event recall | 0.21% ± 0.36 | 3.95% ± 1.67 |
+
+Balanced-minus-natural changes average -4.89 percentage points for overall event accuracy, +2.64 for macro quality recall, and +3.75 for rare macro recall. Balanced rare recall is higher for all three matched seeds, and overall accuracy is lower for all three. Macro quality recall improves on two seeds and declines slightly on one.
+
+This is a consistent direction within these three seeds, not a statistical-significance or new-song generalization claim. Both methods use the same fixed validation songs. F stays at one reference checkpoint; this is E-seed variation rather than independent F/E seed-pair variation.
+
+### Rare events and additional information beyond F
+
+| Seed | Natural rare correct | Balanced rare correct | Natural rare macro recall | Balanced rare macro recall | Natural E-only rare correct | Balanced E-only rare correct |
+|---|---:|---:|---:|---:|---:|---:|
+| 20261119 | 0 / 111 | 4 / 111 | 0% | 2.09% | 0 | 3 |
+| 20261120 | 0 / 111 | 5 / 111 | 0% | 5.34% | 0 | 5 |
+| 20261121 | 1 / 111 | 3 / 111 | 0.62% | 4.42% | 1 | 2 |
+
+Across balanced runs there are 12 correct-event occurrences covering 11 distinct intervals in six validation songs. Natural E recognizes one distinct rare interval. Repeated seeds still reuse the same validation set, so these interval/song counts describe the observed successes rather than additional independent evaluation data.
+
+Balanced E recognizes dim in all three seeds (3/23, 4/23 and 1/23 events). It recognizes sus2 in two seeds (1/62 each), aug in one (1/5), and minmaj7 in one (1/4). The larger macro values for rare classes with very low support are sensitive to a single correct prediction. Min6, hdim7 and dim7 remain at zero complete-event recall in every balanced and natural run.
+
+Rare precision remains low: balanced dim precision ranges from 3.33% to 7.69%, sus2 successes have about 2% precision, the one aug success has 5%, and the minmaj7 success has 10%. Therefore stronger rare recall has not yet yielded reliable rare pseudo-labels.
+
+[Quality counts, independent-song support and precision by seed](../../reports/p2/seed-repeat/rare_quality_by_seed.csv) · [Correct rare interval identities](../../reports/p2/seed-repeat/rare_successes.json) · [Full aggregate statistics](../../reports/p2/seed-repeat/summary.json)
+
+### Decision and next E hypothesis
+
+Keep natural E as the current overall-accuracy reference. Use balanced E as the more promising candidate for rare-event supervision and E-only rare information, while preserving its accuracy and precision limitations. Do not describe either as a solved rare-chord teacher or begin accepting rare pseudo-labels solely from its predicted class.
+
+The repeat test supports the sampling tradeoff more consistently than the first single-seed comparison. The next proposed controlled experiment is an intermediate mixture: 25% quality/song-balanced draws and 75% natural draws, compared with the existing 0% and 50% policies. The hypothesis is that a lower balanced fraction may recover some common-chord accuracy while retaining useful rare exposure. This is untested, not an assumed improvement.
+
+Before running it, expose and record the mixture probability as an explicit configuration setting, keep the model/loss/budget and evaluation protocol fixed, and preserve the existing endpoints. Begin with the original seed as a screening experiment and repeat additional matched seeds if its tradeoff warrants it. No intermediate-mixture run has started.
+
+Component weighting derived from E event counts remains another separate option if diagnostics justify it. P2 development continues; P3 remains a later stage. Confidence calibration and false-positive analysis are necessary before claiming pseudo-label reliability.
+
+### Weekly presentation update
+
+- Repeated natural and balanced E over three matched seeds.
+- Natural E consistently has higher overall event accuracy.
+- Balanced E consistently has higher rare-event recall, contributing extra correct rare events beyond fixed F in each seed.
+- The rare successes span more than one interval, but precision remains poor and three rare qualities are never correctly classified.
+- Proposed next test: a 25% balanced mixture, with the existing 0%/50% policies retained as references.
+
+| Date | Status | Decision |
+|---|---|---|
+| 20 November 2026 | Verified | Four new E runs, per-event logits, F/E counts and three-seed statistics checked independently. |
+| 20 November 2026 | Measured | Balanced improves rare macro recall in 3/3 seeds but loses about 4.89 overall-accuracy points on average. |
+| 20 November 2026 | Proposed | Test 25% balanced exposure as a separate controlled sampling experiment; implementation/training pending. |
+
+Full runs remain in runs/p2-seed-repeat/. The downloaded archive is in runs/imports/p2-seed-repeat-results.zip; selected auditable outputs are versioned under reports/p2/seed-repeat/.
