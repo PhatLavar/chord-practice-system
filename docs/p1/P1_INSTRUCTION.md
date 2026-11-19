@@ -147,3 +147,6 @@ Import [01e_teacher_f_transformer.ipynb](../../notebooks/01e_teacher_f_transform
 Once that check passes, set RUN_FULL = True and execute the full-run cell. It trains a new Transformer with the balanced sampler for 30 epochs and runs the existing reference-event diagnostic. The final cell produces /kaggle/working/p1-transformer-results.zip containing runs/p1-transformer/overfit and runs/p1-transformer/balanced. Save the executed Kaggle version and download that ZIP to runs/imports/.
 
 A retry needs a fresh output name, or the incomplete failed output must be handled explicitly. The notebook protects existing run directories from accidental overwriting. See [P1_REPORT.md](P1_REPORT.md) for the 40,441-parameter architecture, broader attention context, fixed controls and limitations.
+
+
+The first Transformer Kaggle run has completed and been independently verified. See the compact-Transformer results in [P1_REPORT.md](P1_REPORT.md) before rerunning. This configuration did not improve the balanced TCN's validation or rare-event metrics; its full outputs remain preserved for analysis.

@@ -1,0 +1,25 @@
+{
+  "archive_sha256": "881ac1495828ac08983e3018111eb6c8846872aafe71f39017a13ed7177c7ed5",
+  "runs": [
+    {
+      "run": "overfit",
+      "correct_frames": 5792,
+      "scored_frames": 5810,
+      "parameters": 40441,
+      "epochs": 200,
+      "source_and_metrics_verified": true,
+      "epoch_loop_seconds": 15.165420311000673
+    },
+    {
+      "run": "balanced",
+      "correct_frames": 252553,
+      "scored_frames": 456046,
+      "parameters": 40441,
+      "epochs": 30,
+      "source_and_metrics_verified": true,
+      "epoch_loop_seconds": 203.82702127300018
+    }
+  ],
+  "balanced_controls_match": true,
+  "full_diagnostic_reproduced": true
+}

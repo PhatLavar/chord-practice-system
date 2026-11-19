@@ -414,6 +414,59 @@ Compare the full run against the balanced TCN seed 20261119 and the descriptive 
 
 ### Local verification and status
 
-Fourteen unit checks passed, including all earlier TCN checks, Transformer padding invariance on real frames, distinction between silence and padding, finite masked-loss gradients, all-padding rejection and complete inference coverage through unlabeled windows and final tails. A local CPU two-song run passed: 99.69% whole-chord training frame accuracy (5,792/5,810), with best epoch 184 of 200. Saved predictions independently reproduced this metric. Full Kaggle execution and validation comparison are pending. The larger attention context and slightly higher capacity mean the overfit score alone cannot establish an architectural advantage. [Local run record](../../reports/p1/transformer-setup/local-overfit.json)
+Fourteen unit checks passed, including all earlier TCN checks, Transformer padding invariance on real frames, distinction between silence and padding, finite masked-loss gradients, all-padding rejection and complete inference coverage through unlabeled windows and final tails. A local CPU two-song run passed: 99.69% whole-chord training frame accuracy (5,792/5,810), with best epoch 184 of 200. Saved predictions independently reproduced this metric. Full Kaggle execution has since completed; its results are recorded below. The larger attention context and slightly higher capacity mean the overfit score alone cannot establish an architectural advantage. [Local run record](../../reports/p1/transformer-setup/local-overfit.json)
 
 The TCN path retains full-recording convolutional inference and its default configuration; Transformer windows are used only when encoder=transformer. New checkpoints record encoder and window metadata together with the state dictionary. The existing target decomposition is retained.
+
+
+## Compact Transformer Kaggle results · 19 November 2026
+
+Both returned runs used revision 8bb198f4436e3bdf39f3973cb4240eaea1accfc5, PyTorch 2.11.0+cu130 and NumPy 2.1.3 on CUDA. The overfit check reproduced 99.69% training frame accuracy (5,792/5,810) at epoch 184. The full balanced run completed 30 epochs and selected epoch 29 by validation frame accuracy.
+
+Verification passed ZIP integrity, committed source hashes, training/evaluation IDs, vocabulary, input hashes and the balanced-sampling controls. The full configuration matches the balanced TCN except encoder=transformer. All 110 validation prediction arrays preserve frame count and timestamp ordering. Recomputing their confusion matrix reproduced the saved one, and the independent reference-event diagnostic reproduced every submitted summary value.
+
+### Comparison at seed 20261119
+
+| Metric | TCN natural | TCN balanced | Transformer balanced |
+|---|---:|---:|---:|
+| Complete-chord frame accuracy | 57.11% | 56.87% | 55.38% |
+| Macro complete-chord recall | 19.38% | 23.05% | 20.85% |
+| Oracle-event accuracy including N | 58.57% | 57.92% | 55.63% |
+| Rare macro oracle-event recall | 0% | 4.19% | 0% |
+
+The Transformer correctly classified 252,553 of the same 456,046 scored validation frames, versus 259,365 for the balanced TCN. Relative to that matched-seed comparator, frame accuracy decreased 1.49 percentage points, macro chord recall 2.21 points and oracle-event accuracy 2.30 points. All seven rare qualities have zero correct complete-chord frames and zero correct reference events.
+
+The per-quality frame recalls are maj 72.45%, min 44.82%, 7 28.30%, min7 27.10% and maj7 10.95%. Some individual qualities improve slightly relative to the balanced TCN, but aggregate and rare-objective outcomes do not improve.
+
+The standalone root, triad and extension frame accuracies are 79.25%, 84.12% and 76.34%. For minmaj7 oracle events specifically, root and triad each reach 100% standalone accuracy, but the seventh/extension head has 0% accuracy, so no complete event is correct. This reinforces the importance of inspecting defining components rather than root alone.
+
+[Run metrics and histories](../../reports/p1/kaggle-transformer/balanced/metrics.json) · [Matched-seed comparison](../../reports/p1/kaggle-transformer/comparison.csv) · [Component and quality diagnostics](../../reports/p1/transformer-diagnostics/frame_qualities.csv) · [Reference-event support and scores](../../reports/p1/transformer-diagnostics/event_qualities.csv) · [Verification](../../reports/p1/kaggle-transformer/verification.json)
+
+### Resource observations
+
+The Transformer has 40,441 parameters compared with the TCN's 37,225. Peak PyTorch CUDA allocated memory was 77,817,856 bytes versus 26,010,112 bytes for the balanced TCN, about three times as much. Its epoch loops totaled 203.83 seconds versus 67.41 seconds for the balanced TCN run. These are observed run measurements; they exclude preparation and do not control for GPU device differences, utilization or separate-session overhead.
+
+Despite a broader attention window and slightly larger capacity, the trial did not improve the target metrics. The strong two-song overfit score establishes pipeline learnability, not validation generalization.
+
+### Decision and remaining questions
+
+Retain this Transformer run as a completed negative encoder trial. Keep the TCN runs as the current references; do not replace the teacher backbone based on this result. This is one compact configuration at one seed, not evidence that all Transformers are worse than TCNs. The unchanged learning rate and epoch budget constitute a first screening protocol, not architecture-specific optimal tuning.
+
+Broader context, positional encoding, optimization, feature information and rare-label support remain possible explanations requiring separate evidence. The result does not identify one of them as the cause. Expanding decomposition has not yet been tested and cannot be presented as a confirmed fix.
+
+A useful next project step is to specify P2's oracle-event E with the compact TCN and independent weights, then compare F and E on identical reference intervals. Event-level supervision is the planned distinction between teachers; its benefit remains unmeasured. In parallel, any further encoder tuning should have an explicit hypothesis and logged controls rather than replacing architectures repeatedly without a diagnosis.
+
+| Date | Status | Evidence and decision |
+|---|---|---|
+| 19 November 2026 | Completed | Compact Transformer balanced trial: 55.38% validation frame accuracy, 55.63% oracle-event accuracy and 0% rare macro event recall. |
+| 19 November 2026 | Recorded decision | Preserve the negative result and retain TCN references. Further Transformer tuning and P2 event-teacher implementation require their own specified experiments. |
+
+### Weekly presentation notes
+
+- Tried a compact self-attention encoder with the same components and balanced sampler.
+- The training pipeline passed and overfit two songs at 99.69%.
+- Validation performance fell relative to the balanced TCN, and rare-event recognition returned to zero.
+- More context and a different architecture alone did not resolve the current rare-component failures.
+- Preserve the original research question and test the planned frame-versus-event teacher distinction.
+
+Raw outputs are in runs/p1-transformer/overfit/ and runs/p1-transformer/balanced/. The downloaded ZIP remains in runs/imports/p1-transformer-results.zip. Versioned selected artifacts are in reports/p1/kaggle-transformer/ and reports/p1/transformer-diagnostics/.
