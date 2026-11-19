@@ -308,3 +308,27 @@ Proposed comparison: retain 24-dimensional chroma, the 14-quality vocabulary, co
 Choose positional encoding, attention context, padding masks and overlap/cropping rules before implementation. Full-recording attention must be resource-tested; bounded inference windows may be needed. Report differences in effective context and capacity so improvements are not attributed solely to the model family.
 
 Status: proposal only. No Transformer has been implemented or trained. A Transformer may improve contextual modeling but is not established as better on this dataset or rare-quality objective. The two-event balanced-TCN gain and limited independent training support remain relevant. Broader decomposition stays deferred while the encoder experiment is specified.
+
+
+## Matched-seed repeat protocol · 19 November 2026
+
+Status: implemented for Kaggle execution; four new training jobs are pending. This repeats the existing TCN comparison before changing the encoder or chord decomposition.
+
+Freeze additional seeds 20261120 and 20261121 in [p1-seeds.json](../../configs/p1-seeds.json). Each seed runs both the original baseline configuration and the balanced sampling configuration. Preserve 30 epochs, 367 labeled training songs, 110 validation songs, unweighted losses, model width, window/context, batch size, learning rate, decoder and best-checkpoint selection by validation frame accuracy. Each pair shares the initialization seed; their training sample sequences differ by design.
+
+The notebook trains four jobs sequentially on one GPU session. It reuses the verified original seed 20261119 reports (baseline revision 8ec616c and balanced revision d250916) for the third pair. New pairs run from one common current revision, recorded in plan.json and each run.json. Original results come from earlier commits, so the summary explicitly records that provenance. Additional-seed results should also be inspected separately if the earlier-revision provenance affects a comparison.
+
+Each new job retains its exact generated config, checkpoint, history, per-song logits and reference-event diagnostics. New job names are baseline-20261120, balanced-20261120, baseline-20261121 and balanced-20261121 inside runs/p1-seed-repeat/. Existing completed runs may be reused only with the same config/revision; incomplete jobs are reported explicitly.
+
+### Planned summary and decision
+
+Export per_seed.csv, mean and sample standard deviation (ddof=1) for each method, plus mean/std of paired balanced-minus-baseline differences. Summarize frame accuracy, macro complete-chord recall, oracle-event accuracy and rare macro oracle-event recall. Include positive, negative and tied seed counts for each difference. Keep per-quality event counts and precision available in the constituent run outputs.
+
+Three seeds provide descriptive evidence about initialization/sampling variation on this fixed validation set. They do not quantify uncertainty over new songs or establish statistical significance. CUDA operations are not forced into deterministic mode, so seed equality alone is not a guarantee of bitwise reproducibility.
+
+Before adopting balanced sampling for subsequent teachers, inspect whether rare-event improvements recur across seeds and qualities, whether precision remains usable, and the common-quality/overall tradeoff. Record any inconsistent or negative results. Do not change the checkpoint criterion or choose seeds after seeing their outcomes. No numeric improvement threshold beyond the existing evaluation protocol is introduced here.
+
+The next weekly update should include the three paired rows per method, variability, correct rare-event counts and the decision. Transformer replacement and richer decomposition remain proposed experiments while these repeats are pending.
+
+
+Local verification for the repeat workflow: all 11 tests passed. Hand-computed checks verified paired means and sample standard deviations, rejection of incomplete/duplicate pairs and nonfinite metrics. A mocked orchestration test verified exactly four new training launches, four diagnostics, inclusion of the original pair, and reuse of completed runs. Notebook cell syntax and local document links were checked. The mocked test does not validate Kaggle execution; the four new GPU runs remain pending.

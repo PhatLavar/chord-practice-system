@@ -118,3 +118,20 @@ The output directory must be new. The committed setup tables already contain the
 
 
 The first balanced Kaggle run has been imported and verified. See the balanced-results section of [P1_REPORT.md](P1_REPORT.md) for the three-way comparison and the two correct rare events underlying the macro score. Full artifacts are in runs/p1-balanced-kaggle/, with the original ZIP in runs/imports/. Versioned results are in reports/p1/kaggle-balanced/ and reports/p1/balanced-diagnostics/.
+
+
+## Run the matched-seed comparison
+
+1. Stop an earlier GPU session if Kaggle reports its interactive-session limit.
+2. Import [01d_teacher_f_seed_repeat.ipynb](../../notebooks/01d_teacher_f_seed_repeat.ipynb), enable Internet and a GPU, and run the setup/data cells.
+3. Run the training cell once. It executes four jobs sequentially, each with 30 epochs and its own reference-event diagnostic. The original seed pair is read from committed verified reports.
+4. Inspect per_seed.csv and summary.json after all four jobs complete. A completed run can be reused when rerunning the cell at the same revision/configuration. An incomplete training run or diagnostic is reported with its path; preserve it for investigation and use a fresh output root, or remove only the failed subdirectory before retrying. A fresh output root reruns all four jobs.
+5. Run the final cell, save the executed notebook version, and download /kaggle/working/p1-seed-repeat-results.zip to local runs/imports/.
+
+To execute the same workflow from the project root:
+
+```powershell
+python src/acr/repeat_seeds.py --output runs/p1-seed-repeat --device cuda
+```
+
+The plan is configs/p1-seeds.json. Generated per-run config files live inside the ignored output root. The current stage is ready to run; no new seed-training results have been collected yet. See [P1_REPORT.md](P1_REPORT.md) for controls, provenance, limitations and the decision protocol.
