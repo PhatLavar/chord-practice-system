@@ -221,7 +221,7 @@ Use [p1-balanced.json](../../configs/p1-balanced.json). Component loss weights a
 
 Seven unit checks include deterministic sampling for a fixed seed, preservation of rare anchors, the natural epoch budget and short-song padding. A real-data CPU batch passed forward, backward and optimizer update with finite loss and gradients. [Verification](../../reports/p1/sampling-setup/verification.json)
 
-Status: implemented and locally checked. Full Kaggle training and validation comparison are pending. The weighting-only run remains a separate completed ablation. The next sampler result must be judged on complete rare-event recall, per-quality precision, common-quality accuracy and aggregate scores. A reduction in training loss alone does not establish improvement.
+Status: completed on Kaggle and independently verified; see the returned results below. The weighting-only run remains a separate completed ablation. The next sampler result must be judged on complete rare-event recall, per-quality precision, common-quality accuracy and aggregate scores. A reduction in training loss alone does not establish improvement.
 
 ### Relevance to the second teacher
 
@@ -232,4 +232,55 @@ Teacher E can use the same train/validation split, vocabulary and independently 
 - The weighting trial improved seventh qualities but retained zero rare-event recall.
 - Rare-event exposure is concentrated in very few windows and songs, including only three dim7 training songs.
 - The new experiment changes sampling alone while retaining unweighted losses.
-- Full sampler training is pending. Record the returned metrics and the tradeoff before changing another factor.
+- Full sampler training has completed. Its first rare-event gain consists of two correct events; repeat-seed validation is the next proposed check.
+
+
+## Balanced-sampling results and decision · 19 November 2026
+
+The returned p1-balanced-results.zip completed 30 epochs on CUDA at revision d250916f82a1a5e2f0310920209450465636b23e. Checkpoint selection chose epoch 29. The training/evaluation IDs, source data, vocabulary, parameter count, environment and baseline hyperparameters match the original baseline; the added sampling policy is the intended changed factor. Actual per-quality target exposures are recorded for every epoch, with 3,471 window draws and 217 optimizer updates per epoch.
+
+The ZIP passed integrity checks. All source hashes match the recorded Git commit. Independent recomputation from logits and detailed annotations reproduced the submitted event diagnostic and confusion matrix. The baseline and weighted outputs remain preserved.
+
+| Metric | Unweighted baseline | Weighted loss | Balanced sampling |
+|---|---:|---:|---:|
+| Complete-chord frame accuracy | 57.11% | 54.12% | 56.87% |
+| Macro recall over observed complete-chord classes | 19.38% | 22.73% | 23.05% |
+| Oracle-event accuracy including N | 58.57% | 55.96% | 57.92% |
+| Rare-quality macro oracle-event recall | 0% | 0% | 4.19% |
+
+The balanced run correctly labeled 259,365 of 456,046 scored frames, 1,093 fewer than the original baseline. Compared with baseline, frame accuracy fell 0.24 percentage points, macro chord recall rose 3.67 points, and oracle-event accuracy fell 0.64 points. The sampled run therefore preserves much more of the original overall performance than the weighting-only run, while improving the predeclared rare-event score in this single-seed comparison.
+
+### What produced the rare score?
+
+| Rare quality | Reference events | Correct complete events | Recall | Predicted events of that quality | Complete-chord precision |
+|---|---:|---:|---:|---:|---:|
+| dim | 23 | 1 | 4.35% | 5 | 20.00% |
+| aug | 5 | 0 | 0% | 0 | Undefined |
+| sus2 | 62 | 0 | 0% | 2 | 0% |
+| min6 | 6 | 0 | 0% | 0 | Undefined |
+| minmaj7 | 4 | 1 | 25.00% | 9 | 11.11% |
+| hdim7 | 9 | 0 | 0% | 9 | 0% |
+| dim7 | 2 | 0 | 0% | 1 | 0% |
+
+Here predicted events are predictions on the same scored reference intervals. A true positive requires the root and quality to match. Predictions on excluded OOV intervals are outside this precision denominator.
+
+The macro score is (1/23 + 1/4) / 7 = 4.19%. Only 2 of 111 supported rare reference events are correctly classified, so pooled rare-event recall is 1.80%. The two correct intervals are C:dim in recording 0343 (16.742–19.974 s) and D:minmaj7 in recording 1253 (108.489–110.295 s). The gain is concentrated in two intervals from two songs. Five of seven rare qualities remain unrecognized at the event level. Single-seed and limited-support results should not be presented as robust rare-chord recognition.
+
+For common and seventh qualities, frame recall is maj 75.69%, min 43.52%, 7 28.06%, min7 25.68%, maj7 16.99%. The balanced model improves all three seventh recalls relative to baseline, while reducing major/minor recall. Its standalone root/triad/extension frame accuracies are 80.76%/85.18%/77.50%.
+
+[Three-run comparison](../../reports/p1/kaggle-balanced/comparison.csv) · [Verification](../../reports/p1/kaggle-balanced/verification.json) · [Quality frame scores](../../reports/p1/kaggle-balanced/per_quality.csv) · [Oracle-event recall and support](../../reports/p1/balanced-diagnostics/event_qualities.csv) · [Oracle-event precision](../../reports/p1/kaggle-balanced/event_precision.csv) · [Epoch history with actual sample exposures](../../reports/p1/kaggle-balanced/history.json)
+
+### Decision and next evidence
+
+Keep balanced sampling as the leading candidate for the next teacher-training checks, alongside the preserved unweighted reference. It is a candidate policy, with evidence of a small rare-event improvement; it is not a validated solution for both teachers.
+
+The next proposed experiment is to repeat both the baseline and balanced configuration with matched additional seeds before further tuning. Report variation and per-quality correct events, since a two-event gain may be sensitive to initialization and sampling. Repeating both comparators avoids attributing ordinary seed variation to the sampler. No new repeated-seed runs have started.
+
+After that check, P2 can train E with its own weights and reference-interval event classification, using an explicitly specified event-sampling counterpart. F's correct and incorrect oracle events provide the comparison basis. E still needs standalone validation; F's sampler result does not establish that E will improve.
+
+| Date | Status | Evidence and decision |
+|---|---|---|
+| 19 November 2026 | Completed | Balanced sampling: 56.87% frame accuracy, 23.05% macro chord recall, 4.19% rare macro oracle-event recall from two correct events. |
+| 19 November 2026 | Proposed | Repeat both baseline and balanced training with matched additional seeds to test stability before adopting a teacher-training policy. |
+
+For the weekly presentation, state that sampling produced the first correct rare oracle events with a small overall-accuracy loss. Show the two-event count and the five unresolved qualities on the same slide as the 4.19% macro number. This is the current limit of the evidence.

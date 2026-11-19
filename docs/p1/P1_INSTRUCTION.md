@@ -115,3 +115,6 @@ python src/acr/audit_exposure.py --output reports/p1/sampling-setup
 ```
 
 The output directory must be new. The committed setup tables already contain the first audit. The simulated exposure is a sampling diagnostic; training quality requires the actual Kaggle run.
+
+
+The first balanced Kaggle run has been imported and verified. See the balanced-results section of [P1_REPORT.md](P1_REPORT.md) for the three-way comparison and the two correct rare events underlying the macro score. Full artifacts are in runs/p1-balanced-kaggle/, with the original ZIP in runs/imports/. Versioned results are in reports/p1/kaggle-balanced/ and reports/p1/balanced-diagnostics/.

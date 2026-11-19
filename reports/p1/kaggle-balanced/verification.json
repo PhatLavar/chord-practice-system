@@ -1,0 +1,10 @@
+{
+  "archive_sha256": "307965dd292cb205808ab5ef34699bf90c6639e87acbf7720a07bcb6655874da",
+  "source_hashes_match_commit": true,
+  "controls_match_baseline": true,
+  "diagnostic_reproduced": true,
+  "correct_frames": 259365,
+  "scored_frames": 456046,
+  "epochs": 30,
+  "optimizer_steps_per_epoch": 217
+}
