@@ -1,0 +1,9 @@
+{
+  "archive_sha256": "e4b7e708dbd0b3a2c6693927da6f2240abd2ee9686a1873371b86147747a196b",
+  "config_source_ids_and_policy_verified": true,
+  "intervals_logits_and_quality_scores_recomputed": true,
+  "complementarity_recomputed": true,
+  "correct_events": 5789,
+  "epochs": 30,
+  "best_epoch": 6
+}

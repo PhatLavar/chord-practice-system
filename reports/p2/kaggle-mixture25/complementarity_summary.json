@@ -1,0 +1,19 @@
+{
+  "complete_counts": {
+    "both_correct": 4752,
+    "F_only": 851,
+    "E_only": 1037,
+    "both_wrong": 3033
+  },
+  "rare_counts": {
+    "both_correct": 0,
+    "F_only": 2,
+    "E_only": 4,
+    "both_wrong": 105
+  },
+  "agreement_events": 6601,
+  "agreement_correct_events": 4752,
+  "agreement_precision": 0.7198909256173307,
+  "oracle_correct_teacher_selector_accuracy": 0.6864468107102243,
+  "note": "Oracle selection requires reference correctness and is not an achieved ensemble."
+}

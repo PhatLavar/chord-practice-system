@@ -363,7 +363,7 @@ Full runs remain in runs/p2-seed-repeat/. The downloaded archive is in runs/impo
 
 ## Intermediate mixture specification · 20 November 2026
 
-Status: implemented and locally checked; the 25% mixture's full Kaggle validation run is pending. Use [p2-mixture25.json](../../configs/p2-mixture25.json) with [02d_teacher_e_mixture25.ipynb](../../notebooks/02d_teacher_e_mixture25.ipynb).
+Status: the first 25% mixture Kaggle run has completed and been independently verified; see the results below. Use [p2-mixture25.json](../../configs/p2-mixture25.json) with [02d_teacher_e_mixture25.ipynb](../../notebooks/02d_teacher_e_mixture25.ipynb).
 
 The sampler now takes balanced_probability. Its default is 0.5, preserving the previous balanced policy. The new configuration explicitly selects 0.25. Each shuffled natural-event index has a 75% chance of being retained. Otherwise choose uniformly among observed qualities, uniformly among their training songs, and uniformly among that song's matching events. These probabilities describe the two draw branches, not a guarantee that exactly 25% of each class or batch is rare.
 
@@ -386,3 +386,81 @@ Start with the prespecified original seed 20261119 and compare against the exist
 The hypothesis is that reducing balanced exposure could retain some rare-class learning while recovering common-quality accuracy. The measured endpoint tradeoff motivates this test, but the outcome is unknown. Do not assume linear interpolation between 0% and 50%.
 
 A promising screening result can be repeated on matched additional seeds before changing the preferred teacher policy. No model accuracy or pseudo-label precision is claimed from the local implementation checks. P2 development continues; P3 has not started.
+
+
+## 25% mixture results · 20 November 2026
+
+The returned run completed 30 epochs at revision df662dd, with the exact revision in run.json. Checkpoint selection chose epoch 6. Source hashes match the recorded commit, and the explicit sampling policy is 25% balanced / 75% natural, with 31,679 event draws and 990 optimizer updates per epoch.
+
+The ZIP integrity, configuration, original split and source versions were verified. Reference event IDs, times and labels were reconstructed from the annotation archive. Independent decoding reproduced all event predictions and component decisions. Per-quality precision/recall and F/E counts were recomputed. The fixed F reference hash is unchanged.
+
+[Verification](../../reports/p2/kaggle-mixture25/verification.json) · [Run metadata](../../reports/p2/kaggle-mixture25/run.json) · [History](../../reports/p2/kaggle-mixture25/history.json)
+
+### Same-seed screening comparison
+
+All values below use seed 20261119 and the same 9,673 reference intervals.
+
+| Metric | Natural 0% | Mixture 25% | Balanced 50% |
+|---|---:|---:|---:|
+| Complete-event accuracy | 63.38% | 59.85% | 58.45% |
+| Macro quality event recall | 14.18% | 14.13% | 17.09% |
+| Rare macro event recall | 0% | 3.94% | 2.09% |
+| Correct rare events | 0 / 111 | 4 / 111 | 4 / 111 |
+| Best epoch | 13 | 6 | 30 |
+
+The 25% run correctly classifies 5,789 events, an increase of 135 over 50% balanced E (+1.40 percentage points overall). Its rare macro recall also increases by 1.85 points, but macro quality recall decreases by 2.97 points. Relative to natural E, overall accuracy remains 3.54 points lower.
+
+This is not a uniform improvement. Minor-event recall falls to 28.92%, compared with 49.24% for natural and 40.32% for 50% balanced. Major recall is 82.38%, close to natural's 83.21% and above balanced's 74.90%. Common-class composition heavily influences overall accuracy.
+
+[Three-policy comparison](../../reports/p2/kaggle-mixture25/comparison.csv) · [Per-quality results](../../reports/p2/kaggle-mixture25/per_quality.csv)
+
+### Rare support and complementarity
+
+| Rare quality | Correct / reference events | Recall | Precision |
+|---|---:|---:|---:|
+| dim | 1 / 23 | 4.35% | 3.57% |
+| aug | 1 / 5 | 20.00% | 4.17% |
+| sus2 | 2 / 62 | 3.23% | 9.52% |
+| min6 | 0 / 6 | 0% | 0% |
+| minmaj7 | 0 / 4 | 0% | 0% |
+| hdim7 | 0 / 9 | 0% | 0% |
+| dim7 | 0 / 2 | 0% | Undefined |
+
+The macro score is (1/23 + 1/5 + 2/62) / 7 = 3.94%. One aug success contributes 2.86 percentage points to that aggregate, so the score is sensitive to this small class. Both 25% and 50% runs get four rare events right; their macro difference is caused by which qualities those events belong to.
+
+All four successes of the 25% run are missed by fixed F: one aug event in 0303, two sus2 events in 0859 and one dim event in 0964. This covers four intervals in three validation songs. It increases E-only rare correct events from three in the 50% run to four in this screen. F retains its two rare successes missed by E. The remaining 105/111 rare events are wrong for both.
+
+| F/E outcome | All events | Rare events |
+|---|---:|---:|
+| Both correct | 4,752 | 0 |
+| F only correct | 851 | 2 |
+| E only correct | 1,037 | 4 |
+| Both wrong | 3,033 | 105 |
+
+The teachers agree on complete labels for 6,601 events, with 4,752 correct (71.99% precision before filtering). The four E-only rare successes indicate complementary information, not reliable pseudo-labels in general. Precision for the successfully recognized rare qualities remains below 10%.
+
+[Exact rare intervals](../../reports/p2/kaggle-mixture25/rare_successes.json) · [Four-way counts](../../reports/p2/kaggle-mixture25/complementarity.csv) · [Agreement summary](../../reports/p2/kaggle-mixture25/complementarity_summary.json)
+
+### Decision after the screening run
+
+The intermediate mixture is worth a matched-seed follow-up because it improves same-seed overall accuracy and rare macro recall over 50% sampling and provides four rare events beyond F. It is not selected as the best general configuration: macro quality recall and minor recognition are worse, and only one seed has been tested.
+
+The next proposed check is to run this same 25% configuration at the already designated additional seeds 20261120 and 20261121, comparing against the existing natural/50% runs at those seeds. Preserve all controls, checkpoint criteria and F reference. Inspect per-quality precision and event identities before deciding whether the tradeoff persists. No new mixture repeat runs have started.
+
+The selected checkpoint is early (epoch 6), whereas epoch 30 reaches 57.94% overall event accuracy. The selected checkpoint's natural-training event accuracy is 63.68%. These facts do not establish a unique cause for instability, nor justify changing the epoch criterion after viewing results.
+
+The 25% configuration remains a candidate. Neither this screening result nor its oracle boundaries establish end-to-end or student improvements. P2 development continues.
+
+### Weekly update
+
+- Measured the intermediate 25% mixture between natural and 50% sampling.
+- Same-seed overall accuracy and rare macro recall improve over 50%, while macro quality and minor recall worsen.
+- Four correct rare intervals all add information missed by F, but precision is still poor.
+- The next proposed step is to repeat the 25% policy on the two existing additional seeds.
+
+| Date | Status | Decision |
+|---|---|---|
+| 20 November 2026 | Verified | Mixture 25%: 59.85% event accuracy, 3.94% rare macro recall, four E-only rare successes, selected epoch 6. |
+| 20 November 2026 | Proposed | Repeat seeds 20261120/20261121 before adopting the intermediate mixture. |
+
+Raw outputs are preserved in runs/p2-mixture25-kaggle/. The imported ZIP remains in runs/imports/p2-mixture25-results.zip, with selected records under reports/p2/kaggle-mixture25/.

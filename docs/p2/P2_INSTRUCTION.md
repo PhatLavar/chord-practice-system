@@ -113,4 +113,7 @@ Import [02d_teacher_e_mixture25.ipynb](../../notebooks/02d_teacher_e_mixture25.i
 
 The new output is runs/p2-mixture25-kaggle/. Its run.json records balanced_probability=0.25 and natural_probability=0.75. The final cell exports /kaggle/working/p2-mixture25-results.zip. Save the executed version and download that ZIP to local runs/imports/.
 
-No repeat of the unchanged architecture's overfit check is required for this sampler-only trial. Existing output directories are protected; choose a fresh name for retries. The full validation results are pending. See [P2_REPORT.md](P2_REPORT.md) for controls and interpretation.
+No repeat of the unchanged architecture's overfit check is required for this sampler-only trial. Existing output directories are protected; choose a fresh name for retries. The first validation run has completed and been verified. See [P2_REPORT.md](P2_REPORT.md) for the screening results, tradeoffs and proposed seed repeats.
+
+
+The 25% screening archive has been audited. Selected metrics, quality scores, complementarity counts and exact correct rare intervals are versioned under reports/p2/kaggle-mixture25/. The report distinguishes this one-seed screen from the earlier three-seed comparisons.

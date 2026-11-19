@@ -1,0 +1,34 @@
+[
+  {
+    "id": "0303",
+    "start": 184.59597789062502,
+    "end": 186.62209183625004,
+    "quality": "aug",
+    "reference": 74,
+    "F_correct": false
+  },
+  {
+    "id": "0859",
+    "start": 3.5262131515000017,
+    "end": 4.531337868000001,
+    "quality": "sus2",
+    "reference": 75,
+    "F_correct": false
+  },
+  {
+    "id": "0859",
+    "start": 11.56659863870001,
+    "end": 12.571519273600012,
+    "quality": "sus2",
+    "reference": 75,
+    "F_correct": false
+  },
+  {
+    "id": "0964",
+    "start": 132.77298412619973,
+    "end": 133.2054212010247,
+    "quality": "dim",
+    "reference": 87,
+    "F_correct": false
+  }
+]
