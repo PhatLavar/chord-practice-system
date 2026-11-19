@@ -50,7 +50,7 @@ run.json records source hashes, split hash, exact song IDs, configuration, revis
 
 predictions/ contains timestamps, reference labels, predictions and all four heads' logits per song. It also contains a confusion matrix, per-song counts and per-quality recall requiring the complete chord to match. Frame accuracy and macro chord recall exclude masked frames. These are frame-based P1 diagnostics. Rare-quality event recall, event matching and temporal decoding require a separately fixed evaluation protocol before the student comparisons.
 
-GPU execution and full 367-song training must be verified in the executed Kaggle run. Pin the recorded code revision when reproducing an experiment.
+The returned Kaggle runs have been verified. See the [P1 report](P1_REPORT.md) for the baseline results and limitations. Pin the recorded code revision when reproducing an experiment.
 
 
 ## Local verification on 19 November 2026
@@ -59,4 +59,4 @@ The cache contains all 367 labeled training and 110 validation representatives. 
 
 The first overfit run used learning rate 0.003 for 100 epochs and reached 94.51% training frame accuracy. The selected configuration uses learning rate 0.001 for 200 epochs and reached 95.58% at epoch 195 on recordings 0003 and 0006 (5,810 scored frames). The full histories, checkpoints and predictions remain in local runs/. [Recorded configurations and results](../../reports/p1/local-overfit.json)
 
-These local results are training-set pipeline checks. The full baseline and Kaggle GPU execution are pending.
+These local results are training-set pipeline checks. The Kaggle overfit check and full baseline have since completed. See [P1_REPORT.md](P1_REPORT.md).

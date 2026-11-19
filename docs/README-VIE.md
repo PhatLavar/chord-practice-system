@@ -23,7 +23,7 @@ Mở `timeline.svg` trong thư mục đầu ra để xem phạm vi các khoảng
 
 ## Huấn luyện P1
 
-Đã có teacher F, bước overfit hai bài và cấu hình baseline toàn tập. Xem [hướng dẫn P1](p1/P1_INSTRUCTION.md) và [notebook Kaggle](../notebooks/01_teacher_f.ipynb). Dùng tên thư mục mới trong `runs/` cho mỗi lần chạy.
+Đã kiểm chứng baseline đầu tiên trên Kaggle, đạt 57,11% frame hợp âm đúng trên validation. Xem [báo cáo P1](p1/P1_REPORT.md) để đọc kết quả và hạn chế với hợp âm hiếm. Xem [hướng dẫn P1](p1/P1_INSTRUCTION.md) và [notebook Kaggle](../notebooks/01_teacher_f.ipynb). Dùng tên thư mục mới trong `runs/` cho mỗi lần chạy.
 
 ## Bố cục
 

@@ -1,0 +1,13 @@
+{
+  "archive_sha256": "c399e1ab373798a5941df5625813959d303accbc619d39e7c348e414f7860cda",
+  "validation_songs": 110,
+  "scored_frames": 456046,
+  "correct_frames": 260458,
+  "masked_frames": 58718,
+  "all_frames": 514764,
+  "source_hashes_match_committed_code": true,
+  "train_validation_ids_match_frozen_manifest": true,
+  "recomputed_confusion_matches": true,
+  "training_epoch_seconds": 53.58388411099986,
+  "archive_contains_both_checkpoints": true
+}

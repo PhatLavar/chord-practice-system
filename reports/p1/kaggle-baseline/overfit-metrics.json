@@ -1,0 +1,9 @@
+{
+  "frame_accuracy": 0.9549053356282272,
+  "macro_chord_recall": 0.8455557063000994,
+  "scored_frames": 5810,
+  "best_epoch": 195,
+  "evaluation_partition": "training",
+  "overfit_pass": true,
+  "peak_cuda_bytes": 13231104
+}

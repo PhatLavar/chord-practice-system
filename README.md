@@ -23,7 +23,7 @@ The full CPU audit is complete. See the [P0 report](docs/p0/P0_REPORT.md) for da
 
 ## P1 training
 
-Teacher F implementation is ready for the two-song pipeline check and the full validation baseline. Follow [P1 instructions](docs/p1/P1_INSTRUCTION.md) and import [the Kaggle notebook](notebooks/01_teacher_f.ipynb). Store each run under a new name in `runs/`.
+The first Kaggle baseline is complete: 57.11% whole-chord validation frame accuracy. See the [P1 report](docs/p1/P1_REPORT.md) for the verified results and rare-quality limitations. Follow [P1 instructions](docs/p1/P1_INSTRUCTION.md) and import [the Kaggle notebook](notebooks/01_teacher_f.ipynb). Store each run under a new name in `runs/`.
 
 ## Project layout
 
