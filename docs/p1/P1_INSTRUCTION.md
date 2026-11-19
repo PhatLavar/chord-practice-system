@@ -60,3 +60,14 @@ The cache contains all 367 labeled training and 110 validation representatives. 
 The first overfit run used learning rate 0.003 for 100 epochs and reached 94.51% training frame accuracy. The selected configuration uses learning rate 0.001 for 200 epochs and reached 95.58% at epoch 195 on recordings 0003 and 0006 (5,810 scored frames). The full histories, checkpoints and predictions remain in local runs/. [Recorded configurations and results](../../reports/p1/local-overfit.json)
 
 These local results are training-set pipeline checks. The Kaggle overfit check and full baseline have since completed. See [P1_REPORT.md](P1_REPORT.md).
+
+
+## Reproduce the saved-logit diagnostic
+
+After importing the Kaggle baseline into runs/p1-baseline-kaggle/, run from the repository root:
+
+```powershell
+python src/acr/diagnose_f.py --output reports/p1/kaggle-diagnostics
+```
+
+Choose a new output directory if it already exists. The script checks the detailed-label archive hash, reconstructs frame references and predictions, and reproduces the stored confusion matrix before reporting diagnostics. It averages probabilities on reference intervals and reports standalone component accuracy, per-quality event support, and a 0.1-second boundary diagnostic. See [P1_REPORT.md](P1_REPORT.md) for denominators, excluded events, limitations and the evolving experiment log.

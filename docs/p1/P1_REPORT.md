@@ -50,10 +50,77 @@ The model frequently simplifies seventh chords. G:7 was predicted as G:maj on 5,
 
 The exported example for recording 1125 contains C:7, D:7 and G:7 reference chords. It predominantly predicts C:maj, D:maj and G:maj. Thus, broadly matching transition positions can coexist with incorrect chord qualities. Vertical distance between numeric class IDs has no musical meaning. The numeric plot should be interpreted with the class vocabulary in run.json.
 
-## Status and next experiment
+## Component and reference-event evaluation · 19 November 2026
 
-P1's initial implementation, two-song overfit check, full baseline and validation audit are complete. The rare-quality objective remains unmet. The next controlled P1 experiment should evaluate training-only pitch transposition and class balancing, while preserving this baseline, manifest, vocabulary and validation protocol. Make each change a named experiment with its own output directory.
+The additional diagnostic uses the saved validation logits and the original detailed annotation archive. Its reader reproduces every saved frame reference and its decoder reproduces every saved prediction. Component scores measure the standalone root, triad and extension argmax on supported chord frames, conditional on a chord being present. They do not require the no-chord gate or other components to be correct.
 
-Before P2 teacher comparisons, define and implement reference-event evaluation and export per-quality song support. Those diagnostics will distinguish errors near transitions from errors within stable chord intervals. The test partition remains reserved for final evaluation. This run provides no evidence yet about teacher complementarity or gains from pseudo-labeling.
+| Standalone component | Supported-chord frame accuracy |
+|---|---:|
+| Root | 81.48% |
+| Triad | 86.15% |
+| Extension | 77.37% |
 
-For local inspection, the imported runs are runs/p1-overfit-kaggle/ and runs/p1-baseline-kaggle/. The original archive is retained under runs/imports/p1-results.zip. These large outputs are ignored by Git; the selected tables and run metadata above are versioned.
+These pooled component scores are dominated by common qualities. No-chord gate accuracy over all scored frames, including N, is 96.58%. Conditioning on quality reveals failures hidden by the aggregates.
+
+| Reference quality | Root accuracy | Triad accuracy | Extension accuracy |
+|---|---:|---:|---:|
+| 7 | 90.90% | 89.88% | 18.25% |
+| min7 | 82.38% | 78.83% | 17.36% |
+| maj7 | 78.16% | 91.06% | 5.80% |
+| sus2 | 86.65% | 0% | 100% |
+| maj6 | 58.12% | 93.28% | 0% |
+| hdim7 | 40.41% | 0% | 20.55% |
+
+A 100% extension score for sus2 means the model predicts the absence of an extension correctly. It cannot compensate for the missed suspended triad. The zero triad accuracy on dim, aug, sus2, sus4 and hdim7 and zero sixth-extension accuracy on maj6/min6 indicate that root-only improvements will be insufficient.
+
+### Reference-event protocol
+
+Merge touching intervals with the same supported root/quality after inversion collapse, matching the P0 event-count convention. Unsupported intervals remain breaks. For each supported interval, average frame probabilities separately for each head using timestamps in [start,end), then apply the existing no-chord gate and valid-chord decoder. Each scored event contributes one count. This uses oracle reference times and evaluates classification on fixed intervals; it does not evaluate predicted segmentation.
+
+Of 9,674 supported reference events including N, 9,673 contain at least one sampled frame. One event without a frame is explicitly omitted from the diagnostic denominator. Accuracy including N is 58.57%. Rare-quality macro event recall is 0%, averaged over all seven train-defined rare qualities with validation event support. This is an oracle-interval diagnostic; a final event-detection metric with predicted boundaries still needs its matching rules.
+
+| Rare quality | Scored events | Independent validation songs | Complete-chord event recall |
+|---|---:|---:|---:|
+| dim | 23 | 8 | 0% |
+| aug | 5 | 2 | 0% |
+| sus2 | 62 | 5 | 0% |
+| min6 | 6 | 2 | 0% |
+| minmaj7 | 4 | 2 | 0% |
+| hdim7 | 9 | 4 | 0% |
+| dim7 | 2 | 1 | 0% |
+
+Low support, especially two dim7 events in one song, limits conclusions about those qualities. Gaps and masked intervals are excluded from scored targets. The current per-quality song counts refer to songs with scored events.
+
+### Boundary diagnosis
+
+As an exploratory diagnostic, mark scored frames within 0.1 seconds of a reference change between two supported labels, including N transitions. Their complete-chord accuracy is 38.03% across 38,090 frames. The other 417,956 scored frames reach 58.85%. This comparison does not prove a causal effect of boundaries because chord and song composition can differ across the two groups.
+
+Oracle interval pooling still yields zero rare-quality recall. Transition errors therefore coexist with failures to classify rare chord content when interval times are supplied.
+
+[Full frame-component tables](../../reports/p1/kaggle-diagnostics/frame_qualities.csv) · [Reference-event tables and song support](../../reports/p1/kaggle-diagnostics/event_qualities.csv) · [Per-event decisions](../../reports/p1/kaggle-diagnostics/events.csv) · [Diagnostic summary](../../reports/p1/kaggle-diagnostics/summary.json)
+
+## Experiment log and planned changes
+
+Update this report whenever a P1 observation, protocol or planned training change changes. Mark proposals as planned until a run produces measured evidence. Record the date, code revision, changed factor, reason, fixed controls, results and next decision. Keep full numeric outputs under reports/p1/ and run artifacts under runs/.
+
+| Date | Status | Observation or decision | Implication |
+|---|---|---|---|
+| 19 November 2026 | Measured | CPU two-song run improved from 94.51% to 95.58% after lowering learning rate and increasing epochs. | The pipeline can fit a small training subset. |
+| 19 November 2026 | Measured | Kaggle overfit reached 95.49%; full baseline reached 57.11% validation frame accuracy at epoch 27. | Preserve commit 8ec616c as baseline. |
+| 19 November 2026 | Measured | Oracle interval accuracy is 58.57%; all seven rare qualities retain 0% recall. | Correct interval times alone do not recover the missing qualities. |
+| 19 November 2026 | Planned | First test class-frequency weighting separately for triad and extension losses, derived only from labeled training representatives. | Target underlearned components while keeping sampling, backbone and decoder fixed. Specify weights before training and record per-class counts. |
+| 19 November 2026 | Planned | Run pitch transposition as a separate ablation after the weighting comparison. | Test root coverage independently; it preserves quality and cannot itself increase the proportion of rare qualities. |
+| 19 November 2026 | Planned | Document TCN and component-head research precedents before architectural changes. | Distinguish literature choices from this project's pilot configuration. |
+
+The weighting proposal is motivated by the diagnostics; its effectiveness remains untested. Compare frame accuracy, per-quality component scores and rare oracle-event recall against this baseline on the same validation songs. Keep the fixed test partition reserved. Full student evaluation will require its own finalized event matching and uncertainty reporting.
+
+## Weekly presentation notes
+
+- Completed the Kaggle training pipeline and verified its returned predictions.
+- Established a 57.11% validation frame baseline with a 37,225-parameter TCN.
+- Found that roots are often recognized while sevenths, sixths and rare triads are missed.
+- Confirmed zero rare recall even when reference interval times are provided.
+- Next experiment will change component-loss weighting alone; it has not been run.
+- These results concern teacher F; teacher complementarity and pseudo-label benefits remain open.
+
+For local inspection, imported runs are runs/p1-overfit-kaggle/ and runs/p1-baseline-kaggle/. The archive is retained under runs/imports/p1-results.zip. Large artifacts are ignored by Git; the linked summaries and tables are versioned.

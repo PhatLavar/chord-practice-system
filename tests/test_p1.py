@@ -9,6 +9,7 @@ import torch
 from p1_data import encode, CLASSES
 from teacher_f import targets, losses, decode
 from train_f import Windows
+from diagnose_f import probabilities, decode_components, reference_events
 
 
 class P1Tests(unittest.TestCase):
@@ -33,6 +34,24 @@ class P1Tests(unittest.TestCase):
         value=sum(losses(logits,torch.full((1,2),-100)))
         self.assertEqual(value.item(),0)
         value.backward()
+
+    def test_reference_events_preserve_unknown_and_merge_inversions(self):
+        result = reference_events(["0 1 C:maj", "1 2 C:maj/3", "2 3 X",
+                                   "3 4 C:maj", "4 5 C:9", "5 6 C:maj"])
+        self.assertEqual(result, [(0.,2.,encode("C:maj")),(2.,3.,-100),
+                                  (3.,4.,encode("C:maj")),(4.,5.,-100),
+                                  (5.,6.,encode("C:maj"))])
+
+    def test_numpy_decoder_matches_teacher_and_probability_pooling(self):
+        generator = torch.Generator().manual_seed(7)
+        logits = [torch.randn(1,n,21,generator=generator) for n in (2,12,6,5)]
+        probs = [probabilities(h[0].numpy()) for h in logits]
+        np.testing.assert_array_equal(decode_components(probs), decode(logits)[0].numpy())
+        pooled = [p.mean(axis=1,keepdims=True) for p in probs]
+        pooled_logits = [torch.from_numpy(np.log(p)).unsqueeze(0) for p in pooled]
+        np.testing.assert_array_equal(decode_components(pooled), decode(pooled_logits)[0].numpy())
+        for p in probs:
+            np.testing.assert_allclose(p.sum(axis=0),1.)
 
     def test_tail_padding_and_context(self):
         x=np.arange(24*9,dtype=np.float32).reshape(9,24)
