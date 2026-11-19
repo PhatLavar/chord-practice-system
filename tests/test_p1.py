@@ -8,7 +8,7 @@ import numpy as np
 import torch
 from p1_data import encode, CLASSES
 from teacher_f import targets, losses, decode
-from train_f import Windows, component_weights
+from train_f import Windows, QualityBalancedWindows, component_weights
 from diagnose_f import probabilities, decode_components, reference_events
 
 
@@ -76,6 +76,25 @@ class P1Tests(unittest.TestCase):
         sum(terms).backward()
         for h in logits:
             self.assertTrue(torch.isfinite(h.grad).all())
+
+    def test_balanced_sampling_keeps_rare_anchor_and_budget(self):
+        y=np.full(1024,encode("C:maj"),dtype=np.int64)
+        y[700]=encode("C:dim7")
+        songs={"train":{"x":np.zeros((1024,24),dtype=np.float32),"y":y}}
+        dataset=QualityBalancedWindows(songs,512,31)
+        self.assertEqual(len(dataset),len(Windows(songs,512,31)))
+        self.assertEqual(set(dataset.qualities),{0,13})
+        torch.manual_seed(5)
+        first=[dataset[i%len(dataset)][1].clone() for i in range(100)]
+        self.assertTrue(any((v==encode("C:dim7")).any() for v in first))
+        torch.manual_seed(5)
+        second=[dataset[i%len(dataset)][1] for i in range(100)]
+        self.assertTrue(all(torch.equal(a,b) for a,b in zip(first,second)))
+        short={"short":{"x":np.zeros((1,24),dtype=np.float32),"y":np.array([encode("D:hdim7")])}}
+        short_dataset=QualityBalancedWindows(short,512,31)
+        _,target=short_dataset[0]
+        self.assertEqual(target[0],encode("D:hdim7"))
+        self.assertTrue((target[1:]==-100).all())
 
     def test_tail_padding_and_context(self):
         x=np.arange(24*9,dtype=np.float32).reshape(9,24)

@@ -1,0 +1,10 @@
+{
+  "labeled_train_songs": 367,
+  "windows_per_epoch": 3471,
+  "seed": 20261119,
+  "manifest_sha256": "b5015fb99982eb7fef3705faa5328c6dd49347fdcc31704fae13b71d8f36e0f0",
+  "diagnostic": "One simulated epoch; sampling with replacement; not new independent data",
+  "policy": "50% natural windows; 50% uniform observed quality, uniform song, uniform matching frame",
+  "source_chord_frames": 1420367,
+  "sampled_chord_frames": 1472767
+}

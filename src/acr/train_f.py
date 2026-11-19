@@ -50,6 +50,9 @@ class Windows(Dataset):
 
     def __getitem__(self, index):
         rid, start = self.windows[index]
+        return self.get_window(rid, start)
+
+    def get_window(self, rid, start):
         song = self.songs[rid]
         stop = min(start+self.length, len(song["y"]))
         x = np.zeros((24, self.length+2*self.context), dtype=np.float32)
@@ -59,6 +62,33 @@ class Windows(Dataset):
         y = np.full(self.length, -100, dtype=np.int64)
         y[:stop-start] = song["y"][start:stop]
         return torch.from_numpy(x), torch.from_numpy(y)
+
+
+class QualityBalancedWindows(Windows):
+    """Half natural windows, half quality/song-balanced centered windows."""
+
+    def __init__(self, songs, length, context):
+        super().__init__(songs, length, context)
+        self.anchors = {}
+        for rid, song in songs.items():
+            y = song["y"]
+            for quality in range(len(QUALITIES)):
+                indices = np.flatnonzero((y > 0) & ((y-1) % len(QUALITIES) == quality))
+                if len(indices):
+                    self.anchors.setdefault(quality, []).append((rid, indices))
+        self.qualities = sorted(self.anchors)
+        if not self.qualities:
+            raise ValueError("Balanced sampling requires observed chord qualities")
+
+    def __getitem__(self, index):
+        if torch.rand(()).item() < .5:
+            return super().__getitem__(index)
+        quality = self.qualities[torch.randint(len(self.qualities), ()).item()]
+        entries = self.anchors[quality]
+        rid, indices = entries[torch.randint(len(entries), ()).item()]
+        anchor = int(indices[torch.randint(len(indices), ()).item()])
+        start = max(0, min(anchor-self.length//2, len(self.songs[rid]["y"])-self.length))
+        return self.get_window(rid, start)
 
 
 @torch.no_grad()
@@ -126,7 +156,12 @@ def train(cache, config, output, device):
     if weighting == "inverse_sqrt":
         class_weights, weight_record = component_weights(train_songs, device)
     model=FrameTeacher(cfg["width"]).to(device)
-    loader=DataLoader(Windows(train_songs,cfg["window"],model.context),
+    sampling = cfg.get("sampling", "natural")
+    if sampling not in ("natural", "quality_song_mixture"):
+        raise ValueError("Unknown sampling policy")
+    dataset_class = QualityBalancedWindows if sampling == "quality_song_mixture" else Windows
+    dataset = dataset_class(train_songs,cfg["window"],model.context)
+    loader=DataLoader(dataset,
                       batch_size=cfg["batch_size"],shuffle=True,num_workers=0)
     output.mkdir(parents=True,exist_ok=False)
     revision=subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip()
@@ -138,6 +173,13 @@ def train(cache, config, output, device):
                 source_code_sha256={str(p):hashlib.sha256(p.read_bytes()).hexdigest()
                                     for p in sorted(Path("src/acr").glob("*.py"))})
     (output/"run.json").write_text(json.dumps(record,indent=2))
+    if sampling == "quality_song_mixture":
+        sampling_record = dict(policy=sampling, natural_probability=.5,
+                               balanced_probability=.5, windows_per_epoch=len(dataset),
+                               optimizer_steps_per_epoch=len(loader),
+                               supported_qualities=[QUALITIES[q] for q in dataset.qualities],
+                               train_song_support={QUALITIES[q]:len(entries) for q,entries in dataset.anchors.items()})
+        (output/"sampling.json").write_text(json.dumps(sampling_record,indent=2))
     if weight_record is not None:
         (output/"loss_weights.json").write_text(json.dumps(weight_record,indent=2))
     optimizer=torch.optim.Adam(model.parameters(),lr=cfg["learning_rate"])
@@ -145,7 +187,12 @@ def train(cache, config, output, device):
     for epoch in range(1,cfg["epochs"]+1):
         started=time.perf_counter();model.train()
         sums=np.zeros(4);batches=0
+        quality_exposure=np.zeros(len(QUALITIES),dtype=np.int64)
         for x,y in loader:
+            if sampling == "quality_song_mixture":
+                observed=y[y>0]
+                quality_exposure += torch.bincount((observed-1)%len(QUALITIES),
+                                                  minlength=len(QUALITIES)).numpy()
             x,y=x.to(device),y.to(device)
             heads=[h[:,:,model.context:model.context+cfg["window"]] for h in model(x)]
             terms=losses(heads,y,class_weights);loss=sum(terms)
@@ -156,6 +203,8 @@ def train(cache, config, output, device):
         metrics=evaluate(model,eval_songs,device)
         row=dict(epoch=epoch,head_losses=(sums/max(1,batches)).tolist(),
                  seconds=time.perf_counter()-started,**metrics)
+        if sampling == "quality_song_mixture":
+            row["sampled_quality_frames"] = dict(zip(QUALITIES,map(int,quality_exposure)))
         history.append(row);print(json.dumps(row),flush=True)
         (output/"history.json").write_text(json.dumps(history,indent=2))
         if metrics["frame_accuracy"]>best:

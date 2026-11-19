@@ -1,0 +1,8 @@
+{
+  "labeled_train_songs": 367,
+  "windows_per_epoch": 3471,
+  "optimizer_steps_per_epoch": 217,
+  "one_batch_loss": 6.817635536193848,
+  "finite_gradients": true,
+  "full_training_completed": false
+}

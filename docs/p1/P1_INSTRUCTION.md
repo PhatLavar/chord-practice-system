@@ -100,3 +100,18 @@ Choose a fresh run name for a retry. Review the [P1 experiment log](P1_REPORT.md
 
 
 The first weighted Kaggle run has been imported and verified. See the weighted-results section in [P1_REPORT.md](P1_REPORT.md) before rerunning or choosing another experiment. Raw imported artifacts are under runs/p1-weighted-kaggle/; the downloaded archive remains under runs/imports/. Selected results are versioned under reports/p1/kaggle-weighted/ and reports/p1/weighted-diagnostics/.
+
+
+## Quality/song-balanced sampling experiment
+
+Import [01c_teacher_f_balanced.ipynb](../../notebooks/01c_teacher_f_balanced.ipynb) into Kaggle. Enable Internet and GPU, stop any earlier active GPU session, and run cells in order. The notebook updates the checkout, prepares or reuses the P1 cache, runs tests, trains with configs/p1-balanced.json and executes the saved-logit diagnostic. Download /kaggle/working/p1-balanced-results.zip and save the executed notebook version.
+
+This run starts from the seeded initialization. It uses baseline unweighted losses, with the sampling change specified in [P1_REPORT.md](P1_REPORT.md). It writes runs/p1-balanced-kaggle/, including sampling.json and actual per-quality exposures in history.json. Pick a fresh run name if retrying an existing output.
+
+To reproduce just the train-only exposure audit locally:
+
+```powershell
+python src/acr/audit_exposure.py --output reports/p1/sampling-setup
+```
+
+The output directory must be new. The committed setup tables already contain the first audit. The simulated exposure is a sampling diagnostic; training quality requires the actual Kaggle run.

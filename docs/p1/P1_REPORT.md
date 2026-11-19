@@ -189,3 +189,47 @@ Next proposed diagnostic, before launching another training run: count train win
 For the weekly presentation, report this as a measured tradeoff: increasing rare component loss weights helped some seventh chords, reduced major/minor accuracy, and did not recover rare event recognition. Include both aggregate and per-quality metrics, plus the low support of the rarest validation classes.
 
 The diagnostic summary is printed twice in the Kaggle notebook because the script prints its result and the notebook prints summary.json again. Identical repeated output does not indicate a second training run.
+
+
+## Training exposure audit and balanced-sampling proposal · 19 November 2026
+
+The train-only audit read exactly 367 labeled representatives. The original 512-frame scheme contains 3,471 eligible windows, yielding 217 optimizer steps per epoch with batch size 16. Windows can contain several qualities. Counts below describe source observations, before repeated sampling.
+
+| Quality | Frames | Independent train songs | Natural windows containing the quality |
+|---|---:|---:|---:|
+| aug | 772 | 10 | 26 |
+| dim | 3,206 | 30 | 92 |
+| dim7 | 556 | 3 | 12 |
+| hdim7 | 2,904 | 19 | 65 |
+| min6 | 4,972 | 19 | 66 |
+| minmaj7 | 569 | 5 | 12 |
+| sus2 | 3,627 | 18 | 53 |
+
+[All qualities and simulated exposure](../../reports/p1/sampling-setup/quality_exposure.csv) · [Audit metadata](../../reports/p1/sampling-setup/summary.json)
+
+### Sampler specification
+
+Use the unweighted baseline configuration and change only the training-window sampling policy. Keep the 30-epoch budget and 3,471 sampled windows per epoch. For each shuffled natural-window index, draw a 50% chance of retaining the natural window. Otherwise select uniformly among the 14 observed chord qualities, select uniformly among labeled training songs containing that quality, then select uniformly among matching frames in that song. Center a 512-frame window on the selected frame, clipped at song edges. Keep the original context padding and masked targets.
+
+This mixture retains naturally occurring N and common chords while creating more opportunities to observe rare components. It balances the anchor choice; the 512-frame targets themselves still contain their natural neighboring chords, so total quality-frame counts are not uniform. No-chord is handled by the natural branch and surrounding frames. Sampling is with replacement. Source-song diversity is unchanged. For dim7 in particular, repetition of three songs can cause overfitting.
+
+The train-only simulation with seed 20261119 yielded approximately 7.92 times the original aug frame exposures, 12.49 times dim7, 22.19 times minmaj7 and 3.50 times hdim7 in one sampled epoch. These are repeated observations, not new independent data. The exact training sequence can differ from this audit because model initialization, shuffling and training consume random numbers too. The actual per-quality frame exposures are therefore logged in each epoch's history.json.
+
+### Fixed controls and tests
+
+Use [p1-balanced.json](../../configs/p1-balanced.json). Component loss weights are disabled, matching the original baseline. Seed, optimizer, learning rate, epochs, architecture, window length, decoder, split and checkpoint selection criterion match the baseline. The different sampling changes the training examples seen at each step; total nonmasked frame counts can vary. Record sampling.json with the policy, quality support, windows and optimizer-step budget.
+
+Seven unit checks include deterministic sampling for a fixed seed, preservation of rare anchors, the natural epoch budget and short-song padding. A real-data CPU batch passed forward, backward and optimizer update with finite loss and gradients. [Verification](../../reports/p1/sampling-setup/verification.json)
+
+Status: implemented and locally checked. Full Kaggle training and validation comparison are pending. The weighting-only run remains a separate completed ablation. The next sampler result must be judged on complete rare-event recall, per-quality precision, common-quality accuracy and aggregate scores. A reduction in training loss alone does not establish improvement.
+
+### Relevance to the second teacher
+
+Teacher E can use the same train/validation split, vocabulary and independently fitted TCN backbone. For its oracle-event training, quality/song-balanced event sampling is a candidate counterpart, to be specified when P2 begins. Improvement in F would justify testing the shared strategy in E; it would not establish E's accuracy or teacher complementarity. Both teachers need standalone validation before pseudo-labeling.
+
+### Weekly update
+
+- The weighting trial improved seventh qualities but retained zero rare-event recall.
+- Rare-event exposure is concentrated in very few windows and songs, including only three dim7 training songs.
+- The new experiment changes sampling alone while retaining unweighted losses.
+- Full sampler training is pending. Record the returned metrics and the tradeoff before changing another factor.
