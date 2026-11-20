@@ -16,11 +16,11 @@ from data_e import Events, collate_events, load_events, partitions
 from p1_data import CLASSES, QUALITIES
 from prepare_jaah import digest, REVISION
 from teacher_e import EventTeacher
-from teacher_f import losses
+from teacher_f import FrameTeacher, losses
 from train_e import evaluate, compare
 
 
-class MultiInputEventTeacher(EventTeacher):
+class MultiInputFrameTeacher(FrameTeacher):
     def __init__(self, width=48):
         super().__init__(width)
         # Do not perturb the original model's initialization/sampling RNG stream.
@@ -36,6 +36,10 @@ class MultiInputEventTeacher(EventTeacher):
         for block in self.blocks:
             h = h + F.relu(block(h))
         return h
+
+
+class MultiInputEventTeacher(MultiInputFrameTeacher):
+    forward = EventTeacher.forward
 
 
 def load_aux(cache):

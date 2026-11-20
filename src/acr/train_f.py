@@ -57,7 +57,7 @@ class Windows(Dataset):
     def get_window(self, rid, start):
         song = self.songs[rid]
         stop = min(start+self.length, len(song["y"]))
-        x = np.zeros((24, self.length+2*self.context), dtype=np.float32)
+        x = np.zeros((song["x"].shape[1], self.length+2*self.context), dtype=np.float32)
         lo, hi = max(0,start-self.context), min(len(song["y"]),start+self.length+self.context)
         offset = lo-start+self.context
         x[:,offset:offset+hi-lo] = song["x"][lo:hi].T

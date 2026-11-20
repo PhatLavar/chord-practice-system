@@ -1,0 +1,41 @@
+{
+  "scope": "CPU execution checks only; no full GPU experiment or performance conclusion",
+  "smoke_events": 163,
+  "pairs": 4,
+  "curves": 336,
+  "notebook_code_cells_compiled": 8,
+  "smoke_jobs": {
+    "F_billboard_control": {
+      "epochs": 2,
+      "auxiliary_steps": [
+        0,
+        0
+      ]
+    },
+    "F_jaah_mixed": {
+      "epochs": 2,
+      "auxiliary_steps": [
+        1,
+        1
+      ]
+    },
+    "E_billboard_control": {
+      "epochs": 2,
+      "auxiliary_steps": [
+        0,
+        0
+      ]
+    },
+    "E_jaah_mixed": {
+      "epochs": 2,
+      "auxiliary_steps": [
+        1,
+        1
+      ]
+    }
+  },
+  "unit_tests": {
+    "passed": 40,
+    "command": ".venv/Scripts/python.exe -m unittest discover -s tests"
+  }
+}

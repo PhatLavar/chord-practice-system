@@ -654,3 +654,12 @@ Implement a separate 12-to-48 input projection for JAAH and preserve the 24-to-4
 This is an implementation and data-feasibility milestone. Full GPU experiments, repeatability across seeds and any improvement in rare-chord precision/coverage remain unmeasured. Metadata matching does not replace audio fingerprinting, and duration checks do not prove local label alignment. The added projection handles differing input dimensions; it does not recover missing bass/treble information.
 
 Local verification passes 36 tests. A training-only check memorized eight Billboard and eight JAAH events, reaching 100% on each branch after 168 optimizer steps. This confirms that both input paths can learn through the shared model, not that validation scores improve. Raw smoke artifacts remain in runs/p2-jaah-smoke/ and selected evidence in reports/p2/jaah-inventory/overfit_check.json.
+
+
+## Expanded F/E JAAH pilot — 20 November 2026
+
+The preceding E-only pilot is superseded for the next experiment by four fresh training jobs: F control/mixed and E control/mixed. Dataset expansion is now tested independently for both teachers. Each teacher has separate Billboard/JAAH input projections and its own shared trunk/heads; F and E do not share weights. F replaces 54/217 batches and E replaces 248/990 batches per full epoch. Both arms within each teacher keep the same seed and training budget.
+
+Evaluate all four F/E combinations on identical Billboard gold intervals. F outputs are pooled as mean frame probabilities; E uses event probabilities. The new analysis reports individual scores, per-quality precision/recall, F-only/E-only successes and confidence/precision/coverage by head, predicted component class and true quality. The E run directories retain their historical fixed-F comparator for compatibility; the four-pair analysis directory is authoritative for this experiment.
+
+Use notebook 02g_teachers_fe_jaah_pilot.ipynb instead of the E-only 02f notebook. Four CPU smoke jobs and all four pair analyses passed on 163 validation-subset events; both auxiliary training paths were exercised. The F smoke uses 50% replacement solely to exercise JAAH in its two-batch epoch, while full training uses 25%. These execution checks establish no generalization improvement. Selected evidence: [verification.json](../../reports/p2/jaah-fe-pilot/verification.json). Full GPU training and multi-seed confirmation remain pending. See [P2_JAAH_EXPERIMENT.md](P2_JAAH_EXPERIMENT.md) for the complete protocol.

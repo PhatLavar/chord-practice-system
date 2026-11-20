@@ -479,3 +479,8 @@ The event teacher implementation is now documented in [P2_REPORT.md](../p2/P2_RE
 ### Confidence audit follow-up · 20 November 2026
 
 The original F checkpoint has now been audited with E25 at the same seed using saved logits on gold validation intervals. See the component confidence section in [P2_REPORT.md](../p2/P2_REPORT.md) for definitions, per-head precision/coverage and per-class results. This does not change F's training or frame-level metrics. At an exploratory threshold of 0.9, F/E agreement attains 96.54% overall triad precision but gets all 24 accepted triads on true rare-quality events wrong. Shared confident errors remain a material limitation; agreement alone is not a reliable rare-label filter. Investigate data diversity next while preserving the Billboard-only control; no augmentation, extra dataset or architecture change has been applied in this audit.
+
+
+### External-data experiment for F and E — 20 November 2026
+
+Extend the JAAH pilot to F as well as E. Train a fresh Billboard-only F control and a JAAH-mixed F with a separate 12-dimensional input projection and shared temporal trunk/heads. Keep F's 50% quality/song-balanced window sampler; replace 54 of 217 batches per full epoch with JAAH, holding the update/window budget fixed. This is a new experiment, not a replacement for the selected historical F. Compare both new F models with both new E models on the same gold validation events, including per-component confidence, precision, coverage and class-specific errors. See [the experiment protocol](../p2/P2_JAAH_EXPERIMENT.md). Full GPU results are pending.

@@ -1,14 +1,14 @@
-# P2 JAAH auxiliary-data pilot
+# P2 JAAH pilot for both F and E
 
 Status (20 November 2026): data inventory and implementation prepared locally. Full Kaggle training and any improvement claim are pending.
 
-Local verification: 36 unit tests pass, including unchanged 24-channel outputs/RNG, 12-channel gradients into the shared trunk, mixed-channel batch rejection, external-label masking and the fixed replacement budget. A tiny training-only memorization check reached 8/8 correct Billboard events and 8/8 correct JAAH events after 84 alternating epochs (168 optimizer steps). See [overfit_check.json](../../reports/p2/jaah-inventory/overfit_check.json). This is an execution/learnability check, not validation performance or evidence that adding JAAH improves ACR.
+Local verification: 40 unit tests pass, including unchanged 24-channel outputs/RNG, 12-channel gradients into the shared trunk, mixed-channel batch rejection, external-label masking and the fixed replacement budget. A tiny training-only memorization check reached 8/8 correct Billboard events and 8/8 correct JAAH events after 84 alternating epochs (168 optimizer steps). See [overfit_check.json](../../reports/p2/jaah-inventory/overfit_check.json). This is an execution/learnability check, not validation performance or evidence that adding JAAH improves ACR.
 
 ## Selected data and research question
 
 Use JAAH as the first external training source. Its pinned public release supplies frame-level chroma and aligned LAB annotations, allowing an experiment without acquiring additional audio. Keep JSIR as a promising rare-harmony candidate requiring matched audio, and GuitarSet as a later guitar-domain experiment requiring feature extraction. Do not combine all three in this first pilot.
 
-Question: can auxiliary jazz supervision through a separate 12-channel input projection improve the shared event teacher's rare-chord recognition on the unchanged Billboard validation set?
+Question: does auxiliary jazz supervision improve F, E, or their complementarity on the unchanged Billboard validation set? Run four separately trained models, then evaluate all four pairings. The earlier E-only notebook 02f is superseded by 02g for this experiment.
 
 This tests a combined auxiliary-domain/representation intervention. It does not isolate the contribution of genre, amount of data or input information individually. It does not test the 12-channel branch on unseen JAAH recordings or establish cross-dataset generalization.
 
@@ -41,50 +41,63 @@ Normalized titles were compared conservatively against every title in the Billbo
 
 ## Model and controlled comparison
 
-```text
-Billboard 24 bins -> original 24-to-48 projection --+
-                                                 +-> shared TCN -> event pooling -> four shared heads
-JAAH 12 bins ----> new 12-to-48 projection ---------+
-```
+Each teacher has its own 24-to-48 Billboard projection and 12-to-48 JAAH projection feeding its own TCN and four heads. F emits frame predictions; E pools hidden states over gold intervals before classification. F and E share no parameters or checkpoints. Both control models contain an unused 12-channel projection, preserving matched architecture within each teacher's comparison.
 
-The new projection does not reconstruct missing bass/treble information. It learns a representation that can feed the shared trunk. Each batch has a single input representation; mixed-channel batches are rejected. Teacher F stays fixed and independently trained. Its frozen event decisions are used for complementarity after each full E run.
+The input branch does not reconstruct missing bass/treble information. Within each model the trunk/heads learn from both representations. Every batch contains only one representation. The 24-channel computation and initialization RNG are preserved, and auxiliary sampling does not perturb the Billboard CPU sampling RNG stream.
 
-Both arms start from scratch at seed 20261119, width 48, batch size 32, learning rate 0.001, 30 epochs, Adam, gradient clipping 5, unweighted four-head losses and E25's within-dataset sampling policy. Both models contain the same additional projection; the control never uses it. Construction of that projection preserves the original model's initialization and CPU sampling RNG stream. Auxiliary sampling also preserves the Billboard CPU sampling RNG stream.
+| Job | Within-source sampling | Total updates/epoch | JAAH updates/epoch | Checkpoint selection |
+|---|---|---:|---:|---|
+| F-control | 50% balanced frame windows | 217 | 0 | Billboard frame accuracy |
+| F-mixed | 50% balanced frame windows | 217 | 54 | Billboard frame accuracy |
+| E-control | 25% balanced events | 990 | 0 | Billboard complete-event accuracy |
+| E-mixed | 25% balanced events | 990 | 248 | Billboard complete-event accuracy |
 
-| Arm | Billboard batches/epoch | JAAH batches/epoch | Total optimizer steps/epoch |
-|---|---:|---:|---:|
-| billboard_control | 990 | 0 | 990 |
-| jaah_mixed | 742 | 248 | 990 |
+All four jobs start from scratch at seed 20261119, width 48, learning rate 0.001 and 30 epochs, with Adam, gradient clipping 5 and unweighted head losses. F uses window 512, context 31 on each side and batch size 16. E uses full gold events plus context and batch size 32. JAAH batches replace Billboard batches, never add updates. Rounded source replacement fractions are 54/217 (24.88%) for F and 248/990 (25.05%) for E.
 
-The 25% fraction rounds to 248 of 990 batches (25.05%). JAAH batches replace Billboard batches, not add extra optimizer steps. Batch sizes follow the Billboard schedule, including the final partial batch, so both arms draw 31,679 supervised events per epoch. Actual per-source/per-quality exposure is recorded each epoch. JAAH natural draws use sampling with replacement; its balanced branch uses the same quality/song policy as E25. Billboard retains the original shuffled-event loader.
+F draws 3,471 windows per epoch in both arms; valid frame counts can differ because of padding and masked regions, and are recorded alongside per-source class exposure. E draws 31,679 events per epoch in both arms. JAAH's natural index draws use replacement; balanced draws use the teacher's existing quality/song sampler. Budgets are matched **within each teacher**, not between F and E. Differences between F and E cannot be attributed solely to frame versus event modeling.
 
-Validation uses the same 110 Billboard songs, 9,673 reference intervals and original 169-class output vocabulary. The highest validation complete-event accuracy selects the checkpoint, matching the earlier policy. Keep the historical E25 result as context, but use the freshly trained control for the primary paired comparison.
+The same 110 Billboard validation songs and 9,673 scored gold intervals are used throughout. Both F checkpoints are pooled using **mean frame probabilities**, never softmax of averaged logits. E uses saved event softmax probabilities. The four comparisons are F-control/E-control, F-mixed/E-control, F-control/E-mixed and F-mixed/E-mixed. Historical teachers remain context; the four-pair experiment uses the freshly trained teachers, not the old fixed F.
+
+## Pair diagnostics
+
+The comparison script checks matching seeds, data provenance, evaluation partitions, event order/targets and within-teacher configs/budgets. It reproduces saved component and complete predictions before scoring.
+
+- individuals.csv and per-run quality tables: common event metrics and complete-chord precision/recall for all four teachers. F's frame metrics remain in its run directory.
+- Each pair's complementarity.csv: both correct, F-only correct, E-only correct and both wrong, per quality and component.
+- summary.json: complete-label agreement precision/coverage and complementarity for all events and the true-rare subset.
+- curves.csv: individual F/E and agreed component precision, coverage, accepted counts and mean confidence at 0, 0.5, 0.7, 0.8, 0.9, 0.95 and 0.99.
+- predicted_classes.csv: per-predicted-component precision and accepted recall, including false positives from other qualities/N.
+- true_qualities.csv: selected accuracy and coverage within each true quality, including ALL_RARE. This is not precision for predicting that quality.
+
+These use the operational scope from the confidence audit: coverage denominator is all events; component selection requires the relevant confident chord gates, and accepted component predictions on true N count as wrong. Agreement confidence is the minimum of both head scores, not a joint calibrated probability. Thresholds are exploratory; no pseudo-label acceptance policy is fitted. Gold boundaries and reused validation remain limitations.
 
 ## Run on Kaggle
 
-1. Import [02f_teacher_e_jaah_pilot.ipynb](../../notebooks/02f_teacher_e_jaah_pilot.ipynb).
-2. Enable Internet and a GPU; stop an older GPU session if Kaggle's concurrent-session limit is reached.
-3. Run cells in order. The notebook updates the repository, prepares the official Billboard cache if absent, downloads only the required pinned JAAH files and verifies the resulting sources against the committed inventory.
-4. A short CPU smoke run checks both branches. Its scores are not research results. Then run the two full GPU jobs.
-5. Save the executed notebook version. Download `/kaggle/working/p2-jaah-pilot-results.zip` and place it in local `runs/imports/`.
+1. Import [02g_teachers_fe_jaah_pilot.ipynb](../../notebooks/02g_teachers_fe_jaah_pilot.ipynb), replacing the earlier E-only 02f notebook for this experiment.
+2. Enable Internet and GPU. Stop an older GPU session if the concurrent-session limit is reached.
+3. Run cells in order: source/data preparation, four short smoke jobs and pair analysis, two full F jobs, two full E jobs, then the four-pair analysis.
+4. Save the executed notebook version and download `/kaggle/working/p2-jaah-fe-results.zip` into local `runs/imports/`.
 
-Output directories are protected against overwriting. An interrupted full pilot is not automatically resumed; preserve completed artifacts and use a fresh output root for a deliberate retry. The exported ZIP contains both runs, checkpoints, event logits, predictions, histories, source exposure, per-quality precision/recall and F/E complementarity. It contains no raw JAAH data.
+The F smoke run uses a 50% replacement fraction to guarantee that its tiny two-batch epoch exercises the auxiliary path; full F training uses the configured 25%. Smoke scores are execution checks, not results. A completed F or E stage can be reused only at the same config, revision, source hashes and mode. Interrupted stages are protected and require inspection/fresh output paths; this is not mid-job checkpoint resumption.
 
-Local commands, from the repository root:
+The archive contains all four checkpoints, F frame logits and pooled event probabilities, E event logits, histories/exposure and pair diagnostics. It excludes raw datasets. F's saved frame outputs make this ZIP larger than the earlier E-only ZIP.
+
+Local commands from the repository root (use fresh output paths):
 
 ```powershell
 .venv/Scripts/python.exe -m unittest discover -s tests
-# First preparation only; use fresh output/report paths for another preparation.
+# First preparation only; skip when the verified cache exists.
 .venv/Scripts/python.exe src/acr/prepare_jaah.py --download --report runs/p2-jaah-preparation
-.venv/Scripts/python.exe src/acr/experiment_jaah.py --output runs/p2-jaah-check --smoke
-# Full run requires an available CUDA device.
-.venv/Scripts/python.exe src/acr/experiment_jaah.py --output runs/p2-jaah-pilot --device cuda
+# Add --smoke and use a separate root for local CPU execution checks.
+.venv/Scripts/python.exe src/acr/experiment_jaah_f.py --output runs/p2-jaah-fe-pilot/F --device cuda
+.venv/Scripts/python.exe src/acr/experiment_jaah.py --output runs/p2-jaah-fe-pilot/E --device cuda
+.venv/Scripts/python.exe src/acr/compare_jaah_pairs.py --runs runs/p2-jaah-fe-pilot --output runs/p2-jaah-fe-pilot/analysis
 ```
 
-Raw inputs live in data/raw/jaah/; normalized cache in data/processed/p2-jaah/; these are ignored by Git. Human-readable instructions stay in docs/ and machine-readable evidence in reports/. Models/results stay in runs/.
+Raw inputs remain in data/raw/jaah/ and normalized cache in data/processed/p2-jaah/. Both are ignored by Git. Smoke artifacts are in runs/p2-jaah-fe-smoke/. Human-readable docs stay in docs/; selected machine evidence stays in reports/.
 
 ## Decision after training
 
 Compare complete-event accuracy, macro quality recall, rare macro recall, per-quality precision and correct rare-event/song counts. Inspect whether rare successes add information beyond F, and whether maj/min or sus classes regress. Re-run confidence/coverage analysis on saved outputs before accepting any pseudo-labeling policy.
 
-An increase in rare recall alone is insufficient if it comes from many false positives or a large common-chord regression. A promising single-seed result must be repeated with matched seeds before changing the preferred teacher. A negative result should be retained and interpreted as evidence about this specific mixture, mapping and input-adapter setup, not proof that external data cannot help. No threshold, dataset or model is selected based on hidden/test outcomes.
+An increase in rare recall alone is insufficient if it comes from many false positives or a large common-chord regression. A promising single-seed result must be repeated with matched seeds before changing either preferred teacher or the preferred pair. A negative result should be retained and interpreted as evidence about this specific mixture, mapping and input-adapter setup, not proof that external data cannot help. No threshold, dataset or model is selected based on hidden/test outcomes.

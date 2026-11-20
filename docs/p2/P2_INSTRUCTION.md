@@ -161,6 +161,6 @@ Confidence is uncalibrated. Agreement uses the minimum of both head scores; oper
 
 Read the confidence-audit section in P2_REPORT.md before interpreting the curves: high overall triad precision hides severe rare-event errors. This is reused-validation development analysis on gold intervals, not a chosen pseudo-labeling policy or an unseen-test result. Data augmentation/additional datasets are the next topic for investigation, not part of this audit.
 
-## External-data pilot: JAAH
+## External-data pilot: JAAH for F and E
 
-The first selected auxiliary source is JAAH. Its 12-bin input receives a separate projection into the shared E trunk; Billboard retains its 24-bin branch. Read [P2_JAAH_EXPERIMENT.md](P2_JAAH_EXPERIMENT.md) for the audited inventory, exclusions, experimental controls and limitations. Run [02f_teacher_e_jaah_pilot.ipynb](../../notebooks/02f_teacher_e_jaah_pilot.ipynb) on Kaggle for the two fresh matched jobs, then return p2-jaah-pilot-results.zip to runs/imports/. Full training results are pending.
+Use [02g_teachers_fe_jaah_pilot.ipynb](../../notebooks/02g_teachers_fe_jaah_pilot.ipynb) for four fresh jobs: F-control, F-mixed, E-control and E-mixed, followed by all four pair diagnostics. It supersedes the E-only 02f notebook for the current experiment. Read [P2_JAAH_EXPERIMENT.md](P2_JAAH_EXPERIMENT.md) for the audited inventory, within-teacher budget controls, interpretation and retry behavior. Return p2-jaah-fe-results.zip to runs/imports/. Full training results are pending.
