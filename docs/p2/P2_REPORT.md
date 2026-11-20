@@ -741,3 +741,17 @@ The user clarified that overall accuracy and comparison with published ACR shoul
 Selected the first two eligible JAAH events per present quality (8–100 frames), giving 24 events across 12 qualities; sus2/sus4 have no source support. Both models start fresh at seed 20261119, width 48, Adam learning rate 0.001, clipping 5, one fixed full batch and at most 300 updates. F trains on event-interior frame targets with context masked; its event decisions average frame probabilities. E trains on pooled event targets. Accuracy is checked every ten updates. F reaches 24/24 after 190 updates and E after 160. The exact selected intervals are saved in [diverse_memorization.json](../../reports/p2/jaah-fe-pilot/diverse_memorization.json).
 
 This rules out an absolute inability of either current input/label path to learn these varied examples. It does not validate all upstream audio alignment, explain full-corpus failure, or measure generalization. Full-source fit and cross-source optimization remain distinct questions; no broad architecture advantage follows from memorization.
+
+
+## Audio admission and standard metrics — 20 November 2026
+
+The user confirms no matching Isophonics/USPOP/Robbie audio is currently available. Documented access dependencies in [POP_AUDIO_ACCESS.md](POP_AUDIO_ACCESS.md); these annotation collections are not counted as new training data. GuitarSet 1.1.0 is the accessible audio pilot.
+
+Added the optional pinned mir_eval 0.8.2 evaluator for full explicit LAB timelines, with correct/eligible/excluded seconds per Root, MajMin, Triads and Tetrads metric. Tests verify duration rather than event weighting, unknown/no-chord handling, reductions and invalid timeline rejection. All 44 tests pass with the optional package installed. See [STANDARD_EVALUATION.md](STANDARD_EVALUATION.md).
+
+Rescored the four existing teachers on exported gold intervals as a scope-limited oracle diagnostic. F control/mixed Tetrads are 62.72%/62.31%; E control/mixed are 61.87%/60.57%. Thus E's event-accuracy improvement does not extend to duration-weighted Tetrads. These results exclude unavailable raw/OOV/trailing regions and must not be compared directly with published full-track WCSR. Machine evidence: reports/p2/jaah-fe-pilot/duration_metrics.json. No model promotion or new training follows from this diagnostic.
+
+
+### GuitarSet file-level inventory completed
+
+Verified official annotation and microphone archives by published MD5, paired 360 recordings and checked WAV headers/label bounds. Excluding the two documented timing errata leaves 358 candidates. The existing label mapping supports 66.34% of performed labeled duration, with 3,678.62 seconds OOV; instructed labels have full mapping coverage but different supervision semantics. Explicit power chords are a major unsupported category and cannot be silently relabeled as major/minor. Candidate groups are not yet final leakage groups, especially across styles sharing the three underlying progressions. See [GUITARSET_INSTRUCTION.md](GUITARSET_INSTRUCTION.md) and reports/p2/guitarset-inventory/. No new training data or folds were admitted.

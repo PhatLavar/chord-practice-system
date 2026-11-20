@@ -1,0 +1,122 @@
+{
+  "protocol": "Oracle gold intervals from existing supported-event exports, gap regions explicitly X. Does not recover excluded raw labels or trailing unexported regions. Not full-track or published-benchmark WCSR. Corpus scores sum metric-specific seconds.",
+  "mir_eval": "0.8.2",
+  "results": {
+    "F_billboard_control": {
+      "songs": 110,
+      "metrics": {
+        "root": {
+          "correct_seconds": 18052.01615152474,
+          "eligible_seconds": 21193.00625640703,
+          "excluded_seconds": 2726.1404782379686,
+          "score": 0.8517911962616105
+        },
+        "majmin": {
+          "correct_seconds": 16612.45309507709,
+          "eligible_seconds": 20729.947619245268,
+          "excluded_seconds": 3189.199115399736,
+          "score": 0.8013745813643264
+        },
+        "triads": {
+          "correct_seconds": 16615.68547602934,
+          "eligible_seconds": 21193.00625640703,
+          "excluded_seconds": 2726.1404782379686,
+          "score": 0.7840173911620546
+        },
+        "tetrads": {
+          "correct_seconds": 13292.129318961108,
+          "eligible_seconds": 21193.00625640703,
+          "excluded_seconds": 2726.1404782379686,
+          "score": 0.6271941393374835
+        }
+      }
+    },
+    "F_jaah_mixed": {
+      "songs": 110,
+      "metrics": {
+        "root": {
+          "correct_seconds": 17903.613672884298,
+          "eligible_seconds": 21193.00625640703,
+          "excluded_seconds": 2726.1404782379686,
+          "score": 0.8447887692890059
+        },
+        "majmin": {
+          "correct_seconds": 16647.572755989593,
+          "eligible_seconds": 20729.947619245268,
+          "excluded_seconds": 3189.199115399736,
+          "score": 0.8030687323365121
+        },
+        "triads": {
+          "correct_seconds": 16648.43763013924,
+          "eligible_seconds": 21193.00625640703,
+          "excluded_seconds": 2726.1404782379686,
+          "score": 0.78556281391679
+        },
+        "tetrads": {
+          "correct_seconds": 13204.637004630826,
+          "eligible_seconds": 21193.00625640703,
+          "excluded_seconds": 2726.1404782379686,
+          "score": 0.6230657814598071
+        }
+      }
+    },
+    "E_billboard_control": {
+      "songs": 110,
+      "metrics": {
+        "root": {
+          "correct_seconds": 17879.534031311036,
+          "eligible_seconds": 21193.00625640703,
+          "excluded_seconds": 2726.1404782379686,
+          "score": 0.8436525623119527
+        },
+        "majmin": {
+          "correct_seconds": 16213.519804337,
+          "eligible_seconds": 20729.947619245268,
+          "excluded_seconds": 3189.199115399736,
+          "score": 0.7821302833049464
+        },
+        "triads": {
+          "correct_seconds": 16231.906291298472,
+          "eligible_seconds": 21193.00625640703,
+          "excluded_seconds": 2726.1404782379686,
+          "score": 0.7659086254641799
+        },
+        "tetrads": {
+          "correct_seconds": 13111.697345619748,
+          "eligible_seconds": 21193.00625640703,
+          "excluded_seconds": 2726.1404782379686,
+          "score": 0.6186803885671409
+        }
+      }
+    },
+    "E_jaah_mixed": {
+      "songs": 110,
+      "metrics": {
+        "root": {
+          "correct_seconds": 17849.81865272575,
+          "eligible_seconds": 21193.00625640703,
+          "excluded_seconds": 2726.1404782379686,
+          "score": 0.8422504309566476
+        },
+        "majmin": {
+          "correct_seconds": 15962.785956869513,
+          "eligible_seconds": 20729.947619245268,
+          "excluded_seconds": 3189.199115399736,
+          "score": 0.7700350357880298
+        },
+        "triads": {
+          "correct_seconds": 15983.206815146237,
+          "eligible_seconds": 21193.00625640703,
+          "excluded_seconds": 2726.1404782379686,
+          "score": 0.7541736468045549
+        },
+        "tetrads": {
+          "correct_seconds": 12836.660632681307,
+          "eligible_seconds": 21193.00625640703,
+          "excluded_seconds": 2726.1404782379686,
+          "score": 0.6057026774481583
+        }
+      }
+    }
+  }
+}

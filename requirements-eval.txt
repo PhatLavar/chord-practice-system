@@ -1,0 +1,2 @@
+# Optional standard interval evaluation; training requirements remain separate.
+mir_eval==0.8.2

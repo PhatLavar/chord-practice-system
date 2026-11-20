@@ -1,0 +1,18 @@
+{
+  "release": "https://zenodo.org/records/3371780",
+  "source_sha256": {
+    "annotation.zip": "8daa02e6417ccca1685feb44b135e95928ad7037e5032ecb326b5791856fda99",
+    "audio_mono-mic.zip": "237cdc58353d25c3c9683f4565a0f1cf2db30a9051abca545a919f8f1296dc28"
+  },
+  "recordings": 360,
+  "candidates": 358,
+  "excluded": [
+    "04_BN3-154-E_comp",
+    "04_Jazz1-200-B_comp"
+  ],
+  "audio_seconds": 10968.43619047619,
+  "license": "CC-BY-4.0 (Zenodo release metadata)",
+  "status": "Inventory only; no features, training admission or folds created",
+  "grouping": "Candidate style/progression groups only; cross-style progression relationships require review before folds",
+  "annotation": "Performed labels are sheet-informed, semi-automatic; preserve instructed separately"
+}
