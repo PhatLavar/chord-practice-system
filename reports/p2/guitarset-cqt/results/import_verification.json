@@ -1,0 +1,25 @@
+{
+  "archive_sha256": "0fedfdad4d5134262e02f2b036a80f3202c904635f28c6e596f42a52876d0395",
+  "recordings": 120,
+  "jobs": {
+    "F": {
+      "revision": "44e84a3cff2ea7b0e88d6de43d5232459d663482",
+      "epochs": 30,
+      "steps_per_epoch": 26,
+      "best_epoch": 16,
+      "source_hashes_match": true,
+      "NPZ_metrics_match": true,
+      "zero_length_LAB_rows": 0
+    },
+    "E": {
+      "revision": "44e84a3cff2ea7b0e88d6de43d5232459d663482",
+      "epochs": 30,
+      "steps_per_epoch": 83,
+      "best_epoch": 12,
+      "source_hashes_match": true,
+      "NPZ_metrics_match": true,
+      "zero_length_LAB_rows": 12
+    }
+  },
+  "rescoring": "Reconstructed exact intervals from NPZ and original reference JSON; nine-decimal LABs may contain zero-length rounding artifacts in tiny trailing gaps."
+}

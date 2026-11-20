@@ -494,3 +494,8 @@ The full matched-seed pilot has been imported and independently rescored. F even
 ### CQT audio-control preparation — 20 November 2026
 
 Added an explicit optional input-channel constructor parameter, preserving the original 24-channel default and initialization. The GuitarSet audio pilot initializes a new 144-channel F from scratch; it does not reuse or replace the selected Billboard teacher. The CQT-TCN experiment and validation conditions are described in [GUITARSET_CQT_EXPERIMENT.md](../p2/GUITARSET_CQT_EXPERIMENT.md). This is a feature/source pilot, not a BTC architecture reproduction or a measured Billboard improvement.
+
+
+### GuitarSet CQT F pilot imported — 20 November 2026
+
+The new 144-channel F completes 30 epochs and selects epoch 16. Full-timeline validation Root/Triads/Tetrads are 44.04%/13.84%/7.68%; supported oracle-event accuracy is 15.31%. Training-only Tetrads at this checkpoint is 35.78%. The small progression-held-out source pilot shows major-class bias, incomplete training fit and a large validation gap. It does not replace the selected Billboard F. See the imported CQT result section in [P2_REPORT.md](../p2/P2_REPORT.md) for audited evidence and limitations.

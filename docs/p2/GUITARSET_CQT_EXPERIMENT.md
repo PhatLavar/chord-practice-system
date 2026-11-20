@@ -57,3 +57,8 @@ Local reproduction:
 All 55 tests pass with audio dependencies installed, including a known-tone CQT pitch/clock check, train-only normalization, OOV/boundary handling, 24-channel initialization compatibility and gradients through both 144-channel teachers. The full 239-recording cache has been prepared locally; both models can run forward and score all 120 validation recordings. Four-recording smoke training completes with finite losses. Smoke metrics are not performance results. Evidence is in reports/p2/guitarset-cqt/verification.json.
 
 Inspect the full run's optimization, per-quality support, duration-weighted scores and source-fit failure modes before changing mixture ratios or launching all folds. Only three underlying progressions makes generalization difficult and estimates variable. A successful GuitarSet source pilot still requires a controlled added-source experiment to establish benefit for Billboard and an author-model baseline before a literature-parity claim.
+
+
+## Primary pilot result status
+
+The 30-epoch fold-0 GPU results have been imported and verified. F validation Tetrads is 7.68%; E oracle Tetrads is 8.71%. Neither is promoted. See P2_REPORT.md for support-shift, training-fit and component diagnostics. The earlier pending-GPU status describes setup. A LAB timestamp serialization defect was fixed without changing measured NPZ metrics.

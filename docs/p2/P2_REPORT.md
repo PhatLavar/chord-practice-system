@@ -767,3 +767,33 @@ Audited all instructed sequences and found exactly three transposition-invariant
 ## GuitarSet audio baseline prepared
 
 Implemented BTC-inspired log-CQT extraction and fresh 144-channel F/E TCN jobs, with a training-only scalar normalization and fold-0 train/validation loading. Prepared all 239 development recordings locally; outer test remains unloaded. Full raw performed labels are retained for duration metrics, while only complete-supported labels train the models. E remains a gold-boundary oracle. The notebook 02h exports checkpoints, references, predictions and metrics for review. No full GPU training has occurred. See [GUITARSET_CQT_EXPERIMENT.md](GUITARSET_CQT_EXPERIMENT.md) for parameters, deviations from BTC, training budgets and limitations.
+
+
+## Imported fold-0 CQT results — 20 November 2026
+
+Verified runs/imports/p2-guitarset-cqt-results.zip (SHA-256 in reports/p2/guitarset-cqt/results/import_verification.json). Both jobs use revision 44e84a3cff2ea7b0e88d6de43d5232459d663482 with source hashes matching that commit. Both complete 30 epochs; F has 26 updates/epoch and E 83. Checkpoint selection matches the highest validation Tetrads: F epoch 16, E epoch 12. All validation metrics were independently reconstructed from saved NPZ predictions and original reference JSON and agree within 1e-12. No test inference occurred.
+
+| Model | Root | MajMin | Triads | Tetrads | Supported oracle event accuracy |
+|---|---:|---:|---:|---:|---:|
+| F | 44.04% | 23.91% | 13.84% | 7.68% | 15.31% |
+| E | 49.93% | 26.33% | 15.24% | 8.71% | 15.52% |
+
+The duration metrics use the full raw performed reference vocabulary, whereas the event metric covers 986/1,680 complete-supported events only. F predicts frame boundaries; E has gold intervals. The differing tasks and update budgets prevent a clean architecture ranking. These are weak pilot results, not evidence of improvement over Billboard models or parity with a paper.
+
+### Error and support analysis
+
+On supported gold events, F root/triad/extension component accuracies are 47.46%/55.38%/54.67%; E reaches 49.70%/52.13%/57.00%. Gate accuracy is 100% because the scoped chord labels contain no N, so it does not establish silence detection. F predicts maj for 894/986 supported events and E for 714/986. F correctly recognizes only 2/210 min and 0/98 min7; E recognizes 2/210 and 1/98. Overall failure is broader than missing rare labels.
+
+The fixed fold also creates a strong support shift. Train has no hdim7, dim7 or minmaj7 complete events, while validation has 90, 2 and 2. Dominant 7 has only 40 training events versus 164 validation events. This was visible in the committed pre-training support audit and limits conclusions from this one-progression train split. Do not redefine the existing split after seeing its results or present a new easier split as the same experiment.
+
+Evaluated the imported best checkpoints on the local training cache without updates: F training Tetrads is 35.78% and E 46.26%, versus validation 7.68% and 8.71%. The local cache has identical pinned sources/config with small platform CQT numerical differences from Kaggle. This training-fit check suggests both incomplete fitting and a generalization gap; it does not isolate their cause. E's training loss at epoch 30 is lower than at the validation-selected epoch 12, so selected-checkpoint fit alone cannot diagnose optimizer capacity.
+
+### Export defect and disposition
+
+Found 12 zero-duration rows in E's exported LAB files: decimal rounding to nine digits collapsed tiny positive trailing gaps. Saved NPZ/reference metrics are valid; no training rerun is needed for this export issue. Future exports use 17 significant digits to preserve float64 endpoints, with a regression check for a tiny positive gap. The original imported archive remains unchanged. Reconstruct E intervals from event_logits.npz plus validation_references.json rather than using those rounded rows. F has no zero-length LAB rows.
+
+### Next controlled step
+
+Do not mix these checkpoints into the Billboard/JAAH system or promote either teacher. Keep this progression-held-out experiment as a documented negative result. Next first verify learning on a small quality-diverse audio subset, then compare training-fit and validation curves with explicit per-head support. A separate leave-player-out development protocol retaining all three progressions in training is a reasonable source-learning diagnostic; it answers unseen-player generalization rather than unseen progression and must be named separately. No such new split or training job has been run here. Increasing corpus diversity remains the main plan, conditional on matching audio and a validated baseline.
+
+Evidence: reports/p2/guitarset-cqt/results/ contains original selected metrics/history, independently rescored duration metrics, component diagnostics, import verification and training_fit.json. Tests pass after the export fix; full GPU retraining was not performed.

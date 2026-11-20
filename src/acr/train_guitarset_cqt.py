@@ -89,7 +89,8 @@ def evaluate(model, teacher, songs, references, device, batch_size, output=None)
             est_i,est_l=timeline(raw,duration,[chord_label(v) for v in event_predictions],'N')
         result=score(ref_i,ref_l,est_i,est_l);per_song[rid]=result
         if output:
-            (output/(rid+'.lab')).write_text(''.join(f'{a:.9f} {b:.9f} {label}\n' for (a,b),label in zip(est_i,est_l)))
+            # Preserve float64 endpoints, including tiny positive trailing gaps.
+            (output/(rid+'.lab')).write_text(''.join(f'{a:.17g} {b:.17g} {label}\n' for (a,b),label in zip(est_i,est_l)))
         for name,values in result['metrics'].items():
             bucket=totals.setdefault(name,dict(correct_seconds=0.,eligible_seconds=0.,excluded_seconds=0.))
             for k in bucket:bucket[k]+=values[k]

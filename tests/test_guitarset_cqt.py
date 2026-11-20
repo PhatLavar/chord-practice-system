@@ -63,6 +63,9 @@ class GuitarSetCQT(unittest.TestCase):
         intervals,_=timeline([dict(time=0,duration=1.00001)],1,['C:maj'],'X')
         self.assertEqual(intervals,[[0.,1]])
         with self.assertRaises(ValueError):timeline([dict(time=0,duration=1.01)],1,['C:maj'],'X')
+        intervals,labels=timeline([dict(time=0,duration=1)],1.00000000001,['C:maj'],'X')
+        for a,b in intervals:
+            self.assertGreater(float(f'{b:.17g}'),float(f'{a:.17g}'))
 
     def test_frame_context_matches_training_window(self):
         from train_f import Windows

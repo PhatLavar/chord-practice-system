@@ -1,0 +1,163 @@
+{
+  "scope": "Training-only fit of the imported validation-selected best checkpoints; CPU inference, no optimizer updates. Local cache uses the same pinned sources/config but tiny platform CQT numerical differences may remain.",
+  "results": {
+    "F": {
+      "teacher": "F",
+      "metrics": {
+        "root": {
+          "correct_seconds": 2301.8522860539574,
+          "eligible_seconds": 3910.1700453514745,
+          "excluded_seconds": 0.0,
+          "score": 0.5886834228067568
+        },
+        "majmin": {
+          "correct_seconds": 1642.0150031686132,
+          "eligible_seconds": 2892.7822356992115,
+          "excluded_seconds": 1017.3878096522619,
+          "score": 0.5676248225341177
+        },
+        "triads": {
+          "correct_seconds": 1642.8509215359602,
+          "eligible_seconds": 3910.1700453514745,
+          "excluded_seconds": 0.0,
+          "score": 0.42014820390970714
+        },
+        "tetrads": {
+          "correct_seconds": 1398.8792569813766,
+          "eligible_seconds": 3910.1700453514745,
+          "excluded_seconds": 0.0,
+          "score": 0.3577540722671142
+        }
+      },
+      "supported_oracle_event_accuracy": 0.5113122171945701,
+      "supported_events": 1326,
+      "quality_supported_scope": {
+        "maj6": {
+          "events": 32,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj": {
+          "events": 754,
+          "correct": 561,
+          "predicted": 1144
+        },
+        "sus2": {
+          "events": 8,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj7": {
+          "events": 157,
+          "correct": 31,
+          "predicted": 48
+        },
+        "min7": {
+          "events": 109,
+          "correct": 1,
+          "predicted": 1
+        },
+        "7": {
+          "events": 40,
+          "correct": 13,
+          "predicted": 46
+        },
+        "min": {
+          "events": 220,
+          "correct": 72,
+          "predicted": 87
+        },
+        "sus4": {
+          "events": 4,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "E": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 2771.9155059805857,
+          "eligible_seconds": 3910.1700453514745,
+          "excluded_seconds": 0.0,
+          "score": 0.7088989670093557
+        },
+        "majmin": {
+          "correct_seconds": 2011.0554378176823,
+          "eligible_seconds": 2892.7822356992115,
+          "excluded_seconds": 1017.3878096522621,
+          "score": 0.6951976588488668
+        },
+        "triads": {
+          "correct_seconds": 2013.066534256258,
+          "eligible_seconds": 3910.1700453514745,
+          "excluded_seconds": 0.0,
+          "score": 0.5148283862103262
+        },
+        "tetrads": {
+          "correct_seconds": 1808.8101180516885,
+          "eligible_seconds": 3910.1700453514745,
+          "excluded_seconds": 0.0,
+          "score": 0.46259116536429284
+        }
+      },
+      "supported_oracle_event_accuracy": 0.6259426847662142,
+      "supported_events": 1326,
+      "quality_supported_scope": {
+        "maj6": {
+          "events": 32,
+          "correct": 1,
+          "predicted": 1
+        },
+        "maj": {
+          "events": 754,
+          "correct": 618,
+          "predicted": 967
+        },
+        "sus2": {
+          "events": 8,
+          "correct": 1,
+          "predicted": 1
+        },
+        "maj7": {
+          "events": 157,
+          "correct": 77,
+          "predicted": 123
+        },
+        "min7": {
+          "events": 109,
+          "correct": 19,
+          "predicted": 25
+        },
+        "7": {
+          "events": 40,
+          "correct": 23,
+          "predicted": 95
+        },
+        "min": {
+          "events": 220,
+          "correct": 91,
+          "predicted": 114
+        },
+        "sus4": {
+          "events": 4,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  }
+}

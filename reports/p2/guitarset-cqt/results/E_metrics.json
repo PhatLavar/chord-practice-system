@@ -1,0 +1,97 @@
+{
+  "teacher": "E",
+  "metrics": {
+    "root": {
+      "correct_seconds": 1961.8949916657857,
+      "eligible_seconds": 3928.9627972789167,
+      "excluded_seconds": 0.00019591836705501464,
+      "score": 0.49934170744109263
+    },
+    "majmin": {
+      "correct_seconds": 598.8869038929319,
+      "eligible_seconds": 2274.6467788785953,
+      "excluded_seconds": 1654.316214318682,
+      "score": 0.26328786933159976
+    },
+    "triads": {
+      "correct_seconds": 598.8869038929319,
+      "eligible_seconds": 3928.9627972789167,
+      "excluded_seconds": 0.00019591836705501464,
+      "score": 0.15242875404870293
+    },
+    "tetrads": {
+      "correct_seconds": 342.05953027238405,
+      "eligible_seconds": 3928.9627972789167,
+      "excluded_seconds": 0.00019591836705501464,
+      "score": 0.08706102549743773
+    }
+  },
+  "supported_oracle_event_accuracy": 0.15517241379310345,
+  "supported_events": 986,
+  "quality_supported_scope": {
+    "maj7": {
+      "events": 84,
+      "correct": 12,
+      "predicted": 89
+    },
+    "maj": {
+      "events": 298,
+      "correct": 131,
+      "predicted": 714
+    },
+    "min7": {
+      "events": 98,
+      "correct": 1,
+      "predicted": 14
+    },
+    "7": {
+      "events": 164,
+      "correct": 7,
+      "predicted": 118
+    },
+    "min": {
+      "events": 210,
+      "correct": 2,
+      "predicted": 44
+    },
+    "min6": {
+      "events": 10,
+      "correct": 0,
+      "predicted": 0
+    },
+    "minmaj7": {
+      "events": 2,
+      "correct": 0,
+      "predicted": 7
+    },
+    "hdim7": {
+      "events": 90,
+      "correct": 0,
+      "predicted": 0
+    },
+    "sus4": {
+      "events": 6,
+      "correct": 0,
+      "predicted": 0
+    },
+    "sus2": {
+      "events": 12,
+      "correct": 0,
+      "predicted": 0
+    },
+    "maj6": {
+      "events": 10,
+      "correct": 0,
+      "predicted": 0
+    },
+    "dim7": {
+      "events": 2,
+      "correct": 0,
+      "predicted": 0
+    }
+  },
+  "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels.",
+  "best_epoch": 12,
+  "evaluation_partition": "validation",
+  "smoke": false
+}
