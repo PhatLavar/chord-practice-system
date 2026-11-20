@@ -1,0 +1,167 @@
+{
+  "seed": 20261119,
+  "smoke": false,
+  "events": 9673,
+  "pairs": {
+    "F_billboard_control__E_billboard_control": {
+      "all": {
+        "events": 9673,
+        "both_correct": 4820,
+        "F_only": 824,
+        "E_only": 982,
+        "both_wrong": 3047,
+        "complete_agreement": {
+          "eligible_events": 9673,
+          "accepted": 6647,
+          "correct": 4820,
+          "precision": 0.7251391605235444,
+          "coverage": 0.687170474516696,
+          "correct_coverage": 0.4982942210276026,
+          "accepted_songs": 110
+        }
+      },
+      "true_rare": {
+        "events": 111,
+        "both_correct": 1,
+        "F_only": 0,
+        "E_only": 1,
+        "both_wrong": 109,
+        "complete_agreement": {
+          "eligible_events": 111,
+          "accepted": 77,
+          "correct": 1,
+          "precision": 0.012987012987012988,
+          "coverage": 0.6936936936936937,
+          "correct_coverage": 0.009009009009009009,
+          "accepted_songs": 12
+        }
+      }
+    },
+    "F_billboard_control__E_jaah_mixed": {
+      "all": {
+        "events": 9673,
+        "both_correct": 4929,
+        "F_only": 715,
+        "E_only": 988,
+        "both_wrong": 3041,
+        "complete_agreement": {
+          "eligible_events": 9673,
+          "accepted": 6873,
+          "correct": 4929,
+          "precision": 0.7171540811872544,
+          "coverage": 0.7105344774113512,
+          "correct_coverage": 0.5095627002998036,
+          "accepted_songs": 110
+        }
+      },
+      "true_rare": {
+        "events": 111,
+        "both_correct": 0,
+        "F_only": 1,
+        "E_only": 1,
+        "both_wrong": 109,
+        "complete_agreement": {
+          "eligible_events": 111,
+          "accepted": 72,
+          "correct": 0,
+          "precision": 0.0,
+          "coverage": 0.6486486486486487,
+          "correct_coverage": 0.0,
+          "accepted_songs": 12
+        }
+      }
+    },
+    "F_jaah_mixed__E_billboard_control": {
+      "all": {
+        "events": 9673,
+        "both_correct": 4785,
+        "F_only": 740,
+        "E_only": 1017,
+        "both_wrong": 3131,
+        "complete_agreement": {
+          "eligible_events": 9673,
+          "accepted": 6626,
+          "correct": 4785,
+          "precision": 0.7221551463929973,
+          "coverage": 0.6849994830972811,
+          "correct_coverage": 0.49467590199524447,
+          "accepted_songs": 110
+        }
+      },
+      "true_rare": {
+        "events": 111,
+        "both_correct": 0,
+        "F_only": 2,
+        "E_only": 2,
+        "both_wrong": 107,
+        "complete_agreement": {
+          "eligible_events": 111,
+          "accepted": 74,
+          "correct": 0,
+          "precision": 0.0,
+          "coverage": 0.6666666666666666,
+          "correct_coverage": 0.0,
+          "accepted_songs": 11
+        }
+      }
+    },
+    "F_jaah_mixed__E_jaah_mixed": {
+      "all": {
+        "events": 9673,
+        "both_correct": 4845,
+        "F_only": 680,
+        "E_only": 1072,
+        "both_wrong": 3076,
+        "complete_agreement": {
+          "eligible_events": 9673,
+          "accepted": 6730,
+          "correct": 4845,
+          "precision": 0.7199108469539376,
+          "coverage": 0.6957510596505737,
+          "correct_coverage": 0.5008787346221442,
+          "accepted_songs": 109
+        }
+      },
+      "true_rare": {
+        "events": 111,
+        "both_correct": 0,
+        "F_only": 2,
+        "E_only": 1,
+        "both_wrong": 108,
+        "complete_agreement": {
+          "eligible_events": 111,
+          "accepted": 72,
+          "correct": 0,
+          "precision": 0.0,
+          "coverage": 0.6486486486486487,
+          "correct_coverage": 0.0,
+          "accepted_songs": 14
+        }
+      }
+    }
+  },
+  "provenance": {
+    "F_billboard_control": {
+      "run_json": "dc45fb70d8bcce42d95f2dd53d33c93dd80363d2cf919d3623072c15e91be4ed",
+      "events_csv": "625b8221981e0eedcd3c0e2c48bafe9c0395ee9f5c4031e0afa5c038eb6319af",
+      "probabilities": "c779360e568495e7fdab852d3cc9ae0f5a68f6aa77924036b6630a17293387e4"
+    },
+    "F_jaah_mixed": {
+      "run_json": "2fe743694b6d6b6e5c0fc1e9c5c2c2ecb8cce6c428f49eeaf1e6cd21373110e2",
+      "events_csv": "7aefda73f802c753f8590f543b6c53048e226cd286dfcad2d5e60ad1eee1f94d",
+      "probabilities": "5d2f2e9029655e0288249f9f6e3651578859a702a7ed0199343f47f93128c597"
+    },
+    "E_billboard_control": {
+      "run_json": "f29dcf4205f3abab343e9f7b7b52e3cbac91f4107ccfe03baace91c3ee08e45c",
+      "events_csv": "b72210ea3be9146cddeb62815cf6c97d065aa94051d9a81f8a34eb5c007c5963",
+      "probabilities": "0f4f0b2410c6486786daeee849a38aeed716d6f2ff0446c895ab931782c77699"
+    },
+    "E_jaah_mixed": {
+      "run_json": "286689329fd03b0ede01d4e5cd5be1635f86670b36dcc9edab2ce3860534d788",
+      "events_csv": "bb0c9e749b329eecc2998c2c974abda0bce69a7212becd4233ae92d50c539f22",
+      "probabilities": "266dfdf92480f067a487d970f3cbb390f82ab9b6f264e27d200539786b10b113"
+    }
+  },
+  "protocol": "Same gold intervals for all four pairs. F averages frame probabilities; E uses event softmax. Operational confidence thresholds are exploratory, not calibrated.",
+  "caveat": "One seed on reused validation. No pseudo-label acceptance or held-out-test claim."
+}

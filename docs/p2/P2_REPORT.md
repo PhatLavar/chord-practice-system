@@ -663,3 +663,58 @@ The preceding E-only pilot is superseded for the next experiment by four fresh t
 Evaluate all four F/E combinations on identical Billboard gold intervals. F outputs are pooled as mean frame probabilities; E uses event probabilities. The new analysis reports individual scores, per-quality precision/recall, F-only/E-only successes and confidence/precision/coverage by head, predicted component class and true quality. The E run directories retain their historical fixed-F comparator for compatibility; the four-pair analysis directory is authoritative for this experiment.
 
 Use notebook 02g_teachers_fe_jaah_pilot.ipynb instead of the E-only 02f notebook. Four CPU smoke jobs and all four pair analyses passed on 163 validation-subset events; both auxiliary training paths were exercised. The F smoke uses 50% replacement solely to exercise JAAH in its two-batch epoch, while full training uses 25%. These execution checks establish no generalization improvement. Selected evidence: [verification.json](../../reports/p2/jaah-fe-pilot/verification.json). Full GPU training and multi-seed confirmation remain pending. See [P2_JAAH_EXPERIMENT.md](P2_JAAH_EXPERIMENT.md) for the complete protocol.
+
+
+## JAAH F/E pilot results — 20 November 2026
+
+Imported runs/imports/p2-jaah-fe-results.zip and verified four full 30-epoch runs at clean revision 79ec0355111ad03dc93f8a03111d0e630ed80096, seed 20261119. Source hashes match that Git revision. F uses 217 updates/epoch (54 auxiliary replacements in mixed); E uses 990 (248 auxiliary). Best epochs are F control 20, F mixed 28, E control 11, E mixed 12. Recomputed all 13 analysis files from saved probabilities/logits on the same 9,673 validation events. Counts, decisions and scores match; mean-confidence roundoff is at most 2.23e-16. Evidence: [import verification](../../reports/p2/jaah-fe-pilot/import_verification.json), [individual scores](../../reports/p2/jaah-fe-pilot/results/individuals.csv), [pair summaries](../../reports/p2/jaah-fe-pilot/results/summary.json).
+
+| Model | Event accuracy | Rare macro recall | Macro quality recall |
+|---|---:|---:|---:|
+| F control | 58.348% | 0.621% | 12.585% |
+| F + JAAH | 57.118% | 1.242% | 13.180% |
+| E control | 59.981% | 0.852% | 14.779% |
+| E + JAAH | 61.170% | 0.230% | 13.560% |
+
+F loses 1.230 percentage points of event accuracy; its rare improvement is only one additional correctly recognized dim event (1 to 2 out of 23). E gains 1.189 points of event accuracy but loses rare and macro quality recall: its correct rare events fall from two (one dim, one sus2) to one sus2. Neither mixed model correctly recognizes any aug, min6, minmaj7, hdim7 or dim7 validation event. This pilot has not achieved the intended rare-harmony transfer despite the added source examples.
+
+### Pair complementarity and confidence
+
+Here C means Billboard control and J means the JAAH mixed arm. Complete-label agreement has no additional confidence threshold in this table.
+
+| F/E pair | Both correct | F-only | E-only | Both wrong | Agreement precision | Agreement coverage | Correct rare agreements / accepted |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| C/C | 4820 | 824 | 982 | 3047 | 72.51% | 68.72% | 1/77 |
+| C/J | 4929 | 715 | 988 | 3041 | 71.72% | 71.05% | 0/72 |
+| J/C | 4785 | 740 | 1017 | 3131 | 72.22% | 68.50% | 0/74 |
+| J/J | 4845 | 680 | 1072 | 3076 | 71.99% | 69.58% | 0/72 |
+
+C/J has only six more events correct in at least one teacher than C/C (6632 versus 6626). This is an oracle union, not an achievable fusion score. Increased agreement coverage is accompanied by lower agreement precision. No pair is promoted for pseudo-labeling.
+
+At exploratory head-confidence threshold 0.9, operational agreement precision / coverage is:
+
+| F/E pair | Root | Triad | Extension |
+|---|---|---|---|
+| C/C | 94.84% / 22.62% | 96.56% / 38.14% | 94.73% / 16.68% |
+| C/J | 94.57% / 23.62% | 96.45% / 37.60% | 93.64% / 17.23% |
+| J/C | 94.96% / 20.91% | 97.11% / 36.09% | 94.37% / 18.56% |
+| J/J | 94.56% / 21.86% | 97.09% / 36.27% | 94.07% / 20.76% |
+
+On true rare-quality events, accepted triads are correct 0/21, 0/21, 0/18 and 0/18 respectively. High aggregate triad precision therefore still hides shared confident rare errors. Extension coverage increases mainly for the `none` class: J/J accepts 1,998 none and only 10 b7 predictions, versus C/C 1,592 none and 21 b7; no other extension classes are accepted at this threshold. This is not broad coverage of complex extensions. Full per-class and per-quality evidence is in [results](../../reports/p2/jaah-fe-pilot/results/curves.csv).
+
+### Decision and next investigation
+
+Retain the existing selected teachers; do not replace both with the mixed models or start rare pseudo-labeling. Keep E+JAAH as an accuracy candidate, but one seed on reused gold-boundary validation cannot establish repeatability. A new control run is the appropriate comparator; differences from historical runs are not dataset effects.
+
+Before spending more GPU time on mixtures, diagnose source-specific learning and transfer: evaluate training-only JAAH subsets by component (explicitly a fit diagnostic, not generalization), inspect rare Billboard errors and source normalization/clock semantics, and distinguish insufficient auxiliary fitting from cross-domain transfer failure. This experiment replaces Billboard updates, so reduced Billboard exposure is another plausible explanation; it does not isolate a pure added-data effect. Test any augmentation or changed sampling as a separate matched-budget experiment with the original control. If E's accuracy tradeoff is pursued, repeat control/mixed with matched additional seeds before selection. No new training experiment has been run as part of this import review.
+
+
+### Auxiliary-source fit diagnostic
+
+Evaluated the unchanged mixed best checkpoints on all 103 audited JAAH auxiliary-training recordings and 15,491 supported events, without optimizer updates. F uses saved full-song frame logits pooled as mean probabilities; E uses gold-event pooling with batch size 32. Cache hashes are checked before evaluation. This is a training-source fit check, with checkpoints selected on Billboard validation, and provides no held-out JAAH generalization estimate.
+
+F event accuracy is 24.091%; E is 26.596%. F gets none of the six present rare qualities correct; E has some source rare successes (dim 2/76, aug 4/17, min6 17/237, minmaj7 23/42, hdim7 12/429, dim7 4/617). Source rare macro recall is 0% for F and 15.257% for E; sus2 is absent, so this macro has a different support set from Billboard's seven-quality metric.
+
+Both models overpredict dominant seventh quality: F emits 13,341 and E 12,331 such labels among 15,491 events, while the reference has 6,519. F's min7 triad accuracy is only 7.34% despite 96.33% extension accuracy on that quality; E has 16.57% and 94.99%. This identifies component errors and a source prediction imbalance, but does not establish their cause. Low source fit means a pure transfer-only explanation is insufficient. Check feature-bin conventions, normalization, temporal semantics and source-specific optimization before another large training sweep. Existing tiny-event memorization showed that the paths can learn, not that they learn the full source adequately.
+
+Machine evidence: [source-fit summary and method](../../reports/p2/jaah-fe-pilot/source-fit/summary.json), [F quality details](../../reports/p2/jaah-fe-pilot/source-fit/F_qualities.csv), [E quality details](../../reports/p2/jaah-fe-pilot/source-fit/E_qualities.csv). Temporary predictions remain under ignored runs/p2-jaah-source-fit/.

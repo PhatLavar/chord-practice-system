@@ -101,3 +101,8 @@ Raw inputs remain in data/raw/jaah/ and normalized cache in data/processed/p2-ja
 Compare complete-event accuracy, macro quality recall, rare macro recall, per-quality precision and correct rare-event/song counts. Inspect whether rare successes add information beyond F, and whether maj/min or sus classes regress. Re-run confidence/coverage analysis on saved outputs before accepting any pseudo-labeling policy.
 
 An increase in rare recall alone is insufficient if it comes from many false positives or a large common-chord regression. A promising single-seed result must be repeated with matched seeds before changing either preferred teacher or the preferred pair. A negative result should be retained and interpreted as evidence about this specific mixture, mapping and input-adapter setup, not proof that external data cannot help. No threshold, dataset or model is selected based on hidden/test outcomes.
+
+
+## Result status — 20 November 2026
+
+The primary-seed full GPU pilot is complete and verified. See [P2_REPORT.md](P2_REPORT.md) for results: E accuracy improves but rare recall decreases; F accuracy decreases with only one extra correct rare event. No mixed model or pseudo-labeling rule is promoted. Earlier pending-GPU statements describe the setup stage. Further seeds and source-transfer diagnostics remain unrun.

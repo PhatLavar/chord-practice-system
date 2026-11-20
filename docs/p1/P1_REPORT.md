@@ -484,3 +484,8 @@ The original F checkpoint has now been audited with E25 at the same seed using s
 ### External-data experiment for F and E — 20 November 2026
 
 Extend the JAAH pilot to F as well as E. Train a fresh Billboard-only F control and a JAAH-mixed F with a separate 12-dimensional input projection and shared temporal trunk/heads. Keep F's 50% quality/song-balanced window sampler; replace 54 of 217 batches per full epoch with JAAH, holding the update/window budget fixed. This is a new experiment, not a replacement for the selected historical F. Compare both new F models with both new E models on the same gold validation events, including per-component confidence, precision, coverage and class-specific errors. See [the experiment protocol](../p2/P2_JAAH_EXPERIMENT.md). Full GPU results are pending.
+
+
+### JAAH F pilot result — 20 November 2026
+
+The full matched-seed pilot has been imported and independently rescored. F event accuracy falls from 58.348% to 57.118% with JAAH batch replacement; rare macro recall increases from 0.621% to 1.242%, representing only one additional correct dim event. Both runs complete 30 epochs at 217 updates/epoch; the mixed arm replaces 54 batches per epoch. Retain the selected F. The four-pair analysis still finds no correct accepted triads on true rare events at confidence 0.9. See [P2 results and limitations](../p2/P2_REPORT.md) for per-head precision/coverage, E's different tradeoff and the next diagnostic plan. This single-seed replacement-budget result does not establish that external data is generally ineffective.

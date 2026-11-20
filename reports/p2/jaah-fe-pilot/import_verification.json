@@ -1,0 +1,52 @@
+{
+  "archive_sha256": "a0cd439175fc5d313389b7141b390962add35e9942e930bb430e306050cf6a78",
+  "revision": "79ec0355111ad03dc93f8a03111d0e630ed80096",
+  "jobs": {
+    "F_billboard_control": {
+      "epochs": 30,
+      "steps_per_epoch": 217,
+      "auxiliary_steps": 0,
+      "best_epoch": 20,
+      "source_hashes_match_commit": true
+    },
+    "F_jaah_mixed": {
+      "epochs": 30,
+      "steps_per_epoch": 217,
+      "auxiliary_steps": 54,
+      "best_epoch": 28,
+      "source_hashes_match_commit": true
+    },
+    "E_billboard_control": {
+      "epochs": 30,
+      "steps_per_epoch": 990,
+      "auxiliary_steps": 0,
+      "best_epoch": 11,
+      "source_hashes_match_commit": true
+    },
+    "E_jaah_mixed": {
+      "epochs": 30,
+      "steps_per_epoch": 990,
+      "auxiliary_steps": 248,
+      "best_epoch": 12,
+      "source_hashes_match_commit": true
+    }
+  },
+  "recomputed_files_matched": [
+    "curves.csv",
+    "E_billboard_control_qualities.csv",
+    "E_jaah_mixed_qualities.csv",
+    "F_billboard_control_qualities.csv",
+    "F_jaah_mixed_qualities.csv",
+    "individuals.csv",
+    "predicted_classes.csv",
+    "summary.json",
+    "true_qualities.csv",
+    "F_billboard_control__E_billboard_control/complementarity.csv",
+    "F_billboard_control__E_jaah_mixed/complementarity.csv",
+    "F_jaah_mixed__E_billboard_control/complementarity.csv",
+    "F_jaah_mixed__E_jaah_mixed/complementarity.csv"
+  ],
+  "max_mean_confidence_roundoff": 2.220446049250313e-16,
+  "events": 9673,
+  "limitations": "One seed, gold validation boundaries, reused validation; no test evaluation or pseudo-label policy promotion."
+}

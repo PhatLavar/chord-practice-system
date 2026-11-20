@@ -1,0 +1,29 @@
+{
+  "scope": "Fit diagnostic on JAAH auxiliary training data; NOT held-out generalization. Best checkpoints selected using Billboard validation.",
+  "recordings": 103,
+  "events": 15491,
+  "models": {
+    "F": {
+      "event_accuracy": 0.24091407914272803,
+      "rare_macro_event_recall": 0.0,
+      "macro_quality_event_recall": 0.07266078511384685,
+      "checkpoint_sha256": "05bb25f3dc89c67817923804942bcb045a0f2cc40e2195806a47a9c2b815c22f"
+    },
+    "E": {
+      "event_accuracy": 0.2659608805112646,
+      "rare_macro_event_recall": 0.1525689871149208,
+      "macro_quality_event_recall": 0.15468737329178361,
+      "checkpoint_sha256": "a55286c2e618b6800a990377427864564ecfddb093c018a9bc86212d391f33df"
+    }
+  },
+  "method": {
+    "device": "cpu",
+    "threads": 4,
+    "weights": "Mixed best.pt selected by Billboard validation, unchanged; no optimizer steps",
+    "cache": "load_aux(data/processed/p2-jaah), audited hashes checked",
+    "F": "train_f.evaluate on all 103 songs; experiment_jaah_f.pool_events mean per-frame probabilities on 15491 supported gold intervals",
+    "E": "train_e.evaluate on Events(songs,events,context=31), unbalanced order, batch_size=32",
+    "scoring": "compare_jaah_pairs.complete_scores and diagnose_f.component_scores",
+    "rare_macro_scope": "Six training-defined rare qualities present in JAAH; sus2 is absent. Not directly comparable to the seven-quality Billboard macro."
+  }
+}
