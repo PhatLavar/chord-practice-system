@@ -1,0 +1,56 @@
+{
+  "recordings_checked": 103,
+  "events_checked": 15491,
+  "raw_cache_exact_match": true,
+  "timestamp_interval_target_consistency": true,
+  "hop_range_seconds": [
+    0.04643990929704955,
+    0.04643990929704955
+  ],
+  "exposure": {
+    "F": {
+      "through_selected_epoch": 28,
+      "unit": "frames",
+      "counts": {
+        "maj": 1885493,
+        "min": 565361,
+        "dim": 81672,
+        "aug": 48009,
+        "sus2": 0,
+        "sus4": 0,
+        "maj6": 684864,
+        "min6": 292652,
+        "7": 4135923,
+        "min7": 1359224,
+        "maj7": 612647,
+        "minmaj7": 71875,
+        "hdim7": 296608,
+        "dim7": 265606,
+        "N": 765478
+      },
+      "dominant7_fraction": 0.3737703575790942
+    },
+    "E": {
+      "through_selected_epoch": 12,
+      "unit": "events",
+      "counts": {
+        "maj": 11087,
+        "min": 4326,
+        "dim": 2308,
+        "aug": 2076,
+        "sus2": 0,
+        "sus4": 0,
+        "maj6": 6549,
+        "min6": 3125,
+        "7": 32148,
+        "min7": 14726,
+        "maj7": 5951,
+        "minmaj7": 2193,
+        "hdim7": 3858,
+        "dim7": 4693,
+        "N": 2187
+      },
+      "dominant7_fraction": 0.33759332962290106
+    }
+  }
+}
