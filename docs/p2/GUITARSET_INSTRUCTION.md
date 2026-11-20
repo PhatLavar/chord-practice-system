@@ -53,3 +53,8 @@ Files under reports/p2/guitarset-labels/: summary.json, symbol_mapping.csv, even
 ### Next implementation boundary
 
 Feature extraction remains pending. Prefer one documented CQT audio front end for a BTC-style baseline and both teacher branches, with training-only normalization. Preserve these manifests and source identities. The existing 24-bin chroma models cannot accept CQT directly without an explicit new input-model configuration. Retain their previous results as controls; do not load their checkpoints into a different front end and call it the same experiment. No GPU training notebook is ready from this mapping-only change.
+
+
+## Audio pilot update
+
+The subsequent CQT extraction/training setup is now implemented in [GUITARSET_CQT_EXPERIMENT.md](GUITARSET_CQT_EXPERIMENT.md), with notebook 02h. The earlier pending-feature statements describe the mapping stage. Partial supervision is still disabled.

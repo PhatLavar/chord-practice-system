@@ -164,3 +164,8 @@ Read the confidence-audit section in P2_REPORT.md before interpreting the curves
 ## External-data pilot: JAAH for F and E
 
 Use [02g_teachers_fe_jaah_pilot.ipynb](../../notebooks/02g_teachers_fe_jaah_pilot.ipynb) for four fresh jobs: F-control, F-mixed, E-control and E-mixed, followed by all four pair diagnostics. It supersedes the E-only 02f notebook for the current experiment. Read [P2_JAAH_EXPERIMENT.md](P2_JAAH_EXPERIMENT.md) for the audited inventory, within-teacher budget controls, interpretation and retry behavior. Return p2-jaah-fe-results.zip to runs/imports/. Full training results are pending.
+
+
+## GuitarSet CQT audio pilot
+
+For the next GuitarSet-only audio experiment, use notebooks/02h_guitarset_cqt_teachers.ipynb and follow [GUITARSET_CQT_EXPERIMENT.md](GUITARSET_CQT_EXPERIMENT.md). This trains fresh 144-bin CQT–TCN F/E models on fold-0 train/validation only; it is not the older JAAH mixture experiment or a BTC reproduction. Download p2-guitarset-cqt-results.zip into runs/imports/. Outer-test evaluation and partial-target supervision remain disabled.

@@ -7,9 +7,9 @@ from corpus import COMPONENTS
 
 
 class FrameTeacher(nn.Module):
-    def __init__(self, width=48, dilations=(1, 2, 4, 8, 16)):
+    def __init__(self, width=48, dilations=(1, 2, 4, 8, 16), input_channels=24):
         super().__init__()
-        self.input = nn.Conv1d(24, width, 1)
+        self.input = nn.Conv1d(input_channels, width, 1)
         self.blocks = nn.ModuleList(nn.Conv1d(width, width, 3, padding=d, dilation=d) for d in dilations)
         self.heads = nn.ModuleList(nn.Conv1d(width, size, 1) for size in (2, 12, len(TRIADS), len(EXTENSIONS)))
         self.context = sum(dilations)

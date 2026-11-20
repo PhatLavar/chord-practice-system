@@ -489,3 +489,8 @@ Extend the JAAH pilot to F as well as E. Train a fresh Billboard-only F control 
 ### JAAH F pilot result — 20 November 2026
 
 The full matched-seed pilot has been imported and independently rescored. F event accuracy falls from 58.348% to 57.118% with JAAH batch replacement; rare macro recall increases from 0.621% to 1.242%, representing only one additional correct dim event. Both runs complete 30 epochs at 217 updates/epoch; the mixed arm replaces 54 batches per epoch. Retain the selected F. The four-pair analysis still finds no correct accepted triads on true rare events at confidence 0.9. See [P2 results and limitations](../p2/P2_REPORT.md) for per-head precision/coverage, E's different tradeoff and the next diagnostic plan. This single-seed replacement-budget result does not establish that external data is generally ineffective.
+
+
+### CQT audio-control preparation — 20 November 2026
+
+Added an explicit optional input-channel constructor parameter, preserving the original 24-channel default and initialization. The GuitarSet audio pilot initializes a new 144-channel F from scratch; it does not reuse or replace the selected Billboard teacher. The CQT-TCN experiment and validation conditions are described in [GUITARSET_CQT_EXPERIMENT.md](../p2/GUITARSET_CQT_EXPERIMENT.md). This is a feature/source pilot, not a BTC architecture reproduction or a measured Billboard improvement.
