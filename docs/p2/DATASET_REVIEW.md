@@ -91,3 +91,8 @@ Recommended next execution: small annotation/provenance inventories for JSIR, JA
 ## Review limits
 
 This review checked the user's matrix and primary project/paper/release pages. It did not download or validate complete candidate corpora, listen to their alignments, verify every audio link, or measure mapped support. A local in-memory JAAH download attempt failed at DNS resolution; it produced no corpus or statistics. The GuitarSet ZIP exceeds the web reader's file-size limit. These are limits of this review, not evidence that the datasets themselves are unavailable. Training data, splits and models remain unchanged.
+
+
+## Updated priority — 20 November 2026
+
+The user now prioritizes overall accuracy and published-baseline comparability. The earlier rare-first ordering is superseded by [MULTICORPUS_ACCURACY_PLAN.md](MULTICORPUS_ACCURACY_PLAN.md). Pop/rock audio admission and an accessible GuitarSet pilot take priority alongside the JAAH source audit.

@@ -1,0 +1,19 @@
+{
+  "retrieved": "2026-11-20",
+  "sources": [
+    {
+      "url": "https://raw.githubusercontent.com/seffka/pychord_tools/master/pychord_tools/third_party.py",
+      "sha256": "74d747f65d551662c13c1512c2a37f5775a9fe3a53cf642f851ffe3fee607710"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/seffka/pychord_tools/master/pychord_tools/low_level_features.py",
+      "sha256": "9ead59f67e8a067d9bd18e7fe60ca9ad65d256595e2d288e75730a55bc83a0dc"
+    }
+  ],
+  "findings": [
+    "NNLS extractor folds weighted semitone spectrum into 12 bins, then rolls -3 from A-based to C-based.",
+    "CSV writer timestamps are i*2048/44100; CSV reader strips timestamp column.",
+    "Root-relative rotation occurs separately in AnnotatedBeatChromaEstimator, after beat aggregation, using annotation pitches.",
+    "No extra pitch rotation justified. Current upstream code is evidence of intended semantics, not a historical provenance certificate for distributed CSVs. Physical alignment still requires matching audio."
+  ]
+}
