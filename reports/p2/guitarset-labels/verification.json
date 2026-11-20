@@ -1,0 +1,28 @@
+{
+  "tests_passed": 48,
+  "fold_counts": {
+    "0": {
+      "test": 119,
+      "validation": 120,
+      "train": 119,
+      "excluded": 2
+    },
+    "1": {
+      "train": 119,
+      "test": 120,
+      "validation": 119,
+      "excluded": 2
+    },
+    "2": {
+      "validation": 119,
+      "train": 120,
+      "test": 119,
+      "excluded": 2
+    }
+  },
+  "progression_disjoint": true,
+  "comp_solo_pairs_stay_together": true,
+  "previous_supported_labels_unchanged": true,
+  "note": "No fold training or selection performed; metadata/annotation auditing only.",
+  "regeneration_matches": true
+}

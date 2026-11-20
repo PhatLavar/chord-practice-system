@@ -755,3 +755,10 @@ Rescored the four existing teachers on exported gold intervals as a scope-limite
 ### GuitarSet file-level inventory completed
 
 Verified official annotation and microphone archives by published MD5, paired 360 recordings and checked WAV headers/label bounds. Excluding the two documented timing errata leaves 358 candidates. The existing label mapping supports 66.34% of performed labeled duration, with 3,678.62 seconds OOV; instructed labels have full mapping coverage but different supervision semantics. Explicit power chords are a major unsupported category and cannot be silently relabeled as major/minor. Candidate groups are not yet final leakage groups, especially across styles sharing the three underlying progressions. See [GUITARSET_INSTRUCTION.md](GUITARSET_INSTRUCTION.md) and reports/p2/guitarset-inventory/. No new training data or folds were admitted.
+
+
+### GuitarSet exact label mapping and progression folds
+
+Implemented pitch-set equivalence with mir_eval's Harte primitives, preserving additions/omissions and annotated roots while collapsing bass as in the current task. Complete-label coverage stays 66.34%; the remaining valid labels are proposed for root/gate-only supervision, with other heads masked. No partial-target training has been enabled. This confirms the OOV gap is not recoverable merely by spelling normalization.
+
+Audited all instructed sequences and found exactly three transposition-invariant progression signatures across styles/tempi/players. Created three outer progression folds with separate train/validation/test progression groups and the two known errata excluded. Full checks verify disjoint groups, comp/solo pairing and unchanged previously supported class IDs; 48 tests pass. This is a small unseen-progression protocol, not unseen-player evaluation or the published BTC benchmark. See [GUITARSET_INSTRUCTION.md](GUITARSET_INSTRUCTION.md) for the contract and reproduction commands. CQT extraction and model training remain pending.

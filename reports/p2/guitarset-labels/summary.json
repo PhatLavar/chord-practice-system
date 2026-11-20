@@ -1,0 +1,24 @@
+{
+  "annotation_sha256": "8daa02e6417ccca1685feb44b135e95928ad7037e5032ecb326b5791856fda99",
+  "mir_eval": "0.8.2",
+  "script_sha256": "5365ad0d3b1a84eca2e2f854fe2790285a9a264bcfcedee8ebe0d41d8be8d230",
+  "candidate_recordings": 358,
+  "excluded": [
+    "04_BN3-154-E_comp",
+    "04_Jazz1-200-B_comp"
+  ],
+  "groups": {
+    "0": "9fd0503b76d98823d42390011a5097b745623d8e8f10ed0225568371a29a0101",
+    "1": "525525951874fa42cf33419bd63e3602a9d411de404f8df525f2ee650ea264be",
+    "2": "ddc583abfb09b46004773c4d7394427a4f3cb80b5a1884f786e3cc76e78299ba"
+  },
+  "performed_seconds": 10929.104799999997,
+  "status_seconds": {
+    "root_gate_only": 3678.62353877982,
+    "exact_pitch_set": 7250.481261220177
+  },
+  "complete_supported_fraction": 0.6634103518908684,
+  "old_complete_supported_fraction": 0.6634103518908684,
+  "protocol": "Three outer progression folds; cyclic next group validation, remaining group train. Same players across partitions; not unseen-player evaluation. No model training.",
+  "partial_policy": "OOV receives annotated root/gate proposals only; triad/extension/complete masked. Proposals not enabled in trainers. Bass ignored consistently with existing task."
+}

@@ -23,3 +23,33 @@ The command verifies both pinned archives, reads headers and JAMS directly from 
 ## Next gate
 
 Resolve vocabulary coverage and grouping, then extract a consistent feature representation for an audio baseline. Keep the source tagged so both F and E can be evaluated separately. This inventory is complete; feature extraction, audio spot checks, train/validation splits and training remain pending. See STANDARD_EVALUATION.md for the interval metric contract.
+
+
+## Label contract and progression folds — 20 November 2026
+
+The follow-up is implemented in src/acr/guitarset_labels.py, using mir_eval 0.8.2's Harte parser. Run with the optional evaluation dependencies installed:
+
+```powershell
+.venv/Scripts/python.exe -m pip install -r requirements-eval.txt
+.venv/Scripts/python.exe src/acr/guitarset_labels.py --output runs/guitarset-labels-repeat
+```
+
+Relative pitch sets retain explicit additions/omissions; upper degrees wrap by pitch class. The annotated root is preserved. Bass is excluded from quality comparison, consistently with the existing root/quality task, rather than inserted into the pitch set. Compare the resulting set with all 14 quality templates: only exact equality produces a complete class. This does not infer an absent third. Unlike mir_eval's evaluation encode helper, the construction does not reinsert the bass/root after an explicit root omission. Malformed syntax fails loudly.
+
+Results: exact equivalence leaves performed coverage at 66.34% (7,250.48 seconds); 3,678.62 seconds remain outside the complete vocabulary. There are no additional equivalent spellings to recover in this release under this policy. Every previously supported symbol keeps its complete class ID. Inversions retain the existing collapsed-quality semantics; no bass head is introduced.
+
+For unsupported but valid chord labels, event_targets.csv proposes gate=chord and the annotated root, while triad/extension/complete are -100. These roots may originate from the lead sheet; they are not independently verified sounding bass notes. N has gate=no-chord and no component targets; X masks everything. This is a proposal artifact only: current trainers still derive targets from complete labels and have not been changed to consume partial targets. The initial audio pilot may use complete-supported intervals, with OOV masked; partial supervision requires a separately tested training change and ablation.
+
+### Split contract
+
+All 360 instructed sequences were normalized by subtracting the first root, dropping duration and collapsing adjacent equal chord tokens. This yields exactly three distinct progression signatures. Each filename code ending in 1/2/3 agrees with its corresponding signature across all five styles, six players, keys, tempi and comp/solo modes. Group identifiers are therefore supported by annotation evidence, not filename intuition alone. The source describes these as three underlying progressions; the manifest uses numeric groups to avoid assigning unverified musical names.
+
+Created three outer folds. For outer fold k, progression k is test, (k+1) modulo 3 is validation and the remaining progression is train. The two timing-erratum recordings are excluded in every fold. Train/validation/test counts are 119/120/119 in fold 0, 119/119/120 in fold 1 and 120/119/119 in fold 2. No performance results informed this allocation. All variants of a progression and comp/solo pairs stay together. The same players appear across partitions: this tests unseen progression, not unseen performer. With only three progression groups, fold uncertainty will be large and the training pool small; do not describe it as the BTC five-fold protocol.
+
+The authoritative manifest is reports/p2/guitarset-labels/folds.csv. Training must select one fold explicitly and use only its train rows; normalization fits train only, model selection uses validation only, and test outcomes are withheld until choices are frozen. Do not train on the union of all folds before reporting outer-test results. The annotation inventory has exposed label distributions for auditing; no model has been evaluated on these test partitions.
+
+Files under reports/p2/guitarset-labels/: summary.json, symbol_mapping.csv, event_targets.csv, folds.csv, fold_quality_support.csv and verification.json. The latter records 48 passing tests and full-inventory checks for disjoint progression groups, paired modes and unchanged legacy class IDs. Earlier statements that folds were pending describe the initial inventory stage.
+
+### Next implementation boundary
+
+Feature extraction remains pending. Prefer one documented CQT audio front end for a BTC-style baseline and both teacher branches, with training-only normalization. Preserve these manifests and source identities. The existing 24-bin chroma models cannot accept CQT directly without an explicit new input-model configuration. Retain their previous results as controls; do not load their checkpoints into a different front end and call it the same experiment. No GPU training notebook is ready from this mapping-only change.
