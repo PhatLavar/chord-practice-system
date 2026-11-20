@@ -475,3 +475,7 @@ Raw outputs are in runs/p1-transformer/overfit/ and runs/p1-transformer/balanced
 ## Handoff to P2 · 19 November 2026
 
 The event teacher implementation is now documented in [P2_REPORT.md](../p2/P2_REPORT.md). The fixed comparator is the original balanced F at seed 20261119, with its uncertainty retained in the repeated-seed analysis above. P2 supplies the same reference intervals to both teachers and fits E independently using event targets. The first P2 oracle trial has now been verified. Its measured F/E complementarity and rare-quality limitations are recorded in [P2_REPORT.md](../p2/P2_REPORT.md).
+
+### Confidence audit follow-up · 20 November 2026
+
+The original F checkpoint has now been audited with E25 at the same seed using saved logits on gold validation intervals. See the component confidence section in [P2_REPORT.md](../p2/P2_REPORT.md) for definitions, per-head precision/coverage and per-class results. This does not change F's training or frame-level metrics. At an exploratory threshold of 0.9, F/E agreement attains 96.54% overall triad precision but gets all 24 accepted triads on true rare-quality events wrong. Shared confident errors remain a material limitation; agreement alone is not a reliable rare-label filter. Investigate data diversity next while preserving the Billboard-only control; no augmentation, extra dataset or architecture change has been applied in this audit.

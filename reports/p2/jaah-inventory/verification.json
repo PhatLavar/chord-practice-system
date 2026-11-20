@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "tests": 36,
+  "auxiliary_recordings": 103,
+  "auxiliary_events": 15491,
+  "billboard_training_events": 31679,
+  "billboard_validation_events": 9673,
+  "optimizer_steps_per_epoch": 990,
+  "auxiliary_replacement_steps": 248,
+  "checks": [
+    "Every JAAH cache hash and event target verified",
+    "All 9,673 validation intervals match frozen F in order",
+    "Portable POSIX source hash keys checked for Windows/Kaggle",
+    "All notebook code cells compile and relative documentation links resolve"
+  ],
+  "source_sha256": {
+    "src\\acr\\prepare_jaah.py": "577130f1784563d0b3146c2c921b52a0de0fd43120318d02c708ba876f7aca93",
+    "src\\acr\\experiment_jaah.py": "13e590c6556457960bf652f377a04d4c04928c4a670bd0adf3131c93f30a6488",
+    "src\\acr\\data_e.py": "cae7939096c263f2ae2da554eb0d0400f50e6901b512b08a502bee32de2dcfa5",
+    "notebooks\\02f_teacher_e_jaah_pilot.ipynb": "4514489cd46c68b247b70cfc448b966a37ccb990bc3ec1540ca52866f31e82e9"
+  },
+  "full_training": "not run"
+}

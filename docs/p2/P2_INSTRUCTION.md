@@ -137,3 +137,30 @@ Both additional GPU runs have completed and been verified. See P2_REPORT.md for 
 
 
 The verified E25 repeats and nine-policy/seed summary are recorded under reports/p2/mixture25-repeat/. The original table at seed 20261119 remains the single-seed screen; use analysis/per_seed.csv and summary.json for the matched three-seed comparison.
+
+## Audit component confidence locally
+
+This audit uses the saved original F and E25 seed 20261119 outputs, the frozen P1 cache, official detailed labels and committed F reference. It requires no GPU training. Keep the imported runs at runs/p1-balanced-kaggle/ and runs/p2-mixture25-kaggle/.
+
+From the repository root, run:
+
+```powershell
+.venv/Scripts/python.exe -m unittest discover -s tests
+.venv/Scripts/python.exe src/acr/audit_confidence.py --output runs/p2-confidence-audit
+```
+
+Choose a fresh output directory; existing results are never overwritten. The verified first audit is versioned under reports/p2/confidence-audit/. The raw checkpoints and logits remain under runs/.
+
+- curves.csv: F, E and head-agreement precision/coverage at a fixed confidence grid, in conditional and operational scopes.
+- predicted_classes.csv: operational precision and accepted recall for each predicted component value; includes false positives from other qualities and N.
+- true_qualities.csv: operational selected accuracy and coverage within each reference quality and the combined rare subset. This is not predicted-quality precision.
+- reliability_bins.csv: fixed confidence bins, observed conditional accuracy, counts and mean confidence.
+- summary.json: frozen pair, input hashes, protocol and whole-label agreement statistics.
+
+Confidence is uncalibrated. Agreement uses the minimum of both head scores; operational component acceptance also requires both confident chord gates. Blank precision means no prediction was accepted. Counts and class support must accompany percentages. The script checks event alignment and reproduces saved decisions before producing results.
+
+Read the confidence-audit section in P2_REPORT.md before interpreting the curves: high overall triad precision hides severe rare-event errors. This is reused-validation development analysis on gold intervals, not a chosen pseudo-labeling policy or an unseen-test result. Data augmentation/additional datasets are the next topic for investigation, not part of this audit.
+
+## External-data pilot: JAAH
+
+The first selected auxiliary source is JAAH. Its 12-bin input receives a separate projection into the shared E trunk; Billboard retains its 24-bin branch. Read [P2_JAAH_EXPERIMENT.md](P2_JAAH_EXPERIMENT.md) for the audited inventory, exclusions, experimental controls and limitations. Run [02f_teacher_e_jaah_pilot.ipynb](../../notebooks/02f_teacher_e_jaah_pilot.ipynb) on Kaggle for the two fresh matched jobs, then return p2-jaah-pilot-results.zip to runs/imports/. Full training results are pending.

@@ -77,7 +77,7 @@ class Events(Dataset):
             index=candidates[torch.randint(len(candidates),()).item()]
         rid,_,_,lo,hi,label=self.events[index]
         source=self.songs[rid]["x"]
-        x=np.zeros((24,hi-lo+2*self.context),dtype=np.float32)
+        x=np.zeros((source.shape[1],hi-lo+2*self.context),dtype=np.float32)
         left,right=max(0,lo-self.context),min(len(source),hi+self.context)
         offset=left-lo+self.context
         x[:,offset:offset+right-left]=source[left:right].T
@@ -88,7 +88,10 @@ class Events(Dataset):
 
 def collate_events(items):
     length=max(x.shape[-1] for x,_,_ in items)
-    x=torch.zeros(len(items),24,length)
+    channels=items[0][0].shape[0]
+    if any(features.shape[0]!=channels for features,_,_ in items):
+        raise ValueError("A batch must contain one input representation")
+    x=torch.zeros(len(items),channels,length)
     mask=torch.zeros(len(items),length,dtype=torch.bool)
     for i,(features,pooling,_) in enumerate(items):
         x[i,:,:features.shape[-1]]=features

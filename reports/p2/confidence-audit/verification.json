@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "curve_rows_checked": 168,
+  "checks": [
+    "Threshold-zero predictions independently recomputed from frozen F/E CSVs with explicit target mapping",
+    "Predicted-class and true-quality counts conserve operational counts at every threshold",
+    "Empty precision is undefined; count/precision identities hold",
+    "Coverage is monotonic for the fixed nested threshold grid",
+    "Reliability bins conserve conditional accepted/correct totals"
+  ],
+  "tests": "31 unittest tests passed; three new selection tests"
+}

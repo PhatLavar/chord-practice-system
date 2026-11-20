@@ -555,3 +555,102 @@ P3 remains later: this entire comparison supplies gold intervals. No predicted-b
 | 20 November 2026 | Proposed | Audit component agreement precision, coverage and confidence before pseudo-label generation or P3 claims. |
 
 Raw runs remain in runs/p2-mixture25-repeat/. The ZIP is preserved in runs/imports/p2-mixture25-repeat-results.zip. Selected auditable outputs are versioned under reports/p2/mixture25-repeat/.
+
+## Component confidence, precision and coverage audit — 20 November 2026
+
+### Scope and reproducibility
+
+Completed locally using the original balanced F and E25 checkpoints at seed 20261119. F revision is d250916f82a1a5e2f0310920209450465636b23e; E revision is df662dd3ffac14c5419f77137e94b01ba9ec6aa1. No new training, augmentation, extra dataset, pseudo-label generation or student run was performed.
+
+The audit covers the same 9,673 scored gold intervals in 110 validation songs: 9,374 chord events and 299 N events. One reference interval without frames remains excluded. F probabilities are averaged over each gold interval; E probabilities are the softmax of its saved event logits. This is an event-level diagnostic, not F's frame-level score or predicted-boundary performance. Train-hidden/test recordings are not evaluated.
+
+The loader checks split/vocabulary metadata, annotation checksum, original F provenance, E's F-reference checksum, event order and boundaries, frame timestamps/labels, finite logit dimensions, saved component decisions and complete predictions. Input logit hashes are recorded in [summary.json](../../reports/p2/confidence-audit/summary.json). An independent count check uses the frozen CSV predictions rather than the new loader; all 168 curve rows satisfy count identities, and class/quality partitions and confidence bins conserve totals. [Verification](../../reports/p2/confidence-audit/verification.json). The full test suite passes 31 tests, including three new selection tests.
+
+### Definitions and exploratory protocol
+
+- **Confidence:** maximum per-head probability. F uses mean frame probabilities, E event softmax. Agreement requires the same raw head argmax; its score is the minimum of the two confidences, not a calibrated joint probability.
+- **Precision:** correct accepted component predictions divided by all accepted predictions. With no accepted predictions this is undefined, exported as a blank CSV field.
+- **Coverage:** accepted events divided by the stated eligible event population. Correct coverage additionally requires the accepted component to be correct. Counts and distinct accepted songs accompany rates.
+- **Conditional scope:** gate evaluated on all events; root/triad/extension on true chord events, independently of the predicted gate. This diagnoses each head but uses ground truth to define eligibility.
+- **Operational scope:** denominator is all 9,673 events. Root/triad/extension also require that the relevant teacher predicts chord with gate confidence at least the same threshold. Agreement requires both teachers' chord gates. A component accepted on a true N event counts as wrong. These filters can be computed without reference labels, although evaluation still uses gold intervals.
+- **Class precision versus true-quality slices:** predicted_classes.csv groups accepted predictions by their predicted component value and includes false positives from every reference quality. true_qualities.csv instead conditions on a true chord quality; its precision column is selected accuracy within that reference slice, not precision for predicting that quality. accepted_recall in the class table is correct accepted predictions divided by true class support.
+
+The fixed exploratory grid is 0, 0.5, 0.7, 0.8, 0.9, 0.95 and 0.99. Threshold zero means no confidence rejection; gate/argmax requirements still apply. The 0.9 rows below illustrate the tradeoff, not a selected deployment threshold. No thresholds or probability calibrators are fitted. Ten fixed-width bins in reliability_bins.csv summarize conditional confidence versus observed accuracy; they do not certify calibration. Validation has already informed model choices, so all findings remain development evidence.
+
+### Individual heads before filtering
+
+Conditional scores below retain every eligible event. Root/triad/extension each use 9,374 true chord events; gate uses 9,673 events. Confidence is a mean score, not an empirical success probability.
+
+| Head | F accuracy | F mean confidence | E accuracy | E mean confidence |
+|---|---:|---:|---:|---:|
+| Gate | 97.69% | 98.11% | 98.37% | 98.96% |
+| Root | 81.14% | 75.25% | 85.57% | 84.99% |
+| Triad | 86.37% | 83.19% | 84.03% | 88.77% |
+| Extension | 79.08% | 79.22% | 77.69% | 75.57% |
+
+E is stronger on root for this pair, whereas F is stronger on triad and extension. E's average triad confidence exceeds its observed accuracy. These averages alone are not calibration tests; the selection curves show why confidence cannot be interpreted directly as reliability.
+
+### Precision/coverage tradeoff with operational filtering
+
+Every cell below is **precision / coverage**, with coverage over all 9,673 events. Threshold 0.9 is applied to the component and required chord gate(s).
+
+| Head | F at 0.9 | E at 0.9 | Agreement, no confidence rejection | Agreement at 0.9 |
+|---|---:|---:|---:|---:|
+| Gate | 99.04% / 96.29% | 98.92% / 98.30% | 98.56% / 98.91% | 99.47% / 95.33% |
+| Root | 92.04% / 28.72% | 93.89% / 56.19% | 89.14% / 84.57% | 95.03% / 24.13% |
+| Triad | 95.30% / 44.43% | 93.26% / 63.64% | 88.92% / 86.60% | 96.54% / 39.41% |
+| Extension | 92.46% / 31.67% | 89.75% / 22.38% | 82.25% / 84.64% | 93.49% / 15.39% |
+
+Agreement at 0.9 retains 9,221 gate, 2,334 root, 3,812 triad and 1,489 extension targets. Precision gains have a substantial coverage cost. Raising thresholds does not guarantee improved precision: agreement-root precision falls from 95.03% at 0.9 to 94.31% at 0.95, while coverage falls from 24.13% to 11.44%.
+
+### Rare-quality failure hidden by aggregate scores
+
+There are 111 events in the seven training-defined rare qualities. These rows show correct/accepted component decisions **within those true rare events**, not precision of predicting a rare quality.
+
+| Head | Agreement, threshold 0 | Coverage of 111 events | Agreement, threshold 0.9 | Coverage of 111 events |
+|---|---:|---:|---:|---:|
+| Gate | 111 / 111 | 100.00% | 105 / 105 | 94.59% |
+| Root | 74 / 89 | 80.18% | 10 / 11 | 9.91% |
+| Triad | 3 / 90 | 81.08% | 0 / 24 | 21.62% |
+| Extension | 70 / 81 | 72.97% | 11 / 12 | 10.81% |
+
+The central failure is shared triad error. Before confidence rejection, F gets 7/111 and E 10/111 rare-event triads correct; requiring agreement retains 90 predictions but only three are correct. At threshold 0.9 all 24 retained rare-event triads are wrong. High agreement can preserve a common mistake.
+
+Class-level accepted predictions explain the apparently strong aggregate triad score:
+
+- At agreement threshold 0.9, every accepted triad is major (3,494 predictions) or minor (318). No dim, aug, sus2 or sus4 triad is retained. Even threshold zero retains only four predicted dim triads, two correct, and no aug/sus2/sus4 predictions.
+- Of 1,489 accepted extension predictions at 0.9, 1,488 are `none`; the remaining one is `b7`. None are `6`, `7` or `bb7`. The single correct b7 prediction is not evidence of reliable b7 recognition.
+- Extension correctness on rare events often represents correctly predicting `none` on qualities such as dim/aug/sus2. It does not establish that the rare chord itself was recognized.
+- Whole-label agreement without a confidence threshold accepts 6,601 events, with 4,752 correct (71.99% precision; 68.24% coverage). Within the 111 rare events, it accepts 58 and gets **zero** complete chords correct. The primary pair has no shared complete rare success despite E's four correct rare events individually.
+
+### Decision and next research step
+
+Do not adopt one universal confidence threshold or generate unrestricted pseudo-labels from this pair. Aggregate root/triad precision can support further investigation of partial targets, but the current acceptance policy supplies essentially no confident rare-defining triads or nontrivial extensions. It could reinforce the majority-class bias if used uncritically.
+
+The next discussion should examine training-data diversity: augmentation and/or additional datasets, starting with per-quality and per-component support across independent songs. Preserve the Billboard-only results and frozen validation/test split as controls. Any later training experiment should distinguish additional examples from additional optimizer steps and reassess both precision and coverage, including rare-class false positives. This audit identifies a failure pattern; it does not prove which data intervention will fix it. No augmentation or new dataset has been implemented yet.
+
+Threshold fitting, if pursued later, requires an explicit calibration/evaluation protocol; the reused development set cannot supply an unbiased final reliability claim. This audit concerns one preselected F/E seed pair, not confidence robustness across all seeds.
+
+### Weekly presentation notes
+
+- Audited frozen F/E outputs locally without another Kaggle run.
+- Agreement plus confidence improves aggregate precision but reduces accepted target coverage.
+- At threshold 0.9, triad precision is 96.54% overall, yet all 24 accepted triad decisions on rare events are wrong.
+- Accepted confident triads cover only major/minor; accepted extensions are almost entirely `none`.
+- Hold pseudo-label deployment. Investigate data diversity next, keeping the current baseline and evaluation controls.
+
+Machine-readable outputs: [curves](../../reports/p2/confidence-audit/curves.csv), [predicted component classes](../../reports/p2/confidence-audit/predicted_classes.csv), [true-quality slices](../../reports/p2/confidence-audit/true_qualities.csv), [confidence bins](../../reports/p2/confidence-audit/reliability_bins.csv). Reproduction instructions are in P2_INSTRUCTION.md.
+
+## Dataset feasibility review — 20 November 2026
+
+Reviewed the user's ACR literature matrix and primary dataset sources after the confidence audit. See [DATASET_REVIEW.md](DATASET_REVIEW.md) for sources, access/annotation differences, priorities and admission criteria. Prioritize JSIR/JAAH annotation audits for rare harmony and GuitarSet for an accessible guitar-audio pilot; retain Isophonics as a pop/rock expansion conditional on matching audio. JAAH's documented 12-dimensional chroma must not be assumed compatible with our 24-dimensional input. JSIR requires valid-segment filtering and composition-level grouping. No candidate is yet imported, no complete label-support audit has been performed, and no augmentation or new training has started. This is a source-level recommendation, not a measured data improvement.
+
+## JAAH pilot implementation — 20 November 2026
+
+Following the source-level review, JAAH was downloaded at a pinned revision and audited at file level. Keep 103/113 recordings and 15,491 supported merged events; exclude ten duration mismatches. Six of the seven training-defined rare qualities receive additional examples, including 617 dim7 and 429 hdim7 events. There are no supported sus2/sus4 targets under the exact mapping. The original review above describes the earlier stage; the new measured inventory is under reports/p2/jaah-inventory/.
+
+Implement a separate 12-to-48 input projection for JAAH and preserve the 24-to-48 Billboard projection, sharing E's TCN, event pooling and heads. The two fresh pilot arms use the same seed and total update budget: Billboard control versus 248/990 auxiliary batch replacements per epoch. F remains fixed. See [P2_JAAH_EXPERIMENT.md](P2_JAAH_EXPERIMENT.md) for the protocol and notebook.
+
+This is an implementation and data-feasibility milestone. Full GPU experiments, repeatability across seeds and any improvement in rare-chord precision/coverage remain unmeasured. Metadata matching does not replace audio fingerprinting, and duration checks do not prove local label alignment. The added projection handles differing input dimensions; it does not recover missing bass/treble information.
+
+Local verification passes 36 tests. A training-only check memorized eight Billboard and eight JAAH events, reaching 100% on each branch after 168 optimizer steps. This confirms that both input paths can learn through the shared model, not that validation scores improve. Raw smoke artifacts remain in runs/p2-jaah-smoke/ and selected evidence in reports/p2/jaah-inventory/overfit_check.json.
