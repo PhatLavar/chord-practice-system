@@ -18,6 +18,16 @@ from teacher_e import EventTeacher
 
 @unittest.skipIf(extract is None,'Install requirements-audio.txt')
 class GuitarSetCQT(unittest.TestCase):
+    def test_memorization_selection(self):
+        from check_guitarset_memorization import select_events
+        events=[('a',0,1,0,5,1),('a',1,2,5,11,1),
+                ('b',0,1,0,8,15),('c',0,1,0,6,2),
+                ('d',0,1,0,8,-100),('e',0,1,0,8,0),('f',0,1,0,200,3)]
+        selected=select_events(events)
+        self.assertEqual(selected,[events[0],events[2],events[3]])
+        self.assertEqual(selected,select_events(list(reversed(events))))
+        with self.assertRaises(ValueError):select_events(events[4:])
+
     def test_tone_and_frame_clock(self):
         cfg=json.loads(Path('configs/p2-guitarset-cqt.json').read_text())
         sr=44100;t=np.arange(3*sr)/sr

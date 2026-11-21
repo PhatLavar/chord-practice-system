@@ -797,3 +797,18 @@ Found 12 zero-duration rows in E's exported LAB files: decimal rounding to nine 
 Do not mix these checkpoints into the Billboard/JAAH system or promote either teacher. Keep this progression-held-out experiment as a documented negative result. Next first verify learning on a small quality-diverse audio subset, then compare training-fit and validation curves with explicit per-head support. A separate leave-player-out development protocol retaining all three progressions in training is a reasonable source-learning diagnostic; it answers unseen-player generalization rather than unseen progression and must be named separately. No such new split or training job has been run here. Increasing corpus diversity remains the main plan, conditional on matching audio and a validated baseline.
 
 Evidence: reports/p2/guitarset-cqt/results/ contains original selected metrics/history, independently rescored duration metrics, component diagnostics, import verification and training_fit.json. Tests pass after the export fix; full GPU retraining was not performed.
+
+## Quality-diverse CQT memorization — 21 November 2026
+
+Completed the proposed training-only learning diagnostic locally on CPU. The reproducible command and selection/stop rules are in GUITARSET_CQT_EXPERIMENT.md; source is src/acr/check_guitarset_memorization.py. Eighteen fixed events cover nine supported training qualities, with two events per quality. Both teachers start fresh with the original seed, width, learning rate and train-fitted CQT normalization. F supervises individual frames inside the selected intervals; E supervises pooled gold events. Context remains actual neighboring audio. No validation/test examples are used for training, evaluation or stopping.
+
+| Teacher | First checked pass (updates) | Selected-frame accuracy | Selected event accuracy |
+|---|---:|---:|---:|
+| F | 40 | 98.81% | 18/18 |
+| E | 40 | Not applicable | 18/18 |
+
+This rules out an inability to memorize these particular CQT examples with the existing architecture and loss/decoder path. It does not rule out annotation issues, limited representation quality, optimization problems at full scale, or generalization failure. Gold-guided crops and equal quality representation make this much easier than natural full-corpus training. It says nothing about no-chord detection or qualities absent from this subset. Do not replace the negative progression-held-out results with these training accuracies.
+
+Decision: retain both original checkpoints and the original folds without promotion. Before changing architecture or adding another source, the next informative experiment is a separately named source-learning protocol with all progression groups represented in training and a held-out player, alongside training/validation curves and per-quality support. This would test a different generalization question; it has not been prepared or run by this diagnostic. Additional dataset work remains warranted, but this result alone does not establish cross-corpus benefit.
+
+Evidence: reports/p2/guitarset-cqt/results/memorization.json includes selections, predictions, histories and provenance. Local model weights remain under ignored runs/. All 56 tests pass, including deterministic selection, root diversity preference, and exclusion of OOV/N/overlong events.

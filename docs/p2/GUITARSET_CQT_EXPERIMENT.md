@@ -1,6 +1,6 @@
 # GuitarSet CQT–TCN audio pilot
 
-Status: pipeline and CPU execution checks complete; full GPU training pending. This is a GuitarSet-only source-learning pilot for fresh F and E. It does not yet measure improvement on Billboard or reproduce BTC's architecture/benchmark.
+Status: full GPU pilot imported and verified; training-only memorization diagnostic completed. Neither teacher is promoted. This is a GuitarSet-only source-learning pilot for fresh F and E. It does not yet measure improvement on Billboard or reproduce BTC's architecture/benchmark.
 
 ## Literature and scope
 
@@ -62,3 +62,17 @@ Inspect the full run's optimization, per-quality support, duration-weighted scor
 ## Primary pilot result status
 
 The 30-epoch fold-0 GPU results have been imported and verified. F validation Tetrads is 7.68%; E oracle Tetrads is 8.71%. Neither is promoted. See P2_REPORT.md for support-shift, training-fit and component diagnostics. The earlier pending-GPU status describes setup. A LAB timestamp serialization defect was fixed without changing measured NPZ metrics.
+
+## Training-only memorization diagnostic — 21 November 2026
+
+Run locally with the verified full cache:
+
+```powershell
+.venv/Scripts/python.exe src/acr/check_guitarset_memorization.py
+```
+
+The command requires a fresh output directory (default runs/p2-guitarset-cqt-memorization). It selects two events per available quality from fold-0 training recordings only, restricted to 4–108 frames, preferring different roots and recordings for the second event. Selection is deterministic and does not depend on prediction scores. It retains the original train-fitted normalization and actual neighboring audio as context. Validation/test examples are never selected or scored; the existing cache loader verifies the full train/validation cache.
+
+Both fresh width-48 models use seed 20261119 and Adam 0.001, at most 500 full-batch updates on the same 18 crops. F supervises only frames inside selected gold events; E pools features over those intervals. This deliberately concentrates supervision and is not the natural full-corpus training distribution. Check every ten updates: pass requires every pooled event correct, and F additionally requires at least 95% frame accuracy. Stop each teacher at the first checked pass. Save histories, event selections, predictions, code/cache hashes and local checkpoints. This is a learning sanity check, not model selection for deployment.
+
+Both pass at update 40. F reaches 98.81% selected-frame accuracy and 18/18 pooled events correct; E reaches 18/18 events correct. Nine represented qualities are maj, min, sus2, sus4, maj6, min6, 7, min7 and maj7. N, dim, aug, hdim7, dim7 and minmaj7 are not covered. Evidence is reports/p2/guitarset-cqt/results/memorization.json. No new Kaggle run is needed for this diagnostic.
