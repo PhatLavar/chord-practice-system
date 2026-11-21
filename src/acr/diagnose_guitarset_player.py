@@ -1,4 +1,5 @@
 """Audit saved player-held-out F/E components on supported gold events."""
+import argparse
 import csv
 import io
 import json
@@ -20,10 +21,9 @@ def write_csv(path, rows):
         writer=csv.DictWriter(f,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
 
 
-def run():
-    root=Path('runs/p2-guitarset-cqt-player')
-    out=Path('reports/p2/guitarset-cqt/player-diagnostics');out.mkdir(exist_ok=False)
-    refs=json.loads((root/'validation_references.json').read_text())
+def run(root, out, references, clips=None):
+    out.mkdir(exist_ok=False,parents=True)
+    refs=json.loads(references.read_text())
     labels=[['chord','N'],list(range(12)),TRIADS,EXTENSIONS]
     records=[];summary={};matrices=[]
     for teacher in ['F','E']:
@@ -79,18 +79,25 @@ def run():
         candidates=[(f,e) for f,e in zip(frows,erows) if f['target'].split(':')[1]==quality and f['prediction']!=f['target'] and e['prediction']!=e['target']]
         if candidates:
             f,e=candidates[0];selected.append(dict(recording=f['recording'],start=f['start'],end=f['end'],reference=f['reference'],F=f['prediction'],E=e['prediction']))
-    clips=Path('runs/p2-guitarset-player-review');clips.mkdir(exist_ok=False)
-    with zipfile.ZipFile('data/raw/guitarset/audio_mono-mic.zip') as z:
-        names={Path(n).stem.removesuffix('_mic'):n for n in z.namelist() if n.endswith('.wav') and not n.startswith('__MACOSX')}
-        for i,row in enumerate(selected):
-            audio,sr=sf.read(io.BytesIO(z.read(names[row['recording']])),dtype='float32')
-            start=max(0,row['start']-1);end=min(len(audio)/sr,row['end']+1)
-            path=clips/f'{i+1:02d}.wav';sf.write(path,audio[int(start*sr):int(end*sr)],sr,subtype='PCM_16')
-            row.update(clip=path.as_posix(),clip_start=start,clip_end=end)
-    write_csv(out/'review_candidates.csv',selected)
+    if clips is not None:
+        clips.mkdir(exist_ok=False)
+        with zipfile.ZipFile('data/raw/guitarset/audio_mono-mic.zip') as z:
+            names={Path(n).stem.removesuffix('_mic'):n for n in z.namelist() if n.endswith('.wav') and not n.startswith('__MACOSX')}
+            for i,row in enumerate(selected):
+                audio,sr=sf.read(io.BytesIO(z.read(names[row['recording']])),dtype='float32')
+                start=max(0,row['start']-1);end=min(len(audio)/sr,row['end']+1)
+                path=clips/f'{i+1:02d}.wav';sf.write(path,audio[int(start*sr):int(end*sr)],sr,subtype='PCM_16')
+                row.update(clip=path.as_posix(),clip_start=start,clip_end=end)
+    if selected:write_csv(out/'review_candidates.csv',selected)
     summary['scope']='Supported chord gold events only; F mean frame probabilities, E event softmax. Raw head argmax confusion precedes legal quality decoder. Clips are review candidates, not independently verified chord judgments.'
     (out/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
     print(json.dumps(summary,indent=2))
 
 
-if __name__=='__main__':run()
+if __name__=='__main__':
+    p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--root',type=Path,default=Path('runs/p2-guitarset-cqt-player'))
+    p.add_argument('--output',type=Path,default=Path('reports/p2/guitarset-cqt/player-diagnostics'))
+    p.add_argument('--references',type=Path)
+    p.add_argument('--clips',type=Path,help='Optionally export review audio into a fresh directory')
+    a=p.parse_args();run(a.root,a.output,a.references or a.root/'validation_references.json',a.clips)

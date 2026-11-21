@@ -1,0 +1,38 @@
+{
+  "F": {
+    "train": {
+      "gate": 100.0,
+      "root": 70.01055966209081,
+      "triad": 82.5765575501584,
+      "extension": 84.74128827877507,
+      "event_accuracy": 53.32629355860612,
+      "extended_predicted_none_rate": 50.398406374501995
+    },
+    "validation": {
+      "gate": 100.0,
+      "root": 55.99078341013825,
+      "triad": 72.11981566820276,
+      "extension": 62.21198156682028,
+      "event_accuracy": 34.56221198156682,
+      "extended_predicted_none_rate": 84.06593406593407
+    }
+  },
+  "E": {
+    "train": {
+      "gate": 100.0,
+      "root": 93.29461457233369,
+      "triad": 95.98732840549103,
+      "extension": 96.62090813093981,
+      "event_accuracy": 87.43400211193241,
+      "extended_predicted_none_rate": 10.358565737051793
+    },
+    "validation": {
+      "gate": 100.0,
+      "root": 59.21658986175115,
+      "triad": 71.6589861751152,
+      "extension": 63.36405529953917,
+      "event_accuracy": 38.47926267281106,
+      "extended_predicted_none_rate": 65.93406593406593
+    }
+  }
+}

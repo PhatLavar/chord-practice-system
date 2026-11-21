@@ -40,3 +40,16 @@ Both 30-epoch jobs at revision b64c8dd5b9e491c5c14b995d8e085c7528c9f8ef have com
 The event scores exclude 286 OOV events out of 720 annotated validation events; duration metrics retain raw reference labels with each metric's exclusions. F uses 47 updates/epoch and E 119, so differing task and budget still prevent a causal architecture ranking. F's training Tetrads reaches 40.76% at epoch 30, while validation is 24.27%. E's best checkpoint is at the training budget endpoint; this does not establish convergence or guarantee improvement from more epochs.
 
 Both scores exceed those in the progression-held-out pilot, but different data sizes and validation content prevent a direct improvement claim. The models can learn more than the small memorization subset while still showing incomplete training fit and a generalization gap. Major predictions dominate: F predicts maj on 354/434 supported reference events, E on 287/434. Neither checkpoint is promoted or mixed into Billboard/JAAH.
+
+## Frozen-checkpoint training-component audit
+
+Reproduce locally with the official archives and imported checkpoints present:
+
+```powershell
+.venv/Scripts/python.exe src/acr/prepare_guitarset_cqt.py --config configs/p2-guitarset-cqt-player.json --output data/processed/guitarset-cqt-player
+.venv/Scripts/python.exe src/acr/evaluate_guitarset_training.py
+```
+
+Skip preparation if that verified cache already exists. Both commands require fresh output paths and preserve earlier artifacts. Evaluation uses no optimizer and leaves original checkpoints intact. It checks recording/audio/source identities, selected epoch and manifest identity allowing only platform line endings, then exports training predictions and audits them with the same event protocol. Local CPU training Tetrads exactly reproduces both saved Kaggle values. Reports are under reports/p2/guitarset-cqt/training-fit/; raw logits remain under ignored runs/p2-guitarset-player-training-fit/.
+
+The component diagnostic now accepts --root, --output and --references for explicit partitions. Audio extraction is optional through --clips, so a numerical audit does not need to regenerate listening clips. Review candidates are not independent annotation judgments.

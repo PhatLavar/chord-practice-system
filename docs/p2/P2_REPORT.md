@@ -867,3 +867,34 @@ Created five deterministic paired-error review clips with one-second context, sp
 Decision: preserve this natural-sampling control. A future controlled loss/sampling ablation should keep split, seed, architecture, budgets and checkpoint criterion fixed, derive any weights solely from training support, and inspect per-class precision as well as recall. Existing P1/P2 balanced/weighted results show that simply emphasizing rare targets can lower overall accuracy; those results are motivation for caution, not proof of transfer to CQT. Do not launch a new weighting scheme or replace TCN solely from this confusion table. First distinguish training-fit errors from held-out-player errors with the same component protocol, then select one intervention. Source diversity and an author audio baseline remain separate open work.
 
 Evidence: reports/p2/guitarset-cqt/player-diagnostics/ contains full confusion matrices, aligned supported-event predictions, summary counts and audio review candidates. The diagnostic itself checks event alignment between F/E, matrix totals and reproduction of imported complete-event scores.
+
+## Frozen training-versus-validation component audit — 21 November 2026
+
+Prepared the 300-recording player cache locally from pinned archives, fitted normalization only on players 00–03, and evaluated the original selected checkpoints (F epoch 20, E epoch 30) without updates. Matched all selected recording/audio hashes, source archives, config, checkpoint epochs and manifest identity. Local CPU training Tetrads is exactly 36.58481673558038% for F and 59.9458362532555% for E, matching the original Kaggle history with zero difference. No reserved-player data or new training was used. Reproduction commands are in GUITARSET_PLAYER_EXPERIMENT.md.
+
+### Same event protocol on both partitions
+
+The table uses 1,894 complete-supported training chord events and 434 validation chord events. Component accuracy uses raw head decisions; complete-event accuracy uses the legal decoder. F is pooled over gold intervals for this comparison and E has gold event boundaries. Values are event-weighted, not duration-weighted.
+
+| Teacher / partition | Root | Triad | Extension | Complete event |
+|---|---:|---:|---:|---:|
+| F train | 70.01% | 82.58% | 84.74% | 53.33% |
+| F validation | 55.99% | 72.12% | 62.21% | 34.56% |
+| E train | 93.29% | 95.99% | 96.62% | 87.43% |
+| E validation | 59.22% | 71.66% | 63.36% | 38.48% |
+
+The earlier training Tetrads values must not be confused with these supported-only event accuracies: duration metrics use full raw reference timelines including valid OOV labels and metric-specific exclusions, while this table excludes OOV events. High E component fit on supported train events is consistent with a lower full-timeline duration score.
+
+Of 502 training events requiring an extension, F predicts none on 253 (50.40%), E on 52 (10.36%). On validation the corresponding rates are 84.07% and 65.93%. E therefore demonstrably learns many extended targets in its training distribution; its held-out failure is not a blanket inability of this architecture to learn extensions. F still has substantial incomplete fitting even on supported training data. Different F/E tasks and update budgets remain confounders, so this is not proof of architectural superiority or of one causal mechanism. Only one held-out player and one seed were examined; label/support distributions also differ across players.
+
+### Confidence sweep, not a fixed 0.9 policy
+
+Measured extension precision/coverage at thresholds 0, 0.5, 0.7, 0.8, 0.9, 0.95 and 0.99 for both partitions, including a diagnostic subset of true extended chords. On that validation subset (182 events), F has 20 correct raw extension predictions with no filter; threshold 0.9 accepts 60 predictions but only one is correct. E at threshold 0.9 accepts 118 with 28 correct; at 0.99 it accepts 73 with 16 correct. Increased softmax thresholds do not guarantee increased precision on these events.
+
+These are single-head descriptive curves on supported gold chord events. The true-extended subset uses ground truth and is not an operational selector. No chord-gate or F/E-agreement filter, fitted calibration or final acceptance threshold is implied. Do not compare these numbers directly with the earlier Billboard operational confidence audit, whose denominator includes N and uses additional gate rules.
+
+### Decision
+
+Do not treat class weighting as a demonstrated solution for both teachers. For E, the dominant observed issue is the large train-to-held-out gap across all three chord components; more training or higher confidence alone is not justified as a fix. For F, train fitting remains an additional issue. A future controlled augmentation/regularization or literature-baseline experiment should measure train fit and held-out performance together, and target overall full-chord accuracy before rare recall. Selecting one intervention requires an explicit protocol and source reference; this audit does not silently launch a new training scheme. Calibration should follow improvements in predictive reliability and requires separate validation design.
+
+All 58 tests pass, including a synthetic known-answer audit with explicit training references, identical expected F/E outputs, and no audio files required when clip extraction is disabled. Evidence: reports/p2/guitarset-cqt/training-fit/ contains training confusion, selected-checkpoint metrics/provenance, the train/validation comparison and extension threshold sweep. Original checkpoints and validation results are preserved.

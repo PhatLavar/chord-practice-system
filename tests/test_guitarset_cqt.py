@@ -18,6 +18,31 @@ from teacher_e import EventTeacher
 
 @unittest.skipIf(extract is None,'Install requirements-audio.txt')
 class GuitarSetCQT(unittest.TestCase):
+    def test_component_audit_explicit_references_without_audio(self):
+        import tempfile
+        from contextlib import redirect_stdout
+        import io
+        from diagnose_guitarset_player import run
+        from teacher_f import targets
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);refs=root/'training_references.json'
+            refs.write_text(json.dumps({'a':{'duration':1.,'events':[{'time':0.,'duration':1.,'value':'C:maj7'}]}}))
+            values=targets(torch.tensor([11]))
+            heads=[]
+            for size,target in zip([2,12,6,5],values):
+                h=np.full((size,2),-10,dtype=np.float32);h[int(target.item())]=10;heads.append(h)
+            for teacher in ['F','E']:
+                directory=root/teacher/'predictions';directory.mkdir(parents=True)
+                (root/teacher/'metrics.json').write_text(json.dumps({'supported_events':1,'supported_oracle_event_accuracy':1.}))
+                if teacher=='F':np.savez(directory/'a.npz',times=[0.,.5],**{f'logits_{j}':h for j,h in enumerate(heads)})
+                else:np.savez(directory/'event_logits.npz',**{f'logits_{j}':h[:,0][None,:] for j,h in enumerate(heads)})
+            with redirect_stdout(io.StringIO()):run(root,root/'audit',refs)
+            result=json.loads((root/'audit/summary.json').read_text())
+            for teacher in ['F','E']:
+                self.assertEqual(result[teacher]['raw_all_heads_correct'],1)
+                self.assertEqual(result[teacher]['extended_predicted_none'],0)
+            self.assertFalse((root/'audit/review_candidates.csv').exists())
+
     def test_player_split(self):
         import csv
         manifest=Path('splits/guitarset-player-v1.csv')
