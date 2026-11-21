@@ -1,0 +1,99 @@
+{
+  "review_date": "2026-11-21",
+  "status": "Read-only source/code review; no upstream model imported or executed",
+  "reviewed_files": [
+    {
+      "url": "https://github.com/KimLeekyung/ACR_seq2seq/blob/main/full_train/dataset.py",
+      "modified_date": "2026-05-31T12:43:09Z",
+      "characters_fetched": 13956
+    },
+    {
+      "url": "https://github.com/KimLeekyung/ACR_seq2seq/blob/main/full_train/model.py",
+      "modified_date": "2026-05-31T12:43:09Z",
+      "characters_fetched": 10205
+    },
+    {
+      "url": "https://github.com/KimLeekyung/ACR_seq2seq/blob/main/full_train/hparams.yaml",
+      "modified_date": "2026-05-31T12:43:09Z",
+      "characters_fetched": 1846
+    },
+    {
+      "url": "https://github.com/KimLeekyung/ACR_seq2seq/blob/main/full_train/run.py",
+      "modified_date": "2026-05-31T12:43:09Z",
+      "characters_fetched": 14451
+    },
+    {
+      "url": "https://github.com/KimLeekyung/ACR_seq2seq/blob/main/full_train/modules.py",
+      "modified_date": "2026-05-31T12:43:09Z",
+      "characters_fetched": 4415
+    },
+    {
+      "url": "https://github.com/KimLeekyung/ACR_seq2seq/blob/main/pre_train/hparams.yaml",
+      "modified_date": "2026-05-31T12:43:09Z",
+      "characters_fetched": 1659
+    },
+    {
+      "url": "https://github.com/KimLeekyung/ACR_seq2seq/blob/main/base/signal_processor.py",
+      "modified_date": "2026-05-31T12:43:09Z",
+      "characters_fetched": 6989
+    },
+    {
+      "url": "https://github.com/jayg996/BTC-ISMIR19/blob/master/btc_model.py",
+      "modified_date": "2019-06-12T15:14:00Z",
+      "characters_fetched": 7361
+    },
+    {
+      "url": "https://github.com/jayg996/BTC-ISMIR19/blob/master/run_config.yaml",
+      "modified_date": "2019-06-12T15:14:00Z",
+      "characters_fetched": 791
+    },
+    {
+      "url": "https://github.com/jayg996/BTC-ISMIR19/blob/master/utils/chords.py",
+      "modified_date": "2019-06-12T15:14:00Z",
+      "characters_fetched": 18307
+    },
+    {
+      "url": "https://github.com/mwaseemrandhawa/ChordFormer/blob/main/confor_head16.py",
+      "modified_date": "2026-09-02T12:22:57Z",
+      "characters_fetched": 22504
+    },
+    {
+      "url": "https://github.com/mwaseemrandhawa/ChordFormer/blob/main/extractors/cqt.py",
+      "modified_date": "2026-09-02T12:22:57Z",
+      "characters_fetched": 2457
+    },
+    {
+      "url": "https://github.com/mwaseemrandhawa/ChordFormer/blob/main/mir/nn/data_decorator.py",
+      "modified_date": "2026-09-02T12:22:57Z",
+      "characters_fetched": 1684
+    }
+  ],
+  "static_findings": {
+    "event_code_vocab": {
+      "time": 257,
+      "root": 13,
+      "quality": 15,
+      "special": 3,
+      "total": 288,
+      "paper_split_tokens": 289
+    },
+    "event_template_log_amplitude": {
+      "full_train": false,
+      "pre_train": true
+    },
+    "ChordFormer_cached_CQT_bins": 288,
+    "ChordFormer_network_CQT_bins": 252,
+    "ChordFormer_zero_shift_crop_start_bin": 18,
+    "ChordFormer_selected_GPU_index": 5,
+    "BTC_template_output_classes": 25,
+    "BTC_large_vocabulary_output_classes": 170
+  },
+  "not_verified": [
+    "Upstream dependency installation and runtime",
+    "GPU memory and throughput",
+    "Exact source commits for future vendoring",
+    "Checkpoint provenance and availability",
+    "End-to-end vocabulary round-trip including OOV and N",
+    "Paper-number reproduction on matching commercial audio"
+  ]
+}
