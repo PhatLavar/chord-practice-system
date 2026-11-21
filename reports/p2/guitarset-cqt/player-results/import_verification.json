@@ -1,0 +1,47 @@
+{
+  "manifest_verification": "Matches source Git blob; Windows working-copy CRLF differs in bytes only. Recording roles verified independently.",
+  "archive_sha256": "8d31cd4f9b281c89c8c9b8ae43704cef8d0278bbc2d418dbd14528c94816c4f6",
+  "jobs": {
+    "F": {
+      "revision": "b64c8dd5b9e491c5c14b995d8e085c7528c9f8ef",
+      "epochs": 30,
+      "steps_per_epoch": 47,
+      "best_epoch": 20,
+      "source_hashes_match": true,
+      "NPZ_metrics_match": true,
+      "zero_length_LAB_rows": 0,
+      "component_accuracy_supported": {
+        "gate": 1.0,
+        "root": 0.5599078341013825,
+        "triad": 0.7211981566820277,
+        "extension": 0.6221198156682027
+      },
+      "supported_events": 434,
+      "correct_events": 150,
+      "training_tetrads_at_best": 0.3658481673558038,
+      "training_tetrads_final": 0.4076174338174116
+    },
+    "E": {
+      "revision": "b64c8dd5b9e491c5c14b995d8e085c7528c9f8ef",
+      "epochs": 30,
+      "steps_per_epoch": 119,
+      "best_epoch": 30,
+      "source_hashes_match": true,
+      "NPZ_metrics_match": true,
+      "zero_length_LAB_rows": 0,
+      "component_accuracy_supported": {
+        "gate": 1.0,
+        "root": 0.5921658986175116,
+        "triad": 0.716589861751152,
+        "extension": 0.6336405529953917
+      },
+      "supported_events": 434,
+      "correct_events": 167,
+      "training_tetrads_at_best": 0.599458362532555,
+      "training_tetrads_final": 0.599458362532555
+    }
+  },
+  "validation_recordings": 60,
+  "test_inference": false,
+  "validation_reference_events_match_official_archive": true
+}

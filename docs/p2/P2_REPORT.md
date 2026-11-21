@@ -820,3 +820,26 @@ Prepared a separate deterministic player split, config and notebook 02i for both
 This changes the generalization question and training-set size. It introduces known repertoire overlap and reuses historical data: old progression-test recordings can now enter training, and the reserved player had earlier validation exposure. Consequently neither a score increase nor a later reserved-player score establishes independent benchmark parity. No new test result is claimed.
 
 Preparation/cache validation now accepts an explicit manifest in the config while keeping the previous default and hash checks. The new config enables full training/validation metrics and per-quality diagnostics in each epoch's history; checkpoint selection remains validation Tetrads. Natural sampling, model architecture, seed, optimizer and label mapping are unchanged. Full GPU training remains pending on Kaggle; run 02i and return its separately named ZIP.
+
+## Player-held-out GPU results verified — 21 November 2026
+
+Imported p2-guitarset-cqt-player-results.zip, SHA-256 8d31cd4f9b281c89c8c9b8ae43704cef8d0278bbc2d418dbd14528c94816c4f6. Both fresh jobs complete 30 epochs at b64c8dd5b9e491c5c14b995d8e085c7528c9f8ef, seed 20261119. Independently rescored full timelines from NPZ and original reference JSON; all duration numerators/denominators agree within 1e-8 seconds, and supported event accuracies within 1e-12. Official annotation event lists match all 60 validation recordings. Split IDs, train-only normalization IDs, source Git hashes, checkpoint choice and decoded predictions match. The Linux manifest hash matches the Git blob; Windows CRLF explains working-copy byte differences without changing rows. No reserved player 04 predictions or zero-length LAB rows were found.
+
+| Teacher | Root | MajMin | Triads | Tetrads | Supported oracle event accuracy |
+|---|---:|---:|---:|---:|---:|
+| F | 48.31% | 47.88% | 30.83% | 24.45% | 34.56% |
+| E, gold boundaries | 56.63% | 56.91% | 37.06% | 29.41% | 38.48% |
+
+There are 720 annotated validation events, of which 434 have complete-supported labels and 286 are OOV. Event accuracy is restricted to those 434 events (F 150 correct, E 167). Duration metrics preserve the raw labels and their metric-specific eligibility rules. F/E do different tasks and receive 47/119 updates per epoch respectively, so the table is descriptive rather than an architecture ranking.
+
+### Training fit and error concentration
+
+F selects epoch 20: training/validation Tetrads is 36.58%/24.45%. At epoch 30 training improves to 40.76%, with validation 24.27%. E selects the last epoch 30: training/validation is 59.95%/29.41%. E may remain sensitive to training budget, but an endpoint maximum does not prove more training will help validation. The evidence supports both imperfect source fit and a generalization gap, not a single established cause.
+
+On supported gold events, root/triad/extension accuracy is F 55.99%/72.12%/62.21%, E 59.22%/71.66%/63.36%. Gate is 100% in this chord-only scope and cannot establish no-chord detection. Major bias remains: F emits maj on 354/434 supported events and E on 287/434. F/E correctly classify 121/124 of 194 maj events and 26/26 of 58 min events, respectively. For 7 the counts are 1/8 of 26; hdim7 1/4 of 32; min7 0/3 of 36; maj7 1/2 of 52. Both miss every min6 (12), maj6 (22), and dim7 (2) event. These counts cover complete chords, not just correctly identifying the quality.
+
+### Interpretation and next decision
+
+Having all progression groups in training is associated with substantially higher validation scores than the earlier pilot, but training size, player content and validation targets also changed. This does not isolate the effect of progression coverage or establish cross-corpus improvement. Keep both experiments and do not promote these checkpoints.
+
+Before another large run, prioritize inspecting root and extension confusion and representative audio/annotation intervals for maj versus seventh/sixth errors, then define one controlled training change if supported by that inspection. Additional epochs for E can be a budget ablation; they should not silently replace the 30-epoch control. A literature-backed stronger audio baseline and additional matching audio remain relevant; this one-seed development result does not resolve dataset diversity or architecture choice. Evidence is reports/p2/guitarset-cqt/player-results/ (original histories/metrics, independent rescoring and import verification). No new training was performed during import.

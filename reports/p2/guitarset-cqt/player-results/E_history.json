@@ -1,0 +1,5567 @@
+[
+  {
+    "epoch": 1,
+    "head_losses": [
+      0.011057274193713782,
+      2.2465059116107073,
+      0.7971686027130159,
+      0.7976406720005164
+    ],
+    "validation_tetrads": 0.20063500440213236,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 3282.0420252762765,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.44883912004320126
+        },
+        "majmin": {
+          "correct_seconds": 1867.7962671590133,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.37268816861343546
+        },
+        "triads": {
+          "correct_seconds": 1867.7962671590133,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.2554324492237596
+        },
+        "tetrads": {
+          "correct_seconds": 1389.7415323190721,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.1900555695660462
+        }
+      },
+      "supported_oracle_event_accuracy": 0.25976768743400214,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 0,
+          "predicted": 1
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 492,
+          "predicted": 1889
+        },
+        "min7": {
+          "events": 126,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 326,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "7": {
+          "events": 176,
+          "correct": 0,
+          "predicted": 4
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 0,
+          "predicted": 0
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 0,
+          "predicted": 0
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 676.9014484503851,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.3702814871212555
+        },
+        "majmin": {
+          "correct_seconds": 433.5434396293612,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.36975362160492786
+        },
+        "triads": {
+          "correct_seconds": 433.5434396293612,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.2371587620696172
+        },
+        "tetrads": {
+          "correct_seconds": 366.77535824300946,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.20063500440213236
+        }
+      },
+      "supported_oracle_event_accuracy": 0.2511520737327189,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj": {
+          "events": 194,
+          "correct": 109,
+          "predicted": 434
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min7": {
+          "events": 36,
+          "correct": 0,
+          "predicted": 0
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 58,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 2,
+    "head_losses": [
+      0.00023581406493263296,
+      1.5172251958806975,
+      0.7613396041032647,
+      0.7165072803236857
+    ],
+    "validation_tetrads": 0.23532748146352253,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 4362.126061901498,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.596547152066577
+        },
+        "majmin": {
+          "correct_seconds": 2509.2495113044965,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.5006796626618464
+        },
+        "triads": {
+          "correct_seconds": 2509.2495113044965,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.343155064423021
+        },
+        "tetrads": {
+          "correct_seconds": 1895.5477857992719,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.25922763743598476
+        }
+      },
+      "supported_oracle_event_accuracy": 0.3521647307286167,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 631,
+          "predicted": 1785
+        },
+        "7": {
+          "events": 176,
+          "correct": 9,
+          "predicted": 36
+        },
+        "min7": {
+          "events": 126,
+          "correct": 0,
+          "predicted": 1
+        },
+        "min": {
+          "events": 326,
+          "correct": 27,
+          "predicted": 72
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 0,
+          "predicted": 0
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 0,
+          "predicted": 0
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 879.7307682703707,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.48123403766856304
+        },
+        "majmin": {
+          "correct_seconds": 552.5647389985749,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.4712626111712657
+        },
+        "triads": {
+          "correct_seconds": 552.5647389985749,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.3022662955671864
+        },
+        "tetrads": {
+          "correct_seconds": 430.1957256930751,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.23532748146352253
+        }
+      },
+      "supported_oracle_event_accuracy": 0.30184331797235026,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 1,
+          "predicted": 2
+        },
+        "maj": {
+          "events": 194,
+          "correct": 126,
+          "predicted": 420
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 58,
+          "correct": 4,
+          "predicted": 12
+        },
+        "min7": {
+          "events": 36,
+          "correct": 0,
+          "predicted": 0
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 3,
+    "head_losses": [
+      0.00016657784772560415,
+      1.2659048317861157,
+      0.7404508467982797,
+      0.6804874069800898
+    ],
+    "validation_tetrads": 0.25021092222180924,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 4374.185142549402,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5981963043640951
+        },
+        "majmin": {
+          "correct_seconds": 2578.7224793843016,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.5145418561446423
+        },
+        "triads": {
+          "correct_seconds": 2578.7224793843016,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.35265591347357644
+        },
+        "tetrads": {
+          "correct_seconds": 1974.583881304974,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.270036302067707
+        }
+      },
+      "supported_oracle_event_accuracy": 0.36800422386483633,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 665,
+          "predicted": 1750
+        },
+        "7": {
+          "events": 176,
+          "correct": 31,
+          "predicted": 143
+        },
+        "min7": {
+          "events": 126,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 326,
+          "correct": 1,
+          "predicted": 1
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 0,
+          "predicted": 0
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 0,
+          "predicted": 0
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 962.8940762465161,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5267263813794912
+        },
+        "majmin": {
+          "correct_seconds": 589.3719380652905,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5026541487013608
+        },
+        "triads": {
+          "correct_seconds": 589.3719380652905,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.32240072494149513
+        },
+        "tetrads": {
+          "correct_seconds": 457.40373624076597,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.25021092222180924
+        }
+      },
+      "supported_oracle_event_accuracy": 0.31797235023041476,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 1,
+          "predicted": 9
+        },
+        "maj": {
+          "events": 194,
+          "correct": 137,
+          "predicted": 425
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min7": {
+          "events": 36,
+          "correct": 0,
+          "predicted": 0
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 58,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 4,
+    "head_losses": [
+      0.000217183200220461,
+      1.1652993224248165,
+      0.7039198912993199,
+      0.6311416300091924
+    ],
+    "validation_tetrads": 0.23831297358940606,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 4336.449618686982,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5930357429836075
+        },
+        "majmin": {
+          "correct_seconds": 2664.1900319695173,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.5315955071283793
+        },
+        "triads": {
+          "correct_seconds": 2664.1900319695173,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.3643441188040262
+        },
+        "tetrads": {
+          "correct_seconds": 2057.241763954283,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.28134026802159423
+        }
+      },
+      "supported_oracle_event_accuracy": 0.38595564941921856,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 9,
+          "predicted": 16
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 653,
+          "predicted": 1744
+        },
+        "min7": {
+          "events": 126,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 326,
+          "correct": 60,
+          "predicted": 121
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "7": {
+          "events": 176,
+          "correct": 9,
+          "predicted": 13
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 0,
+          "predicted": 0
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 0,
+          "predicted": 0
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 907.8670361711912,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.4966252576817693
+        },
+        "majmin": {
+          "correct_seconds": 571.1930971211218,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.48715006846102155
+        },
+        "triads": {
+          "correct_seconds": 571.1930971211218,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.31245645864636856
+        },
+        "tetrads": {
+          "correct_seconds": 435.6534221068469,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.23831297358940606
+        }
+      },
+      "supported_oracle_event_accuracy": 0.30414746543778803,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj": {
+          "events": 194,
+          "correct": 122,
+          "predicted": 412
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 58,
+          "correct": 10,
+          "predicted": 22
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min7": {
+          "events": 36,
+          "correct": 0,
+          "predicted": 0
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 5,
+    "head_losses": [
+      6.973865349224804e-05,
+      1.0848011887874924,
+      0.6636864710755709,
+      0.5797175294210931
+    ],
+    "validation_tetrads": 0.26312508645230515,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 4667.468236639799,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.638304543338884
+        },
+        "majmin": {
+          "correct_seconds": 2958.8112533364697,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.5903823487965638
+        },
+        "triads": {
+          "correct_seconds": 2960.822349775045,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.40491038440173766
+        },
+        "tetrads": {
+          "correct_seconds": 2357.2964084594078,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.3223745575179997
+        }
+      },
+      "supported_oracle_event_accuracy": 0.4324181626187962,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 8,
+          "predicted": 12
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 693,
+          "predicted": 1575
+        },
+        "7": {
+          "events": 176,
+          "correct": 44,
+          "predicted": 174
+        },
+        "min7": {
+          "events": 126,
+          "correct": 6,
+          "predicted": 18
+        },
+        "min": {
+          "events": 326,
+          "correct": 67,
+          "predicted": 112
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 0,
+          "predicted": 2
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 1,
+          "predicted": 1
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 985.4035953534354,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5390396335203682
+        },
+        "majmin": {
+          "correct_seconds": 636.5392798474667,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5428814796934914
+        },
+        "triads": {
+          "correct_seconds": 636.5392798474667,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.3482024033078857
+        },
+        "tetrads": {
+          "correct_seconds": 481.01176628598995,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.26312508645230515
+        }
+      },
+      "supported_oracle_event_accuracy": 0.3387096774193548,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 2,
+          "predicted": 13
+        },
+        "maj": {
+          "events": 194,
+          "correct": 135,
+          "predicted": 399
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min7": {
+          "events": 36,
+          "correct": 0,
+          "predicted": 3
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 58,
+          "correct": 10,
+          "predicted": 19
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 6,
+    "head_losses": [
+      7.64986590115195e-05,
+      1.0394569342376805,
+      0.637674028257362,
+      0.5559825914747575
+    ],
+    "validation_tetrads": 0.23508222904269951,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 4703.551035646243,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.6432390845879055
+        },
+        "majmin": {
+          "correct_seconds": 2922.95232609283,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.58322728688866
+        },
+        "triads": {
+          "correct_seconds": 2929.380836103748,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.40061056702573583
+        },
+        "tetrads": {
+          "correct_seconds": 2444.026804730613,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.334235464369151
+        }
+      },
+      "supported_oracle_event_accuracy": 0.4567053854276663,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 26,
+          "predicted": 35
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 661,
+          "predicted": 1432
+        },
+        "7": {
+          "events": 176,
+          "correct": 44,
+          "predicted": 115
+        },
+        "min7": {
+          "events": 126,
+          "correct": 10,
+          "predicted": 35
+        },
+        "min": {
+          "events": 326,
+          "correct": 120,
+          "predicted": 270
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 3
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 2,
+          "predicted": 2
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 1,
+          "predicted": 1
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 1,
+          "predicted": 1
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 963.884589538045,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5272682161405785
+        },
+        "majmin": {
+          "correct_seconds": 566.4563547884745,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.48311027112582716
+        },
+        "triads": {
+          "correct_seconds": 566.4563547884745,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.3098653458646511
+        },
+        "tetrads": {
+          "correct_seconds": 429.7473864574797,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.23508222904269951
+        }
+      },
+      "supported_oracle_event_accuracy": 0.31336405529953915,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 1,
+          "predicted": 6
+        },
+        "maj": {
+          "events": 194,
+          "correct": 117,
+          "predicted": 360
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min7": {
+          "events": 36,
+          "correct": 0,
+          "predicted": 3
+        },
+        "min": {
+          "events": 58,
+          "correct": 18,
+          "predicted": 65
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 0
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 7,
+    "head_losses": [
+      6.220187819084106e-05,
+      1.0208249445222004,
+      0.598846213657315,
+      0.5230878242174116
+    ],
+    "validation_tetrads": 0.24819381370443094,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 4816.943726236898,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.6587462216300513
+        },
+        "majmin": {
+          "correct_seconds": 3040.8504867316774,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.6067519348087556
+        },
+        "triads": {
+          "correct_seconds": 3055.4286293843857,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.4178483659886258
+        },
+        "tetrads": {
+          "correct_seconds": 2516.0352251957265,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.3440830518858105
+        }
+      },
+      "supported_oracle_event_accuracy": 0.47043294614572334,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 44,
+          "predicted": 85
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 666,
+          "predicted": 1363
+        },
+        "min7": {
+          "events": 126,
+          "correct": 13,
+          "predicted": 31
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 6
+        },
+        "7": {
+          "events": 176,
+          "correct": 74,
+          "predicted": 299
+        },
+        "min": {
+          "events": 326,
+          "correct": 88,
+          "predicted": 103
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 6,
+          "predicted": 6
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 0,
+          "predicted": 1
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 0,
+          "predicted": 0
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 1003.3301471663797,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5488458915501732
+        },
+        "majmin": {
+          "correct_seconds": 636.1909005965363,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5425843595483136
+        },
+        "triads": {
+          "correct_seconds": 639.014430008301,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.34955637039497095
+        },
+        "tetrads": {
+          "correct_seconds": 453.71631538775455,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.24819381370443094
+        }
+      },
+      "supported_oracle_event_accuracy": 0.3294930875576037,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 6,
+          "predicted": 52
+        },
+        "maj": {
+          "events": 194,
+          "correct": 118,
+          "predicted": 352
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 1,
+          "predicted": 1
+        },
+        "min7": {
+          "events": 36,
+          "correct": 0,
+          "predicted": 4
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 58,
+          "correct": 18,
+          "predicted": 24
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 8,
+    "head_losses": [
+      5.710185121379331e-05,
+      0.9546327418139001,
+      0.5766916059646285,
+      0.4969355030094876
+    ],
+    "validation_tetrads": 0.2566332864162027,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 4655.876378524204,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.6367192865517374
+        },
+        "majmin": {
+          "correct_seconds": 2904.1915031328526,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.5794838717884307
+        },
+        "triads": {
+          "correct_seconds": 2926.153309184388,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.40016918317652095
+        },
+        "tetrads": {
+          "correct_seconds": 2530.9440017938937,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.3461219173597158
+        }
+      },
+      "supported_oracle_event_accuracy": 0.48416050686378037,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 55,
+          "predicted": 122
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 711,
+          "predicted": 1472
+        },
+        "min7": {
+          "events": 126,
+          "correct": 14,
+          "predicted": 23
+        },
+        "min": {
+          "events": 326,
+          "correct": 70,
+          "predicted": 90
+        },
+        "7": {
+          "events": 176,
+          "correct": 47,
+          "predicted": 155
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 8,
+          "predicted": 9
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 10,
+          "predicted": 15
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 2,
+          "predicted": 5
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 3
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 947.722079556494,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5184269317183314
+        },
+        "majmin": {
+          "correct_seconds": 593.5005002856369,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5061752510718625
+        },
+        "triads": {
+          "correct_seconds": 596.3240296974017,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.32620368744664935
+        },
+        "tetrads": {
+          "correct_seconds": 469.14428438282636,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.2566332864162027
+        }
+      },
+      "supported_oracle_event_accuracy": 0.3387096774193548,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 3,
+          "predicted": 29
+        },
+        "maj": {
+          "events": 194,
+          "correct": 129,
+          "predicted": 383
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 1,
+          "predicted": 1
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 58,
+          "correct": 14,
+          "predicted": 18
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 1
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        },
+        "min7": {
+          "events": 36,
+          "correct": 0,
+          "predicted": 1
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 9,
+    "head_losses": [
+      3.396844037492234e-05,
+      0.9325607904866964,
+      0.5511019559217101,
+      0.46623914119075327
+    ],
+    "validation_tetrads": 0.2570775129410336,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 4887.178202179674,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.6683512114918728
+        },
+        "majmin": {
+          "correct_seconds": 3121.080682060901,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.6227605568894854
+        },
+        "triads": {
+          "correct_seconds": 3150.020630779208,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.43078439494322257
+        },
+        "tetrads": {
+          "correct_seconds": 2678.465855696105,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.3662964241401512
+        }
+      },
+      "supported_oracle_event_accuracy": 0.5168954593453009,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 58,
+          "predicted": 105
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 693,
+          "predicted": 1280
+        },
+        "7": {
+          "events": 176,
+          "correct": 93,
+          "predicted": 340
+        },
+        "min7": {
+          "events": 126,
+          "correct": 20,
+          "predicted": 33
+        },
+        "min": {
+          "events": 326,
+          "correct": 99,
+          "predicted": 113
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 13,
+          "predicted": 20
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 3,
+          "predicted": 3
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 0,
+          "predicted": 0
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 1006.6193716096095,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5506451769869276
+        },
+        "majmin": {
+          "correct_seconds": 634.1176643608048,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5408161708582493
+        },
+        "triads": {
+          "correct_seconds": 639.1841844267751,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.34964923017339494
+        },
+        "tetrads": {
+          "correct_seconds": 469.9563627301287,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.2570775129410336
+        }
+      },
+      "supported_oracle_event_accuracy": 0.347926267281106,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 10,
+          "predicted": 95
+        },
+        "maj": {
+          "events": 194,
+          "correct": 122,
+          "predicted": 303
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 2,
+          "predicted": 4
+        },
+        "min7": {
+          "events": 36,
+          "correct": 1,
+          "predicted": 5
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 2
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 58,
+          "correct": 16,
+          "predicted": 24
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 10,
+    "head_losses": [
+      2.2944610844267325e-05,
+      0.8751481328190875,
+      0.5285265001804889,
+      0.4420022252602738
+    ],
+    "validation_tetrads": 0.22853973102908492,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 4784.675714287798,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.6543333756100316
+        },
+        "majmin": {
+          "correct_seconds": 2846.2437246954355,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.5679213412272646
+        },
+        "triads": {
+          "correct_seconds": 2875.9814537803063,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.3933078781545028
+        },
+        "tetrads": {
+          "correct_seconds": 2557.8434658048163,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.34980058194210484
+        }
+      },
+      "supported_oracle_event_accuracy": 0.4825765575501584,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 47,
+          "predicted": 74
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 551,
+          "predicted": 998
+        },
+        "7": {
+          "events": 176,
+          "correct": 74,
+          "predicted": 179
+        },
+        "min7": {
+          "events": 126,
+          "correct": 60,
+          "predicted": 140
+        },
+        "min": {
+          "events": 326,
+          "correct": 164,
+          "predicted": 446
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 10,
+          "predicted": 16
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 5,
+          "predicted": 6
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 33
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 1,
+          "predicted": 1
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 1,
+          "predicted": 1
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 991.3548261826487,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5422951009250956
+        },
+        "majmin": {
+          "correct_seconds": 527.4384928408601,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.4498333386580098
+        },
+        "triads": {
+          "correct_seconds": 537.5715329728008,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.29406464872975036
+        },
+        "tetrads": {
+          "correct_seconds": 417.7872249697161,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.22853973102908492
+        }
+      },
+      "supported_oracle_event_accuracy": 0.31797235023041476,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 6,
+          "predicted": 37
+        },
+        "min7": {
+          "events": 36,
+          "correct": 4,
+          "predicted": 29
+        },
+        "maj": {
+          "events": 194,
+          "correct": 93,
+          "predicted": 230
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 4,
+          "predicted": 5
+        },
+        "min": {
+          "events": 58,
+          "correct": 30,
+          "predicted": 123
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 1,
+          "predicted": 4
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 2
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 4
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 11,
+    "head_losses": [
+      2.2201149817624164e-05,
+      0.858314118966335,
+      0.4956883891415195,
+      0.4220922501648174
+    ],
+    "validation_tetrads": 0.26783751546890827,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 4915.106071255146,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.6721705166939326
+        },
+        "majmin": {
+          "correct_seconds": 3229.0582105631706,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.644305705071051
+        },
+        "triads": {
+          "correct_seconds": 3255.43743018705,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.4452007805713144
+        },
+        "tetrads": {
+          "correct_seconds": 2724.435152254423,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.37258300379310477
+        }
+      },
+      "supported_oracle_event_accuracy": 0.5237592397043295,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 55,
+          "predicted": 65
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 748,
+          "predicted": 1529
+        },
+        "7": {
+          "events": 176,
+          "correct": 42,
+          "predicted": 105
+        },
+        "min7": {
+          "events": 126,
+          "correct": 19,
+          "predicted": 21
+        },
+        "min": {
+          "events": 326,
+          "correct": 113,
+          "predicted": 157
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 10,
+          "predicted": 12
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 3,
+          "predicted": 3
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 2,
+          "predicted": 2
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 969.8293399105464,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5305201385785252
+        },
+        "majmin": {
+          "correct_seconds": 632.4942540092297,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5394316225016671
+        },
+        "triads": {
+          "correct_seconds": 635.3177834209945,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.3475342151774823
+        },
+        "tetrads": {
+          "correct_seconds": 489.62642874685906,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.26783751546890827
+        }
+      },
+      "supported_oracle_event_accuracy": 0.3456221198156682,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 1,
+          "predicted": 10
+        },
+        "maj": {
+          "events": 194,
+          "correct": 131,
+          "predicted": 388
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 1,
+          "predicted": 1
+        },
+        "min7": {
+          "events": 36,
+          "correct": 0,
+          "predicted": 3
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 1
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 58,
+          "correct": 17,
+          "predicted": 30
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 12,
+    "head_losses": [
+      1.3852266566611926e-05,
+      0.811073529244471,
+      0.4642451637181915,
+      0.3980822147441511
+    ],
+    "validation_tetrads": 0.27108070315721106,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5056.749066000816,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.6915410538876416
+        },
+        "majmin": {
+          "correct_seconds": 3378.6966390840257,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.6741636038473752
+        },
+        "triads": {
+          "correct_seconds": 3425.1616903095382,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.468411600840122
+        },
+        "tetrads": {
+          "correct_seconds": 3079.8538500120476,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.42118866280656736
+        }
+      },
+      "supported_oracle_event_accuracy": 0.5939809926082366,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 79,
+          "predicted": 92
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 746,
+          "predicted": 1320
+        },
+        "min7": {
+          "events": 126,
+          "correct": 49,
+          "predicted": 62
+        },
+        "min": {
+          "events": 326,
+          "correct": 128,
+          "predicted": 169
+        },
+        "7": {
+          "events": 176,
+          "correct": 86,
+          "predicted": 193
+        },
+        "min6": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 1
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 15,
+          "predicted": 24
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 15,
+          "predicted": 27
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 5,
+          "predicted": 5
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 1,
+          "predicted": 1
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 1000.5037760381849,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5472997980872321
+        },
+        "majmin": {
+          "correct_seconds": 649.8725475962503,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5542529446663108
+        },
+        "triads": {
+          "correct_seconds": 654.9390676622206,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.3582675328926424
+        },
+        "tetrads": {
+          "correct_seconds": 495.5552113626903,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.27108070315721106
+        }
+      },
+      "supported_oracle_event_accuracy": 0.35944700460829493,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 9,
+          "predicted": 46
+        },
+        "maj": {
+          "events": 194,
+          "correct": 119,
+          "predicted": 318
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 2,
+          "predicted": 7
+        },
+        "min7": {
+          "events": 36,
+          "correct": 2,
+          "predicted": 12
+        },
+        "min": {
+          "events": 58,
+          "correct": 23,
+          "predicted": 40
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 1,
+          "predicted": 5
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 5
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 13,
+    "head_losses": [
+      9.721013949568741e-06,
+      0.7837090796532751,
+      0.4494183159926358,
+      0.37784410418332126
+    ],
+    "validation_tetrads": 0.27211177237850115,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5133.874193036458,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.7020883820099815
+        },
+        "majmin": {
+          "correct_seconds": 3459.029807864486,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.6901927725945868
+        },
+        "triads": {
+          "correct_seconds": 3534.7433717071663,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.48339755929908645
+        },
+        "tetrads": {
+          "correct_seconds": 3136.9585051418426,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.42899807016985975
+        }
+      },
+      "supported_oracle_event_accuracy": 0.600844772967265,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 73,
+          "predicted": 89
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 701,
+          "predicted": 1121
+        },
+        "min7": {
+          "events": 126,
+          "correct": 53,
+          "predicted": 77
+        },
+        "min": {
+          "events": 326,
+          "correct": 151,
+          "predicted": 207
+        },
+        "7": {
+          "events": 176,
+          "correct": 117,
+          "predicted": 343
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 19,
+          "predicted": 22
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 12,
+          "predicted": 16
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 10,
+          "predicted": 16
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 2,
+          "predicted": 2
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 1
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 1066.8860435329018,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5836125062114287
+        },
+        "majmin": {
+          "correct_seconds": 649.9691471785967,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.554335330979084
+        },
+        "triads": {
+          "correct_seconds": 657.8591966563317,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.35986491417909217
+        },
+        "tetrads": {
+          "correct_seconds": 497.4400807758762,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.27211177237850115
+        }
+      },
+      "supported_oracle_event_accuracy": 0.3548387096774194,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 10,
+          "predicted": 84
+        },
+        "maj": {
+          "events": 194,
+          "correct": 114,
+          "predicted": 282
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 3,
+          "predicted": 6
+        },
+        "min7": {
+          "events": 36,
+          "correct": 3,
+          "predicted": 11
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 2
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 2
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 58,
+          "correct": 24,
+          "predicted": 46
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 14,
+    "head_losses": [
+      8.33535491600352e-06,
+      0.7556298044549317,
+      0.42348092005533333,
+      0.34920513445214063
+    ],
+    "validation_tetrads": 0.27318399402335203,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5103.170404058749,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.6978894529528232
+        },
+        "majmin": {
+          "correct_seconds": 3505.8126832161315,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.6995275295184751
+        },
+        "triads": {
+          "correct_seconds": 3564.830663851095,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.4875121786812764
+        },
+        "tetrads": {
+          "correct_seconds": 3217.5670696461416,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.4400217794585943
+        }
+      },
+      "supported_oracle_event_accuracy": 0.6182682154171066,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 73,
+          "predicted": 91
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 770,
+          "predicted": 1310
+        },
+        "7": {
+          "events": 176,
+          "correct": 90,
+          "predicted": 199
+        },
+        "min7": {
+          "events": 126,
+          "correct": 58,
+          "predicted": 79
+        },
+        "min": {
+          "events": 326,
+          "correct": 147,
+          "predicted": 180
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 17,
+          "predicted": 18
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 6,
+          "predicted": 6
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 9,
+          "predicted": 9
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 1,
+          "predicted": 1
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 1
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 977.9019054235088,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5349360274348224
+        },
+        "majmin": {
+          "correct_seconds": 646.9224150129162,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5517368825899591
+        },
+        "triads": {
+          "correct_seconds": 649.7459444246808,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.35542676870222406
+        },
+        "tetrads": {
+          "correct_seconds": 499.40017980783716,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.27318399402335203
+        }
+      },
+      "supported_oracle_event_accuracy": 0.35023041474654376,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 5,
+          "predicted": 43
+        },
+        "maj": {
+          "events": 194,
+          "correct": 122,
+          "predicted": 330
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 1,
+          "predicted": 2
+        },
+        "min7": {
+          "events": 36,
+          "correct": 1,
+          "predicted": 12
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 5
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 58,
+          "correct": 23,
+          "predicted": 41
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 0
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 15,
+    "head_losses": [
+      5.9437229972548195e-06,
+      0.7280019864815623,
+      0.40046978848321096,
+      0.328968033945861
+    ],
+    "validation_tetrads": 0.27709068046603813,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5096.033775146595,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.6969134757360975
+        },
+        "majmin": {
+          "correct_seconds": 3550.8516755475434,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.7085143231336695
+        },
+        "triads": {
+          "correct_seconds": 3573.0192255661354,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.48863201407835327
+        },
+        "tetrads": {
+          "correct_seconds": 3228.9892969201446,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.4415838382010217
+        }
+      },
+      "supported_oracle_event_accuracy": 0.6251319957761352,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 87,
+          "predicted": 124
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 761,
+          "predicted": 1255
+        },
+        "min7": {
+          "events": 126,
+          "correct": 66,
+          "predicted": 82
+        },
+        "7": {
+          "events": 176,
+          "correct": 99,
+          "predicted": 218
+        },
+        "min": {
+          "events": 326,
+          "correct": 144,
+          "predicted": 181
+        },
+        "min6": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 1
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 11,
+          "predicted": 11
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 12,
+          "predicted": 18
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 2,
+          "predicted": 2
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 2
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 1028.0526584776535,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5623697040263722
+        },
+        "majmin": {
+          "correct_seconds": 650.0125656427228,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5543723610270278
+        },
+        "triads": {
+          "correct_seconds": 650.0125656427228,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.35557261696616366
+        },
+        "tetrads": {
+          "correct_seconds": 506.54188633023136,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.27709068046603813
+        }
+      },
+      "supported_oracle_event_accuracy": 0.35253456221198154,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 7,
+          "predicted": 52
+        },
+        "maj": {
+          "events": 194,
+          "correct": 122,
+          "predicted": 316
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min7": {
+          "events": 36,
+          "correct": 3,
+          "predicted": 15
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 1,
+          "predicted": 9
+        },
+        "min": {
+          "events": 58,
+          "correct": 20,
+          "predicted": 39
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 3
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 16,
+    "head_losses": [
+      4.245081756412391e-06,
+      0.6827780049638588,
+      0.3942678258949969,
+      0.2978162242240515
+    ],
+    "validation_tetrads": 0.2790326055455539,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5344.713755604858,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.7309219688454603
+        },
+        "majmin": {
+          "correct_seconds": 3735.3055358116885,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.7453190713732002
+        },
+        "triads": {
+          "correct_seconds": 3822.283956021157,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5227204752904914
+        },
+        "tetrads": {
+          "correct_seconds": 3423.119839670748,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.4681323654016614
+        }
+      },
+      "supported_oracle_event_accuracy": 0.662090813093981,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 83,
+          "predicted": 107
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 829,
+          "predicted": 1342
+        },
+        "min7": {
+          "events": 126,
+          "correct": 48,
+          "predicted": 51
+        },
+        "min": {
+          "events": 326,
+          "correct": 176,
+          "predicted": 223
+        },
+        "7": {
+          "events": 176,
+          "correct": 71,
+          "predicted": 110
+        },
+        "min6": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 1
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 24,
+          "predicted": 29
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 11,
+          "predicted": 12
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 8,
+          "predicted": 8
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 2,
+          "predicted": 3
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 3
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 5
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 990.212881469559,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.541670429508686
+        },
+        "majmin": {
+          "correct_seconds": 642.4502340556743,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5479227201456457
+        },
+        "triads": {
+          "correct_seconds": 650.3402835334093,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.35575188658982515
+        },
+        "tetrads": {
+          "correct_seconds": 510.09186639897814,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.2790326055455539
+        }
+      },
+      "supported_oracle_event_accuracy": 0.3663594470046083,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 5,
+          "predicted": 24
+        },
+        "maj": {
+          "events": 194,
+          "correct": 122,
+          "predicted": 341
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 3,
+          "predicted": 5
+        },
+        "min7": {
+          "events": 36,
+          "correct": 2,
+          "predicted": 7
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 1,
+          "predicted": 5
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 58,
+          "correct": 26,
+          "predicted": 48
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 2
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 17,
+    "head_losses": [
+      2.90277754674245e-06,
+      0.6399964840472245,
+      0.3567677756317523,
+      0.2944410483689368
+    ],
+    "validation_tetrads": 0.2619600609222369,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5257.8792456671645,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.7190468238199982
+        },
+        "majmin": {
+          "correct_seconds": 3548.409892782712,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.7080271053558114
+        },
+        "triads": {
+          "correct_seconds": 3633.5224787182233,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.4969062003000389
+        },
+        "tetrads": {
+          "correct_seconds": 3316.640271752853,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.4535706397446521
+        }
+      },
+      "supported_oracle_event_accuracy": 0.6478352692713834,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 87,
+          "predicted": 103
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 818,
+          "predicted": 1332
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 19,
+          "predicted": 28
+        },
+        "min7": {
+          "events": 126,
+          "correct": 54,
+          "predicted": 59
+        },
+        "min": {
+          "events": 326,
+          "correct": 134,
+          "predicted": 169
+        },
+        "7": {
+          "events": 176,
+          "correct": 79,
+          "predicted": 153
+        },
+        "min6": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 2
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 22,
+          "predicted": 29
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 10,
+          "predicted": 11
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 2,
+          "predicted": 3
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 2
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 3
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 995.4603428014802,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5445409179528211
+        },
+        "majmin": {
+          "correct_seconds": 604.0548241160668,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.515176654629552
+        },
+        "triads": {
+          "correct_seconds": 609.1213441820371,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.3332041284257271
+        },
+        "tetrads": {
+          "correct_seconds": 478.88201501239564,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.2619600609222369
+        }
+      },
+      "supported_oracle_event_accuracy": 0.3548387096774194,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 4,
+          "predicted": 40
+        },
+        "maj": {
+          "events": 194,
+          "correct": 124,
+          "predicted": 332
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 2,
+          "predicted": 5
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 1
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 3,
+          "predicted": 11
+        },
+        "min": {
+          "events": 58,
+          "correct": 21,
+          "predicted": 32
+        },
+        "min7": {
+          "events": 36,
+          "correct": 0,
+          "predicted": 3
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 6
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 2
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 2
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 18,
+    "head_losses": [
+      2.1511746019791895e-06,
+      0.6225540929106104,
+      0.31855602850433157,
+      0.2715939325945718
+    ],
+    "validation_tetrads": 0.26687978840217236,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5400.232615330052,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.7385145090850266
+        },
+        "majmin": {
+          "correct_seconds": 3799.042360648438,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.7580367113745768
+        },
+        "triads": {
+          "correct_seconds": 3885.852946037187,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5314139195916588
+        },
+        "tetrads": {
+          "correct_seconds": 3631.0916889986083,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.4965737750872112
+        }
+      },
+      "supported_oracle_event_accuracy": 0.7074973600844773,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 90,
+          "predicted": 103
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 799,
+          "predicted": 1135
+        },
+        "min7": {
+          "events": 126,
+          "correct": 94,
+          "predicted": 133
+        },
+        "min": {
+          "events": 326,
+          "correct": 206,
+          "predicted": 298
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "7": {
+          "events": 176,
+          "correct": 104,
+          "predicted": 167
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 25,
+          "predicted": 26
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 10,
+          "predicted": 10
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 3,
+          "predicted": 5
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 8,
+          "predicted": 10
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 7
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 1013.8507715157089,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5546009278829094
+        },
+        "majmin": {
+          "correct_seconds": 607.6523488749625,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5182448542303861
+        },
+        "triads": {
+          "correct_seconds": 617.7853890069031,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.3379435707914968
+        },
+        "tetrads": {
+          "correct_seconds": 487.87563411833537,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.26687978840217236
+        }
+      },
+      "supported_oracle_event_accuracy": 0.35253456221198154,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 6,
+          "predicted": 39
+        },
+        "maj": {
+          "events": 194,
+          "correct": 109,
+          "predicted": 281
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 4,
+          "predicted": 6
+        },
+        "min7": {
+          "events": 36,
+          "correct": 5,
+          "predicted": 17
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 1,
+          "predicted": 5
+        },
+        "min": {
+          "events": 58,
+          "correct": 28,
+          "predicted": 82
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 0
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 3
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 19,
+    "head_losses": [
+      1.8303539881283097e-06,
+      0.5903908273815608,
+      0.32262598576039825,
+      0.2620137396792905
+    ],
+    "validation_tetrads": 0.26386802845621554,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5379.152351188631,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.7356316553206184
+        },
+        "majmin": {
+          "correct_seconds": 3829.069268019593,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.7640280891891938
+        },
+        "triads": {
+          "correct_seconds": 3903.111223188258,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5337740934926302
+        },
+        "tetrads": {
+          "correct_seconds": 3646.518376163694,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.4986834679671419
+        }
+      },
+      "supported_oracle_event_accuracy": 0.718585005279831,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 94,
+          "predicted": 118
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 784,
+          "predicted": 1061
+        },
+        "min7": {
+          "events": 126,
+          "correct": 94,
+          "predicted": 154
+        },
+        "min": {
+          "events": 326,
+          "correct": 228,
+          "predicted": 346
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 6
+        },
+        "min6": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 2
+        },
+        "7": {
+          "events": 176,
+          "correct": 107,
+          "predicted": 152
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 24,
+          "predicted": 24
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 18,
+          "predicted": 20
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 8,
+          "predicted": 9
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 2,
+          "predicted": 2
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 1003.7653454134291,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5490839555319817
+        },
+        "majmin": {
+          "correct_seconds": 624.0353132447991,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.532217295869799
+        },
+        "triads": {
+          "correct_seconds": 626.8588426565639,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.3429069697004717
+        },
+        "tetrads": {
+          "correct_seconds": 482.3699182218897,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.26386802845621554
+        }
+      },
+      "supported_oracle_event_accuracy": 0.34101382488479265,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 6,
+          "predicted": 43
+        },
+        "maj": {
+          "events": 194,
+          "correct": 114,
+          "predicted": 270
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 1,
+          "predicted": 4
+        },
+        "min7": {
+          "events": 36,
+          "correct": 3,
+          "predicted": 18
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 2,
+          "predicted": 16
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 2
+        },
+        "min": {
+          "events": 58,
+          "correct": 22,
+          "predicted": 75
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 1
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 5
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 20,
+    "head_losses": [
+      7.080636195350014e-07,
+      0.5593861122654766,
+      0.30106026159615074,
+      0.24291304642913722
+    ],
+    "validation_tetrads": 0.26221431132508183,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5464.891664623233,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.7473570255927603
+        },
+        "majmin": {
+          "correct_seconds": 3909.542568793215,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.7800852189816297
+        },
+        "triads": {
+          "correct_seconds": 3995.481711898756,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5464063171361683
+        },
+        "tetrads": {
+          "correct_seconds": 3589.711197846985,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.49091474235929033
+        }
+      },
+      "supported_oracle_event_accuracy": 0.7016895459345301,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 80,
+          "predicted": 95
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 818,
+          "predicted": 1242
+        },
+        "min7": {
+          "events": 126,
+          "correct": 73,
+          "predicted": 79
+        },
+        "min": {
+          "events": 326,
+          "correct": 194,
+          "predicted": 232
+        },
+        "7": {
+          "events": 176,
+          "correct": 108,
+          "predicted": 164
+        },
+        "min6": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 1
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 22,
+          "predicted": 23
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 20,
+          "predicted": 35
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 11,
+          "predicted": 19
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 2,
+          "predicted": 2
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 1
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 954.5314971660091,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5221518480775047
+        },
+        "majmin": {
+          "correct_seconds": 629.2911057690632,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5366997724629453
+        },
+        "triads": {
+          "correct_seconds": 639.4241459010037,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.34978049491175917
+        },
+        "tetrads": {
+          "correct_seconds": 479.3468032125642,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.26221431132508183
+        }
+      },
+      "supported_oracle_event_accuracy": 0.3456221198156682,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 8,
+          "predicted": 29
+        },
+        "maj": {
+          "events": 194,
+          "correct": 109,
+          "predicted": 326
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 4,
+          "predicted": 4
+        },
+        "min7": {
+          "events": 36,
+          "correct": 3,
+          "predicted": 12
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 11
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 58,
+          "correct": 26,
+          "predicted": 44
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 5
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 2
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 21,
+    "head_losses": [
+      6.825637224914044e-07,
+      0.5335838583712819,
+      0.28333758011835963,
+      0.22508745215551443
+    ],
+    "validation_tetrads": 0.2699610118470314,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5473.99326483207,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.7486017245324016
+        },
+        "majmin": {
+          "correct_seconds": 3970.388515217548,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.7922260315205303
+        },
+        "triads": {
+          "correct_seconds": 4057.2696564234116,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5548561926819848
+        },
+        "tetrads": {
+          "correct_seconds": 3718.896598284006,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.508581628099335
+        }
+      },
+      "supported_oracle_event_accuracy": 0.7391763463569165,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 82,
+          "predicted": 86
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 842,
+          "predicted": 1158
+        },
+        "min7": {
+          "events": 126,
+          "correct": 86,
+          "predicted": 105
+        },
+        "min": {
+          "events": 326,
+          "correct": 240,
+          "predicted": 348
+        },
+        "min6": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 2
+        },
+        "7": {
+          "events": 176,
+          "correct": 104,
+          "predicted": 142
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 22,
+          "predicted": 23
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 8,
+          "predicted": 8
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 13,
+          "predicted": 19
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 2,
+          "predicted": 2
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 1000.4235830556281,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.547255930583468
+        },
+        "majmin": {
+          "correct_seconds": 644.3282289341297,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5495243944974894
+        },
+        "triads": {
+          "correct_seconds": 647.1517583458943,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.3540076860849223
+        },
+        "tetrads": {
+          "correct_seconds": 493.50833433524195,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.2699610118470314
+        }
+      },
+      "supported_oracle_event_accuracy": 0.35023041474654376,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 4,
+          "predicted": 34
+        },
+        "maj": {
+          "events": 194,
+          "correct": 114,
+          "predicted": 303
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 1,
+          "predicted": 4
+        },
+        "min7": {
+          "events": 36,
+          "correct": 4,
+          "predicted": 9
+        },
+        "min": {
+          "events": 58,
+          "correct": 29,
+          "predicted": 80
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 2
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 0
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        },
+        "sus2": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 22,
+    "head_losses": [
+      3.737971662581316e-07,
+      0.5028689453581802,
+      0.2670806605181023,
+      0.2136870035197304
+    ],
+    "validation_tetrads": 0.2505254133841094,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5493.960464993121,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.7513323600577825
+        },
+        "majmin": {
+          "correct_seconds": 3934.173233887903,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.7849998649884088
+        },
+        "triads": {
+          "correct_seconds": 4036.295723059143,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5519878802951955
+        },
+        "tetrads": {
+          "correct_seconds": 3700.3931722363363,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.506051172547255
+        }
+      },
+      "supported_oracle_event_accuracy": 0.7381203801478353,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 72,
+          "predicted": 75
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 850,
+          "predicted": 1192
+        },
+        "min7": {
+          "events": 126,
+          "correct": 87,
+          "predicted": 109
+        },
+        "7": {
+          "events": 176,
+          "correct": 125,
+          "predicted": 188
+        },
+        "min": {
+          "events": 326,
+          "correct": 213,
+          "predicted": 265
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 30,
+          "predicted": 38
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 10,
+          "predicted": 11
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 9,
+          "predicted": 11
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 2,
+          "predicted": 3
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 1
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 964.772083619664,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5277536968986792
+        },
+        "majmin": {
+          "correct_seconds": 587.3828640632527,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5009577389563018
+        },
+        "triads": {
+          "correct_seconds": 597.5159041951931,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.3268556716646096
+        },
+        "tetrads": {
+          "correct_seconds": 457.97864892392715,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.2505254133841094
+        }
+      },
+      "supported_oracle_event_accuracy": 0.33410138248847926,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 8,
+          "predicted": 55
+        },
+        "maj": {
+          "events": 194,
+          "correct": 105,
+          "predicted": 288
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 4,
+          "predicted": 8
+        },
+        "min7": {
+          "events": 36,
+          "correct": 5,
+          "predicted": 16
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 5
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "min": {
+          "events": 58,
+          "correct": 23,
+          "predicted": 58
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 1
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 2
+        },
+        "sus2": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 23,
+    "head_losses": [
+      3.357096157963295e-07,
+      0.4686878596534248,
+      0.2501478606224561,
+      0.1941269729012514
+    ],
+    "validation_tetrads": 0.256632257828514,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5364.849415756176,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.7336756422945521
+        },
+        "majmin": {
+          "correct_seconds": 3828.4643781761874,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.763907393323207
+        },
+        "triads": {
+          "correct_seconds": 3923.732487924499,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5365941763090936
+        },
+        "tetrads": {
+          "correct_seconds": 3651.0623640716594,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.49930488582784904
+        }
+      },
+      "supported_oracle_event_accuracy": 0.7307286166842661,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 91,
+          "predicted": 96
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 852,
+          "predicted": 1234
+        },
+        "min7": {
+          "events": 126,
+          "correct": 79,
+          "predicted": 91
+        },
+        "min": {
+          "events": 326,
+          "correct": 195,
+          "predicted": 241
+        },
+        "7": {
+          "events": 176,
+          "correct": 105,
+          "predicted": 156
+        },
+        "min6": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 1
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 24,
+          "predicted": 25
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 21,
+          "predicted": 25
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 3,
+          "predicted": 5
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 12,
+          "predicted": 18
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 1
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 919.6983622393335,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5030972796004065
+        },
+        "majmin": {
+          "correct_seconds": 589.1887823701567,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5024979417901199
+        },
+        "triads": {
+          "correct_seconds": 592.0123117819213,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.3238450733153805
+        },
+        "tetrads": {
+          "correct_seconds": 469.1424040498349,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.256632257828514
+        }
+      },
+      "supported_oracle_event_accuracy": 0.3456221198156682,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 6,
+          "predicted": 33
+        },
+        "maj": {
+          "events": 194,
+          "correct": 120,
+          "predicted": 326
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 1,
+          "predicted": 2
+        },
+        "min7": {
+          "events": 36,
+          "correct": 1,
+          "predicted": 12
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 5
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 1
+        },
+        "min": {
+          "events": 58,
+          "correct": 22,
+          "predicted": 51
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 2
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "sus2": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 2
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 24,
+    "head_losses": [
+      1.4099697468582798e-07,
+      0.46010732184312925,
+      0.2360328106256593,
+      0.17262163575535186
+    ],
+    "validation_tetrads": 0.2709051488279738,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5603.652852547704,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.7663334582540473
+        },
+        "majmin": {
+          "correct_seconds": 4051.7122096595626,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.8084528434482429
+        },
+        "triads": {
+          "correct_seconds": 4136.577499508156,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5657020204405994
+        },
+        "tetrads": {
+          "correct_seconds": 3903.9331582137916,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5338864980842692
+        }
+      },
+      "supported_oracle_event_accuracy": 0.7734952481520592,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 91,
+          "predicted": 92
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 853,
+          "predicted": 1096
+        },
+        "min7": {
+          "events": 126,
+          "correct": 90,
+          "predicted": 109
+        },
+        "min": {
+          "events": 326,
+          "correct": 238,
+          "predicted": 338
+        },
+        "min6": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 2
+        },
+        "7": {
+          "events": 176,
+          "correct": 132,
+          "predicted": 190
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 24,
+          "predicted": 25
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 23,
+          "predicted": 26
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 10,
+          "predicted": 11
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 2,
+          "predicted": 3
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 2
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 988.3463637568157,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5406493991120235
+        },
+        "majmin": {
+          "correct_seconds": 627.5716935000468,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5352333475205121
+        },
+        "triads": {
+          "correct_seconds": 633.2187523235762,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.346385994327837
+        },
+        "tetrads": {
+          "correct_seconds": 495.2342853000175,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.2709051488279738
+        }
+      },
+      "supported_oracle_event_accuracy": 0.3433179723502304,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 5,
+          "predicted": 43
+        },
+        "maj": {
+          "events": 194,
+          "correct": 112,
+          "predicted": 291
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 2,
+          "predicted": 2
+        },
+        "min7": {
+          "events": 36,
+          "correct": 4,
+          "predicted": 18
+        },
+        "min": {
+          "events": 58,
+          "correct": 26,
+          "predicted": 74
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 1
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 4
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 25,
+    "head_losses": [
+      8.542053595180853e-08,
+      0.4019712219014764,
+      0.21401487090507476,
+      0.1583029803186029
+    ],
+    "validation_tetrads": 0.2591974486222901,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5628.6542609208955,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.7697525522350633
+        },
+        "majmin": {
+          "correct_seconds": 4177.085579798601,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.8334690470522278
+        },
+        "triads": {
+          "correct_seconds": 4274.342456729198,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5845422125209176
+        },
+        "tetrads": {
+          "correct_seconds": 4059.207286762106,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5551211753633433
+        }
+      },
+      "supported_oracle_event_accuracy": 0.8099260823653643,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 114,
+          "predicted": 135
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 878,
+          "predicted": 1091
+        },
+        "min7": {
+          "events": 126,
+          "correct": 101,
+          "predicted": 124
+        },
+        "min": {
+          "events": 326,
+          "correct": 238,
+          "predicted": 281
+        },
+        "min6": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 2
+        },
+        "7": {
+          "events": 176,
+          "correct": 133,
+          "predicted": 175
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 28,
+          "predicted": 30
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 25,
+          "predicted": 29
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 9,
+          "predicted": 9
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 7
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 6,
+          "predicted": 11
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 947.9573589103496,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5185556352234488
+        },
+        "majmin": {
+          "correct_seconds": 606.4186525211028,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5171926789392771
+        },
+        "triads": {
+          "correct_seconds": 612.0657113446322,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.3348147685773955
+        },
+        "tetrads": {
+          "correct_seconds": 473.83175910606013,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.2591974486222901
+        }
+      },
+      "supported_oracle_event_accuracy": 0.3433179723502304,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 8,
+          "predicted": 41
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 5,
+          "predicted": 34
+        },
+        "maj": {
+          "events": 194,
+          "correct": 106,
+          "predicted": 269
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 2,
+          "predicted": 4
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 5
+        },
+        "min7": {
+          "events": 36,
+          "correct": 3,
+          "predicted": 11
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 1
+        },
+        "min": {
+          "events": 58,
+          "correct": 25,
+          "predicted": 60
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 4
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "sus4": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 3
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 2
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 26,
+    "head_losses": [
+      6.01679570256444e-08,
+      0.3903494120395484,
+      0.20421444494746813,
+      0.15633882548143507
+    ],
+    "validation_tetrads": 0.21850954250270774,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5648.963931102267,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.7725300226094127
+        },
+        "majmin": {
+          "correct_seconds": 4142.529746995241,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.826573996307756
+        },
+        "triads": {
+          "correct_seconds": 4264.563540753172,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5832048865488998
+        },
+        "tetrads": {
+          "correct_seconds": 3663.8905470925974,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5010592175318699
+        }
+      },
+      "supported_oracle_event_accuracy": 0.7286166842661035,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 111,
+          "predicted": 169
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 752,
+          "predicted": 857
+        },
+        "min7": {
+          "events": 126,
+          "correct": 111,
+          "predicted": 227
+        },
+        "min": {
+          "events": 326,
+          "correct": 199,
+          "predicted": 254
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 7
+        },
+        "min6": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 7
+        },
+        "7": {
+          "events": 176,
+          "correct": 134,
+          "predicted": 263
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 29,
+          "predicted": 32
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 24,
+          "predicted": 43
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 16,
+          "predicted": 33
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 2,
+          "predicted": 2
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 983.9512732391751,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5382451781480558
+        },
+        "majmin": {
+          "correct_seconds": 598.5688212589798,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5104978399154438
+        },
+        "triads": {
+          "correct_seconds": 606.4588707367149,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.33174769096498347
+        },
+        "tetrads": {
+          "correct_seconds": 399.4513119471138,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.21850954250270774
+        }
+      },
+      "supported_oracle_event_accuracy": 0.2903225806451613,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 5,
+          "predicted": 105
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 4,
+          "predicted": 46
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 3,
+          "predicted": 6
+        },
+        "min7": {
+          "events": 36,
+          "correct": 6,
+          "predicted": 51
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 7
+        },
+        "min": {
+          "events": 58,
+          "correct": 17,
+          "predicted": 35
+        },
+        "maj": {
+          "events": 194,
+          "correct": 91,
+          "predicted": 170
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 9
+        },
+        "sus2": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 5
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 27,
+    "head_losses": [
+      4.226161540609352e-08,
+      0.3647267382529353,
+      0.1828428828040091,
+      0.16924797371029854
+    ],
+    "validation_tetrads": 0.2819853602573081,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5732.499061244464,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.783953957469772
+        },
+        "majmin": {
+          "correct_seconds": 4239.190515357406,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.8458610702628062
+        },
+        "triads": {
+          "correct_seconds": 4371.005551635788,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5977614760539232
+        },
+        "tetrads": {
+          "correct_seconds": 4193.116141429424,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5734340220703602
+        }
+      },
+      "supported_oracle_event_accuracy": 0.837909186906019,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 106,
+          "predicted": 107
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 916,
+          "predicted": 1121
+        },
+        "min7": {
+          "events": 126,
+          "correct": 102,
+          "predicted": 109
+        },
+        "min": {
+          "events": 326,
+          "correct": 248,
+          "predicted": 299
+        },
+        "min6": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 1
+        },
+        "7": {
+          "events": 176,
+          "correct": 137,
+          "predicted": 169
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 33,
+          "predicted": 35
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 23,
+          "predicted": 23
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 7,
+          "predicted": 10
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 13,
+          "predicted": 17
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 2
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 1000.4756125494855,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5472843919767827
+        },
+        "majmin": {
+          "correct_seconds": 636.2993524144115,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5426768542068957
+        },
+        "triads": {
+          "correct_seconds": 648.6546147685743,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.35482978494790096
+        },
+        "tetrads": {
+          "correct_seconds": 515.4897164423171,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.2819853602573081
+        }
+      },
+      "supported_oracle_event_accuracy": 0.35714285714285715,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 7,
+          "predicted": 39
+        },
+        "maj": {
+          "events": 194,
+          "correct": 112,
+          "predicted": 294
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 5,
+          "predicted": 6
+        },
+        "min7": {
+          "events": 36,
+          "correct": 3,
+          "predicted": 18
+        },
+        "min": {
+          "events": 58,
+          "correct": 28,
+          "predicted": 69
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 2
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 2
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 2
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 2
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 28,
+    "head_losses": [
+      4.180246832905876e-08,
+      0.33450330743769635,
+      0.18997342731928876,
+      0.12417810983141932
+    ],
+    "validation_tetrads": 0.24454965536221537,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5793.620814714454,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.7923127273550109
+        },
+        "majmin": {
+          "correct_seconds": 4079.70187319366,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.814037722605591
+        },
+        "triads": {
+          "correct_seconds": 4220.873237188923,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5772299729874115
+        },
+        "tetrads": {
+          "correct_seconds": 4007.299531480769,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5480224755220663
+        }
+      },
+      "supported_oracle_event_accuracy": 0.7993664202745512,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 102,
+          "predicted": 104
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 848,
+          "predicted": 970
+        },
+        "min7": {
+          "events": 126,
+          "correct": 112,
+          "predicted": 159
+        },
+        "min": {
+          "events": 326,
+          "correct": 274,
+          "predicted": 441
+        },
+        "min6": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 1
+        },
+        "7": {
+          "events": 176,
+          "correct": 115,
+          "predicted": 132
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 28,
+          "predicted": 30
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 11,
+          "predicted": 11
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 17,
+          "predicted": 24
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 6,
+          "predicted": 7
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 14
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 989.4940109878706,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5412771899438772
+        },
+        "majmin": {
+          "correct_seconds": 563.650975160037,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.4807176636434529
+        },
+        "triads": {
+          "correct_seconds": 571.5202562057887,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.3126354225896028
+        },
+        "tetrads": {
+          "correct_seconds": 447.0545292979183,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.24454965536221537
+        }
+      },
+      "supported_oracle_event_accuracy": 0.32027649769585254,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 4,
+          "predicted": 31
+        },
+        "min": {
+          "events": 58,
+          "correct": 28,
+          "predicted": 120
+        },
+        "maj": {
+          "events": 194,
+          "correct": 101,
+          "predicted": 231
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 3,
+          "predicted": 4
+        },
+        "min7": {
+          "events": 36,
+          "correct": 3,
+          "predicted": 27
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 0,
+          "predicted": 6
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 1
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 1
+        },
+        "sus2": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 5
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 6
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 2
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 29,
+    "head_losses": [
+      3.7294508963785255e-08,
+      0.3090944965409131,
+      0.17461784213718748,
+      0.1626999520837572
+    ],
+    "validation_tetrads": 0.23908622549665465,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5871.747770007118,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.8029970615576669
+        },
+        "majmin": {
+          "correct_seconds": 4446.373875446988,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.8872011181023978
+        },
+        "triads": {
+          "correct_seconds": 4583.643493356162,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.6268410021277968
+        },
+        "tetrads": {
+          "correct_seconds": 4264.861536999084,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.5832456393399248
+        }
+      },
+      "supported_oracle_event_accuracy": 0.8463569165786695,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 113,
+          "predicted": 120
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 883,
+          "predicted": 980
+        },
+        "min7": {
+          "events": 126,
+          "correct": 104,
+          "predicted": 141
+        },
+        "min": {
+          "events": 326,
+          "correct": 253,
+          "predicted": 294
+        },
+        "7": {
+          "events": 176,
+          "correct": 163,
+          "predicted": 247
+        },
+        "min6": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 2
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 35,
+          "predicted": 40
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 30,
+          "predicted": 45
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 16,
+          "predicted": 19
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 4,
+          "predicted": 4
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 2
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 961.864343785386,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5261630927827285
+        },
+        "majmin": {
+          "correct_seconds": 622.5722629198533,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5309695128178827
+        },
+        "triads": {
+          "correct_seconds": 628.2193217433827,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.34365118471229933
+        },
+        "tetrads": {
+          "correct_seconds": 437.06698274716643,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.23908622549665465
+        }
+      },
+      "supported_oracle_event_accuracy": 0.3087557603686636,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 6,
+          "predicted": 108
+        },
+        "maj": {
+          "events": 194,
+          "correct": 98,
+          "predicted": 215
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 2,
+          "predicted": 6
+        },
+        "min7": {
+          "events": 36,
+          "correct": 2,
+          "predicted": 25
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 1,
+          "predicted": 23
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 9
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 1
+        },
+        "min": {
+          "events": 58,
+          "correct": 25,
+          "predicted": 45
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 2
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  },
+  {
+    "epoch": 30,
+    "head_losses": [
+      2.222649125440511e-08,
+      0.291311825742992,
+      0.14745623228617577,
+      0.12824689067054948
+    ],
+    "validation_tetrads": 0.2941442348606536,
+    "training_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 5940.2971233271655,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.8123716006972475
+        },
+        "majmin": {
+          "correct_seconds": 4449.309888534229,
+          "eligible_seconds": 5011.68651022124,
+          "excluded_seconds": 2300.604283429556,
+          "score": 0.8877869514503642
+        },
+        "triads": {
+          "correct_seconds": 4593.136428339599,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.628139218467435
+        },
+        "tetrads": {
+          "correct_seconds": 4383.413678481898,
+          "eligible_seconds": 7312.290481632654,
+          "excluded_seconds": 0.00031201814060466404,
+          "score": 0.599458362532555
+        }
+      },
+      "supported_oracle_event_accuracy": 0.8743400211193242,
+      "supported_events": 1894,
+      "quality_supported_scope": {
+        "maj7": {
+          "events": 126,
+          "correct": 116,
+          "predicted": 120
+        },
+        "maj": {
+          "events": 1026,
+          "correct": 948,
+          "predicted": 1123
+        },
+        "min7": {
+          "events": 126,
+          "correct": 111,
+          "predicted": 118
+        },
+        "min": {
+          "events": 326,
+          "correct": 264,
+          "predicted": 291
+        },
+        "min6": {
+          "events": 2,
+          "correct": 1,
+          "predicted": 1
+        },
+        "7": {
+          "events": 176,
+          "correct": 147,
+          "predicted": 168
+        },
+        "hdim7": {
+          "events": 38,
+          "correct": 31,
+          "predicted": 33
+        },
+        "maj6": {
+          "events": 32,
+          "correct": 12,
+          "predicted": 12
+        },
+        "sus2": {
+          "events": 28,
+          "correct": 18,
+          "predicted": 19
+        },
+        "sus4": {
+          "events": 12,
+          "correct": 6,
+          "predicted": 6
+        },
+        "minmaj7": {
+          "events": 2,
+          "correct": 2,
+          "predicted": 3
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    },
+    "validation_metrics": {
+      "teacher": "E",
+      "metrics": {
+        "root": {
+          "correct_seconds": 1035.2223054986698,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.5662916745985345
+        },
+        "majmin": {
+          "correct_seconds": 667.3136966462506,
+          "eligible_seconds": 1172.5197923621452,
+          "excluded_seconds": 655.5529060505531,
+          "score": 0.5691278739968115
+        },
+        "triads": {
+          "correct_seconds": 677.4467367781914,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.37057977304366296
+        },
+        "tetrads": {
+          "correct_seconds": 537.7170221996693,
+          "eligible_seconds": 1828.0726204081632,
+          "excluded_seconds": 7.800453515116601e-05,
+          "score": 0.2941442348606536
+        }
+      },
+      "supported_oracle_event_accuracy": 0.3847926267281106,
+      "supported_events": 434,
+      "quality_supported_scope": {
+        "7": {
+          "events": 26,
+          "correct": 8,
+          "predicted": 49
+        },
+        "maj": {
+          "events": 194,
+          "correct": 124,
+          "predicted": 287
+        },
+        "hdim7": {
+          "events": 32,
+          "correct": 4,
+          "predicted": 6
+        },
+        "min7": {
+          "events": 36,
+          "correct": 3,
+          "predicted": 10
+        },
+        "maj7": {
+          "events": 52,
+          "correct": 2,
+          "predicted": 12
+        },
+        "min": {
+          "events": 58,
+          "correct": 26,
+          "predicted": 62
+        },
+        "min6": {
+          "events": 12,
+          "correct": 0,
+          "predicted": 0
+        },
+        "maj6": {
+          "events": 22,
+          "correct": 0,
+          "predicted": 1
+        },
+        "minmaj7": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 5
+        },
+        "dim7": {
+          "events": 2,
+          "correct": 0,
+          "predicted": 0
+        },
+        "sus2": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        },
+        "dim": {
+          "events": 0,
+          "correct": 0,
+          "predicted": 1
+        }
+      },
+      "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+    }
+  }
+]

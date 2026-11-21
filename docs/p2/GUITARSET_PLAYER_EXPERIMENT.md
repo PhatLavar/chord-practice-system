@@ -26,4 +26,17 @@ Do not promote either model before the full run is imported and verified. Inspec
 
 ## Local verification
 
-All 57 tests pass. The new split test checks unique recording IDs, disjoint player roles, all three progression groups, errata exclusion and manifest-specific cache selection. Four-recording preparation and two-epoch CPU smoke runs complete for both F and E; histories contain training and validation diagnostics. Notebook code cells compile. Evidence: reports/p2/guitarset-cqt/player-verification.json. Smoke scores are not performance evidence. Full 300-recording preparation and 30-epoch GPU jobs remain for Kaggle.
+All 57 tests pass. The new split test checks unique recording IDs, disjoint player roles, all three progression groups, errata exclusion and manifest-specific cache selection. Four-recording preparation and two-epoch CPU smoke runs complete for both F and E; histories contain training and validation diagnostics. Notebook code cells compile. Evidence: reports/p2/guitarset-cqt/player-verification.json. Smoke scores are not performance evidence.
+
+## Imported full result — 21 November 2026
+
+Both 30-epoch jobs at revision b64c8dd5b9e491c5c14b995d8e085c7528c9f8ef have completed. Independently reconstructed duration metrics from exact NPZ timelines and original references reproduce the saved results. The 60 validation reference event lists match the official annotation archive. Train/validation IDs, train-only normalization IDs, manifest Git-blob hash, source hashes, saved decoded predictions and selected checkpoint epochs were verified. No reserved-player inference occurred; exported LAB intervals are positive. Evidence: reports/p2/guitarset-cqt/player-results/.
+
+| Teacher | Selected epoch | Training Tetrads at selection | Validation Tetrads | Supported oracle event accuracy |
+|---|---:|---:|---:|---:|
+| F | 20 | 36.58% | 24.45% | 34.56% (150/434) |
+| E, gold boundaries | 30 | 59.95% | 29.41% | 38.48% (167/434) |
+
+The event scores exclude 286 OOV events out of 720 annotated validation events; duration metrics retain raw reference labels with each metric's exclusions. F uses 47 updates/epoch and E 119, so differing task and budget still prevent a causal architecture ranking. F's training Tetrads reaches 40.76% at epoch 30, while validation is 24.27%. E's best checkpoint is at the training budget endpoint; this does not establish convergence or guarantee improvement from more epochs.
+
+Both scores exceed those in the progression-held-out pilot, but different data sizes and validation content prevent a direct improvement claim. The models can learn more than the small memorization subset while still showing incomplete training fit and a generalization gap. Major predictions dominate: F predicts maj on 354/434 supported reference events, E on 287/434. Neither checkpoint is promoted or mixed into Billboard/JAAH.
