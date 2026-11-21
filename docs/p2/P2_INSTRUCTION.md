@@ -169,3 +169,7 @@ Use [02g_teachers_fe_jaah_pilot.ipynb](../../notebooks/02g_teachers_fe_jaah_pilo
 ## GuitarSet CQT audio pilot
 
 For the next GuitarSet-only audio experiment, use notebooks/02h_guitarset_cqt_teachers.ipynb and follow [GUITARSET_CQT_EXPERIMENT.md](GUITARSET_CQT_EXPERIMENT.md). This trains fresh 144-bin CQT–TCN F/E models on fold-0 train/validation only; it is not the older JAAH mixture experiment or a BTC reproduction. Download p2-guitarset-cqt-results.zip into runs/imports/. Outer-test evaluation and partial-target supervision remain disabled.
+
+## Current next run: player-held-out development
+
+The 02h results are imported and the training-only memorization check is complete. Use **notebooks/02i_guitarset_player_teachers.ipynb** for the next run, following [GUITARSET_PLAYER_EXPERIMENT.md](GUITARSET_PLAYER_EXPERIMENT.md). It trains both F and E on players 00–03 and validates on 05, with all three progression groups in training. Return **p2-guitarset-cqt-player-results.zip** to runs/imports/. This is a separate development protocol with known repertoire overlap and historical data exposure, not an independent final benchmark.

@@ -1,0 +1,153 @@
+{
+  "status": "CPU smoke passed; full GPU training pending",
+  "tests": 57,
+  "notebook_code_cells_compile": true,
+  "smoke": {
+    "F": {
+      "epochs": 2,
+      "train_ids": [
+        "00_BN1-129-Eb_comp",
+        "00_BN1-129-Eb_solo"
+      ],
+      "validation_ids": [
+        "05_BN1-129-Eb_comp",
+        "05_BN1-129-Eb_solo"
+      ],
+      "head_losses": [
+        [
+          0.2741016149520874,
+          3.0005691051483154,
+          0.6424769759178162,
+          2.1022636890411377
+        ],
+        [
+          0.19195277988910675,
+          2.709338665008545,
+          0.41743263602256775,
+          1.5950487852096558
+        ]
+      ],
+      "metrics": {
+        "teacher": "F",
+        "metrics": {
+          "root": {
+            "correct_seconds": 0.0,
+            "eligible_seconds": 44.64879818594103,
+            "excluded_seconds": 0.0,
+            "score": 0.0
+          },
+          "majmin": {
+            "correct_seconds": 0.0,
+            "eligible_seconds": 14.881356325475922,
+            "excluded_seconds": 29.76744186046512,
+            "score": 0.0
+          },
+          "triads": {
+            "correct_seconds": 0.0,
+            "eligible_seconds": 44.64879818594103,
+            "excluded_seconds": 0.0,
+            "score": 0.0
+          },
+          "tetrads": {
+            "correct_seconds": 0.0,
+            "eligible_seconds": 44.64879818594103,
+            "excluded_seconds": 0.0,
+            "score": 0.0
+          }
+        },
+        "supported_oracle_event_accuracy": 0.0,
+        "supported_events": 2,
+        "quality_supported_scope": {
+          "7": {
+            "events": 2,
+            "correct": 0,
+            "predicted": 0
+          },
+          "maj": {
+            "events": 0,
+            "correct": 0,
+            "predicted": 2
+          }
+        },
+        "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels.",
+        "best_epoch": 1,
+        "evaluation_partition": "validation_subset_smoke",
+        "smoke": true
+      }
+    },
+    "E": {
+      "epochs": 2,
+      "train_ids": [
+        "00_BN1-129-Eb_comp",
+        "00_BN1-129-Eb_solo"
+      ],
+      "validation_ids": [
+        "05_BN1-129-Eb_comp",
+        "05_BN1-129-Eb_solo"
+      ],
+      "head_losses": [
+        [
+          0.25677087903022766,
+          2.867844820022583,
+          0.6119491457939148,
+          2.009126901626587
+        ],
+        [
+          0.17264340817928314,
+          2.5703227519989014,
+          0.3833869695663452,
+          1.552477240562439
+        ]
+      ],
+      "metrics": {
+        "teacher": "E",
+        "metrics": {
+          "root": {
+            "correct_seconds": 0.0,
+            "eligible_seconds": 44.64879818594104,
+            "excluded_seconds": 0.0,
+            "score": 0.0
+          },
+          "majmin": {
+            "correct_seconds": 0.0,
+            "eligible_seconds": 14.881356325475922,
+            "excluded_seconds": 29.767441860465116,
+            "score": 0.0
+          },
+          "triads": {
+            "correct_seconds": 0.0,
+            "eligible_seconds": 44.64879818594104,
+            "excluded_seconds": 0.0,
+            "score": 0.0
+          },
+          "tetrads": {
+            "correct_seconds": 0.0,
+            "eligible_seconds": 44.64879818594104,
+            "excluded_seconds": 0.0,
+            "score": 0.0
+          }
+        },
+        "supported_oracle_event_accuracy": 0.0,
+        "supported_events": 2,
+        "quality_supported_scope": {
+          "7": {
+            "events": 2,
+            "correct": 0,
+            "predicted": 0
+          },
+          "maj": {
+            "events": 0,
+            "correct": 0,
+            "predicted": 2
+          }
+        },
+        "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels.",
+        "best_epoch": 1,
+        "evaluation_partition": "validation_subset_smoke",
+        "smoke": true
+      }
+    }
+  },
+  "manifest_sha256": "e8b704fb2cb7a8f6b9b89a691ee588912b2f8918a8005c0d69d91b81c26b7073",
+  "note": "Smoke is an execution check only. Final edit after smoke compacted console progress; saved history semantics unchanged."
+}

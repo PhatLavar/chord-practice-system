@@ -1,0 +1,17 @@
+{
+  "fold": 0,
+  "seed": 20261119,
+  "sample_rate": 22050,
+  "hop_length": 2048,
+  "n_bins": 144,
+  "bins_per_octave": 24,
+  "fmin": 32.70319566257483,
+  "width": 48,
+  "window": 108,
+  "batch_size": 16,
+  "learning_rate": 0.001,
+  "epochs": 30,
+  "folds_path": "splits/guitarset-player-v1.csv",
+  "protocol": "player-held-out-development-v1",
+  "track_training_metrics": true
+}

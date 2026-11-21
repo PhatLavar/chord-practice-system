@@ -1,0 +1,56 @@
+{
+  "protocol": "player-held-out-development-v1",
+  "recordings": {
+    "train": 240,
+    "test": 58,
+    "excluded": 2,
+    "validation": 60
+  },
+  "quality_event_counts": {
+    "train": {
+      "OOV": 986,
+      "maj7": 126,
+      "maj": 1026,
+      "min7": 126,
+      "min": 326,
+      "min6": 2,
+      "7": 176,
+      "hdim7": 38,
+      "maj6": 32,
+      "sus2": 28,
+      "sus4": 12,
+      "minmaj7": 2
+    },
+    "test": {
+      "maj7": 107,
+      "maj": 138,
+      "OOV": 275,
+      "7": 53,
+      "min7": 45,
+      "hdim7": 20,
+      "min": 52,
+      "sus2": 6,
+      "sus4": 2
+    },
+    "excluded": {
+      "maj7": 5,
+      "OOV": 9,
+      "min7": 3,
+      "maj": 2,
+      "7": 3
+    },
+    "validation": {
+      "OOV": 286,
+      "7": 26,
+      "hdim7": 32,
+      "maj7": 52,
+      "min6": 12,
+      "maj6": 22,
+      "min7": 36,
+      "maj": 194,
+      "dim7": 2,
+      "min": 58
+    }
+  },
+  "warning": "Separate development protocol. Prior progression-test recordings can be training here; original progression test is no longer pristine for future adaptive claims. Reserved player 04 is not evaluated here and has prior validation exposure in the earlier protocol."
+}

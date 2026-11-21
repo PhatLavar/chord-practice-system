@@ -20,8 +20,8 @@ def digest(path):
     with path.open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
 
 
-def selected_records(fold, smoke=False):
-    with FOLDS.open() as f:rows=list(csv.DictReader(f))
+def selected_records(fold, smoke=False, folds_path=FOLDS):
+    with Path(folds_path).open() as f:rows=list(csv.DictReader(f))
     selected={r['id']:r['partition'] for r in rows if int(r['fold'])==fold and r['partition'] in ('train','validation')}
     if smoke:
         selected={rid:part for part in ('train','validation') for rid in sorted(i for i,p in selected.items() if p==part)[:2]}
@@ -65,7 +65,8 @@ def normalization(songs, roles):
 
 def prepare(raw, output, config, smoke=False):
     if output.exists():raise FileExistsError('Use a fresh cache directory')
-    cfg=json.loads(config.read_text());roles=selected_records(cfg['fold'],smoke)
+    cfg=json.loads(config.read_text());folds=Path(cfg.get('folds_path',FOLDS))
+    roles=selected_records(cfg['fold'],smoke,folds)
     expected=json.loads(INVENTORY.read_text())['source_sha256']
     for name,sha in expected.items():
         if digest(raw/name)!=sha:raise ValueError(f'Wrong source: {name}')
@@ -92,7 +93,7 @@ def prepare(raw, output, config, smoke=False):
     stats=normalization(songs,roles)
     (output/'references.json').write_text(json.dumps(references,indent=2)+'\n')
     metadata=dict(config=cfg,smoke=smoke,recordings=roles,normalization=stats,
-                  source_sha256=expected,folds_sha256=digest(FOLDS),audio_sha256=audio_hashes,
+                  source_sha256=expected,folds_sha256=digest(folds),audio_sha256=audio_hashes,
                   cache_sha256={p.name:digest(p) for p in output.iterdir() if p.is_file()},
                   preparation_sha256=digest(Path(__file__)),label_mapper_sha256=digest(Path('src/acr/guitarset_labels.py')),
                   librosa=librosa.__version__,soundfile=sf.__version__,numpy=np.__version__,
@@ -103,8 +104,9 @@ def prepare(raw, output, config, smoke=False):
 
 def load_cache(cache, config, smoke):
     meta=json.loads((cache/'metadata.json').read_text())
-    if meta['config']!=config or meta['smoke']!=smoke or meta['folds_sha256']!=digest(FOLDS):raise ValueError('Cache/config/fold mismatch')
-    if meta['recordings']!=selected_records(config['fold'],smoke):raise ValueError('Unexpected partition IDs')
+    folds=Path(config.get('folds_path',FOLDS))
+    if meta['config']!=config or meta['smoke']!=smoke or meta['folds_sha256']!=digest(folds):raise ValueError('Cache/config/fold mismatch')
+    if meta['recordings']!=selected_records(config['fold'],smoke,folds):raise ValueError('Unexpected partition IDs')
     if meta['source_sha256']!=json.loads(INVENTORY.read_text())['source_sha256']:raise ValueError('Unpinned sources')
     for name,sha in meta['cache_sha256'].items():
         if digest(cache/name)!=sha:raise ValueError('Cache file changed')

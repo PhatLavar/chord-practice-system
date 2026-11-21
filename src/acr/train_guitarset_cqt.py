@@ -156,7 +156,14 @@ def train(cache, config, output, device, smoke=False):
             value=metrics['metrics']['tetrads']['score']
             if value is None:raise ValueError('No eligible validation duration')
             row=dict(epoch=epoch,head_losses=(sums/steps).tolist(),validation_tetrads=value)
-            history.append(row);print(json.dumps(dict(teacher=teacher,**row)),flush=True)
+            if cfg.get('track_training_metrics',False):
+                fitted=evaluate(model,teacher,train_songs,refs,device,cfg['batch_size'])
+                row['training_metrics']=fitted
+                row['validation_metrics']=metrics
+            history.append(row)
+            progress=dict(teacher=teacher,epoch=epoch,head_losses=row['head_losses'],validation_tetrads=value)
+            if 'training_metrics' in row:progress['training_tetrads']=row['training_metrics']['metrics']['tetrads']['score']
+            print(json.dumps(progress),flush=True)
             (directory/'history.json').write_text(json.dumps(history,indent=2)+'\n')
             if value>best:
                 best=value;torch.save(dict(state_dict=model.state_dict(),epoch=epoch,config=cfg,teacher=teacher),directory/'best.pt')

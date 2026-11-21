@@ -18,6 +18,22 @@ from teacher_e import EventTeacher
 
 @unittest.skipIf(extract is None,'Install requirements-audio.txt')
 class GuitarSetCQT(unittest.TestCase):
+    def test_player_split(self):
+        import csv
+        manifest=Path('splits/guitarset-player-v1.csv')
+        with manifest.open() as f:rows=list(csv.DictReader(f))
+        self.assertEqual(len({r['id'] for r in rows}),360)
+        expected={'train':{'00','01','02','03'},'validation':{'05'},'test':{'04'}}
+        for part,players in expected.items():
+            subset=[r for r in rows if r['partition']==part]
+            self.assertEqual({r['player'] for r in subset},players)
+            self.assertEqual({r['progression'] for r in subset},{'0','1','2'})
+        self.assertEqual(sum(r['partition']=='excluded' for r in rows),2)
+        selected=selected_records(0,False,manifest)
+        self.assertEqual(len(selected),300)
+        self.assertFalse(any(rid.startswith('04_') for rid in selected))
+        self.assertNotEqual(selected,selected_records(0))
+
     def test_memorization_selection(self):
         from check_guitarset_memorization import select_events
         events=[('a',0,1,0,5,1),('a',1,2,5,11,1),
