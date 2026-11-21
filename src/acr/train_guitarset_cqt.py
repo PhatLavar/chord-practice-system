@@ -17,6 +17,7 @@ from prepare_guitarset_cqt import load_cache, digest
 from teacher_f import FrameTeacher, decode, losses
 from teacher_e import EventTeacher
 from train_f import Windows
+from augment_cqt import transpose_batch
 
 NOTES=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
 
@@ -112,7 +113,17 @@ def evaluate(model, teacher, songs, references, device, batch_size, output=None)
 
 def train(cache, config, output, device, smoke=False):
     if output.exists():raise FileExistsError('Use a fresh run directory')
-    cfg=json.loads(config.read_text());songs,refs,meta=load_cache(cache,cfg,smoke)
+    cfg=json.loads(config.read_text())
+    cache_cfg=json.loads(Path(cfg['cache_config']).read_text()) if 'cache_config' in cfg else cfg
+    if 'cache_config' in cfg and {k:v for k,v in cfg.items() if k not in ('cache_config','augmentation')}!=cache_cfg:
+        raise ValueError('Augmentation arm must match the cached control config')
+    songs,refs,meta=load_cache(cache,cache_cfg,smoke)
+    augmentation=cfg.get('augmentation')
+    if augmentation:
+        if augmentation!={'method':'cqt_shift','semitones':list(range(-5,7))} or cfg['bins_per_octave']%12:
+            raise ValueError('Unknown augmentation protocol')
+        if any(np.any(np.all(s['x']==0,axis=1)) for s in songs.values()):
+            raise ValueError('All-zero real frame would be ambiguous with normalized padding')
     if device=='cuda' and not torch.cuda.is_available():raise ValueError('Enable GPU')
     torch.set_num_threads(4)
     train_songs={i:s for i,s in songs.items() if meta['recordings'][i]=='train'}
@@ -122,6 +133,7 @@ def train(cache, config, output, device, smoke=False):
     for teacher,cls in [('F',FrameTeacher),('E',EventTeacher)]:
         random.seed(cfg['seed']);np.random.seed(cfg['seed']);torch.manual_seed(cfg['seed'])
         model=cls(width=cfg['width'],input_channels=cfg['n_bins']).to(device)
+        augmentation_rng=torch.Generator().manual_seed(cfg['seed']+1)
         if teacher=='F':
             dataset=Windows(train_songs,cfg['window'],model.context);collate=None
         else:
@@ -136,18 +148,28 @@ def train(cache, config, output, device, smoke=False):
                     torch=torch.__version__,device=device,
                     git_revision=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
                     source_sha256={p.as_posix():digest(p) for p in Path('src/acr').glob('*.py')},
-                    protocol='Fresh CQT-TCN; natural sampling; complete labels only; select validation duration-weighted Tetrads; no outer test.')
+                    augmentation=augmentation,
+                    protocol='Fresh CQT-TCN; natural sampling; complete labels only; select validation duration-weighted Tetrads; no outer test. Optional CQT shift only during optimizer updates; clean train/validation diagnostics.')
         (directory/'run.json').write_text(json.dumps(record,indent=2)+'\n')
         optimizer=torch.optim.Adam(model.parameters(),lr=cfg['learning_rate'])
         best=-1;history=[]
         for epoch in range(1,epochs+1):
             model.train();sums=np.zeros(4)
+            shift_counts={str(s):0 for s in augmentation['semitones']} if augmentation else None
             for step,batch in enumerate(loader):
                 if step>=steps:break
                 if teacher=='F':
-                    x,y=batch;heads=[h[:,:,model.context:model.context+cfg['window']] for h in model(x.to(device))]
+                    x,y=batch
                 else:
-                    x,mask,y=batch;heads=model(x.to(device),mask.to(device))
+                    x,mask,y=batch
+                if augmentation:
+                    choices=augmentation['semitones']
+                    shifts=[choices[i] for i in torch.randint(len(choices),(len(x),),generator=augmentation_rng).tolist()]
+                    for shift in shifts:shift_counts[str(shift)]+=1
+                    stats=meta['normalization'];floor=(np.log(1e-6)-stats['mean'])/stats['std']
+                    x,y=transpose_batch(x,y,shifts,cfg['bins_per_octave']//12,float(floor))
+                if teacher=='F':heads=[h[:,:,model.context:model.context+cfg['window']] for h in model(x.to(device))]
+                else:heads=model(x.to(device),mask.to(device))
                 terms=losses(heads,y.to(device));loss=sum(terms)
                 if not torch.isfinite(loss):raise ValueError('Nonfinite loss')
                 optimizer.zero_grad();loss.backward();torch.nn.utils.clip_grad_norm_(model.parameters(),5);optimizer.step()
@@ -156,6 +178,7 @@ def train(cache, config, output, device, smoke=False):
             value=metrics['metrics']['tetrads']['score']
             if value is None:raise ValueError('No eligible validation duration')
             row=dict(epoch=epoch,head_losses=(sums/steps).tolist(),validation_tetrads=value)
+            if augmentation:row['augmentation_shift_counts']=shift_counts
             if cfg.get('track_training_metrics',False):
                 fitted=evaluate(model,teacher,train_songs,refs,device,cfg['batch_size'])
                 row['training_metrics']=fitted

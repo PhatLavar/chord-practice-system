@@ -175,3 +175,7 @@ For the next GuitarSet-only audio experiment, use notebooks/02h_guitarset_cqt_te
 The 02h results are imported and the training-only memorization check is complete. Use **notebooks/02i_guitarset_player_teachers.ipynb** for the next run, following [GUITARSET_PLAYER_EXPERIMENT.md](GUITARSET_PLAYER_EXPERIMENT.md). It trains both F and E on players 00–03 and validates on 05, with all three progression groups in training. Return **p2-guitarset-cqt-player-results.zip** to runs/imports/. This is a separate development protocol with known repertoire overlap and historical data exposure, not an independent final benchmark.
 
 Update, 21 November 2026: the full 02i ZIP is imported and verified. F/E validation Tetrads is 24.45%/29.41%; read the imported-result sections in P2_REPORT.md and GUITARSET_PLAYER_EXPERIMENT.md. A rerun of 02i is not currently required. Histories and verification are versioned in reports/p2/guitarset-cqt/player-results/.
+
+## Current next run: transposition augmentation
+
+After the frozen train/validation component audit, use **notebooks/02j_guitarset_transposition_teachers.ipynb** following [GUITARSET_TRANSPOSITION_EXPERIMENT.md](GUITARSET_TRANSPOSITION_EXPERIMENT.md). It trains fresh F and E with training-only CQT/root-label transposition and unchanged 02i split, architecture and update budget. Reuse the original CQT cache, not original model weights. Return **p2-guitarset-cqt-transpose-results.zip** to runs/imports/. This single-seed augmentation ablation has no full GPU result yet.

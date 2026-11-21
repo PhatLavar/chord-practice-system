@@ -1,0 +1,483 @@
+{
+  "status": "CPU smoke complete; full GPU augmentation results pending",
+  "tests_passed": 59,
+  "jobs": {
+    "F": {
+      "epochs": 2,
+      "steps_per_epoch": 1,
+      "history": [
+        {
+          "epoch": 1,
+          "head_losses": [
+            0.2507714033126831,
+            2.8051917552948,
+            0.465083509683609,
+            2.423762321472168
+          ],
+          "validation_tetrads": 0.0,
+          "augmentation_shift_counts": {
+            "-5": 0,
+            "-4": 0,
+            "-3": 1,
+            "-2": 1,
+            "-1": 0,
+            "0": 0,
+            "1": 1,
+            "2": 0,
+            "3": 1,
+            "4": 0,
+            "5": 0,
+            "6": 0
+          },
+          "training_metrics": {
+            "teacher": "F",
+            "metrics": {
+              "root": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594103,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              },
+              "majmin": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 18.602286558034063,
+                "excluded_seconds": 26.046511627906977,
+                "score": 0.0
+              },
+              "triads": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594103,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              },
+              "tetrads": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594103,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              }
+            },
+            "supported_oracle_event_accuracy": 0.0,
+            "supported_events": 6,
+            "quality_supported_scope": {
+              "maj7": {
+                "events": 4,
+                "correct": 0,
+                "predicted": 0
+              },
+              "maj": {
+                "events": 2,
+                "correct": 0,
+                "predicted": 3
+              },
+              "maj6": {
+                "events": 0,
+                "correct": 0,
+                "predicted": 3
+              }
+            },
+            "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+          },
+          "validation_metrics": {
+            "teacher": "F",
+            "metrics": {
+              "root": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594103,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              },
+              "majmin": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 14.881356325475922,
+                "excluded_seconds": 29.76744186046512,
+                "score": 0.0
+              },
+              "triads": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594103,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              },
+              "tetrads": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594103,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              }
+            },
+            "supported_oracle_event_accuracy": 0.0,
+            "supported_events": 2,
+            "quality_supported_scope": {
+              "7": {
+                "events": 2,
+                "correct": 0,
+                "predicted": 0
+              },
+              "maj": {
+                "events": 0,
+                "correct": 0,
+                "predicted": 2
+              }
+            },
+            "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+          }
+        },
+        {
+          "epoch": 2,
+          "head_losses": [
+            0.1189279779791832,
+            3.021177291870117,
+            0.19859369099140167,
+            1.503106951713562
+          ],
+          "validation_tetrads": 0.0,
+          "augmentation_shift_counts": {
+            "-5": 0,
+            "-4": 2,
+            "-3": 1,
+            "-2": 0,
+            "-1": 0,
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 1,
+            "5": 0,
+            "6": 0
+          },
+          "training_metrics": {
+            "teacher": "F",
+            "metrics": {
+              "root": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594103,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              },
+              "majmin": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 18.602286558034063,
+                "excluded_seconds": 26.046511627906977,
+                "score": 0.0
+              },
+              "triads": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594103,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              },
+              "tetrads": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594103,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              }
+            },
+            "supported_oracle_event_accuracy": 0.0,
+            "supported_events": 6,
+            "quality_supported_scope": {
+              "maj7": {
+                "events": 4,
+                "correct": 0,
+                "predicted": 5
+              },
+              "maj": {
+                "events": 2,
+                "correct": 0,
+                "predicted": 1
+              }
+            },
+            "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+          },
+          "validation_metrics": {
+            "teacher": "F",
+            "metrics": {
+              "root": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594103,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              },
+              "majmin": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 14.881356325475922,
+                "excluded_seconds": 29.76744186046512,
+                "score": 0.0
+              },
+              "triads": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594103,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              },
+              "tetrads": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594103,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              }
+            },
+            "supported_oracle_event_accuracy": 0.0,
+            "supported_events": 2,
+            "quality_supported_scope": {
+              "7": {
+                "events": 2,
+                "correct": 0,
+                "predicted": 0
+              },
+              "maj7": {
+                "events": 0,
+                "correct": 0,
+                "predicted": 2
+              }
+            },
+            "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+          }
+        }
+      ],
+      "checkpoint_sha256": "7f5818efeffede98e9a548b185ee98a92606285a928c46ecbb09d386be452760"
+    },
+    "E": {
+      "epochs": 2,
+      "steps_per_epoch": 1,
+      "history": [
+        {
+          "epoch": 1,
+          "head_losses": [
+            0.2087840586900711,
+            3.0493297576904297,
+            0.4004838168621063,
+            2.118462324142456
+          ],
+          "validation_tetrads": 0.0,
+          "augmentation_shift_counts": {
+            "-5": 0,
+            "-4": 2,
+            "-3": 1,
+            "-2": 1,
+            "-1": 0,
+            "0": 0,
+            "1": 1,
+            "2": 0,
+            "3": 1,
+            "4": 0,
+            "5": 0,
+            "6": 0
+          },
+          "training_metrics": {
+            "teacher": "E",
+            "metrics": {
+              "root": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594104,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              },
+              "majmin": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 18.602286558034063,
+                "excluded_seconds": 26.046511627906977,
+                "score": 0.0
+              },
+              "triads": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594104,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              },
+              "tetrads": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594104,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              }
+            },
+            "supported_oracle_event_accuracy": 0.0,
+            "supported_events": 6,
+            "quality_supported_scope": {
+              "maj7": {
+                "events": 4,
+                "correct": 0,
+                "predicted": 0
+              },
+              "maj": {
+                "events": 2,
+                "correct": 0,
+                "predicted": 3
+              },
+              "maj6": {
+                "events": 0,
+                "correct": 0,
+                "predicted": 3
+              }
+            },
+            "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+          },
+          "validation_metrics": {
+            "teacher": "E",
+            "metrics": {
+              "root": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594104,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              },
+              "majmin": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 14.881356325475922,
+                "excluded_seconds": 29.767441860465116,
+                "score": 0.0
+              },
+              "triads": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594104,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              },
+              "tetrads": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594104,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              }
+            },
+            "supported_oracle_event_accuracy": 0.0,
+            "supported_events": 2,
+            "quality_supported_scope": {
+              "7": {
+                "events": 2,
+                "correct": 0,
+                "predicted": 0
+              },
+              "maj": {
+                "events": 0,
+                "correct": 0,
+                "predicted": 2
+              }
+            },
+            "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+          }
+        },
+        {
+          "epoch": 2,
+          "head_losses": [
+            0.13023750483989716,
+            3.7033560276031494,
+            0.2236488312482834,
+            1.578050971031189
+          ],
+          "validation_tetrads": 0.0,
+          "augmentation_shift_counts": {
+            "-5": 0,
+            "-4": 0,
+            "-3": 2,
+            "-2": 0,
+            "-1": 0,
+            "0": 1,
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 1,
+            "5": 2,
+            "6": 0
+          },
+          "training_metrics": {
+            "teacher": "E",
+            "metrics": {
+              "root": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594104,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              },
+              "majmin": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 18.602286558034063,
+                "excluded_seconds": 26.046511627906977,
+                "score": 0.0
+              },
+              "triads": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594104,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              },
+              "tetrads": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594104,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              }
+            },
+            "supported_oracle_event_accuracy": 0.0,
+            "supported_events": 6,
+            "quality_supported_scope": {
+              "maj7": {
+                "events": 4,
+                "correct": 0,
+                "predicted": 2
+              },
+              "maj": {
+                "events": 2,
+                "correct": 0,
+                "predicted": 4
+              }
+            },
+            "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+          },
+          "validation_metrics": {
+            "teacher": "E",
+            "metrics": {
+              "root": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594104,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              },
+              "majmin": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 14.881356325475922,
+                "excluded_seconds": 29.767441860465116,
+                "score": 0.0
+              },
+              "triads": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594104,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              },
+              "tetrads": {
+                "correct_seconds": 0.0,
+                "eligible_seconds": 44.64879818594104,
+                "excluded_seconds": 0.0,
+                "score": 0.0
+              }
+            },
+            "supported_oracle_event_accuracy": 0.0,
+            "supported_events": 2,
+            "quality_supported_scope": {
+              "7": {
+                "events": 2,
+                "correct": 0,
+                "predicted": 0
+              },
+              "maj": {
+                "events": 0,
+                "correct": 0,
+                "predicted": 2
+              }
+            },
+            "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels."
+          }
+        }
+      ],
+      "checkpoint_sha256": "ca1d0638219182ec6913a1ad338ea04c3bd44914585c243c0a21c00dda86e3fa"
+    }
+  },
+  "notebook_code_cells_compile": true,
+  "source_sha256": {
+    "src/acr/train_guitarset_cqt.py": "7f2170a058f3ae374b310151cd9f4b34aa529daa0f8de9e266497f6f463ba59f",
+    "src/acr/augment_cqt.py": "bc3056269d35381026adf3ef9786f22c8bc4794fe7b4978b7ed5791da1848cae"
+  }
+}

@@ -18,7 +18,8 @@ from train_guitarset_cqt import evaluate
 def run(cache, source, output):
     if output.exists():raise FileExistsError('Use a fresh evaluation directory')
     cfg=json.loads((source/'F/run.json').read_text())['config']
-    songs,refs,meta=load_cache(cache,cfg,False)
+    cache_cfg=json.loads(Path(cfg['cache_config']).read_text()) if 'cache_config' in cfg else cfg
+    songs,refs,meta=load_cache(cache,cache_cfg,False)
     training={rid:s for rid,s in songs.items() if meta['recordings'][rid]=='train'}
     if not training:raise ValueError('Empty training partition')
     output.mkdir(parents=True)

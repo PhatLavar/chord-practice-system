@@ -18,6 +18,28 @@ from teacher_e import EventTeacher
 
 @unittest.skipIf(extract is None,'Install requirements-audio.txt')
 class GuitarSetCQT(unittest.TestCase):
+    def test_cqt_transposition_labels_padding_and_no_wrap(self):
+        from augment_cqt import transpose_batch
+        x=torch.arange(1,25,dtype=torch.float32).reshape(1,8,3)
+        x[:,:,0]=0
+        y=torch.tensor([[155,0,-100]])  # B:maj -> C:maj when shifted up one.
+        up,label=transpose_batch(x,y,[1],2,-9.)
+        self.assertEqual(label.tolist(),[[1,0,-100]])
+        torch.testing.assert_close(up[:,2:,1:],x[:,:-2,1:])
+        self.assertTrue((up[:,:2,1:]==-9).all())
+        self.assertTrue((up[:,:,0]==0).all())
+        down,label=transpose_batch(x,torch.tensor([[1]]),[-1],2,-9.)
+        self.assertEqual(label.item(),155)
+        torch.testing.assert_close(down[:,:-2,1:],x[:,2:,1:])
+        self.assertTrue((down[:,-2:,1:]==-9).all())
+        same,labels=transpose_batch(x,y,[0],2,-9.)
+        torch.testing.assert_close(same,x);torch.testing.assert_close(labels,y)
+        for shift in range(-5,7):
+            original=torch.arange(1,169)[None,:]
+            _,mapped=transpose_batch(torch.ones(1,144,1),original,[shift],2,-9.)
+            self.assertTrue(torch.equal((mapped-1)%14,(original-1)%14))
+            self.assertTrue(torch.equal((mapped-1)//14,((original-1)//14+shift)%12))
+
     def test_component_audit_explicit_references_without_audio(self):
         import tempfile
         from contextlib import redirect_stdout
@@ -75,6 +97,9 @@ class GuitarSetCQT(unittest.TestCase):
         x,times,duration=extract(np.sin(2*np.pi*440*t).astype(np.float32),sr,cfg)
         self.assertEqual(x.shape[1],144)
         self.assertLessEqual(abs(int(x.mean(0).argmax())-90),1)
+        from augment_cqt import transpose_batch
+        shifted,_=transpose_batch(torch.from_numpy(x.T.copy())[None],torch.tensor([[1]]),[1],2,float(np.log(1e-6)))
+        self.assertEqual(int(shifted[0].mean(1).argmax()),int(x.mean(0).argmax())+2)
         self.assertAlmostEqual(times[1]-times[0],2048/22050)
         self.assertLess(times[-1],duration)
 
