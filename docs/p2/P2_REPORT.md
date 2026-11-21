@@ -843,3 +843,27 @@ On supported gold events, root/triad/extension accuracy is F 55.99%/72.12%/62.21
 Having all progression groups in training is associated with substantially higher validation scores than the earlier pilot, but training size, player content and validation targets also changed. This does not isolate the effect of progression coverage or establish cross-corpus improvement. Keep both experiments and do not promote these checkpoints.
 
 Before another large run, prioritize inspecting root and extension confusion and representative audio/annotation intervals for maj versus seventh/sixth errors, then define one controlled training change if supported by that inspection. Additional epochs for E can be a budget ablation; they should not silently replace the 30-epoch control. A literature-backed stronger audio baseline and additional matching audio remain relevant; this one-seed development result does not resolve dataset diversity or architecture choice. Evidence is reports/p2/guitarset-cqt/player-results/ (original histories/metrics, independent rescoring and import verification). No new training was performed during import.
+
+## Component confusion and audio review preparation — 21 November 2026
+
+Ran src/acr/diagnose_guitarset_player.py on the saved validation logits. Scope is 434 complete-supported gold chord events, with F mean frame probabilities and E event probabilities. Confusion matrices use raw per-head argmax, before the constrained legal-quality decoder; complete predictions use that decoder. This distinction matters: E has 166 events with all three raw component heads correct, but 167 correct complete predictions after legal decoding. Matrix totals and complete-event accuracy are checked against the imported metrics. No training or reserved-player evaluation occurs.
+
+| True extension | Events | F correct raw extension | E correct raw extension | F predicted none | E predicted none |
+|---|---:|---:|---:|---:|---:|
+| none | 252 | 250 | 231 | 250 | 231 |
+| 6 | 34 | 0 | 0 | 28 | 27 |
+| b7 | 94 | 19 | 40 | 75 | 51 |
+| 7 | 52 | 1 | 4 | 48 | 40 |
+| bb7 | 2 | 0 | 0 | 2 | 2 |
+
+Of 182 events requiring an extension, F emits none for 153 (84.07%) and E for 120 (65.93%). High overall extension accuracy is therefore largely carried by none. This pattern supports investigating extension underprediction; it does not alone distinguish weak acoustic evidence, imbalanced supervision, optimization, or annotation mismatch.
+
+Within those wrong-none extension predictions, F has 59 and E 86 with raw extension confidence at least 0.9. These are single-head confidence counts, without a chord-gate or F/E-agreement filter. High softmax confidence alone would therefore preserve many incorrect extension labels; it must not be used as a substitute for measured precision.
+
+Extension is not the only bottleneck. F/E raw root is wrong on 191/177 events. Only 49/47 events have both raw root and triad correct while extension is wrong; changing extension alone cannot repair all complete-chord errors. Conversely, 120/108 events have correct extension but incorrect complete chord. An extension-only intervention must therefore report root and full-chord metrics as well as extension recall/precision.
+
+Created five deterministic paired-error review clips with one-second context, spanning 7, maj7, min7, maj6 and min6. Paths and exact original labels/timestamps are in reports/p2/guitarset-cqt/player-diagnostics/review_candidates.csv; local WAVs are in ignored runs/p2-guitarset-player-review/. Examples include B:maj7 predicted B:maj by both teachers and G#:min6 predicted G#:min7 by both. These are candidate listening cases, not verified annotation defects. No independent listening verdict or automatic retiming is claimed. Review clips before changing labels, especially because performed GuitarSet labels have sheet-informed semantics.
+
+Decision: preserve this natural-sampling control. A future controlled loss/sampling ablation should keep split, seed, architecture, budgets and checkpoint criterion fixed, derive any weights solely from training support, and inspect per-class precision as well as recall. Existing P1/P2 balanced/weighted results show that simply emphasizing rare targets can lower overall accuracy; those results are motivation for caution, not proof of transfer to CQT. Do not launch a new weighting scheme or replace TCN solely from this confusion table. First distinguish training-fit errors from held-out-player errors with the same component protocol, then select one intervention. Source diversity and an author audio baseline remain separate open work.
+
+Evidence: reports/p2/guitarset-cqt/player-diagnostics/ contains full confusion matrices, aligned supported-event predictions, summary counts and audio review candidates. The diagnostic itself checks event alignment between F/E, matrix totals and reproduction of imported complete-event scores.
