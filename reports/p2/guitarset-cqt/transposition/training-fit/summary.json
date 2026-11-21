@@ -1,0 +1,55 @@
+{
+  "F": {
+    "components": {
+      "gate": {
+        "correct": 1894,
+        "events": 1894
+      },
+      "root": {
+        "correct": 1204,
+        "events": 1894
+      },
+      "triad": {
+        "correct": 1458,
+        "events": 1894
+      },
+      "extension": {
+        "correct": 1465,
+        "events": 1894
+      }
+    },
+    "supported_events": 1894,
+    "extended_events": 502,
+    "extended_predicted_none": 391,
+    "extension_correct_but_complete_wrong": 665,
+    "root_and_triad_correct_extension_wrong": 206,
+    "raw_all_heads_correct": 800
+  },
+  "E": {
+    "components": {
+      "gate": {
+        "correct": 1894,
+        "events": 1894
+      },
+      "root": {
+        "correct": 1227,
+        "events": 1894
+      },
+      "triad": {
+        "correct": 1536,
+        "events": 1894
+      },
+      "extension": {
+        "correct": 1517,
+        "events": 1894
+      }
+    },
+    "supported_events": 1894,
+    "extended_events": 502,
+    "extended_predicted_none": 305,
+    "extension_correct_but_complete_wrong": 621,
+    "root_and_triad_correct_extension_wrong": 189,
+    "raw_all_heads_correct": 896
+  },
+  "scope": "Supported chord gold events only; F mean frame probabilities, E event softmax. Raw head argmax confusion precedes legal quality decoder. Clips are review candidates, not independently verified chord judgments."
+}

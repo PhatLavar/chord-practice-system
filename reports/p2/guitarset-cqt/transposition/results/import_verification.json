@@ -1,0 +1,34 @@
+{
+  "archive_sha256": "289db0946186f769bfec1e817e47119f07b2a8b399cdceb2d738d4153f3c0bc7",
+  "validation_references_match_control_and_official": true,
+  "jobs": {
+    "F": {
+      "revision": "d7c834bb9d6ec2325ffccc7f496f40dce61b8389",
+      "best_epoch": 30,
+      "epochs": 30,
+      "steps_per_epoch": 47,
+      "samples_per_epoch": 740,
+      "source_hashes_match": true,
+      "same_data_and_normalization_as_control": true,
+      "rescored_metrics_match": true,
+      "correct_events": 169,
+      "supported_events": 434,
+      "all_LAB_intervals_positive": true,
+      "augmentation_rng_counts_replayed": true
+    },
+    "E": {
+      "revision": "d7c834bb9d6ec2325ffccc7f496f40dce61b8389",
+      "best_epoch": 28,
+      "epochs": 30,
+      "steps_per_epoch": 119,
+      "samples_per_epoch": 1894,
+      "source_hashes_match": true,
+      "same_data_and_normalization_as_control": true,
+      "rescored_metrics_match": true,
+      "correct_events": 176,
+      "supported_events": 434,
+      "all_LAB_intervals_positive": true,
+      "augmentation_rng_counts_replayed": true
+    }
+  }
+}

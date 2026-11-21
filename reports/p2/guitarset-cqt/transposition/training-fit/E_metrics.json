@@ -1,0 +1,91 @@
+{
+  "teacher": "E",
+  "metrics": {
+    "root": {
+      "correct_seconds": 4686.796274434438,
+      "eligible_seconds": 7312.290481632654,
+      "excluded_seconds": 0.00031201814060466404,
+      "score": 0.6409477695404672
+    },
+    "majmin": {
+      "correct_seconds": 3037.7813609942955,
+      "eligible_seconds": 5011.68651022124,
+      "excluded_seconds": 2300.604283429556,
+      "score": 0.6061395410105557
+    },
+    "triads": {
+      "correct_seconds": 3076.2795543115253,
+      "eligible_seconds": 7312.290481632654,
+      "excluded_seconds": 0.00031201814060466404,
+      "score": 0.42069985622680955
+    },
+    "tetrads": {
+      "correct_seconds": 2509.199721909896,
+      "eligible_seconds": 7312.290481632654,
+      "excluded_seconds": 0.00031201814060466404,
+      "score": 0.34314825542182975
+    }
+  },
+  "supported_oracle_event_accuracy": 0.4730728616684266,
+  "supported_events": 1894,
+  "quality_supported_scope": {
+    "maj7": {
+      "events": 126,
+      "correct": 3,
+      "predicted": 3
+    },
+    "maj": {
+      "events": 1026,
+      "correct": 646,
+      "predicted": 1461
+    },
+    "min": {
+      "events": 326,
+      "correct": 131,
+      "predicted": 181
+    },
+    "min7": {
+      "events": 126,
+      "correct": 35,
+      "predicted": 61
+    },
+    "7": {
+      "events": 176,
+      "correct": 67,
+      "predicted": 169
+    },
+    "min6": {
+      "events": 2,
+      "correct": 0,
+      "predicted": 0
+    },
+    "hdim7": {
+      "events": 38,
+      "correct": 14,
+      "predicted": 18
+    },
+    "maj6": {
+      "events": 32,
+      "correct": 0,
+      "predicted": 0
+    },
+    "sus2": {
+      "events": 28,
+      "correct": 0,
+      "predicted": 1
+    },
+    "sus4": {
+      "events": 12,
+      "correct": 0,
+      "predicted": 0
+    },
+    "minmaj7": {
+      "events": 2,
+      "correct": 0,
+      "predicted": 0
+    }
+  },
+  "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels.",
+  "evaluation_partition": "training",
+  "best_epoch": 28
+}

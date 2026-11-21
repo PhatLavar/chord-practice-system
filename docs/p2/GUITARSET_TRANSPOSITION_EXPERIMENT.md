@@ -46,3 +46,18 @@ This is a single-seed screening, not a repeatability claim. A gain must survive 
 ## Local verification
 
 All 59 tests pass, including a known-tone pitch-direction check, every supported root/quality transposition, positive/negative/no shift, finite frequency edge fill, temporal padding and N/OOV preservation. Both two-epoch CPU smoke jobs finish with finite losses and populated augmentation shift counts. Histories include clean train/validation metrics; notebook code cells compile. Evidence is reports/p2/guitarset-cqt/transposition/verification.json. Full 30-epoch GPU training remains pending.
+
+## Full GPU results imported — 21 November 2026
+
+Both 30-epoch jobs at d7c834bb9d6ec2325ffccc7f496f40dce61b8389 have completed and been verified. Full-timeline rescoring from NPZ reproduces the saved results; original annotation/reference lists, data/normalization identity with control, code hashes, checkpoint selection, positive LAB durations and per-epoch augmentation counts were checked. Replaying the dedicated RNG reproduces every recorded shift histogram. F/E retain 47/119 updates and 740/1,894 samples per epoch. No validation augmentation or reserved-player inference is present.
+
+| Teacher | Control Tetrads | Augmented Tetrads | Delta (percentage points) | Selected epoch |
+|---|---:|---:|---:|---:|
+| F | 24.45% | 25.51% | +1.06 | 30 |
+| E, gold boundaries | 29.41% | 31.46% | +2.05 | 28 |
+
+Supported event accuracy is F 38.94% (169/434) and E 40.55% (176/434), versus 34.56%/38.48% for control. Gains are not uniform: E duration Triads falls from 37.06% to 36.68%; both models predict maj more frequently. Both lose their remaining complete maj7 successes. Full counts are in transposition/per_quality_comparison.csv.
+
+Clean training fit is much lower with augmentation: selected-checkpoint training Tetrads is F 28.71%, E 34.31%, versus 36.58%/59.95% for control. Local frozen-checkpoint CPU evaluation exactly reproduces those Kaggle training scores. The smaller train/validation gap is partly due to reduced fitting; it is not evidence that chord-quality reliability has broadly improved. Neither augmented model correctly predicts raw 6, 7 or bb7 extension on supported validation events. Higher overall extension accuracy is dominated by none.
+
+Decision: retain the original natural control and this single-seed candidate. Do not promote or claim rare-chord improvement. Next, use matched new seeds for both control and augmentation before changing shift range, learning rate, epochs or architecture. Compare within teacher, report mean/variation and lost/gained events, and preserve all seeds rather than choosing the best one. Full repeats have not run. Evidence is reports/p2/guitarset-cqt/transposition/{results,diagnostics,training-fit}/ and comparison.json.

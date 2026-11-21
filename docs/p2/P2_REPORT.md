@@ -912,3 +912,44 @@ Both teachers remain fresh width-48 TCNs with seed 20261119, natural sampling, t
 Notebook 02j prepares/verifies the original CQT cache, runs separate augmented smoke jobs, then full augmented F/E jobs and prints the stored natural-control comparison. The output ZIP is p2-guitarset-cqt-transpose-results.zip. CPU smoke execution completes for both teachers with finite losses; smoke zero validation scores are not a performance finding. Unit checks cover positive/negative shift direction, frequency-edge fill/no wrap, zero shift, temporal padding, N/OOV preservation, every supported root/quality and known-tone direction. Full GPU training is pending; neither augmentation benefit nor promotion is claimed.
 
 Evaluate full-chord duration metrics first, along with clean fitting curves, root/extension errors and per-quality support. A promising single-seed outcome requires matched repeats. Differing F/E responses should be retained rather than forcing a common augmentation policy. This new control does not replace the earlier negative or natural runs.
+
+## Transposition GPU screening verified — 21 November 2026
+
+Imported p2-guitarset-cqt-transpose-results.zip (SHA-256 289db0946186f769bfec1e817e47119f07b2a8b399cdceb2d738d4153f3c0bc7). Both jobs complete 30 epochs at d7c834bb9d6ec2325ffccc7f496f40dce61b8389. Verified exact source Git hashes, original reference events against official annotation, identical train/validation IDs and normalization to control, unchanged update budgets, and earliest validation-Tetrads checkpoint selection. Recomputed all duration numerators/denominators from saved NPZ/reference timelines within 1e-8 seconds and supported event accuracy within 1e-12. All LAB intervals are positive. Replaying seed+1 augmentation sampling exactly matches each epoch's shift histogram; F/E each visit 740/1,894 sampled examples per epoch with 47/119 updates. No new training was done during import.
+
+| Teacher / arm | Root | MajMin | Triads | Tetrads | Supported event accuracy |
+|---|---:|---:|---:|---:|---:|
+| F control | 48.31% | 47.88% | 30.83% | 24.45% | 34.56% |
+| F augmented | 49.02% | 49.90% | 32.00% | 25.51% | 38.94% |
+| E control | 56.63% | 56.91% | 37.06% | 29.41% | 38.48% |
+| E augmented | 57.42% | 56.94% | 36.68% | 31.46% | 40.55% |
+
+Primary Tetrads changes are +1.0635 percentage points for F and +2.0477 for E. F selects epoch 30; E selects 28 (its epoch-30 score is 29.40%). These are validation-selected single-seed outcomes on the same known-repertoire held-out player, not independent-test or repeatability evidence. F/E have different tasks; compare each against its own control.
+
+### Which events improve or regress?
+
+Aligned the same 434 supported gold events. F has 133 correct under both arms, 17 correct only under control, 36 only under augmentation, and 248 wrong under both (net +19). E has 148 both-correct, 19 control-only, 28 augmentation-only and 239 both-wrong (net +9). Event accuracy is supported-only and is not the full-timeline duration metric.
+
+| Quality | Support | F correct control → augmented | E correct control → augmented |
+|---|---:|---:|---:|
+| maj | 194 | 121 → 143 | 124 → 137 |
+| min | 58 | 26 → 18 | 26 → 24 |
+| 7 | 26 | 1 → 7 | 8 → 10 |
+| hdim7 | 32 | 1 → 0 | 4 → 1 |
+| min7 | 36 | 0 → 1 | 3 → 4 |
+| maj7 | 52 | 1 → 0 | 2 → 0 |
+| min6 / maj6 / dim7 | 12 / 22 / 2 | All zero → zero | All zero → zero |
+
+Both augmented arms predict maj more often on supported references: F 354 → 378, E 287 → 334. Thus the primary gain is compatible with improved common-chord recognition while some harmonic distinctions regress; it is not broad rare/extended-chord improvement.
+
+### Component fit and confidence implications
+
+Validation raw root/triad/extension accuracy is F 60.60%/72.58%/62.67% and E 60.37%/72.35%/65.21%. Despite a higher aggregate extension score, neither augmented teacher correctly predicts raw 6, 7 or bb7 extension on this subset. Correct raw b7 counts are F 20 (control 19), E 35 (control 40); correct none counts are 252 (control 250) and 248 (control 231). Among 182 events truly requiring an extension, wrong-none predictions increase F 153 → 154 and E 120 → 134. An aggregate score increase therefore does not justify a pseudo-label acceptance threshold or a claim of better extension reliability.
+
+Evaluated the selected augmented checkpoints on the local clean train cache without updates. Training Tetrads exactly matches Kaggle: F 28.71%, E 34.31%, versus control 36.58%/59.95%. On supported training events, raw root/triad/extension accuracy is F 63.57%/76.98%/77.35%, E 64.78%/81.10%/80.10%. Clean fitting is substantially reduced. The smaller train/validation gap alone must not be interpreted as solved generalization; stronger augmentation can increase optimization difficulty under the same budget. F's best epoch at the endpoint also does not establish convergence.
+
+### Decision and next experiment
+
+Keep this as a promising overall-accuracy screening candidate with documented regressions, not a promoted F/E policy. Next compare natural versus transposition at additional matched seeds 20261120 and 20261121 for both teachers, retaining this original seed in the aggregate. Keep source split, CQT cache/normalization, epochs, update counts and selection criterion fixed. Report mean/variation within each teacher and quality tradeoffs. Do not simultaneously tune shift strength, learning rate, training duration or architecture, and do not choose a seed for its best score. Repeats have not been prepared/run by this import audit.
+
+Evidence: reports/p2/guitarset-cqt/transposition/results/ holds imported histories/metrics, independent rescoring and verification; diagnostics/ holds supported-event confusion and decisions; training-fit/ holds frozen clean-training metrics/confusion/provenance; comparison.json and per_quality_comparison.csv record control deltas and event tradeoffs. Raw archive/checkpoints remain in ignored runs/. No code change or full training rerun was required for this verification.

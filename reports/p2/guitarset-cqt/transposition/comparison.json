@@ -1,0 +1,68 @@
+{
+  "F": {
+    "duration_metrics": {
+      "root": {
+        "control": 0.4831199291558134,
+        "augmented": 0.4902153863316212,
+        "delta_percentage_points": 0.7095457175807784
+      },
+      "majmin": {
+        "control": 0.4787562935332766,
+        "augmented": 0.4989501200635739,
+        "delta_percentage_points": 2.019382653029733
+      },
+      "triads": {
+        "control": 0.3082920991432675,
+        "augmented": 0.32002497310275707,
+        "delta_percentage_points": 1.1732873959489576
+      },
+      "tetrads": {
+        "control": 0.24448499922341838,
+        "augmented": 0.2551195333573128,
+        "delta_percentage_points": 1.0634534133894424
+      }
+    },
+    "control_event_accuracy": 0.3456221198156682,
+    "augmented_event_accuracy": 0.38940092165898615,
+    "paired_supported_events": {
+      "both_correct": 133,
+      "control_only": 17,
+      "augmented_only": 36,
+      "both_wrong": 248
+    },
+    "training_tetrads_at_selected_epoch": 0.287096625560805
+  },
+  "E": {
+    "duration_metrics": {
+      "root": {
+        "control": 0.5662916745985345,
+        "augmented": 0.5741756950364125,
+        "delta_percentage_points": 0.7884020437878059
+      },
+      "majmin": {
+        "control": 0.5691278739968115,
+        "augmented": 0.5694279648434136,
+        "delta_percentage_points": 0.030009084660209684
+      },
+      "triads": {
+        "control": 0.37057977304366296,
+        "augmented": 0.36677377092681324,
+        "delta_percentage_points": -0.3806002116849727
+      },
+      "tetrads": {
+        "control": 0.2941442348606536,
+        "augmented": 0.3146215973027365,
+        "delta_percentage_points": 2.047736244208287
+      }
+    },
+    "control_event_accuracy": 0.3847926267281106,
+    "augmented_event_accuracy": 0.4055299539170507,
+    "paired_supported_events": {
+      "both_correct": 148,
+      "control_only": 19,
+      "augmented_only": 28,
+      "both_wrong": 239
+    },
+    "training_tetrads_at_selected_epoch": 0.34314825542182975
+  }
+}
