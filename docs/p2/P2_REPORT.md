@@ -965,3 +965,49 @@ Per-teacher aggregate includes Root/MajMin/Triads/Tetrads and supported-event ac
 Read GUITARSET_TRANSPOSITION_REPEATS.md for running, recovery limits and interpretation. The new split is still reused-validation development on one player, and E still has gold boundaries. Repeated seeds measure optimization variability, not additional independent players. Full GPU repeats remain pending; no new performance claim follows from the notebook setup.
 
 Local verification completes all eight two-epoch CPU smoke jobs and confirms fresh training seeds with fixed cache provenance. Re-running completed orchestration reuses stages and leaves comparison.json identical. Smoke aggregation excludes historical full metrics. All 61 tests pass; notebook code cells compile. Evidence: reports/p2/guitarset-cqt/transposition/repeat-setup/verification.json. Smoke scores are execution checks only.
+
+## Three-seed augmentation results verified — 21 November 2026
+
+Imported p2-guitarset-transpose-repeat-results.zip, SHA-256 d883a7a09e24e94d6ace385d2479e432c77ef23c0bb04ec6b2de541eca715a67, containing eight complete full jobs at f9a5174. Independently checked the source/plan hashes against Git, historical metric hashes, generated training configs, seed/split/normalization identity and unchanged update budgets. All jobs complete 30 epochs and select the earliest maximum validation-Tetrads checkpoint. Full metrics were reconstructed from saved NPZ/reference intervals (duration counts within 1e-8 seconds; supported-event accuracy within 1e-12); per-quality counts and stored decoded predictions match. All LAB intervals are positive. Replayed each augmented job's RNG and reproduced all per-epoch shift histograms. Recomputed the three-seed aggregate and paired deltas exactly. No training or code modification was needed for import.
+
+### Primary result, within each teacher
+
+| Seed | F natural | F augmented | F delta | E natural | E augmented | E delta |
+|---|---:|---:|---:|---:|---:|---:|
+| 20261119 | 24.45% | 25.51% | +1.06 pp | 29.41% | 31.46% | +2.05 pp |
+| 20261120 | 24.53% | 24.09% | −0.44 pp | 28.08% | 31.35% | +3.27 pp |
+| 20261121 | 25.02% | 24.09% | −0.93 pp | 27.70% | 32.47% | +4.77 pp |
+| Mean | 24.67% | 24.57% | −0.10 pp | 28.40% | 31.76% | +3.36 pp |
+| Sample SD | 0.31 pp | 0.82 pp | 1.04 pp | 0.90 pp | 0.61 pp | 1.36 pp |
+
+The metric is validation duration-weighted Tetrads. Sample SD is optimization variability on this one split, not uncertainty over independent players. E improves in all three matched comparisons; F does not repeat its initial gain. E's mean supported-event accuracy also increases 36.79%→41.63% (+4.84 pp), whereas F remains 35.87% under both arms. No significance or final-test claim is made with three seeds and reused validation.
+
+### Harmonic tradeoffs persist
+
+Per-seed reference support is unchanged. Mean counts below average correct complete-chord events over three seeds; recurring intervals are not independent new examples.
+
+| Quality / support per seed | F natural → augmented | E natural → augmented |
+|---|---:|---:|
+| maj / 194 | 124.00 → 139.33 | 124.67 → 140.00 |
+| min / 58 | 25.00 → 9.00 | 23.00 → 24.33 |
+| 7 / 26 | 1.67 → 6.33 | 6.00 → 9.33 |
+| hdim7 / 32 | 1.33 → 0.00 | 3.00 → 1.00 |
+| min7 / 36 | 2.33 → 1.00 | 2.00 → 4.00 |
+| maj7 / 52 | 1.33 → 0.00 | 1.00 → 2.00 |
+| min6 / 12, maj6 / 22, dim7 / 2 | All zero → zero | All zero → zero |
+
+Mean maj prediction counts rise F 351.67→393.00 and E 311.33→337.00 among 434 supported reference events. F trades substantial minor recognition for major/dominant gains. E has broader gains but hdim7 regression remains, and sixth/diminished-seventh recognition is unresolved. Complete-label precision here remains scoped to supported gold events; it is not operational pseudo-label precision.
+
+### Complementarity with natural F
+
+Computed all four F/E arm combinations on identical supported gold events for every seed. Holding F natural and switching E natural→augmented increases events correct in at least one teacher: 179→186, 181→195, 183→208 out of 434. E-only successes increase 29→36, 23→37, 24→49. The mixed-policy pair therefore adds complementary correct information in every seed, but these are oracle union counts and do not constitute an achievable fusion metric.
+
+Complete-label agreement precision/coverage for natural F + augmented E is respectively 59.57%/54.15%, 60.25%/55.07%, and 69.04%/45.39%. These are unfiltered, supported-only, gold-interval diagnostics, not the earlier operational Billboard confidence protocol. Teachers still agree incorrectly often; reliable pseudo-label generation is not established.
+
+### Development policy and next scope
+
+For the GuitarSet CQT branch, retain natural F and prefer transposition E for the overall-accuracy development reference. This is a per-teacher policy decision, not a forced shared augmentation strategy. Keep original seed 20261119 as the primary pair to preserve continuity; all repeated checkpoints remain available, and the highest-scoring new seed is not substituted. Existing Billboard/JAAH teachers and their policies are unaffected.
+
+The consistent E gain does not resolve low absolute accuracy, sparse source diversity, full-label OOV coverage, or gold-boundary dependence. Further identical-seed reruns are not indicated. The next experiment should be separately specified around a stronger literature audio baseline or one intervention addressing remaining root/quality errors, using this matched-seed comparison as a control. A new split or more datasets would answer additional questions and must not be presented as the same benchmark. No new training job is launched by this verification.
+
+Evidence: reports/p2/guitarset-cqt/transposition/repeats/ includes all new job histories/metrics, exact rescoring, import verification, independently rebuilt comparison, event decisions, component summaries, per-quality/per-seed and mean counts, and all-pair complementarity. Original archive and model weights remain under ignored runs/.

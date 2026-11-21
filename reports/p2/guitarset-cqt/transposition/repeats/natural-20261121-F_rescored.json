@@ -1,0 +1,26 @@
+{
+  "root": {
+    "correct_seconds": 898.8838280791423,
+    "eligible_seconds": 1828.0726204081632,
+    "excluded_seconds": 7.800453515116601e-05,
+    "score": 0.4917112252785909
+  },
+  "majmin": {
+    "correct_seconds": 580.5324484980941,
+    "eligible_seconds": 1172.5197923621452,
+    "excluded_seconds": 655.5529060505531,
+    "score": 0.495115265669469
+  },
+  "triads": {
+    "correct_seconds": 582.7615641443527,
+    "eligible_seconds": 1828.0726204081632,
+    "excluded_seconds": 7.800453515116601e-05,
+    "score": 0.31878469030089
+  },
+  "tetrads": {
+    "correct_seconds": 457.3710435802038,
+    "eligible_seconds": 1828.0726204081632,
+    "excluded_seconds": 7.800453515116601e-05,
+    "score": 0.2501930385446527
+  }
+}

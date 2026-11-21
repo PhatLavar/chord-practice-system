@@ -1,0 +1,87 @@
+{
+  "teacher": "F",
+  "metrics": {
+    "root": {
+      "correct_seconds": 911.1453151712041,
+      "eligible_seconds": 1828.0726204081632,
+      "excluded_seconds": 7.800453515116601e-05,
+      "score": 0.49841855569598104
+    },
+    "majmin": {
+      "correct_seconds": 558.8006117085534,
+      "eligible_seconds": 1172.5197923621452,
+      "excluded_seconds": 655.5529060505531,
+      "score": 0.47658096293862984
+    },
+    "triads": {
+      "correct_seconds": 564.0018815498232,
+      "eligible_seconds": 1828.0726204081632,
+      "excluded_seconds": 7.800453515116601e-05,
+      "score": 0.30852268955480316
+    },
+    "tetrads": {
+      "correct_seconds": 448.4096284069155,
+      "eligible_seconds": 1828.0726204081632,
+      "excluded_seconds": 7.800453515116601e-05,
+      "score": 0.2452909273958694
+    }
+  },
+  "supported_oracle_event_accuracy": 0.3640552995391705,
+  "supported_events": 434,
+  "quality_supported_scope": {
+    "7": {
+      "events": 26,
+      "correct": 2,
+      "predicted": 19
+    },
+    "maj": {
+      "events": 194,
+      "correct": 124,
+      "predicted": 348
+    },
+    "hdim7": {
+      "events": 32,
+      "correct": 3,
+      "predicted": 3
+    },
+    "maj7": {
+      "events": 52,
+      "correct": 0,
+      "predicted": 2
+    },
+    "min7": {
+      "events": 36,
+      "correct": 4,
+      "predicted": 17
+    },
+    "min6": {
+      "events": 12,
+      "correct": 0,
+      "predicted": 0
+    },
+    "maj6": {
+      "events": 22,
+      "correct": 0,
+      "predicted": 0
+    },
+    "minmaj7": {
+      "events": 0,
+      "correct": 0,
+      "predicted": 1
+    },
+    "min": {
+      "events": 58,
+      "correct": 25,
+      "predicted": 44
+    },
+    "dim7": {
+      "events": 2,
+      "correct": 0,
+      "predicted": 0
+    }
+  },
+  "protocol": "Full audio duration with raw performed labels; gaps X. F predicted frame intervals; E gold intervals. Event accuracy restricted to complete-supported labels.",
+  "best_epoch": 28,
+  "evaluation_partition": "validation",
+  "smoke": false
+}

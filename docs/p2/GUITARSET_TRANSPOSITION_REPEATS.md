@@ -33,3 +33,20 @@ Inspect per-quality precision/recall and clean train/validation fit for all seed
 ## Local verification
 
 All 61 tests pass. Eight CPU smoke jobs (two epochs each) complete; natural and transposition records have the intended training seeds while retaining the original cache seed/provenance. The smoke aggregate contains only the two smoke seeds, not the full historical seed. Reinvoking the completed sequence reuses stages and produces an identical comparison file. Notebook code cells compile. Evidence is reports/p2/guitarset-cqt/transposition/repeat-setup/verification.json. Full GPU repeat results remain pending.
+
+## Full repeats imported and verified — 21 November 2026
+
+All eight full jobs at f9a5174 have completed and been independently verified. Plan/source/historical metric hashes match the source Git revision. Each job uses the intended seed, 30 epochs, original split/normalization and 47/119 updates per epoch for F/E. Checkpoint selection, saved predictions, official-reference identity inherited from the verified control, every per-quality count, full-duration metric rescoring and augmentation RNG counts match. Three-seed means, sample standard deviations and paired deltas were rebuilt and match comparison.json exactly. No new training was performed during import.
+
+| Teacher | Natural Tetrads mean ± sample SD | Transposition mean ± sample SD | Mean paired delta |
+|---|---:|---:|---:|
+| F | 24.67% ± 0.31 pp | 24.57% ± 0.82 pp | −0.10 pp |
+| E, gold boundaries | 28.40% ± 0.90 pp | 31.76% ± 0.61 pp | +3.36 pp |
+
+F gains only on seed 20261119 and loses on the two new seeds. E gains on every seed (+2.05, +3.27, +4.77 pp). This supports retaining natural for F and preferring transposition for E within this GuitarSet development protocol. It does not establish a statistically significant population effect, a new paper benchmark or improvement to the Billboard/JAAH teachers.
+
+Full-chord quality results remain mixed: F mean correct min events falls from 25 to 9 out of 58 per seed. For E, mean correct maj/min/7/min7/maj7 events improve, while hdim7 falls from 3 to 1 out of 32. Both arms still miss all min6/maj6/dim7 events. E's gain is therefore a measured overall-accuracy tradeoff, not a solution to rare harmony.
+
+With F natural fixed within each seed, switching E from natural to augmented increases oracle-union correct supported events 179→186, 181→195 and 183→208. This is an oracle upper bound, not an implemented fusion score. Complete-label agreement precision remains only 59.57%, 60.25%, 69.04% for the mixed-policy pair, without confidence filtering, on supported gold chord events. No pseudo-label policy is approved by this analysis.
+
+Keep original-seed F natural and E transposition as the primary development pair; retain all seed checkpoints and do not replace the primary pair merely with the best new seed. No further same-seed rerun is needed. Next work should address the low absolute accuracy and unresolved chord distinctions through a separately specified literature baseline or controlled intervention, retaining this comparison as evidence. Reports: reports/p2/guitarset-cqt/transposition/repeats/.

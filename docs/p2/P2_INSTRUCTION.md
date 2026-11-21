@@ -185,3 +185,5 @@ Update, 21 November 2026: the 02j ZIP is imported and independently verified. F/
 ## Current next run: matched-seed augmentation repeats
 
 Use **notebooks/02k_guitarset_transposition_repeats.ipynb**, following [GUITARSET_TRANSPOSITION_REPEATS.md](GUITARSET_TRANSPOSITION_REPEATS.md). It runs eight fresh jobs: natural/transposition × F/E × seeds 20261120/20261121. The full comparison also includes the verified historical first seed. Return **p2-guitarset-transpose-repeat-results.zip** to runs/imports/. This takes more GPU time than 02j; all jobs run sequentially with matching original budgets. Full repeat results are pending.
+
+Update, 21 November 2026: full repeats imported and independently verified. Mean Tetrads is F natural 24.67% vs transpose 24.57%, E natural 28.40% vs transpose 31.76%. Retain natural F and prefer transposition E for the GuitarSet development branch, with documented quality tradeoffs. No rerun of 02k is currently needed. Read the completed-result section in GUITARSET_TRANSPOSITION_REPEATS.md and P2_REPORT.md before further experiments.
