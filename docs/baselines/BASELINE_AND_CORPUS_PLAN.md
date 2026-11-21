@@ -1,6 +1,6 @@
 # Stage B: Literature baselines and corpus generalization
 
-Established: 21 November 2026, following the user's request to separate the new direction from P2. Status: B0 planning/source review; no new baseline training launched.
+Established: 21 November 2026, following the user's request to separate the new direction from P2. Status: B0 compatibility work in progress; author BTC source and I/O adapter are implemented. Only local training-window diagnostics are run; full B1 baseline training has not started. See [B0 BTC instructions](B0_BTC_INSTRUCTION.md).
 
 ## Research scope
 

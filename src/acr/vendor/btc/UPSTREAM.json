@@ -1,0 +1,70 @@
+{
+  "repository": "https://github.com/jayg996/BTC-ISMIR19",
+  "commit": "2682317be668032e6e4b269ded36adaa2ad57df0",
+  "license": "MIT, Copyright (c) 2019 Jonggwon Park",
+  "files": {
+    "btc_model.py": {
+      "upstream_sha256_utf8": "b8cc0b66f3e7bc92e9703ea408bce21d8a39b10c3133cb2ab569c285fceb3a27",
+      "vendored_sha256_lf": "a0cd0d4bc67ad1174d0306c399324065ea03fd174ad0b1ea6ebbeabd4a40c809"
+    },
+    "utils/transformer_modules.py": {
+      "upstream_sha256_utf8": "a68458094e1af876b021d3f955b70f52382c30a818bb51aff908ffec35310ece",
+      "vendored_sha256_lf": "628d6f3a82cd6b464b13807d2eb18d1085b654a94b6918b3b158f10c2f62cd35"
+    },
+    "LICENSE": {
+      "upstream_sha256_utf8": "7439cc22ff2efee600131dc5d800ab1204d8076a1a815d842a0319782520fc85",
+      "vendored_sha256_lf": "7439cc22ff2efee600131dc5d800ab1204d8076a1a815d842a0319782520fc85"
+    }
+  },
+  "class_ast_matches_upstream": {
+    "btc_model.py": [
+      "self_attention_block",
+      "bi_directional_self_attention",
+      "bi_directional_self_attention_layers",
+      "BTC_model"
+    ],
+    "utils/transformer_modules.py": [
+      "LayerNorm",
+      "OutputLayer",
+      "SoftmaxOutputLayer",
+      "MultiHeadAttention",
+      "Conv",
+      "PositionwiseFeedForward"
+    ]
+  },
+  "compatibility_changes": [
+    "btc_model.py: package-relative transformer imports; remove unused HParams import and standalone demo only",
+    "utils/transformer_modules.py: replace removed np.float alias with equivalent np.float64 in timing generation"
+  ],
+  "not_changed": [
+    "All model class computation, including author LayerNorm/std convention and final feed-forward ReLU",
+    "Unused output-layer LSTM parameters retained for state-dict compatibility",
+    "Forward/backward attention, masking, dropout and flat head"
+  ],
+  "reference_files_sha256_utf8": {
+    "run_config.yaml": "47ee1db8753d5e3cd2fceea1204c87e4d050ff54b59276f966ef4834962a8756",
+    "utils/chords.py": "c8bc54c36913073cf8fa55256a3e37fe291f8988828220d0ba0121250ca394fc",
+    "utils/mir_eval_modules.py": "d685d92597045737b233653c6568acdb565fceff9dc30355475bbb54e251f48e"
+  },
+  "all_168_label_ids_match_upstream_method": true,
+  "upstream_quality_order": [
+    "min",
+    "maj",
+    "dim",
+    "aug",
+    "min6",
+    "maj6",
+    "min7",
+    "minmaj7",
+    "maj7",
+    "7",
+    "dim7",
+    "hdim7",
+    "sus2",
+    "sus4"
+  ],
+  "special_decode": {
+    "168": "X",
+    "169": "N"
+  }
+}

@@ -33,6 +33,8 @@ The three-seed oracle-event comparison is verified: natural E averages 63.33% ov
 
 New baseline work is separate from the historical P2 oracle-event experiments. Follow the [Stage B plan](docs/baselines/BASELINE_AND_CORPUS_PLAN.md), [baseline review](docs/baselines/FRAME_EVENT_BASELINE_REVIEW.md) and [research log](docs/baselines/BASELINE_RESEARCH_LOG.md). B0 defines protocols and compatibility, B1 measures single-corpus baselines, B2 tests cross-corpus transfer and multi-corpus training, and B3 consolidates teacher policies. Existing datasets, code, checkpoints and negative results are preserved; a planning reset does not erase previous validation exposure. The original P3/student milestones remain separate and have not been completed by this reorganization.
 
+The author BTC source is pinned and its project I/O adapter is available. Follow [B0 BTC instructions](docs/baselines/B0_BTC_INSTRUCTION.md) for the local CPU compatibility/learning check. This is not full B1 training; TE-DS compatibility remains separate work.
+
 ## Project layout
 
 | Path | Purpose |

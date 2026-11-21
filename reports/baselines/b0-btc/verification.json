@@ -1,0 +1,212 @@
+{
+  "stage": "B0",
+  "protocol": "Fresh author BTC fixed-window train-only fit; no validation selection, no pretrained weights, no B1 benchmark.",
+  "config": {
+    "stage": "B0",
+    "seed": 20261119,
+    "data_config": "configs/p2-guitarset-cqt-player.json",
+    "cache": "data/processed/guitarset-cqt-player",
+    "model": {
+      "feature_size": 144,
+      "timestep": 108,
+      "num_chords": 170,
+      "input_dropout": 0.2,
+      "layer_dropout": 0.2,
+      "attention_dropout": 0.2,
+      "relu_dropout": 0.2,
+      "num_layers": 8,
+      "num_heads": 4,
+      "hidden_size": 128,
+      "total_key_depth": 128,
+      "total_value_depth": 128,
+      "filter_size": 128,
+      "loss": "ce",
+      "probs_out": true
+    },
+    "diagnostic": {
+      "learning_rate": 0.0001,
+      "max_updates": 300,
+      "windows": 4,
+      "pass_frame_accuracy": 0.95
+    }
+  },
+  "upstream_commit": "2682317be668032e6e4b269ded36adaa2ad57df0",
+  "vendor_manifest_sha256": "8a096b4a3c0265c000d7993b5f2ab531aa2d2ec5fd610cf8f827472d20008b91",
+  "cache_metadata_sha256": "85014f6b1a065d6f6d3ae08bb29a05794c180035ce39cb2be9ced2b6e2d22808",
+  "torch": "2.15.0+cpu",
+  "numpy": "2.5.5",
+  "parameters": 3036842,
+  "elapsed_seconds": 213.12199680000776,
+  "windows": [
+    {
+      "recording": "00_BN1-129-Eb_comp",
+      "start_frame": 108
+    },
+    {
+      "recording": "00_BN2-131-B_comp",
+      "start_frame": 108
+    },
+    {
+      "recording": "00_BN2-131-B_comp",
+      "start_frame": 216
+    },
+    {
+      "recording": "00_BN2-166-Ab_comp",
+      "start_frame": 0
+    }
+  ],
+  "scored_training_frames": 240,
+  "history": [
+    {
+      "update": 1,
+      "training_loss": 5.056056499481201,
+      "correct_frames": 39,
+      "clean_frame_accuracy": 0.1625
+    },
+    {
+      "update": 10,
+      "training_loss": 3.8057925701141357,
+      "correct_frames": 55,
+      "clean_frame_accuracy": 0.22916666666666666
+    },
+    {
+      "update": 20,
+      "training_loss": 3.3973000049591064,
+      "correct_frames": 133,
+      "clean_frame_accuracy": 0.5541666666666667
+    },
+    {
+      "update": 30,
+      "training_loss": 2.594081163406372,
+      "correct_frames": 133,
+      "clean_frame_accuracy": 0.5541666666666667
+    },
+    {
+      "update": 40,
+      "training_loss": 2.129801034927368,
+      "correct_frames": 150,
+      "clean_frame_accuracy": 0.625
+    },
+    {
+      "update": 50,
+      "training_loss": 1.7716046571731567,
+      "correct_frames": 159,
+      "clean_frame_accuracy": 0.6625
+    },
+    {
+      "update": 60,
+      "training_loss": 1.5069444179534912,
+      "correct_frames": 156,
+      "clean_frame_accuracy": 0.65
+    },
+    {
+      "update": 70,
+      "training_loss": 1.3443026542663574,
+      "correct_frames": 161,
+      "clean_frame_accuracy": 0.6708333333333333
+    },
+    {
+      "update": 80,
+      "training_loss": 1.1841260194778442,
+      "correct_frames": 183,
+      "clean_frame_accuracy": 0.7625
+    },
+    {
+      "update": 90,
+      "training_loss": 1.0625485181808472,
+      "correct_frames": 184,
+      "clean_frame_accuracy": 0.7666666666666667
+    },
+    {
+      "update": 100,
+      "training_loss": 0.960687518119812,
+      "correct_frames": 187,
+      "clean_frame_accuracy": 0.7791666666666667
+    },
+    {
+      "update": 110,
+      "training_loss": 0.8472863435745239,
+      "correct_frames": 212,
+      "clean_frame_accuracy": 0.8833333333333333
+    },
+    {
+      "update": 120,
+      "training_loss": 0.7479589581489563,
+      "correct_frames": 213,
+      "clean_frame_accuracy": 0.8875
+    },
+    {
+      "update": 130,
+      "training_loss": 0.6689379811286926,
+      "correct_frames": 214,
+      "clean_frame_accuracy": 0.8916666666666667
+    },
+    {
+      "update": 140,
+      "training_loss": 0.5944935083389282,
+      "correct_frames": 213,
+      "clean_frame_accuracy": 0.8875
+    },
+    {
+      "update": 150,
+      "training_loss": 0.4949917197227478,
+      "correct_frames": 227,
+      "clean_frame_accuracy": 0.9458333333333333
+    },
+    {
+      "update": 160,
+      "training_loss": 0.4658167064189911,
+      "correct_frames": 228,
+      "clean_frame_accuracy": 0.95
+    }
+  ],
+  "pass_check": true,
+  "full_track_output_shape": [
+    170,
+    241
+  ],
+  "evaluation_partition": "training",
+  "source_sha256": {
+    "C:/Users/ADMIN/Desktop/chord-practice-system/src/acr/check_btc_b0.py": "8800242afbf0c6028935efcf13cd20d5c33f770b5d9cc4f265b4af0413afcb39",
+    "src/acr/btc_adapter.py": "7f7d1ea5037f372ee79cf869c4c0da7e17c9f0019abf537afc56d48eddf9d241"
+  },
+  "selected_quality_frame_counts": {
+    "maj7": 90,
+    "maj": 20,
+    "min7": 59,
+    "min": 39,
+    "min6": 16,
+    "7": 16
+  },
+  "tests_passed": 66,
+  "checkpoint_sha256": "d9df203695a921abf80e1960baf649c561bc4dfd314f0289c87de7d9fec3489a",
+  "local_output": "runs/b0-btc-verified",
+  "selected_frame_quality_results": {
+    "maj": {
+      "frames": 20,
+      "correct": 19
+    },
+    "min": {
+      "frames": 39,
+      "correct": 39
+    },
+    "min6": {
+      "frames": 16,
+      "correct": 16
+    },
+    "7": {
+      "frames": 16,
+      "correct": 5
+    },
+    "min7": {
+      "frames": 59,
+      "correct": 59
+    },
+    "maj7": {
+      "frames": 90,
+      "correct": 90
+    }
+  },
+  "ignored_frames": 192,
+  "checkpoint_reload_accuracy_verified": true
+}

@@ -33,6 +33,8 @@ Mở `timeline.svg` trong thư mục đầu ra để xem phạm vi các khoảng
 
 Hướng baseline mới được tách khỏi lịch sử thí nghiệm oracle event P2. Xem [kế hoạch Stage B](baselines/BASELINE_AND_CORPUS_PLAN.md), [đánh giá baseline](baselines/FRAME_EVENT_BASELINE_REVIEW.md) và [nhật ký nghiên cứu](baselines/BASELINE_RESEARCH_LOG.md). B0 chốt protocol và tính tương thích, B1 đánh giá riêng từng corpus, B2 kiểm tra chuyển corpus và train đa corpus, B3 tổng hợp chính sách teacher. Giữ lại dữ liệu, code, checkpoint và kết quả âm; reset kế hoạch không làm mất lịch sử sử dụng validation. P3/student trong kế hoạch gốc vẫn là các mốc riêng và chưa được hoàn thành bởi việc tổ chức lại này.
 
+Đã cố định source BTC của tác giả và có adapter I/O cho project. Xem [hướng dẫn B0 BTC](baselines/B0_BTC_INSTRUCTION.md) để chạy kiểm tra tương thích và học trên tập nhỏ bằng CPU. Đây chưa phải full training B1; phần tương thích TE-DS vẫn là công việc riêng.
+
 ## Bố cục
 
 | Đường dẫn | Nội dung |
