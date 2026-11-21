@@ -2,7 +2,7 @@
 
 [English](../README.md) · **Tiếng Việt**
 
-Hệ thống phân tích bản thu để tạo hai dòng thời gian độc lập cho người luyện nhạc: hợp âm và ranh giới giữa các phần của bài. Đã hoàn tất bước kiểm dữ liệu (P0). Huấn luyện và đánh giá mô hình là các bước tiếp theo. [Model Architecture Plan v1.2, mục 7 và 13](https://drive.google.com/file/d/1gmz-JaN6I_5oCi65DYxmTpX5nlbG2_tO/view)
+Hệ thống phân tích bản thu để tạo hai dòng thời gian độc lập cho người luyện nhạc: hợp âm và ranh giới giữa các phần của bài. Đã có báo cáo P0 và các thí nghiệm thăm dò F/E. Công việc hiện tại chuyển sang Stage B: baseline từ literature và khả năng khái quát giữa các corpus. [Model Architecture Plan v1.2 ban đầu, mục 7 và 13](https://drive.google.com/file/d/1gmz-JaN6I_5oCi65DYxmTpX5nlbG2_tO/view)
 
 ## Khởi động trên Windows
 
@@ -28,6 +28,10 @@ Mở `timeline.svg` trong thư mục đầu ra để xem phạm vi các khoảng
 ## P2 · Event teacher với biên chuẩn
 
 Đã có teacher E và mốc so sánh F cố định. Xem [hướng dẫn P2](p2/P2_INSTRUCTION.md), [báo cáo P2](p2/P2_REPORT.md) và [notebook](../notebooks/02_teacher_e_oracle.ipynb). Đã kiểm chứng ba seed P2: E natural đạt trung bình 63,33% event accuracy; mixture 25% đạt 60,58% accuracy và 7,88% rare macro recall với biên chuẩn. Báo cáo ghi rõ giới hạn precision và số bài hỗ trợ.
+
+## Stage B hiện tại · Literature baselines và khái quát giữa các corpus
+
+Hướng baseline mới được tách khỏi lịch sử thí nghiệm oracle event P2. Xem [kế hoạch Stage B](baselines/BASELINE_AND_CORPUS_PLAN.md), [đánh giá baseline](baselines/FRAME_EVENT_BASELINE_REVIEW.md) và [nhật ký nghiên cứu](baselines/BASELINE_RESEARCH_LOG.md). B0 chốt protocol và tính tương thích, B1 đánh giá riêng từng corpus, B2 kiểm tra chuyển corpus và train đa corpus, B3 tổng hợp chính sách teacher. Giữ lại dữ liệu, code, checkpoint và kết quả âm; reset kế hoạch không làm mất lịch sử sử dụng validation. P3/student trong kế hoạch gốc vẫn là các mốc riêng và chưa được hoàn thành bởi việc tổ chức lại này.
 
 ## Bố cục
 

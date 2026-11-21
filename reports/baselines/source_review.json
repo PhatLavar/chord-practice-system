@@ -1,5 +1,6 @@
 {
   "review_date": "2026-11-21",
+  "stage": "B0",
   "status": "Read-only source/code review; no upstream model imported or executed",
   "reviewed_files": [
     {

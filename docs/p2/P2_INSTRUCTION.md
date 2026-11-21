@@ -1,5 +1,7 @@
 # P2 instructions · Oracle event teacher E
 
+Status, 21 November 2026: retained as historical exploratory instructions. New literature-baseline and corpus-generalization work belongs to [Stage B](../baselines/BASELINE_AND_CORPUS_PLAN.md). Existing P2 notebooks remain reproducible; this handoff does not certify all original teacher-reliability goals as achieved.
+
 P2 tests whether an event-supervised teacher makes errors different from frame teacher F. The experiment supplies reference interval times to both teachers. Recognition quality and complementarity are measured on those same intervals. Predicted chord boundaries belong to P3.
 
 ## Architecture and files
@@ -188,6 +190,6 @@ Use **notebooks/02k_guitarset_transposition_repeats.ipynb**, following [GUITARSE
 
 Update, 21 November 2026: full repeats imported and independently verified. Mean Tetrads is F natural 24.67% vs transpose 24.57%, E natural 28.40% vs transpose 31.76%. Retain natural F and prefer transposition E for the GuitarSet development branch, with documented quality tradeoffs. No rerun of 02k is currently needed. Read the completed-result section in GUITARSET_TRANSPOSITION_REPEATS.md and P2_REPORT.md before further experiments.
 
-## Next stage: stronger literature baselines
+## Handoff: stronger literature baselines in Stage B
 
-Read [FRAME_EVENT_BASELINE_REVIEW.md](FRAME_EVENT_BASELINE_REVIEW.md). Prioritize BTC large-vocabulary for the frame reproduction anchor and TE-DS for genuine event-sequence modeling; stage ChordFormer and pTE-DS as subsequent increments. Compatibility, vocabulary/time mapping and smoke checks come before a new Kaggle notebook. This review supplies source-backed choices and an execution plan, not a trained replacement. Existing oracle E remains a separate evaluation track.
+Read [the relocated baseline review](../baselines/FRAME_EVENT_BASELINE_REVIEW.md) and [Stage B plan](../baselines/BASELINE_AND_CORPUS_PLAN.md). Prioritize BTC large-vocabulary for the frame reproduction anchor and TE-DS for genuine event-sequence modeling; stage ChordFormer and pTE-DS as subsequent increments. Compatibility, vocabulary/time mapping and smoke checks come before a new Kaggle notebook. Subsequent baseline and corpus results are recorded in Stage B, not appended here. Existing oracle E remains a separate evaluation track.

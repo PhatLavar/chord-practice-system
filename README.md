@@ -2,7 +2,7 @@
 
 **English** · [Tiếng Việt](docs/README-VIE.md)
 
-This project aims to help musicians practice with a recording by providing two independent timelines. One shows the chords and when they change. The other marks boundaries between musical sections. The corpus audit (P0) is complete. Model training and evaluation are planned. [Model Architecture Plan v1.2, sections 7 and 13](https://drive.google.com/file/d/1gmz-JaN6I_5oCi65DYxmTpX5nlbG2_tO/view)
+This project aims to help musicians practice with a recording by providing two independent timelines. One shows the chords and when they change. The other marks boundaries between musical sections. The P0 audit and exploratory F/E experiments are documented. Current work is Stage B: literature baselines and corpus generalization. [Original Model Architecture Plan v1.2, sections 7 and 13](https://drive.google.com/file/d/1gmz-JaN6I_5oCi65DYxmTpX5nlbG2_tO/view)
 
 ## Windows setup
 
@@ -28,6 +28,10 @@ The first Kaggle baseline is complete: 57.11% whole-chord validation frame accur
 ## P2 oracle event teacher
 
 The three-seed oracle-event comparison is verified: natural E averages 63.33% overall accuracy; the 25% mixture averages 60.58% overall accuracy and 7.88% rare macro recall. The report records precision and support limitations. See [P2 instructions](docs/p2/P2_INSTRUCTION.md), [P2 report](docs/p2/P2_REPORT.md) and [the oracle notebook](notebooks/02_teacher_e_oracle.ipynb).
+
+## Current stage B · Literature baselines and corpus generalization
+
+New baseline work is separate from the historical P2 oracle-event experiments. Follow the [Stage B plan](docs/baselines/BASELINE_AND_CORPUS_PLAN.md), [baseline review](docs/baselines/FRAME_EVENT_BASELINE_REVIEW.md) and [research log](docs/baselines/BASELINE_RESEARCH_LOG.md). B0 defines protocols and compatibility, B1 measures single-corpus baselines, B2 tests cross-corpus transfer and multi-corpus training, and B3 consolidates teacher policies. Existing datasets, code, checkpoints and negative results are preserved; a planning reset does not erase previous validation exposure. The original P3/student milestones remain separate and have not been completed by this reorganization.
 
 ## Project layout
 

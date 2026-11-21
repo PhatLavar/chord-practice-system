@@ -1,6 +1,6 @@
 # Selecting stronger frame and event audio baselines
 
-Review date: 21 November 2026. Status: paper and source-code review completed; upstream models have not been installed, executed or trained locally. Findings support a reproduction plan, not a claim that either model improves GuitarSet.
+Review date: 21 November 2026. Stage: B0, literature baselines and corpus generalization. Status: paper and source-code review completed; upstream models have not been installed, executed or trained locally. Findings support a reproduction plan, not a claim that either model improves GuitarSet. See [the new stage plan](BASELINE_AND_CORPUS_PLAN.md).
 
 ## Recommendation
 
@@ -63,4 +63,4 @@ TE-DS is not a drop-in replacement for the existing four independent factor head
 5. After smoke and small-set fitting succeed, prespecify a single-seed screening and repeat promising configurations. Compare overall duration Tetrads, common-label metrics, per-quality tradeoffs and segmentation. For event models, distinguish sequence errors from boundary errors with separate diagnostics.
 6. Add pTE-DS pretraining and ChordFormer as later, independently measured increments. GuitarSet remains a small known-repertoire development source; reproducing paper headline results still requires matching benchmark audio, labels, folds and evaluation.
 
-No new Kaggle notebook or training result is supplied by this review. The next concrete work is the pinned-code compatibility and I/O-adapter stage, not another run of 02k. Source review evidence is reports/p2/baseline-review/source_review.json.
+No new Kaggle notebook or training result is supplied by this review. The next concrete work is the pinned-code compatibility and I/O-adapter stage, not another run of 02k. Source review evidence is reports/baselines/source_review.json.
