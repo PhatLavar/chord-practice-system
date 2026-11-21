@@ -111,12 +111,19 @@ def evaluate(model, teacher, songs, references, device, batch_size, output=None)
     return result
 
 
+def resolve_cache_config(cfg):
+    if 'cache_config' not in cfg:return cfg
+    cached=json.loads(Path(cfg['cache_config']).read_text())
+    expected=dict(cached,seed=cfg['seed'])
+    if {k:v for k,v in cfg.items() if k not in ('cache_config','augmentation')}!=expected:
+        raise ValueError('Only seed and augmentation may differ from the cached control config')
+    return cached
+
+
 def train(cache, config, output, device, smoke=False):
     if output.exists():raise FileExistsError('Use a fresh run directory')
     cfg=json.loads(config.read_text())
-    cache_cfg=json.loads(Path(cfg['cache_config']).read_text()) if 'cache_config' in cfg else cfg
-    if 'cache_config' in cfg and {k:v for k,v in cfg.items() if k not in ('cache_config','augmentation')}!=cache_cfg:
-        raise ValueError('Augmentation arm must match the cached control config')
+    cache_cfg=resolve_cache_config(cfg)
     songs,refs,meta=load_cache(cache,cache_cfg,smoke)
     augmentation=cfg.get('augmentation')
     if augmentation:

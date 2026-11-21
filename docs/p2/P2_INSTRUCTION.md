@@ -181,3 +181,7 @@ Update, 21 November 2026: the full 02i ZIP is imported and verified. F/E validat
 After the frozen train/validation component audit, use **notebooks/02j_guitarset_transposition_teachers.ipynb** following [GUITARSET_TRANSPOSITION_EXPERIMENT.md](GUITARSET_TRANSPOSITION_EXPERIMENT.md). It trains fresh F and E with training-only CQT/root-label transposition and unchanged 02i split, architecture and update budget. Reuse the original CQT cache, not original model weights. Return **p2-guitarset-cqt-transpose-results.zip** to runs/imports/. This single-seed augmentation ablation has no full GPU result yet.
 
 Update, 21 November 2026: the 02j ZIP is imported and independently verified. F/E Tetrads increases by 1.06/2.05 percentage points, with mixed per-quality outcomes. Read the full result section before interpreting the gain. No rerun of the original-seed notebook is required; matched-seed repeats are the proposed next experiment and have not run.
+
+## Current next run: matched-seed augmentation repeats
+
+Use **notebooks/02k_guitarset_transposition_repeats.ipynb**, following [GUITARSET_TRANSPOSITION_REPEATS.md](GUITARSET_TRANSPOSITION_REPEATS.md). It runs eight fresh jobs: natural/transposition × F/E × seeds 20261120/20261121. The full comparison also includes the verified historical first seed. Return **p2-guitarset-transpose-repeat-results.zip** to runs/imports/. This takes more GPU time than 02j; all jobs run sequentially with matching original budgets. Full repeat results are pending.

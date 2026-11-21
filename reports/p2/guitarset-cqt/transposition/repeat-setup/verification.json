@@ -1,0 +1,77 @@
+{
+  "status": "Eight CPU smoke jobs complete; full GPU repeats pending",
+  "tests_passed": 61,
+  "notebook_code_cells_compile": true,
+  "completed_stage_reuse_preserves_comparison": true,
+  "historical_full_metrics_excluded_from_smoke": true,
+  "jobs": [
+    {
+      "seed": 20261120,
+      "arm": "natural",
+      "teacher": "F",
+      "epochs": 2,
+      "steps_per_epoch": 1,
+      "checkpoint_sha256": "d4b7d6587dd9f1f94417ab84847b27f124896a5e7f81d3f43365146943d0ba2b"
+    },
+    {
+      "seed": 20261120,
+      "arm": "natural",
+      "teacher": "E",
+      "epochs": 2,
+      "steps_per_epoch": 1,
+      "checkpoint_sha256": "95b21f892803142a84f63157f5b40eeb090ccd50be031a9ae7a4cb4bddf2b7fd"
+    },
+    {
+      "seed": 20261120,
+      "arm": "transpose",
+      "teacher": "F",
+      "epochs": 2,
+      "steps_per_epoch": 1,
+      "checkpoint_sha256": "fa4591d30d9bf1b64b6d3bc45c6cbf03b7f825d58d96c940da525cbf8fbda719"
+    },
+    {
+      "seed": 20261120,
+      "arm": "transpose",
+      "teacher": "E",
+      "epochs": 2,
+      "steps_per_epoch": 1,
+      "checkpoint_sha256": "c685a6157489a6ee8d163d8f4154763f9713e9d523ec8dc9073e75a50df381a0"
+    },
+    {
+      "seed": 20261121,
+      "arm": "natural",
+      "teacher": "F",
+      "epochs": 2,
+      "steps_per_epoch": 1,
+      "checkpoint_sha256": "4cae01984a45420db3d9084b54154a15f9aee872b746deb67b62995074e69d54"
+    },
+    {
+      "seed": 20261121,
+      "arm": "natural",
+      "teacher": "E",
+      "epochs": 2,
+      "steps_per_epoch": 1,
+      "checkpoint_sha256": "aa5fb880521c7dd2f284b43b255abc8521d0a46f73a9b4d907dbeedba8fc00dd"
+    },
+    {
+      "seed": 20261121,
+      "arm": "transpose",
+      "teacher": "F",
+      "epochs": 2,
+      "steps_per_epoch": 1,
+      "checkpoint_sha256": "849bc12aeb5d2eb0e17da11d5581fc78802c2ceae4f335d6bf0f14d6305b756e"
+    },
+    {
+      "seed": 20261121,
+      "arm": "transpose",
+      "teacher": "E",
+      "epochs": 2,
+      "steps_per_epoch": 1,
+      "checkpoint_sha256": "294a4d4f5e78f05d1df41c1a643737b2895bd8da31f3fe15633aed5983c02e61"
+    }
+  ],
+  "source_sha256": {
+    "src/acr/repeat_guitarset.py": "05c895c84383da2e373a07b48da754d38acdc707107a4adadaa6b4b6503e0ea6",
+    "src/acr/train_guitarset_cqt.py": "0d6e6be9070e38001553b93bf1fca3e82c1c7aee782e9da4fe250ae9e98e652d"
+  }
+}

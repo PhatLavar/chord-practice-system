@@ -18,6 +18,28 @@ from teacher_e import EventTeacher
 
 @unittest.skipIf(extract is None,'Install requirements-audio.txt')
 class GuitarSetCQT(unittest.TestCase):
+    def test_repeat_seed_can_reuse_only_compatible_cache(self):
+        from train_guitarset_cqt import resolve_cache_config
+        original=json.loads(Path('configs/p2-guitarset-cqt-player.json').read_text())
+        cfg=dict(original,seed=20261120,cache_config='configs/p2-guitarset-cqt-player.json')
+        self.assertEqual(resolve_cache_config(cfg),original)
+        with self.assertRaises(ValueError):resolve_cache_config(dict(cfg,fold=1))
+        with self.assertRaises(ValueError):resolve_cache_config(dict(cfg,learning_rate=.01))
+
+    def test_repeat_aggregate_uses_paired_deltas_and_sample_std(self):
+        from repeat_guitarset import aggregate
+        rows=[]
+        for teacher in ['F','E']:
+            for seed,a,b in [(1,.1,.3),(2,.3,.2)]:
+                rows.append(dict(teacher=teacher,seed=seed,
+                    natural={k:a for k in ['root','majmin','triads','tetrads','event_accuracy']},
+                    transpose={k:b for k in ['root','majmin','triads','tetrads','event_accuracy']}))
+        result=aggregate(rows)
+        for teacher in ['F','E']:
+            self.assertAlmostEqual(result[teacher]['tetrads']['natural']['mean'],.2)
+            self.assertAlmostEqual(result[teacher]['tetrads']['paired_delta']['mean'],.05)
+            self.assertAlmostEqual(result[teacher]['tetrads']['natural']['sample_std'],np.sqrt(.02))
+
     def test_cqt_transposition_labels_padding_and_no_wrap(self):
         from augment_cqt import transpose_batch
         x=torch.arange(1,25,dtype=torch.float32).reshape(1,8,3)
