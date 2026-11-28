@@ -62,7 +62,9 @@ def run(raw, out):
             end_delta = ""
             status = "eligible"
             if i not in labels or i not in chroma:
-                status = "missing " + "/".join(k for k, source in (("labels", labels), ("features", chroma)) if i not in source)
+                status = "missing " + "/".join(
+                    k for k, source in (("labels", labels), ("features", chroma)) if i not in source
+                )
             else:
                 song = tuple(meta[k].strip().casefold() for k in ("artist", "title"))
                 if not all(song):
@@ -73,7 +75,10 @@ def run(raw, out):
                     parent[b] = a
                 try:
                     lines = lab.extractfile(labels[i]).read().decode().splitlines()
-                    zero = sum(float(a) == float(b) for a,b,_ in (line.split() for line in lines if line.strip()))
+                    zero = sum(
+                        float(a) == float(b)
+                        for a, b, _ in (line.split() for line in lines if line.strip())
+                    )
                     ev = read_events(lines)
                     last = 0
                     for time, label, *_ in aligned_frames(io.StringIO(data.decode()), ev):
@@ -89,7 +94,11 @@ def run(raw, out):
                 except ValueError as exc:
                     status = str(exc)
             inventory.append([i, status, frames, covered, end_delta, zero])
-    table(out / "inventory.csv", "id status frames labeled_frames end_delta_seconds zero_intervals", sorted(inventory))
+    table(
+        out / "inventory.csv",
+        "id status frames labeled_frames end_delta_seconds zero_intervals",
+        sorted(inventory),
+    )
     groups = defaultdict(list)
     for i in valid:
         groups[group(i)].append(i)
@@ -98,8 +107,13 @@ def run(raw, out):
     n = len(ids)
     partitions = {}
     for j, g in enumerate(ids):
-        partitions[g] = ("train_labeled" if j < n//2 else "train_hidden" if j < n*7//10
-                         else "validation" if j < n*85//100 else "test")
+        partitions[g] = (
+            "train_labeled"
+            if j < n // 2
+            else (
+                "train_hidden" if j < n * 7 // 10 else "validation" if j < n * 85 // 100 else "test"
+            )
+        )
     manifest = []
     stats = defaultdict(list)
     symbols = set()
@@ -112,37 +126,56 @@ def run(raw, out):
             continue
         # Merge touching repeated targets; keep different unsupported symbols distinct.
         merged = []
-        for a,b,s in events[rep]:
+        for a, b, s in events[rep]:
             symbols.add(s)
-            q,root,_,_ = mapping(s)
+            q, root, _, _ = mapping(s)
             key = (q, root, s if q == "OOV" else "")
             if merged and merged[-1][1] == a and merged[-1][2] == key:
                 merged[-1][1] = b
             else:
-                merged.append([a,b,key])
-        for a,b,(q,root,_) in merged:
-            stats[q].append((g, root, b-a))
+                merged.append([a, b, key])
+        for a, b, (q, root, _) in merged:
+            stats[q].append((g, root, b - a))
     table(out / "manifest.csv", "id group representative partition artist title", sorted(manifest))
     total = sum(len(stats[q]) for q in COMPONENTS)
     quality_rows = []
     for q in sorted(set(stats) | COMPONENTS.keys()):
         v = stats[q]
-        quality_rows.append([q,len(v),len({g for g,_,_ in v}),len({r for _,r,_ in v if r != ""}),
-                             round(sum(d for _,_,d in v),3), q in COMPONENTS and 0 < len(v) < total*.01])
+        quality_rows.append(
+            [
+                q,
+                len(v),
+                len({g for g, _, _ in v}),
+                len({r for _, r, _ in v if r != ""}),
+                round(sum(d for _, _, d in v), 3),
+                q in COMPONENTS and 0 < len(v) < total * 0.01,
+            ]
+        )
     table(out / "qualities.csv", "quality events songs roots seconds rare", quality_rows)
-    table(out / "symbols.csv", "symbol quality root_pc triad extension", ([s,*mapping(s)] for s in sorted(symbols)))
+    table(
+        out / "symbols.csv",
+        "symbol quality root_pc triad extension",
+        ([s, *mapping(s)] for s in sorted(symbols)),
+    )
     artists = defaultdict(set)
-    for _,_,_,split,artist,_ in manifest:
+    for _, _, _, split, artist, _ in manifest:
         artists[split].add(artist.casefold())
     hashes = {}
     for name in ("index.csv", "full.tar.xz", "billboard-2.0-chordino.tar.xz"):
         with (raw / name).open("rb") as input_file:
             hashes[name] = hashlib.file_digest(input_file, "sha256").hexdigest()
-    summary = dict(groups=dict(Counter(partitions.values())), eligible_slots=len(valid),
-                   paired=len(labels.keys() & chroma), indexed=len(index),
-                   artist_credit_overlap={f"{a}/{b}":len(artists[a]&artists[b]) for a,b in itertools.combinations(sorted(artists),2)},
-                   source_sha256=hashes)
-    (out / "summary.json").write_text(json.dumps(summary,indent=2)+"\n")
+    summary = dict(
+        groups=dict(Counter(partitions.values())),
+        eligible_slots=len(valid),
+        paired=len(labels.keys() & chroma),
+        indexed=len(index),
+        artist_credit_overlap={
+            f"{a}/{b}": len(artists[a] & artists[b])
+            for a, b in itertools.combinations(sorted(artists), 2)
+        },
+        source_sha256=hashes,
+    )
+    (out / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     print(json.dumps(summary, indent=2))
 
 

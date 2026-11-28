@@ -34,6 +34,12 @@ Group code by responsibility and corpus, not by a new class/file for each run. F
 
 Do not merge unrelated CLI scripts into one large class just to reduce the file count. Sampling policies, training and statistical comparisons have different state and verification needs. Add configuration to an existing experiment family when behavior is shared; create a new module only for a distinct responsibility. Package __init__.py files mark boundaries and do not eagerly import GPU/audio dependencies.
 
+## Python readability
+
+Use four-space indentation, spaces around operators and after commas, and one statement per line. Expand inline if/else/raise/continue bodies. Inside functions, separate meaningful steps with a blank line, such as validation, batch preparation, transformation, optimization and result writing. Keep closely related operations together; a blank line after every statement adds noise. Wrap long expressions instead of compressing them onto one line.
+
+Black settings in pyproject.toml define a 100-character target and Python 3.11 syntax. Black is an optional local development tool, not a training dependency. The formatting pass on 28 November 2026 used Black 26.10.1. After installing that tool, run python -m black src/acr tests tools and use --check for a formatting check. Notebook code cells follow the same style. Add blank lines between logical steps manually: the formatter preserves those groupings rather than deciding them. Pinned vendor code is excluded so its provenance remains intact. Formatting changes must preserve parsed Python behavior and pass the existing tests.
+
 ## Experiments, instructions and evidence
 
 ```text

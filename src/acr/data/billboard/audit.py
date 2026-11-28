@@ -44,7 +44,6 @@ def reference_events(lines):
     return merged
 
 
-
 def aligned_frames(stream, events):
     starts = [start for start, _, _ in events]
     previous = -math.inf
@@ -66,6 +65,7 @@ def audit(recording, data_root, output):
     labels = data_root / "billboard-2.0.1-lab" / recording / "full.lab"
     features = data_root / "billboard-2.0-chordino" / recording / "bothchroma.csv"
     if (data_root / "billboard-2.0-chordino.tar.xz").is_file():
+
         def read_member(archive, filename):
             with tarfile.open(data_root / archive, "r|xz") as tar:
                 for member in tar:
@@ -74,7 +74,11 @@ def audit(recording, data_root, output):
             raise ValueError(f"{recording}/{filename} missing from {archive}")
 
         events = read_events(read_member("full.tar.xz", "full.lab").splitlines())
-        rows = list(aligned_frames(io.StringIO(read_member("billboard-2.0-chordino.tar.xz", "bothchroma.csv")), events))
+        rows = list(
+            aligned_frames(
+                io.StringIO(read_member("billboard-2.0-chordino.tar.xz", "bothchroma.csv")), events
+            )
+        )
     else:
         events = read_events(labels.read_text().splitlines())
         with features.open(newline="") as stream:
@@ -92,13 +96,17 @@ def audit(recording, data_root, output):
     duration = max(events[-1][1], rows[-1][0])
     scale = 1000 / duration
     palette = {label: (i * 137) % 360 for i, label in enumerate(sorted(set(e[2] for e in events)))}
-    svg = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 150">',
-           '<rect width="100%" height="100%" fill="white"/>',
-           '<g transform="translate(10,0)"><text y="18">Reference chords (hover for labels)</text>']
+    svg = [
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 150">',
+        '<rect width="100%" height="100%" fill="white"/>',
+        '<g transform="translate(10,0)"><text y="18">Reference chords (hover for labels)</text>',
+    ]
     for start, end, label in events:
-        svg.append(f'<rect x="{start*scale}" y="27" width="{(end-start)*scale}" height="28" '
-                   f'fill="hsl({palette[label]},55%,55%)"><title>{escape(label)} '
-                   f'{start:.3f}–{end:.3f} s</title></rect>')
+        svg.append(
+            f'<rect x="{start*scale}" y="27" width="{(end-start)*scale}" height="28" '
+            f'fill="hsl({palette[label]},55%,55%)"><title>{escape(label)} '
+            f"{start:.3f}–{end:.3f} s</title></rect>"
+        )
     svg.append('<text y="78">Chroma frames (red = outside annotation)</text>')
     for time, label, *_ in rows:
         color = "#19756a" if label else "#da322c"
@@ -106,9 +114,14 @@ def audit(recording, data_root, output):
     for second in range(0, int(duration) + 1, max(1, math.ceil(duration / 10))):
         svg.append(f'<text x="{second*scale}" y="126">{second}s</text>')
     (output / "timeline.svg").write_text("\n".join(svg + ["</g></svg>"]), encoding="utf-8")
-    summary = dict(recording=recording, annotation_intervals=len(events), frames=len(rows),
-                   labeled_frames=sum(bool(row[1]) for row in rows),
-                   last_frame_s=rows[-1][0], annotation_end_s=events[-1][1])
+    summary = dict(
+        recording=recording,
+        annotation_intervals=len(events),
+        frames=len(rows),
+        labeled_frames=sum(bool(row[1]) for row in rows),
+        last_frame_s=rows[-1][0],
+        annotation_end_s=events[-1][1],
+    )
     (output / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
     return summary
 

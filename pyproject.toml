@@ -14,3 +14,8 @@ include = ["acr*"]
 
 [tool.setuptools.package-data]
 "acr.vendor.btc" = ["LICENSE", "UPSTREAM.md", "UPSTREAM.json"]
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+force-exclude = '/src/acr/vendor/'
