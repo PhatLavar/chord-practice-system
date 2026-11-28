@@ -25,7 +25,7 @@ The current GuitarSet complete-label policy masks OOV rather than treating it as
 
 ## CQT and time contract
 
-Load the existing verified player cache under configs/p2-guitarset-cqt-player.json. Normalization uses training players 00–03 only; raw archive hashes, recording IDs and cache contents are checked by the existing loader. Actual frame timestamps are n×2048/22050 seconds. Frame targets use start-inclusive/end-exclusive membership in performed-label intervals.
+Load the existing verified player cache under configs/p2/p2-guitarset-cqt-player.json. Normalization uses training players 00–03 only; raw archive hashes, recording IDs and cache contents are checked by the existing loader. Actual frame timestamps are n×2048/22050 seconds. Frame targets use start-inclusive/end-exclusive membership in performed-label intervals.
 
 BTCFrame accepts B×144×108 normalized input and returns B×170×108 raw logits. It does not add the TCN's 31-frame context. For full-track I/O checks, predict_frames tiles consecutive non-overlapping 108-frame windows, pads only the last window with zero in normalized coordinates, trims padded outputs and preserves the original frame count/order. There is no key-padding mask in the author architecture, so padded tail frames can influence real predictions in that last window. This policy must be reported in a benchmark recipe; it is not asserted to match the original author's inference preprocessing.
 
@@ -34,7 +34,7 @@ Feature dimensions alone do not establish original-recipe equivalence. Our cache
 ## Local command
 
 ```powershell
-.venv/Scripts/python.exe src/acr/check_btc_b0.py
+.venv/Scripts/python.exe -m acr.experiments.baselines.btc_check
 ```
 
 Requires the existing full data/processed/guitarset-cqt-player cache. Output defaults to a fresh runs/b0-btc-compatibility directory; an existing output is rejected. A different path can be selected with --output. The diagnostic verifies vendor hashes, chooses four train-only natural windows with distinct dominant supported qualities, requires at least 16 scored chord frames per window, and uses a fixed full batch. No validation score or test recording selects the windows or stop point.

@@ -3,13 +3,15 @@ import sys
 import unittest
 from pathlib import Path
 
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"src/acr"))
+
 import numpy as np
 import torch
-from p1_data import encode, CLASSES
-from teacher_f import targets, losses, decode
-from train_f import Windows, QualityBalancedWindows, component_weights
-from diagnose_f import probabilities, decode_components, reference_events
+from acr.vocabulary import encode, CLASSES
+from acr.models.components import targets, losses, decode
+from acr.data.windows import Windows, QualityBalancedWindows
+from acr.training.frame import component_weights
+from acr.evaluation.frame import probabilities, decode_components
+from acr.data.billboard.audit import reference_events
 
 
 class P1Tests(unittest.TestCase):

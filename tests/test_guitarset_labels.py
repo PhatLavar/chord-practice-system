@@ -2,9 +2,9 @@ import sys
 from pathlib import Path
 import unittest
 
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src/acr'))
+
 try:
-    from guitarset_labels import map_symbol, progression_signature, fold_role
+    from acr.data.guitarset.labels import map_symbol, progression_signature, fold_role
 except ModuleNotFoundError as error:
     if error.name!='mir_eval':raise
     map_symbol=None

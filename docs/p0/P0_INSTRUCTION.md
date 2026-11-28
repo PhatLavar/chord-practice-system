@@ -19,7 +19,7 @@ The original P0 run used chroma from the Kaggle mirror. All 890 chroma files mat
 Run commands from the repository root with Python 3.11 or newer. On Windows you can replace `python` with `.\.venv\Scripts\python.exe`.
 
 ```powershell
-python src/acr/audit.py 0003 --output runs/p0-0003
+python -m acr.data.billboard.audit 0003 --output runs/p0-0003
 ```
 
 The reader opens recording 0003 inside both archives. Open `runs/p0-0003/timeline.svg` to inspect the reference intervals against frame timestamps. In `frames.csv` each frame uses the interval containing its timestamp, including the start and excluding the end. An empty label means uncovered; N is an annotated no-chord target. For 0003 expect 95 intervals and 3,250 covered frames. The notebook calls the same reader.
@@ -27,7 +27,7 @@ The reader opens recording 0003 inside both archives. Open `runs/p0-0003/timelin
 ## 3. Run the corpus audit
 
 ```powershell
-python src/acr/corpus.py --raw data/raw --output runs/p0-corpus
+python -m acr.data.billboard.corpus --raw data/raw --output runs/p0-corpus
 ```
 
 The command reads every available pair, records failures, then groups eligible slots into songs. One representative per song supplies examples. Only labeled training representatives contribute to the quality counts.

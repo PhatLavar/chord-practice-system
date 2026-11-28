@@ -128,7 +128,7 @@ For local inspection, imported runs are runs/p1-overfit-kaggle/ and runs/p1-base
 
 ## Weighted-loss experiment specification · 19 November 2026
 
-Status: completed on Kaggle and independently verified. The results are recorded below. Use experiment name p1-weighted-kaggle and [configs/p1-weighted.json](../../configs/p1-weighted.json).
+Status: completed on Kaggle and independently verified. The results are recorded below. Use experiment name p1-weighted-kaggle and [configs/p1/p1-weighted.json](../../configs/p1/p1-weighted.json).
 
 For triad and extension separately, count observed frame targets across exactly the 367 labeled training representatives before augmentation. Mask N, OOV, unknown and uncovered component targets. For class c with positive count n_c, compute a_c = min(10, sqrt(max(n) / n_c)). Divide all positive weights by their frequency-weighted mean, sum(n_c a_c) / sum(n_c). An unobserved class receives zero weight and has no training targets. Weighted cross-entropy divides its loss sum by the sum of the observed target weights in that batch, following the existing mean-reduction convention.
 
@@ -217,7 +217,7 @@ The train-only simulation with seed 20261119 yielded approximately 7.92 times th
 
 ### Fixed controls and tests
 
-Use [p1-balanced.json](../../configs/p1-balanced.json). Component loss weights are disabled, matching the original baseline. Seed, optimizer, learning rate, epochs, architecture, window length, decoder, split and checkpoint selection criterion match the baseline. The different sampling changes the training examples seen at each step; total nonmasked frame counts can vary. Record sampling.json with the policy, quality support, windows and optimizer-step budget.
+Use [p1-balanced.json](../../configs/p1/p1-balanced.json). Component loss weights are disabled, matching the original baseline. Seed, optimizer, learning rate, epochs, architecture, window length, decoder, split and checkpoint selection criterion match the baseline. The different sampling changes the training examples seen at each step; total nonmasked frame counts can vary. Record sampling.json with the policy, quality support, windows and optimizer-step budget.
 
 Seven unit checks include deterministic sampling for a fixed seed, preservation of rare anchors, the natural epoch budget and short-song padding. A real-data CPU batch passed forward, backward and optimizer update with finite loss and gradients. [Verification](../../reports/p1/sampling-setup/verification.json)
 
@@ -314,7 +314,7 @@ Status: proposal only. No Transformer has been implemented or trained. A Transfo
 
 Status: four new Kaggle jobs completed and independently verified; see the repeated-seed results below. This repeats the existing TCN comparison before changing the encoder or chord decomposition.
 
-Freeze additional seeds 20261120 and 20261121 in [p1-seeds.json](../../configs/p1-seeds.json). Each seed runs both the original baseline configuration and the balanced sampling configuration. Preserve 30 epochs, 367 labeled training songs, 110 validation songs, unweighted losses, model width, window/context, batch size, learning rate, decoder and best-checkpoint selection by validation frame accuracy. Each pair shares the initialization seed; their training sample sequences differ by design.
+Freeze additional seeds 20261120 and 20261121 in [p1-seeds.json](../../configs/p1/p1-seeds.json). Each seed runs both the original baseline configuration and the balanced sampling configuration. Preserve 30 epochs, 367 labeled training songs, 110 validation songs, unweighted losses, model width, window/context, batch size, learning rate, decoder and best-checkpoint selection by validation frame accuracy. Each pair shares the initialization seed; their training sample sequences differ by design.
 
 The notebook trains four jobs sequentially on one GPU session. It reuses the verified original seed 20261119 reports (baseline revision 8ec616c and balanced revision d250916) for the third pair. New pairs run from one common current revision, recorded in plan.json and each run.json. Original results come from earlier commits, so the summary explicitly records that provenance. Additional-seed results should also be inspected separately if the earlier-revision provenance affects a comparison.
 
@@ -396,7 +396,7 @@ The initial project-specific Transformer encoder is implemented for teacher F. I
 
 Architecture: project each 24-bin chroma frame to width 48, add sinusoidal positions, pass through two independently initialized bidirectional TransformerEncoderLayer blocks with four attention heads, feed-forward width 96, GELU, pre-layer normalization and zero dropout, then apply final layer normalization and the existing four head dimensions (2,12,6,5). Parameters total 40,441 versus the TCN's 37,225 (about 8.6% more). No pretrained checkpoint is used.
 
-[Implementation](../../src/acr/transformer_f.py) · [PyTorch encoder layer](https://docs.pytorch.org/docs/stable/generated/torch.nn.TransformerEncoderLayer.html)
+[Implementation](../../src/acr/models/transformer.py) · [PyTorch encoder layer](https://docs.pytorch.org/docs/stable/generated/torch.nn.TransformerEncoderLayer.html)
 
 ### Context, padding and inference
 
@@ -474,16 +474,16 @@ Raw outputs are in runs/p1-transformer/overfit/ and runs/p1-transformer/balanced
 
 ## Handoff to P2 · 19 November 2026
 
-The event teacher implementation is now documented in [P2_REPORT.md](../p2/P2_REPORT.md). The fixed comparator is the original balanced F at seed 20261119, with its uncertainty retained in the repeated-seed analysis above. P2 supplies the same reference intervals to both teachers and fits E independently using event targets. The first P2 oracle trial has now been verified. Its measured F/E complementarity and rare-quality limitations are recorded in [P2_REPORT.md](../p2/P2_REPORT.md).
+The event teacher implementation is now documented in [../p2/P2_REPORT.md](../p2/P2_REPORT.md). The fixed comparator is the original balanced F at seed 20261119, with its uncertainty retained in the repeated-seed analysis above. P2 supplies the same reference intervals to both teachers and fits E independently using event targets. The first P2 oracle trial has now been verified. Its measured F/E complementarity and rare-quality limitations are recorded in [../p2/P2_REPORT.md](../p2/P2_REPORT.md).
 
 ### Confidence audit follow-up · 20 November 2026
 
-The original F checkpoint has now been audited with E25 at the same seed using saved logits on gold validation intervals. See the component confidence section in [P2_REPORT.md](../p2/P2_REPORT.md) for definitions, per-head precision/coverage and per-class results. This does not change F's training or frame-level metrics. At an exploratory threshold of 0.9, F/E agreement attains 96.54% overall triad precision but gets all 24 accepted triads on true rare-quality events wrong. Shared confident errors remain a material limitation; agreement alone is not a reliable rare-label filter. Investigate data diversity next while preserving the Billboard-only control; no augmentation, extra dataset or architecture change has been applied in this audit.
+The original F checkpoint has now been audited with E25 at the same seed using saved logits on gold validation intervals. See the component confidence section in [../p2/P2_REPORT.md](../p2/P2_REPORT.md) for definitions, per-head precision/coverage and per-class results. This does not change F's training or frame-level metrics. At an exploratory threshold of 0.9, F/E agreement attains 96.54% overall triad precision but gets all 24 accepted triads on true rare-quality events wrong. Shared confident errors remain a material limitation; agreement alone is not a reliable rare-label filter. Investigate data diversity next while preserving the Billboard-only control; no augmentation, extra dataset or architecture change has been applied in this audit.
 
 
 ### External-data experiment for F and E — 20 November 2026
 
-Extend the JAAH pilot to F as well as E. Train a fresh Billboard-only F control and a JAAH-mixed F with a separate 12-dimensional input projection and shared temporal trunk/heads. Keep F's 50% quality/song-balanced window sampler; replace 54 of 217 batches per full epoch with JAAH, holding the update/window budget fixed. This is a new experiment, not a replacement for the selected historical F. Compare both new F models with both new E models on the same gold validation events, including per-component confidence, precision, coverage and class-specific errors. See [the experiment protocol](../p2/P2_JAAH_EXPERIMENT.md). Full GPU results are pending.
+Extend the JAAH pilot to F as well as E. Train a fresh Billboard-only F control and a JAAH-mixed F with a separate 12-dimensional input projection and shared temporal trunk/heads. Keep F's 50% quality/song-balanced window sampler; replace 54 of 217 batches per full epoch with JAAH, holding the update/window budget fixed. This is a new experiment, not a replacement for the selected historical F. Compare both new F models with both new E models on the same gold validation events, including per-component confidence, precision, coverage and class-specific errors. See [the experiment protocol](../p2/jaah/P2_JAAH_EXPERIMENT.md). Full GPU results are pending.
 
 
 ### JAAH F pilot result — 20 November 2026
@@ -493,9 +493,9 @@ The full matched-seed pilot has been imported and independently rescored. F even
 
 ### CQT audio-control preparation — 20 November 2026
 
-Added an explicit optional input-channel constructor parameter, preserving the original 24-channel default and initialization. The GuitarSet audio pilot initializes a new 144-channel F from scratch; it does not reuse or replace the selected Billboard teacher. The CQT-TCN experiment and validation conditions are described in [GUITARSET_CQT_EXPERIMENT.md](../p2/GUITARSET_CQT_EXPERIMENT.md). This is a feature/source pilot, not a BTC architecture reproduction or a measured Billboard improvement.
+Added an explicit optional input-channel constructor parameter, preserving the original 24-channel default and initialization. The GuitarSet audio pilot initializes a new 144-channel F from scratch; it does not reuse or replace the selected Billboard teacher. The CQT-TCN experiment and validation conditions are described in [../p2/guitarset/GUITARSET_CQT_EXPERIMENT.md](../p2/guitarset/GUITARSET_CQT_EXPERIMENT.md). This is a feature/source pilot, not a BTC architecture reproduction or a measured Billboard improvement.
 
 
 ### GuitarSet CQT F pilot imported — 20 November 2026
 
-The new 144-channel F completes 30 epochs and selects epoch 16. Full-timeline validation Root/Triads/Tetrads are 44.04%/13.84%/7.68%; supported oracle-event accuracy is 15.31%. Training-only Tetrads at this checkpoint is 35.78%. The small progression-held-out source pilot shows major-class bias, incomplete training fit and a large validation gap. It does not replace the selected Billboard F. See the imported CQT result section in [P2_REPORT.md](../p2/P2_REPORT.md) for audited evidence and limitations.
+The new 144-channel F completes 30 epochs and selects epoch 16. Full-timeline validation Root/Triads/Tetrads are 44.04%/13.84%/7.68%; supported oracle-event accuracy is 15.31%. Training-only Tetrads at this checkpoint is 35.78%. The small progression-held-out source pilot shows major-class bias, incomplete training fit and a large validation gap. It does not replace the selected Billboard F. See the imported CQT result section in [../p2/P2_REPORT.md](../p2/P2_REPORT.md) for audited evidence and limitations.

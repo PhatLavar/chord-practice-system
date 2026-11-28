@@ -5,29 +5,30 @@ import unittest
 
 import numpy as np
 import torch
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src/acr'))
+
 try:
-    from prepare_guitarset_cqt import extract, frame_labels, normalization, selected_records
-    from train_guitarset_cqt import timeline
+    from acr.data.guitarset.cqt import extract, frame_labels, normalization, selected_records
+    from acr.evaluation.guitarset import timeline
 except ModuleNotFoundError as error:
     if error.name not in {'librosa','soundfile','mir_eval'}:raise
     extract=None
-from teacher_f import FrameTeacher, losses
-from teacher_e import EventTeacher
+from acr.models.tcn import FrameTeacher
+from acr.models.components import losses
+from acr.models.tcn import EventTeacher
 
 
 @unittest.skipIf(extract is None,'Install requirements-audio.txt')
 class GuitarSetCQT(unittest.TestCase):
     def test_repeat_seed_can_reuse_only_compatible_cache(self):
-        from train_guitarset_cqt import resolve_cache_config
-        original=json.loads(Path('configs/p2-guitarset-cqt-player.json').read_text())
-        cfg=dict(original,seed=20261120,cache_config='configs/p2-guitarset-cqt-player.json')
+        from acr.training.guitarset import resolve_cache_config
+        original=json.loads(Path('configs/p2/p2-guitarset-cqt-player.json').read_text())
+        cfg=dict(original,seed=20261120,cache_config='configs/p2/p2-guitarset-cqt-player.json')
         self.assertEqual(resolve_cache_config(cfg),original)
         with self.assertRaises(ValueError):resolve_cache_config(dict(cfg,fold=1))
         with self.assertRaises(ValueError):resolve_cache_config(dict(cfg,learning_rate=.01))
 
     def test_repeat_aggregate_uses_paired_deltas_and_sample_std(self):
-        from repeat_guitarset import aggregate
+        from acr.experiments.guitarset.repeat import aggregate
         rows=[]
         for teacher in ['F','E']:
             for seed,a,b in [(1,.1,.3),(2,.3,.2)]:
@@ -41,7 +42,7 @@ class GuitarSetCQT(unittest.TestCase):
             self.assertAlmostEqual(result[teacher]['tetrads']['natural']['sample_std'],np.sqrt(.02))
 
     def test_cqt_transposition_labels_padding_and_no_wrap(self):
-        from augment_cqt import transpose_batch
+        from acr.data.augmentation import transpose_batch
         x=torch.arange(1,25,dtype=torch.float32).reshape(1,8,3)
         x[:,:,0]=0
         y=torch.tensor([[155,0,-100]])  # B:maj -> C:maj when shifted up one.
@@ -66,8 +67,8 @@ class GuitarSetCQT(unittest.TestCase):
         import tempfile
         from contextlib import redirect_stdout
         import io
-        from diagnose_guitarset_player import run
-        from teacher_f import targets
+        from acr.evaluation.guitarset import run
+        from acr.models.components import targets
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);refs=root/'training_references.json'
             refs.write_text(json.dumps({'a':{'duration':1.,'events':[{'time':0.,'duration':1.,'value':'C:maj7'}]}}))
@@ -104,7 +105,7 @@ class GuitarSetCQT(unittest.TestCase):
         self.assertNotEqual(selected,selected_records(0))
 
     def test_memorization_selection(self):
-        from check_guitarset_memorization import select_events
+        from acr.experiments.guitarset.memorization import select_events
         events=[('a',0,1,0,5,1),('a',1,2,5,11,1),
                 ('b',0,1,0,8,15),('c',0,1,0,6,2),
                 ('d',0,1,0,8,-100),('e',0,1,0,8,0),('f',0,1,0,200,3)]
@@ -114,12 +115,12 @@ class GuitarSetCQT(unittest.TestCase):
         with self.assertRaises(ValueError):select_events(events[4:])
 
     def test_tone_and_frame_clock(self):
-        cfg=json.loads(Path('configs/p2-guitarset-cqt.json').read_text())
+        cfg=json.loads(Path('configs/p2/p2-guitarset-cqt.json').read_text())
         sr=44100;t=np.arange(3*sr)/sr
         x,times,duration=extract(np.sin(2*np.pi*440*t).astype(np.float32),sr,cfg)
         self.assertEqual(x.shape[1],144)
         self.assertLessEqual(abs(int(x.mean(0).argmax())-90),1)
-        from augment_cqt import transpose_batch
+        from acr.data.augmentation import transpose_batch
         shifted,_=transpose_batch(torch.from_numpy(x.T.copy())[None],torch.tensor([[1]]),[1],2,float(np.log(1e-6)))
         self.assertEqual(int(shifted[0].mean(1).argmax()),int(x.mean(0).argmax())+2)
         self.assertAlmostEqual(times[1]-times[0],2048/22050)
@@ -166,7 +167,7 @@ class GuitarSetCQT(unittest.TestCase):
             self.assertGreater(float(f'{b:.17g}'),float(f'{a:.17g}'))
 
     def test_frame_context_matches_training_window(self):
-        from train_f import Windows
+        from acr.data.windows import Windows
         torch.manual_seed(3);model=FrameTeacher(input_channels=144).eval()
         song={'x':np.random.default_rng(3).normal(size=(90,144)).astype(np.float32),'y':np.ones(90,dtype=np.int64)}
         x,_=Windows({'a':song},108,model.context)[0]

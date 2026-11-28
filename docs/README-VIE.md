@@ -9,13 +9,14 @@ Hệ thống phân tích bản thu để tạo hai dòng thời gian độc lậ
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pip install --no-deps -e .
 ```
 
 Chọn interpreter trong `.venv` ở IDE. Đặt annotation chi tiết và Chordino features của McGill Billboard trong `data/raw/`. Khi chuyển lên Kaggle, truyền đường dẫn dữ liệu và đầu ra qua cấu hình để dùng lại cùng mã nguồn.
 
 ## Chạy P0 trên một bản thu
 
-Từ thư mục gốc, chạy `python src/acr/audit.py 0003 --output runs/p0-0003` hoặc mở [notebook kiểm tra](../notebooks/00_data_audit.ipynb) trong Jupyter. Lệnh Python chỉ dùng thư viện chuẩn. Demo đọc một bản thu trực tiếp trong các gói chính thức. Xem [hướng dẫn P0](p0/P0_INSTRUCTION.md) để tải dữ liệu và chạy toàn bộ corpus.
+Từ thư mục gốc, chạy `python -m acr.data.billboard.audit 0003 --output runs/p0-0003` hoặc mở [notebook kiểm tra](../notebooks/p0/00_data_audit.ipynb) trong Jupyter. Lệnh Python chỉ dùng thư viện chuẩn. Demo đọc một bản thu trực tiếp trong các gói chính thức. Xem [hướng dẫn P0](p0/P0_INSTRUCTION.md) để tải dữ liệu và chạy toàn bộ corpus.
 
 Mở `timeline.svg` trong thư mục đầu ra để xem phạm vi các khoảng nhãn và frame. `frames.csv` giữ đủ 24 giá trị chroma và gán nhãn theo timestamp, tính cả đầu khoảng và loại cuối khoảng. Nhãn trống là frame ngoài vùng chú giải. `N` là nhãn đã chú giải cho đoạn không có hợp âm. Số liệu tổng hợp nằm trong `summary.json`.
 
@@ -23,11 +24,11 @@ Mở `timeline.svg` trong thư mục đầu ra để xem phạm vi các khoảng
 
 ## Huấn luyện P1
 
-Đã kiểm chứng baseline đầu tiên trên Kaggle, đạt 57,11% frame hợp âm đúng trên validation. Xem [báo cáo P1](p1/P1_REPORT.md) để đọc kết quả và hạn chế với hợp âm hiếm. Xem [hướng dẫn P1](p1/P1_INSTRUCTION.md) và [notebook Kaggle](../notebooks/01_teacher_f.ipynb). Dùng tên thư mục mới trong `runs/` cho mỗi lần chạy.
+Đã kiểm chứng baseline đầu tiên trên Kaggle, đạt 57,11% frame hợp âm đúng trên validation. Xem [báo cáo P1](p1/P1_REPORT.md) để đọc kết quả và hạn chế với hợp âm hiếm. Xem [hướng dẫn P1](p1/P1_INSTRUCTION.md) và [notebook Kaggle](../notebooks/p1/01_teacher_f.ipynb). Dùng tên thư mục mới trong `runs/` cho mỗi lần chạy.
 
 ## P2 · Event teacher với biên chuẩn
 
-Đã có teacher E và mốc so sánh F cố định. Xem [hướng dẫn P2](p2/P2_INSTRUCTION.md), [báo cáo P2](p2/P2_REPORT.md) và [notebook](../notebooks/02_teacher_e_oracle.ipynb). Đã kiểm chứng ba seed P2: E natural đạt trung bình 63,33% event accuracy; mixture 25% đạt 60,58% accuracy và 7,88% rare macro recall với biên chuẩn. Báo cáo ghi rõ giới hạn precision và số bài hỗ trợ.
+Đã có teacher E và mốc so sánh F cố định. Xem [hướng dẫn P2](p2/P2_INSTRUCTION.md), [báo cáo P2](p2/P2_REPORT.md) và [notebook](../notebooks/p2/billboard/02_teacher_e_oracle.ipynb). Đã kiểm chứng ba seed P2: E natural đạt trung bình 63,33% event accuracy; mixture 25% đạt 60,58% accuracy và 7,88% rare macro recall với biên chuẩn. Báo cáo ghi rõ giới hạn precision và số bài hỗ trợ.
 
 ## Stage B hiện tại · Literature baselines và khái quát giữa các corpus
 
@@ -42,10 +43,14 @@ Hướng baseline mới được tách khỏi lịch sử thí nghiệm oracle e
 | `docs/` | Hướng dẫn và báo cáo bằng Markdown. |
 | `reports/p0/` | Các bảng và số liệu P0 đã chốt, lưu trên Git. |
 | `src/acr/` | Reader, căn thời gian, ánh xạ nhãn, mô hình và đánh giá. Thêm từng module khi đến mốc tương ứng. |
-| `notebooks/` | Các notebook dự kiến: 00_data_audit, 01_teacher_f, 02_teacher_e_oracle. Logic dùng chung nằm trong src. |
-| `configs/`, `splits/` | Cấu hình từng thí nghiệm và manifest chia tập theo nhóm bài hát. |
+| `src/acr/data/`, `models/`, `training/`, `evaluation/` | Tách reader/dataset, kiến trúc model, vòng tối ưu và phần đánh giá theo trách nhiệm. |
+| `src/acr/experiments/` | Bộ điều khiển repeat/ablation và kiểm tra B0; import qua package acr đã cài. |
+| `notebooks/p0/`, `p1/`, `p2/` | Notebook theo giai đoạn/corpus, gọi module chung thay vì sao chép implementation. |
+| `configs/p1/`, `p2/`, `baselines/`, `splits/` | Cấu hình chia theo giai đoạn; manifest bài hát/người chơi cố định vẫn ở splits. |
 | `data/raw/`, `data/processed/` | Dữ liệu gốc và cache cục bộ. |
 | `runs/<run_id>/` | Cấu hình, Git commit, phiên bản dữ liệu, metrics, hình và checkpoint của một lần chạy. |
+
+Xem [hướng dẫn cấu trúc](architecture/PROJECT_STRUCTURE.md) để biết trách nhiệm từng module, đường dẫn mới và cách kiểm tra notebook. Sau khi cài, chạy lệnh từ thư mục gốc, ví dụ python -m acr.training.frame --help. Cần import notebook mới vào Kaggle; draft cũ dùng đường dẫn script phẳng phải được cập nhật. Metadata và checkpoint của các lượt cũ được giữ nguyên lịch sử.
 
 ## Các mốc triển khai
 

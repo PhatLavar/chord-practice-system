@@ -1,0 +1,590 @@
+{
+  "date": "2026-11-28",
+  "base_revision": "cb01e9bed6db8d05b691073b0a59350bbbee8fd1",
+  "status": "All documented local refactor checks passed",
+  "unit_tests_before": 66,
+  "unit_tests_after": 69,
+  "editable_package_installation_passed": true,
+  "models": {
+    "F": {
+      "parameters": 37225,
+      "logits_sha256": [
+        "e75d37af92835259888dec23ea65dbc80185f72956369504b1af3a0d294f2cde",
+        "baae5ec6d2f0e7e1fa05d6cdda2c1fe2628faf79eb4aa8bd68fb4dc2cc6ae12b",
+        "eaa44854319afdb3ac1c34928ac85046f6325acd0a7e3fe86447d0a6bc4dee5b",
+        "af4d2586beba16ecb7e255f86b5a6b087714768bbaee4e0d529928b2bfbd7501"
+      ],
+      "state_dict_key_count": 20,
+      "exact_before_after_match": true
+    },
+    "E": {
+      "parameters": 37225,
+      "logits_sha256": [
+        "cb07c193412b7a5a0ecc834f4a25ba4c0912ff697a6025388bb008a10092891d",
+        "1721e8afef7bea4c838391a3b9d04c9e33c1951b6e31f2609981abf61eecb2a0",
+        "5dd28dc1985513add6e72288a3dc332ee47cc8e8e5736adc18ecea88a6723b4d",
+        "6d622d1a841e242ae88e557a482549f67b6d967f3c41c4e27b2986639edc1b52"
+      ],
+      "state_dict_key_count": 20,
+      "exact_before_after_match": true
+    },
+    "Transformer": {
+      "parameters": 40441,
+      "logits_sha256": [
+        "9ff66bdc1338fdba4b9ec497e6fbeac6ad119a9433a368503caec478bc16dcab",
+        "2fe522628562f5d3998cdd6d1b9eb958c4aa8337a439c6f5e3b749e24dcfc17a",
+        "de90350498aca3efd2aa4039e6ae0f8bb41c3299eb1bb12be0d3fd5251dfd5ae",
+        "493cb0a510c918903ad3c655b9df295ce4edf4016790d7ea357da90c3bc667d5"
+      ],
+      "state_dict_key_count": 37,
+      "exact_before_after_match": true
+    },
+    "BTC": {
+      "parameters": 3036842,
+      "logits_sha256": [
+        "2c9a7d83d1ce50677cd6a306c98451e473e113f4aced8c8a42387e3cf16aee3b"
+      ],
+      "state_dict_key_count": 221,
+      "exact_before_after_match": true
+    }
+  },
+  "behavior_proof": {
+    "kernels": {
+      "FrameTeacher": {
+        "old": "src/acr/teacher_f.py",
+        "new": "src/acr/models/tcn.py",
+        "ast_identical": true
+      },
+      "EventTeacher": {
+        "old": "src/acr/teacher_e.py",
+        "new": "src/acr/models/tcn.py",
+        "ast_identical": true
+      },
+      "TransformerFrameTeacher": {
+        "old": "src/acr/transformer_f.py",
+        "new": "src/acr/models/transformer.py",
+        "ast_identical": true
+      },
+      "BTCFrame": {
+        "old": "src/acr/btc_adapter.py",
+        "new": "src/acr/models/btc.py",
+        "ast_identical": true
+      },
+      "Windows": {
+        "old": "src/acr/train_f.py",
+        "new": "src/acr/data/windows.py",
+        "ast_identical": true
+      },
+      "QualityBalancedWindows": {
+        "old": "src/acr/train_f.py",
+        "new": "src/acr/data/windows.py",
+        "ast_identical": true
+      },
+      "targets": {
+        "old": "src/acr/teacher_f.py",
+        "new": "src/acr/models/components.py",
+        "ast_identical": true
+      },
+      "losses": {
+        "old": "src/acr/teacher_f.py",
+        "new": "src/acr/models/components.py",
+        "ast_identical": true
+      },
+      "decode": {
+        "old": "src/acr/teacher_f.py",
+        "new": "src/acr/models/components.py",
+        "ast_identical": true
+      },
+      "mapping": {
+        "old": "src/acr/corpus.py",
+        "new": "src/acr/vocabulary.py",
+        "ast_identical": true
+      },
+      "encode": {
+        "old": "src/acr/p1_data.py",
+        "new": "src/acr/vocabulary.py",
+        "ast_identical": true
+      },
+      "reference_events": {
+        "old": "src/acr/diagnose_f.py",
+        "new": "src/acr/data/billboard/audit.py",
+        "ast_identical": true
+      },
+      "event_list": {
+        "old": "src/acr/train_guitarset_cqt.py",
+        "new": "src/acr/data/guitarset/cqt.py",
+        "ast_identical": true
+      },
+      "timeline": {
+        "old": "src/acr/train_guitarset_cqt.py",
+        "new": "src/acr/evaluation/guitarset.py",
+        "ast_identical": true
+      },
+      "evaluate": {
+        "old": "src/acr/train_guitarset_cqt.py",
+        "new": "src/acr/evaluation/guitarset.py",
+        "ast_identical": true
+      },
+      "btc_loss": {
+        "old": "src/acr/btc_adapter.py",
+        "new": "src/acr/models/btc.py",
+        "ast_identical": true
+      }
+    },
+    "configs_equivalent_after_path_translation": [
+      "configs/baselines/btc-b0.json",
+      "configs/p1/p1-balanced.json",
+      "configs/p1/p1-baseline.json",
+      "configs/p1/p1-jaah-pilot.json",
+      "configs/p1/p1-overfit.json",
+      "configs/p1/p1-seeds.json",
+      "configs/p1/p1-transformer-overfit.json",
+      "configs/p1/p1-transformer.json",
+      "configs/p1/p1-weighted.json",
+      "configs/p2/p2-guitarset-cqt-player.json",
+      "configs/p2/p2-guitarset-cqt-transpose.json",
+      "configs/p2/p2-guitarset-cqt.json",
+      "configs/p2/p2-jaah-pilot.json",
+      "configs/p2/p2-mixture25-seeds.json",
+      "configs/p2/p2-mixture25.json",
+      "configs/p2/p2-natural.json",
+      "configs/p2/p2-oracle.json",
+      "configs/p2/p2-overfit.json",
+      "configs/p2/p2-seeds.json"
+    ]
+  },
+  "cli_help_checks": [
+    {
+      "module": "acr.data.jaah",
+      "returncode": 0,
+      "elapsed_seconds": 0.85,
+      "error": ""
+    },
+    {
+      "module": "acr.evaluation.confidence",
+      "returncode": 0,
+      "elapsed_seconds": 12.25,
+      "error": ""
+    },
+    {
+      "module": "acr.evaluation.exposure",
+      "returncode": 0,
+      "elapsed_seconds": 12.26,
+      "error": ""
+    },
+    {
+      "module": "acr.evaluation.frame",
+      "returncode": 0,
+      "elapsed_seconds": 0.87,
+      "error": ""
+    },
+    {
+      "module": "acr.evaluation.guitarset",
+      "returncode": 0,
+      "elapsed_seconds": 20.77,
+      "error": ""
+    },
+    {
+      "module": "acr.evaluation.intervals",
+      "returncode": 0,
+      "elapsed_seconds": 4.36,
+      "error": ""
+    },
+    {
+      "module": "acr.evaluation.training_fit",
+      "returncode": 0,
+      "elapsed_seconds": 19.46,
+      "error": ""
+    },
+    {
+      "module": "acr.training.event",
+      "returncode": 0,
+      "elapsed_seconds": 14.51,
+      "error": ""
+    },
+    {
+      "module": "acr.training.frame",
+      "returncode": 0,
+      "elapsed_seconds": 16.73,
+      "error": ""
+    },
+    {
+      "module": "acr.training.guitarset",
+      "returncode": 0,
+      "elapsed_seconds": 41.91,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.baselines.btc_check",
+      "returncode": 0,
+      "elapsed_seconds": 41.95,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.billboard.mixtures",
+      "returncode": 0,
+      "elapsed_seconds": 0.93,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.billboard.reference",
+      "returncode": 0,
+      "elapsed_seconds": 31.83,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.billboard.repeat_event",
+      "returncode": 0,
+      "elapsed_seconds": 0.68,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.billboard.repeat_frame",
+      "returncode": 0,
+      "elapsed_seconds": 0.55,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.guitarset.memorization",
+      "returncode": 0,
+      "elapsed_seconds": 22.78,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.guitarset.repeat",
+      "returncode": 0,
+      "elapsed_seconds": 9.84,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.jaah.event",
+      "returncode": 0,
+      "elapsed_seconds": 16.16,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.jaah.frame",
+      "returncode": 0,
+      "elapsed_seconds": 13.83,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.jaah.pairs",
+      "returncode": 0,
+      "elapsed_seconds": 13.53,
+      "error": ""
+    },
+    {
+      "module": "acr.data.billboard.audit",
+      "returncode": 0,
+      "elapsed_seconds": 0.42,
+      "error": ""
+    },
+    {
+      "module": "acr.data.billboard.corpus",
+      "returncode": 0,
+      "elapsed_seconds": 0.49,
+      "error": ""
+    },
+    {
+      "module": "acr.data.billboard.prepare",
+      "returncode": 0,
+      "elapsed_seconds": 0.71,
+      "error": ""
+    },
+    {
+      "module": "acr.data.guitarset.audit",
+      "returncode": 0,
+      "elapsed_seconds": 0.8,
+      "error": ""
+    },
+    {
+      "module": "acr.data.guitarset.cqt",
+      "returncode": 0,
+      "elapsed_seconds": 14.93,
+      "error": ""
+    },
+    {
+      "module": "acr.data.guitarset.labels",
+      "returncode": 0,
+      "elapsed_seconds": 15.3,
+      "error": ""
+    }
+  ],
+  "notebooks": {
+    "notebooks": [
+      "notebooks/p0/00_data_audit.ipynb",
+      "notebooks/p1/01_teacher_f.ipynb",
+      "notebooks/p1/01b_teacher_f_weighted.ipynb",
+      "notebooks/p1/01c_teacher_f_balanced.ipynb",
+      "notebooks/p1/01d_teacher_f_seed_repeat.ipynb",
+      "notebooks/p1/01e_teacher_f_transformer.ipynb",
+      "notebooks/p2/billboard/02_teacher_e_oracle.ipynb",
+      "notebooks/p2/billboard/02b_teacher_e_natural.ipynb",
+      "notebooks/p2/billboard/02c_teacher_e_seed_repeat.ipynb",
+      "notebooks/p2/billboard/02d_teacher_e_mixture25.ipynb",
+      "notebooks/p2/billboard/02e_teacher_e_mixture25_repeat.ipynb",
+      "notebooks/p2/guitarset/02h_guitarset_cqt_teachers.ipynb",
+      "notebooks/p2/guitarset/02i_guitarset_player_teachers.ipynb",
+      "notebooks/p2/guitarset/02j_guitarset_transposition_teachers.ipynb",
+      "notebooks/p2/guitarset/02k_guitarset_transposition_repeats.ipynb",
+      "notebooks/p2/jaah/02f_teacher_e_jaah_pilot.ipynb",
+      "notebooks/p2/jaah/02g_teachers_fe_jaah_pilot.ipynb"
+    ],
+    "code_cells_compile": true,
+    "notebook_cli_modules": [
+      "acr.data.billboard.prepare",
+      "acr.data.guitarset.cqt",
+      "acr.data.jaah",
+      "acr.evaluation.frame",
+      "acr.experiments.billboard.mixtures",
+      "acr.experiments.billboard.repeat_event",
+      "acr.experiments.billboard.repeat_frame",
+      "acr.experiments.guitarset.repeat",
+      "acr.experiments.jaah.event",
+      "acr.experiments.jaah.pairs",
+      "acr.training.event",
+      "acr.training.frame",
+      "acr.training.guitarset"
+    ],
+    "local_documentation_links": 220,
+    "configs_checked": 19,
+    "execution": {
+      "checks": [
+        {
+          "notebook": "notebooks/p0/00_data_audit.ipynb",
+          "cells": "audit, without IPython rendering",
+          "passed": true
+        },
+        {
+          "notebook": "notebooks/p2/guitarset/02h_guitarset_cqt_teachers.ipynb",
+          "cells": [
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "notebook": "notebooks/p2/guitarset/02i_guitarset_player_teachers.ipynb",
+          "cells": [
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "notebook": "notebooks/p2/guitarset/02j_guitarset_transposition_teachers.ipynb",
+          "cells": [
+            2,
+            3
+          ],
+          "passed": true
+        },
+        {
+          "notebook": "notebooks/p2/guitarset/02k_guitarset_transposition_repeats.ipynb",
+          "cells": [
+            2,
+            3
+          ],
+          "passed": true
+        }
+      ],
+      "scope": "Real local code-cell execution with installed dependencies and existing archives; fresh output paths. No remote clone/install, GUI rendering or full Kaggle GPU replay."
+    }
+  },
+  "historical_reports_and_splits_unchanged": true,
+  "raw_data_and_existing_checkpoints_not_modified": true,
+  "limitations": [
+    "No remote Kaggle session or full GPU training replay",
+    "IPython/plot rendering excluded from local execution",
+    "Old saved notebook drafts require current paths/package setup; no flat-script wrappers"
+  ],
+  "cli_entry_points": [
+    {
+      "module": "acr.data.jaah",
+      "returncode": 0,
+      "elapsed_seconds": 0.64,
+      "error": ""
+    },
+    {
+      "module": "acr.evaluation.confidence",
+      "returncode": 0,
+      "elapsed_seconds": 9.07,
+      "error": ""
+    },
+    {
+      "module": "acr.evaluation.exposure",
+      "returncode": 0,
+      "elapsed_seconds": 9.27,
+      "error": ""
+    },
+    {
+      "module": "acr.evaluation.frame",
+      "returncode": 0,
+      "elapsed_seconds": 0.45,
+      "error": ""
+    },
+    {
+      "module": "acr.evaluation.guitarset",
+      "returncode": 0,
+      "elapsed_seconds": 17.06,
+      "error": ""
+    },
+    {
+      "module": "acr.evaluation.intervals",
+      "returncode": 0,
+      "elapsed_seconds": 3.2,
+      "error": ""
+    },
+    {
+      "module": "acr.evaluation.training_fit",
+      "returncode": 0,
+      "elapsed_seconds": 16.77,
+      "error": ""
+    },
+    {
+      "module": "acr.training.event",
+      "returncode": 0,
+      "elapsed_seconds": 11.61,
+      "error": ""
+    },
+    {
+      "module": "acr.training.frame",
+      "returncode": 0,
+      "elapsed_seconds": 10.97,
+      "error": ""
+    },
+    {
+      "module": "acr.training.guitarset",
+      "returncode": 0,
+      "elapsed_seconds": 20.64,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.baselines.btc_check",
+      "returncode": 0,
+      "elapsed_seconds": 21.51,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.billboard.mixtures",
+      "returncode": 0,
+      "elapsed_seconds": 0.76,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.billboard.reference",
+      "returncode": 0,
+      "elapsed_seconds": 14.86,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.billboard.repeat_event",
+      "returncode": 0,
+      "elapsed_seconds": 0.69,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.billboard.repeat_frame",
+      "returncode": 0,
+      "elapsed_seconds": 0.56,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.guitarset.memorization",
+      "returncode": 0,
+      "elapsed_seconds": 15.44,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.guitarset.repeat",
+      "returncode": 0,
+      "elapsed_seconds": 3.19,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.jaah.event",
+      "returncode": 0,
+      "elapsed_seconds": 9.0,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.jaah.frame",
+      "returncode": 0,
+      "elapsed_seconds": 9.73,
+      "error": ""
+    },
+    {
+      "module": "acr.experiments.jaah.pairs",
+      "returncode": 0,
+      "elapsed_seconds": 7.26,
+      "error": ""
+    },
+    {
+      "module": "acr.data.billboard.audit",
+      "returncode": 0,
+      "elapsed_seconds": 0.2,
+      "error": ""
+    },
+    {
+      "module": "acr.data.billboard.corpus",
+      "returncode": 0,
+      "elapsed_seconds": 0.2,
+      "error": ""
+    },
+    {
+      "module": "acr.data.billboard.prepare",
+      "returncode": 0,
+      "elapsed_seconds": 0.46,
+      "error": ""
+    },
+    {
+      "module": "acr.data.guitarset.audit",
+      "returncode": 0,
+      "elapsed_seconds": 0.49,
+      "error": ""
+    },
+    {
+      "module": "acr.data.guitarset.cqt",
+      "returncode": 0,
+      "elapsed_seconds": 4.08,
+      "error": ""
+    },
+    {
+      "module": "acr.data.guitarset.labels",
+      "returncode": 0,
+      "elapsed_seconds": 3.89,
+      "error": ""
+    }
+  ],
+  "final_unit_tests": {
+    "tests": 69,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 20.996
+  },
+  "legacy_checkpoint_replay": {
+    "source": "runs/p2-guitarset-cqt-transpose",
+    "partition": "training",
+    "optimizer_updates": 0,
+    "jobs": {
+      "F": {
+        "checkpoint_sha256": "87a81905c1ea69eafb8b4693c1573c4377c1cd0ee4f988c7835e541689633471",
+        "selected_epoch": 30,
+        "original_training_tetrads": 0.287096625560805,
+        "local_training_tetrads": 0.287096625560805,
+        "difference": 0.0
+      },
+      "E": {
+        "checkpoint_sha256": "b1b32ff32bfc7289bc1bb9cdaf320295f0a8902e3876426329a9ae7c7c5e5158",
+        "selected_epoch": 28,
+        "original_training_tetrads": 0.34314825542182975,
+        "local_training_tetrads": 0.34314825542182975,
+        "difference": 0.0
+      }
+    }
+  },
+  "migration_targets_checked": 77,
+  "pinned_vendor_unchanged": true,
+  "git_diff_check_passed": true
+}

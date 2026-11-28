@@ -12,3 +12,5 @@ runs/
 *.ckpt
 *.pt
 *.pth
+*.egg-info/
+build/

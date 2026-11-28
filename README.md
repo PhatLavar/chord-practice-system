@@ -9,13 +9,14 @@ This project aims to help musicians practice with a recording by providing two i
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pip install --no-deps -e .
 ```
 
 Select the interpreter from `.venv` in your IDE. Place the detailed McGill Billboard annotations and Chordino features in `data/raw/`. Configure input and output paths when moving to Kaggle so the same code runs in both environments.
 
 ## Run the first P0 audit
 
-From the project root, run `python src/acr/audit.py 0003 --output runs/p0-0003` or open [the audit notebook](notebooks/00_data_audit.ipynb) in Jupyter. The CLI uses only the Python standard library. The demo reads one recording directly from the official archives. See the [P0 instructions](docs/p0/P0_INSTRUCTION.md) for downloads and the full corpus command.
+From the project root, run `python -m acr.data.billboard.audit 0003 --output runs/p0-0003` or open [the audit notebook](notebooks/p0/00_data_audit.ipynb) in Jupyter. The CLI uses only the Python standard library. The demo reads one recording directly from the official archives. See the [P0 instructions](docs/p0/P0_INSTRUCTION.md) for downloads and the full corpus command.
 
 Open `timeline.svg` in the output directory to inspect interval and frame coverage. `frames.csv` retains all 24 chroma bins and assigns each timestamp the reference label at that instant (start inclusive, end exclusive). A blank label means no annotation covers the frame. `N` is an annotated no-chord label. `summary.json` records the counts.
 
@@ -23,11 +24,11 @@ The full CPU audit is complete. See the [P0 report](docs/p0/P0_REPORT.md) for da
 
 ## P1 training
 
-The first Kaggle baseline is complete: 57.11% whole-chord validation frame accuracy. See the [P1 report](docs/p1/P1_REPORT.md) for the verified results and rare-quality limitations. Follow [P1 instructions](docs/p1/P1_INSTRUCTION.md) and import [the Kaggle notebook](notebooks/01_teacher_f.ipynb). Store each run under a new name in `runs/`.
+The first Kaggle baseline is complete: 57.11% whole-chord validation frame accuracy. See the [P1 report](docs/p1/P1_REPORT.md) for the verified results and rare-quality limitations. Follow [P1 instructions](docs/p1/P1_INSTRUCTION.md) and import [the Kaggle notebook](notebooks/p1/01_teacher_f.ipynb). Store each run under a new name in `runs/`.
 
 ## P2 oracle event teacher
 
-The three-seed oracle-event comparison is verified: natural E averages 63.33% overall accuracy; the 25% mixture averages 60.58% overall accuracy and 7.88% rare macro recall. The report records precision and support limitations. See [P2 instructions](docs/p2/P2_INSTRUCTION.md), [P2 report](docs/p2/P2_REPORT.md) and [the oracle notebook](notebooks/02_teacher_e_oracle.ipynb).
+The three-seed oracle-event comparison is verified: natural E averages 63.33% overall accuracy; the 25% mixture averages 60.58% overall accuracy and 7.88% rare macro recall. The report records precision and support limitations. See [P2 instructions](docs/p2/P2_INSTRUCTION.md), [P2 report](docs/p2/P2_REPORT.md) and [the oracle notebook](notebooks/p2/billboard/02_teacher_e_oracle.ipynb).
 
 ## Current stage B · Literature baselines and corpus generalization
 
@@ -42,10 +43,14 @@ The author BTC source is pinned and its project I/O adapter is available. Follow
 | `docs/` | Markdown guides and written reports. |
 | `reports/p0/` | Versioned P0 audit tables and summary. |
 | `src/acr/` | Dataset readers, time alignment, label mapping, models, and evaluation. Add modules as each milestone begins. |
-| `notebooks/` | Planned entry points include `00_data_audit`, `01_teacher_f`, and `02_teacher_e_oracle`. Shared logic belongs in `src/`. |
-| `configs/`, `splits/` | Experiment settings and manifests that assign songs to splits. |
+| `src/acr/data/`, `models/`, `training/`, `evaluation/` | Readers/datasets, model families, optimizer loops and scoring have separate ownership. |
+| `src/acr/experiments/` | Repeat/ablation controllers and B0 diagnostics; imported through the installed `acr` package. |
+| `notebooks/p0/`, `p1/`, `p2/` | Phase/corpus entry points; notebooks call package modules rather than duplicating implementations. |
+| `configs/p1/`, `p2/`, `baselines/`, `splits/` | Experiment settings grouped by stage; frozen song/player manifests remain in splits. |
 | `data/raw/`, `data/processed/` | Original data and local caches. |
 | `runs/<run_id>/` | Configuration, Git commit, data version, metrics, figures, and checkpoints for one run. |
+
+Read [the structure guide](docs/architecture/PROJECT_STRUCTURE.md) for module ownership, migration and notebook verification. After installation, run commands from the repository root, for example `python -m acr.training.frame --help`. Import updated notebooks into Kaggle; old saved drafts with flat script paths require updating. Historical run metadata and checkpoints are preserved rather than rewritten to appear current.
 
 ## Implementation milestones
 

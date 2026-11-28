@@ -152,7 +152,7 @@ E currently has one full configuration and one seed: balanced event sampling. F 
 
 ### Next controlled comparison: natural versus balanced E
 
-The new natural-event baseline uses [p2-natural.json](../../configs/p2-natural.json). Its only change from the completed E configuration is sampling=natural. Preserve seed 20261119, training/validation IDs, 37,225-parameter TCN, interval pooling, unweighted losses, batch size 32, learning rate 0.001, 30 epochs, clipping, fixed F reference and checkpoint criterion. Both schemes retain 31,679 event draws and 990 updates per epoch. Natural sampling visits each source event once in shuffled order.
+The new natural-event baseline uses [p2-natural.json](../../configs/p2/p2-natural.json). Its only change from the completed E configuration is sampling=natural. Preserve seed 20261119, training/validation IDs, 37,225-parameter TCN, interval pooling, unweighted losses, batch size 32, learning rate 0.001, 30 epochs, clipping, fixed F reference and checkpoint criterion. Both schemes retain 31,679 event draws and 990 updates per epoch. Natural sampling visits each source event once in shuffled order.
 
 Compare complete-event accuracy, rare macro recall, per-quality precision/recall and component accuracy, plus the four-way F/E counts. A standalone E gain and complementary correct rare events are different outcomes and should both be reported. The original balanced run remains preserved.
 
@@ -268,7 +268,7 @@ Raw outputs are in runs/p2-natural-kaggle/. The original archive remains in runs
 
 Status: all four new GPU runs have completed and been independently verified; see the measured summary below. The user agreed to repeat natural and balanced E before selecting a policy.
 
-Use the fixed plan [p2-seeds.json](../../configs/p2-seeds.json): additional seeds 20261120 and 20261121, each with natural and balanced event sampling. The original verified seed 20261119 pair is reused. Run the four new jobs sequentially in one GPU notebook session, with fresh independently fitted E weights per job.
+Use the fixed plan [p2-seeds.json](../../configs/p2/p2-seeds.json): additional seeds 20261120 and 20261121, each with natural and balanced event sampling. The original verified seed 20261119 pair is reused. Run the four new jobs sequentially in one GPU notebook session, with fresh independently fitted E weights per job.
 
 Preserve the TCN, reference intervals, data split, normalization, component targets, unweighted losses, optimizer, batch size 32, learning rate 0.001, 30 epochs and checkpoint selection by validation complete-event accuracy. Each policy draws 31,679 training events per epoch. Natural visits each event once; balanced uses the declared mixture with replacement.
 
@@ -363,7 +363,7 @@ Full runs remain in runs/p2-seed-repeat/. The downloaded archive is in runs/impo
 
 ## Intermediate mixture specification · 20 November 2026
 
-Status: the first 25% mixture Kaggle run has completed and been independently verified; see the results below. Use [p2-mixture25.json](../../configs/p2-mixture25.json) with [02d_teacher_e_mixture25.ipynb](../../notebooks/02d_teacher_e_mixture25.ipynb).
+Status: the first 25% mixture Kaggle run has completed and been independently verified; see the results below. Use [p2-mixture25.json](../../configs/p2/p2-mixture25.json) with [02d_teacher_e_mixture25.ipynb](../../notebooks/p2/billboard/02d_teacher_e_mixture25.ipynb).
 
 The sampler now takes balanced_probability. Its default is 0.5, preserving the previous balanced policy. The new configuration explicitly selects 0.25. Each shuffled natural-event index has a 75% chance of being retained. Otherwise choose uniformly among observed qualities, uniformly among their training songs, and uniformly among that song's matching events. These probabilities describe the two draw branches, not a guarantee that exactly 25% of each class or batch is rare.
 
@@ -470,7 +470,7 @@ Raw outputs are preserved in runs/p2-mixture25-kaggle/. The imported ZIP remains
 
 Status: the two new runs have completed and been independently verified; see the measured three-policy comparison below. The user agreed to follow up the single-seed screen.
 
-Use [p2-mixture25-seeds.json](../../configs/p2-mixture25-seeds.json) and [02e_teacher_e_mixture25_repeat.ipynb](../../notebooks/02e_teacher_e_mixture25_repeat.ipynb) to train only the 25% mixture at seeds 20261120 and 20261121. Keep all settings in p2-mixture25.json except the seed. Each job retains 30 epochs, 31,679 event draws, 990 updates per epoch, unweighted losses and the frozen F reference.
+Use [p2-mixture25-seeds.json](../../configs/p2/p2-mixture25-seeds.json) and [02e_teacher_e_mixture25_repeat.ipynb](../../notebooks/p2/billboard/02e_teacher_e_mixture25_repeat.ipynb) to train only the 25% mixture at seeds 20261120 and 20261121. Keep all settings in p2-mixture25.json except the seed. Each job retains 30 epochs, 31,679 event draws, 990 updates per epoch, unweighted losses and the frozen F reference.
 
 Reuse seven existing results: the six verified natural/50% runs across three seeds and the original 25% seed 20261119. Two new jobs complete a nine-result, three-policy matched-seed table. No endpoint or original-seed retraining is required.
 
@@ -643,13 +643,13 @@ Machine-readable outputs: [curves](../../reports/p2/confidence-audit/curves.csv)
 
 ## Dataset feasibility review — 20 November 2026
 
-Reviewed the user's ACR literature matrix and primary dataset sources after the confidence audit. See [DATASET_REVIEW.md](DATASET_REVIEW.md) for sources, access/annotation differences, priorities and admission criteria. Prioritize JSIR/JAAH annotation audits for rare harmony and GuitarSet for an accessible guitar-audio pilot; retain Isophonics as a pop/rock expansion conditional on matching audio. JAAH's documented 12-dimensional chroma must not be assumed compatible with our 24-dimensional input. JSIR requires valid-segment filtering and composition-level grouping. No candidate is yet imported, no complete label-support audit has been performed, and no augmentation or new training has started. This is a source-level recommendation, not a measured data improvement.
+Reviewed the user's ACR literature matrix and primary dataset sources after the confidence audit. See [research/DATASET_REVIEW.md](research/DATASET_REVIEW.md) for sources, access/annotation differences, priorities and admission criteria. Prioritize JSIR/JAAH annotation audits for rare harmony and GuitarSet for an accessible guitar-audio pilot; retain Isophonics as a pop/rock expansion conditional on matching audio. JAAH's documented 12-dimensional chroma must not be assumed compatible with our 24-dimensional input. JSIR requires valid-segment filtering and composition-level grouping. No candidate is yet imported, no complete label-support audit has been performed, and no augmentation or new training has started. This is a source-level recommendation, not a measured data improvement.
 
 ## JAAH pilot implementation — 20 November 2026
 
 Following the source-level review, JAAH was downloaded at a pinned revision and audited at file level. Keep 103/113 recordings and 15,491 supported merged events; exclude ten duration mismatches. Six of the seven training-defined rare qualities receive additional examples, including 617 dim7 and 429 hdim7 events. There are no supported sus2/sus4 targets under the exact mapping. The original review above describes the earlier stage; the new measured inventory is under reports/p2/jaah-inventory/.
 
-Implement a separate 12-to-48 input projection for JAAH and preserve the 24-to-48 Billboard projection, sharing E's TCN, event pooling and heads. The two fresh pilot arms use the same seed and total update budget: Billboard control versus 248/990 auxiliary batch replacements per epoch. F remains fixed. See [P2_JAAH_EXPERIMENT.md](P2_JAAH_EXPERIMENT.md) for the protocol and notebook.
+Implement a separate 12-to-48 input projection for JAAH and preserve the 24-to-48 Billboard projection, sharing E's TCN, event pooling and heads. The two fresh pilot arms use the same seed and total update budget: Billboard control versus 248/990 auxiliary batch replacements per epoch. F remains fixed. See [jaah/P2_JAAH_EXPERIMENT.md](jaah/P2_JAAH_EXPERIMENT.md) for the protocol and notebook.
 
 This is an implementation and data-feasibility milestone. Full GPU experiments, repeatability across seeds and any improvement in rare-chord precision/coverage remain unmeasured. Metadata matching does not replace audio fingerprinting, and duration checks do not prove local label alignment. The added projection handles differing input dimensions; it does not recover missing bass/treble information.
 
@@ -662,7 +662,7 @@ The preceding E-only pilot is superseded for the next experiment by four fresh t
 
 Evaluate all four F/E combinations on identical Billboard gold intervals. F outputs are pooled as mean frame probabilities; E uses event probabilities. The new analysis reports individual scores, per-quality precision/recall, F-only/E-only successes and confidence/precision/coverage by head, predicted component class and true quality. The E run directories retain their historical fixed-F comparator for compatibility; the four-pair analysis directory is authoritative for this experiment.
 
-Use notebook 02g_teachers_fe_jaah_pilot.ipynb instead of the E-only 02f notebook. Four CPU smoke jobs and all four pair analyses passed on 163 validation-subset events; both auxiliary training paths were exercised. The F smoke uses 50% replacement solely to exercise JAAH in its two-batch epoch, while full training uses 25%. These execution checks establish no generalization improvement. Selected evidence: [verification.json](../../reports/p2/jaah-fe-pilot/verification.json). Full GPU training and multi-seed confirmation remain pending. See [P2_JAAH_EXPERIMENT.md](P2_JAAH_EXPERIMENT.md) for the complete protocol.
+Use notebook 02g_teachers_fe_jaah_pilot.ipynb instead of the E-only 02f notebook. Four CPU smoke jobs and all four pair analyses passed on 163 validation-subset events; both auxiliary training paths were exercised. The F smoke uses 50% replacement solely to exercise JAAH in its two-batch epoch, while full training uses 25%. These execution checks establish no generalization improvement. Selected evidence: [verification.json](../../reports/p2/jaah-fe-pilot/verification.json). Full GPU training and multi-seed confirmation remain pending. See [jaah/P2_JAAH_EXPERIMENT.md](jaah/P2_JAAH_EXPERIMENT.md) for the complete protocol.
 
 
 ## JAAH F/E pilot results — 20 November 2026
@@ -733,7 +733,7 @@ Evidence: [pipeline_audit.json](../../reports/p2/jaah-fe-pilot/pipeline_audit.js
 
 Reviewed JAAH's docs_utils/site_utils.py and the upstream pychord_tools third_party.py / low_level_features.py. The NNLS extractor sums a weighted semitone spectrum into chroma and explicitly rolls A-based bins to C-based order. The CSV writer emits i*2048/44100 timestamps; annotation-root rotation is in a separate beat-statistics stage. This supports keeping the distributed frame features in their existing column order. Retrieved code hashes are recorded in [upstream evidence](../../reports/p2/jaah-fe-pilot/upstream_feature_evidence.json). The dependency revision used to produce the historical CSVs is not pinned by this inspection, so intended semantics are stronger evidence than shape alone but do not prove physical audio alignment.
 
-The user clarified that overall accuracy and comparison with published ACR should take priority over rare-chord optimization. Adopt [MULTICORPUS_ACCURACY_PLAN.md](MULTICORPUS_ACCURACY_PLAN.md): expand pop/rock sources with matching audio, use GuitarSet as an accessible audio pilot, reuse BTC author preprocessing/baselines, and introduce a controlled grouped evaluation protocol. Keep rare metrics as secondary diagnostics. Gold-boundary event accuracy is not directly comparable to published end-to-end duration-weighted WCSR. Five-fold evaluation and corpus expansion address different problems. New source-fit training, added-corpus ingestion and benchmark runs remain pending.
+The user clarified that overall accuracy and comparison with published ACR should take priority over rare-chord optimization. Adopt [research/MULTICORPUS_ACCURACY_PLAN.md](research/MULTICORPUS_ACCURACY_PLAN.md): expand pop/rock sources with matching audio, use GuitarSet as an accessible audio pilot, reuse BTC author preprocessing/baselines, and introduce a controlled grouped evaluation protocol. Keep rare metrics as secondary diagnostics. Gold-boundary event accuracy is not directly comparable to published end-to-end duration-weighted WCSR. Five-fold evaluation and corpus expansion address different problems. New source-fit training, added-corpus ingestion and benchmark runs remain pending.
 
 
 ### Quality-diverse memorization check
@@ -745,28 +745,28 @@ This rules out an absolute inability of either current input/label path to learn
 
 ## Audio admission and standard metrics — 20 November 2026
 
-The user confirms no matching Isophonics/USPOP/Robbie audio is currently available. Documented access dependencies in [POP_AUDIO_ACCESS.md](POP_AUDIO_ACCESS.md); these annotation collections are not counted as new training data. GuitarSet 1.1.0 is the accessible audio pilot.
+The user confirms no matching Isophonics/USPOP/Robbie audio is currently available. Documented access dependencies in [research/POP_AUDIO_ACCESS.md](research/POP_AUDIO_ACCESS.md); these annotation collections are not counted as new training data. GuitarSet 1.1.0 is the accessible audio pilot.
 
-Added the optional pinned mir_eval 0.8.2 evaluator for full explicit LAB timelines, with correct/eligible/excluded seconds per Root, MajMin, Triads and Tetrads metric. Tests verify duration rather than event weighting, unknown/no-chord handling, reductions and invalid timeline rejection. All 44 tests pass with the optional package installed. See [STANDARD_EVALUATION.md](STANDARD_EVALUATION.md).
+Added the optional pinned mir_eval 0.8.2 evaluator for full explicit LAB timelines, with correct/eligible/excluded seconds per Root, MajMin, Triads and Tetrads metric. Tests verify duration rather than event weighting, unknown/no-chord handling, reductions and invalid timeline rejection. All 44 tests pass with the optional package installed. See [../evaluation/STANDARD_EVALUATION.md](../evaluation/STANDARD_EVALUATION.md).
 
 Rescored the four existing teachers on exported gold intervals as a scope-limited oracle diagnostic. F control/mixed Tetrads are 62.72%/62.31%; E control/mixed are 61.87%/60.57%. Thus E's event-accuracy improvement does not extend to duration-weighted Tetrads. These results exclude unavailable raw/OOV/trailing regions and must not be compared directly with published full-track WCSR. Machine evidence: reports/p2/jaah-fe-pilot/duration_metrics.json. No model promotion or new training follows from this diagnostic.
 
 
 ### GuitarSet file-level inventory completed
 
-Verified official annotation and microphone archives by published MD5, paired 360 recordings and checked WAV headers/label bounds. Excluding the two documented timing errata leaves 358 candidates. The existing label mapping supports 66.34% of performed labeled duration, with 3,678.62 seconds OOV; instructed labels have full mapping coverage but different supervision semantics. Explicit power chords are a major unsupported category and cannot be silently relabeled as major/minor. Candidate groups are not yet final leakage groups, especially across styles sharing the three underlying progressions. See [GUITARSET_INSTRUCTION.md](GUITARSET_INSTRUCTION.md) and reports/p2/guitarset-inventory/. No new training data or folds were admitted.
+Verified official annotation and microphone archives by published MD5, paired 360 recordings and checked WAV headers/label bounds. Excluding the two documented timing errata leaves 358 candidates. The existing label mapping supports 66.34% of performed labeled duration, with 3,678.62 seconds OOV; instructed labels have full mapping coverage but different supervision semantics. Explicit power chords are a major unsupported category and cannot be silently relabeled as major/minor. Candidate groups are not yet final leakage groups, especially across styles sharing the three underlying progressions. See [guitarset/GUITARSET_INSTRUCTION.md](guitarset/GUITARSET_INSTRUCTION.md) and reports/p2/guitarset-inventory/. No new training data or folds were admitted.
 
 
 ### GuitarSet exact label mapping and progression folds
 
 Implemented pitch-set equivalence with mir_eval's Harte primitives, preserving additions/omissions and annotated roots while collapsing bass as in the current task. Complete-label coverage stays 66.34%; the remaining valid labels are proposed for root/gate-only supervision, with other heads masked. No partial-target training has been enabled. This confirms the OOV gap is not recoverable merely by spelling normalization.
 
-Audited all instructed sequences and found exactly three transposition-invariant progression signatures across styles/tempi/players. Created three outer progression folds with separate train/validation/test progression groups and the two known errata excluded. Full checks verify disjoint groups, comp/solo pairing and unchanged previously supported class IDs; 48 tests pass. This is a small unseen-progression protocol, not unseen-player evaluation or the published BTC benchmark. See [GUITARSET_INSTRUCTION.md](GUITARSET_INSTRUCTION.md) for the contract and reproduction commands. CQT extraction and model training remain pending.
+Audited all instructed sequences and found exactly three transposition-invariant progression signatures across styles/tempi/players. Created three outer progression folds with separate train/validation/test progression groups and the two known errata excluded. Full checks verify disjoint groups, comp/solo pairing and unchanged previously supported class IDs; 48 tests pass. This is a small unseen-progression protocol, not unseen-player evaluation or the published BTC benchmark. See [guitarset/GUITARSET_INSTRUCTION.md](guitarset/GUITARSET_INSTRUCTION.md) for the contract and reproduction commands. CQT extraction and model training remain pending.
 
 
 ## GuitarSet audio baseline prepared
 
-Implemented BTC-inspired log-CQT extraction and fresh 144-channel F/E TCN jobs, with a training-only scalar normalization and fold-0 train/validation loading. Prepared all 239 development recordings locally; outer test remains unloaded. Full raw performed labels are retained for duration metrics, while only complete-supported labels train the models. E remains a gold-boundary oracle. The notebook 02h exports checkpoints, references, predictions and metrics for review. No full GPU training has occurred. See [GUITARSET_CQT_EXPERIMENT.md](GUITARSET_CQT_EXPERIMENT.md) for parameters, deviations from BTC, training budgets and limitations.
+Implemented BTC-inspired log-CQT extraction and fresh 144-channel F/E TCN jobs, with a training-only scalar normalization and fold-0 train/validation loading. Prepared all 239 development recordings locally; outer test remains unloaded. Full raw performed labels are retained for duration metrics, while only complete-supported labels train the models. E remains a gold-boundary oracle. The notebook 02h exports checkpoints, references, predictions and metrics for review. No full GPU training has occurred. See [guitarset/GUITARSET_CQT_EXPERIMENT.md](guitarset/GUITARSET_CQT_EXPERIMENT.md) for parameters, deviations from BTC, training budgets and limitations.
 
 
 ## Imported fold-0 CQT results — 20 November 2026
@@ -800,7 +800,7 @@ Evidence: reports/p2/guitarset-cqt/results/ contains original selected metrics/h
 
 ## Quality-diverse CQT memorization — 21 November 2026
 
-Completed the proposed training-only learning diagnostic locally on CPU. The reproducible command and selection/stop rules are in GUITARSET_CQT_EXPERIMENT.md; source is src/acr/check_guitarset_memorization.py. Eighteen fixed events cover nine supported training qualities, with two events per quality. Both teachers start fresh with the original seed, width, learning rate and train-fitted CQT normalization. F supervises individual frames inside the selected intervals; E supervises pooled gold events. Context remains actual neighboring audio. No validation/test examples are used for training, evaluation or stopping.
+Completed the proposed training-only learning diagnostic locally on CPU. The reproducible command and selection/stop rules are in guitarset/GUITARSET_CQT_EXPERIMENT.md; source is src/acr/experiments/guitarset/memorization.py. Eighteen fixed events cover nine supported training qualities, with two events per quality. Both teachers start fresh with the original seed, width, learning rate and train-fitted CQT normalization. F supervises individual frames inside the selected intervals; E supervises pooled gold events. Context remains actual neighboring audio. No validation/test examples are used for training, evaluation or stopping.
 
 | Teacher | First checked pass (updates) | Selected-frame accuracy | Selected event accuracy |
 |---|---:|---:|---:|
@@ -815,7 +815,7 @@ Evidence: reports/p2/guitarset-cqt/results/memorization.json includes selections
 
 ## Player-held-out control prepared — 21 November 2026
 
-Prepared a separate deterministic player split, config and notebook 02i for both fresh teachers. Train players 00–03 provide 240 recordings, player 05 provides 60 validation recordings, and player 04 is reserved (58 usable); the two timing errata remain excluded. All progression groups are present in training. Selection is based on player IDs, not model scores. Original progression folds and results remain intact. See GUITARSET_PLAYER_EXPERIMENT.md and reports/p2/guitarset-cqt/player-split.json for protocol and label support.
+Prepared a separate deterministic player split, config and notebook 02i for both fresh teachers. Train players 00–03 provide 240 recordings, player 05 provides 60 validation recordings, and player 04 is reserved (58 usable); the two timing errata remain excluded. All progression groups are present in training. Selection is based on player IDs, not model scores. Original progression folds and results remain intact. See guitarset/GUITARSET_PLAYER_EXPERIMENT.md and reports/p2/guitarset-cqt/player-split.json for protocol and label support.
 
 This changes the generalization question and training-set size. It introduces known repertoire overlap and reuses historical data: old progression-test recordings can now enter training, and the reserved player had earlier validation exposure. Consequently neither a score increase nor a later reserved-player score establishes independent benchmark parity. No new test result is claimed.
 
@@ -846,7 +846,7 @@ Before another large run, prioritize inspecting root and extension confusion and
 
 ## Component confusion and audio review preparation — 21 November 2026
 
-Ran src/acr/diagnose_guitarset_player.py on the saved validation logits. Scope is 434 complete-supported gold chord events, with F mean frame probabilities and E event probabilities. Confusion matrices use raw per-head argmax, before the constrained legal-quality decoder; complete predictions use that decoder. This distinction matters: E has 166 events with all three raw component heads correct, but 167 correct complete predictions after legal decoding. Matrix totals and complete-event accuracy are checked against the imported metrics. No training or reserved-player evaluation occurs.
+Ran src/acr/evaluation/guitarset.py on the saved validation logits. Scope is 434 complete-supported gold chord events, with F mean frame probabilities and E event probabilities. Confusion matrices use raw per-head argmax, before the constrained legal-quality decoder; complete predictions use that decoder. This distinction matters: E has 166 events with all three raw component heads correct, but 167 correct complete predictions after legal decoding. Matrix totals and complete-event accuracy are checked against the imported metrics. No training or reserved-player evaluation occurs.
 
 | True extension | Events | F correct raw extension | E correct raw extension | F predicted none | E predicted none |
 |---|---:|---:|---:|---:|---:|
@@ -870,7 +870,7 @@ Evidence: reports/p2/guitarset-cqt/player-diagnostics/ contains full confusion m
 
 ## Frozen training-versus-validation component audit — 21 November 2026
 
-Prepared the 300-recording player cache locally from pinned archives, fitted normalization only on players 00–03, and evaluated the original selected checkpoints (F epoch 20, E epoch 30) without updates. Matched all selected recording/audio hashes, source archives, config, checkpoint epochs and manifest identity. Local CPU training Tetrads is exactly 36.58481673558038% for F and 59.9458362532555% for E, matching the original Kaggle history with zero difference. No reserved-player data or new training was used. Reproduction commands are in GUITARSET_PLAYER_EXPERIMENT.md.
+Prepared the 300-recording player cache locally from pinned archives, fitted normalization only on players 00–03, and evaluated the original selected checkpoints (F epoch 20, E epoch 30) without updates. Matched all selected recording/audio hashes, source archives, config, checkpoint epochs and manifest identity. Local CPU training Tetrads is exactly 36.58481673558038% for F and 59.9458362532555% for E, matching the original Kaggle history with zero difference. No reserved-player data or new training was used. Reproduction commands are in guitarset/GUITARSET_PLAYER_EXPERIMENT.md.
 
 ### Same event protocol on both partitions
 
@@ -901,7 +901,7 @@ All 58 tests pass, including a synthetic known-answer audit with explicit traini
 
 ## CQT transposition ablation prepared — 21 November 2026
 
-Selected one literature-motivated augmentation after inspecting BTC author preprocessing, ChordFormer author training code and the MIREX 2025 degree-based ACR submission (section 3.2). Source links and implementation differences are recorded in GUITARSET_TRANSPOSITION_EXPERIMENT.md. BTC transposes waveforms, while the selected control shifts CQT bins and chord roots. This is an approximate feature-space transformation, not a waveform augmentation or author-baseline reproduction.
+Selected one literature-motivated augmentation after inspecting BTC author preprocessing, ChordFormer author training code and the MIREX 2025 degree-based ACR submission (section 3.2). Source links and implementation differences are recorded in guitarset/GUITARSET_TRANSPOSITION_EXPERIMENT.md. BTC transposes waveforms, while the selected control shifts CQT bins and chord roots. This is an approximate feature-space transformation, not a waveform augmentation or author-baseline reproduction.
 
 The hypothesis is that exposing multiple transpositions of existing training examples may reduce reliance on observed absolute-root/key combinations. It does not add players or chord qualities and is not an established cure for the observed extension errors. All original class imbalance and progression/repertoire limitations remain. No additional source dataset has been added.
 
@@ -962,7 +962,7 @@ The original cache seed describes preparation configuration rather than model ra
 
 Per-teacher aggregate includes Root/MajMin/Triads/Tetrads and supported-event accuracy, means and sample standard deviations, and matched-seed augmented-minus-natural differences. A known-answer test verifies the paired arithmetic and n-1 standard deviation. Smoke results are explicitly separated and exclude historical full metrics. Saved per-quality metrics and clean train/validation histories support later tradeoff analysis. Completed stages require matching provenance; partial stages are preserved and rejected without automatic resume.
 
-Read GUITARSET_TRANSPOSITION_REPEATS.md for running, recovery limits and interpretation. The new split is still reused-validation development on one player, and E still has gold boundaries. Repeated seeds measure optimization variability, not additional independent players. Full GPU repeats remain pending; no new performance claim follows from the notebook setup.
+Read guitarset/GUITARSET_TRANSPOSITION_REPEATS.md for running, recovery limits and interpretation. The new split is still reused-validation development on one player, and E still has gold boundaries. Repeated seeds measure optimization variability, not additional independent players. Full GPU repeats remain pending; no new performance claim follows from the notebook setup.
 
 Local verification completes all eight two-epoch CPU smoke jobs and confirms fresh training seeds with fixed cache provenance. Re-running completed orchestration reuses stages and leaves comparison.json identical. Smoke aggregation excludes historical full metrics. All 61 tests pass; notebook code cells compile. Evidence: reports/p2/guitarset-cqt/transposition/repeat-setup/verification.json. Smoke scores are execution checks only.
 
@@ -1026,4 +1026,4 @@ Next executable stage is pinned-code compatibility and I/O adapters for BTC and 
 
 ## Handoff to Stage B — 21 November 2026
 
-At the user's request, subsequent literature-baseline and corpus-generalization work is a separate research stage, rather than further P2 expansion. The plan and ongoing log are in docs/baselines/BASELINE_AND_CORPUS_PLAN.md and BASELINE_RESEARCH_LOG.md. The baseline review and source inventory were relocated to docs/baselines/ and reports/baselines/. Preserve all prior P2 outcomes, including negative results and exposure limitations; this organizational handoff does not claim every original P2 acceptance condition was met. Original P3 and student milestones remain distinct. This is the final Stage B handoff entry in the historical P2 report.
+At the user's request, subsequent literature-baseline and corpus-generalization work is a separate research stage, rather than further P2 expansion. The plan and ongoing log are in docs/baselines/BASELINE_AND_CORPUS_PLAN.md and ../baselines/BASELINE_RESEARCH_LOG.md. The baseline review and source inventory were relocated to docs/baselines/ and reports/baselines/. Preserve all prior P2 outcomes, including negative results and exposure limitations; this organizational handoff does not claim every original P2 acceptance condition was met. Original P3 and student milestones remain distinct. This is the final Stage B handoff entry in the historical P2 report.

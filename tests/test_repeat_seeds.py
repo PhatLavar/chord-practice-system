@@ -9,8 +9,8 @@ from io import StringIO
 from pathlib import Path
 from unittest.mock import patch
 
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"src/acr"))
-from repeat_seeds import METRICS, aggregate, run
+
+from acr.experiments.billboard.repeat_frame import METRICS, aggregate, run
 
 
 class RepeatSeedTests(unittest.TestCase):
@@ -74,8 +74,8 @@ class RepeatSeedTests(unittest.TestCase):
                         (target/"summary.json").write_text(json.dumps(diag))
 
                 with (
-                    patch("repeat_seeds.subprocess.check_output",return_value="test-revision"),
-                    patch("repeat_seeds.subprocess.run",side_effect=execute) as launch,
+                    patch('acr.experiments.billboard.repeat_frame.subprocess.check_output',return_value="test-revision"),
+                    patch('acr.experiments.billboard.repeat_frame.subprocess.run',side_effect=execute) as launch,
                     redirect_stdout(StringIO()),
                 ):
                     run(Path("plan.json"),Path("outputs"),"cpu")

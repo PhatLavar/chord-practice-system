@@ -1,14 +1,15 @@
 """Oracle event pooling, padding and F/E comparison checks."""
 import sys,unittest,tempfile,csv,tarfile,hashlib,json,io
 from pathlib import Path
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"src/acr"))
+
 import numpy as np
 import torch
 from unittest.mock import patch
-from data_e import Events,collate_events,load_events
-from teacher_e import EventTeacher
-from teacher_f import FrameTeacher,losses
-from train_e import compare,FIELDS,evaluate
+from acr.data.events import Events, collate_events, load_events
+from acr.models.tcn import EventTeacher
+from acr.models.tcn import FrameTeacher
+from acr.models.components import losses
+from acr.training.event import compare, FIELDS, evaluate
 
 
 class EventTests(unittest.TestCase):
@@ -75,11 +76,11 @@ class EventTests(unittest.TestCase):
         song={"x":np.zeros((100,24),dtype=np.float32)}
         events=[("a",0.,1.,0,10,1),("a",1.,2.,10,11,14)]
         dataset=Events({"a":song},events,balanced=True,balanced_probability=.25)
-        with patch("data_e.torch.rand",return_value=torch.tensor(.74)), patch("data_e.torch.randint") as draw:
+        with patch("acr.data.events.torch.rand",return_value=torch.tensor(.74)), patch("acr.data.events.torch.randint") as draw:
             self.assertEqual(dataset[0][2],1)
             draw.assert_not_called()
-        with patch("data_e.torch.rand",return_value=torch.tensor(.75)), patch(
-            "data_e.torch.randint",side_effect=[torch.tensor(1),torch.tensor(0),torch.tensor(0)]):
+        with patch("acr.data.events.torch.rand",return_value=torch.tensor(.75)), patch(
+            "acr.data.events.torch.randint",side_effect=[torch.tensor(1),torch.tensor(0),torch.tensor(0)]):
             self.assertEqual(dataset[0][2],14)
         natural=Events({"a":song},events,balanced=True,balanced_probability=0)
         self.assertEqual([natural[i%2][2] for i in range(12)],[1,14]*6)

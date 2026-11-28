@@ -4,9 +4,9 @@ from pathlib import Path
 from unittest.mock import patch
 from contextlib import redirect_stdout
 from io import StringIO
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"src/acr"))
-from repeat_e import run,METRICS
-from repeat_seeds import aggregate
+
+from acr.experiments.billboard.repeat_event import run, METRICS
+from acr.experiments.billboard.repeat_frame import aggregate
 
 
 class EventRepeatTests(unittest.TestCase):
@@ -56,8 +56,8 @@ class EventRepeatTests(unittest.TestCase):
                     (target/"complementarity.csv").write_text(counts)
 
                 with (
-                    patch("repeat_e.subprocess.check_output",return_value="test"),
-                    patch("repeat_e.subprocess.run",side_effect=execute) as launch,
+                    patch('acr.experiments.billboard.repeat_event.subprocess.check_output',return_value="test"),
+                    patch('acr.experiments.billboard.repeat_event.subprocess.run',side_effect=execute) as launch,
                     redirect_stdout(StringIO()),
                 ):
                     run(Path("plan.json"),Path("output"),"cpu")

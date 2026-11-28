@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chord-practice-system"
+version = "0.1.0"
+description = "Research pipelines for chord recognition and corpus evaluation"
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["acr*"]
+
+[tool.setuptools.package-data]
+"acr.vendor.btc" = ["LICENSE", "UPSTREAM.md", "UPSTREAM.json"]

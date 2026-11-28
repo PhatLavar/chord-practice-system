@@ -1,12 +1,13 @@
 """Padding, frame coverage and gradient checks for the Transformer teacher."""
 import sys,unittest
 from pathlib import Path
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"src/acr"))
+
 import numpy as np
 import torch
-from transformer_f import TransformerFrameTeacher
-from teacher_f import losses
-from train_f import Windows,recording_logits
+from acr.models.transformer import TransformerFrameTeacher
+from acr.models.components import losses
+from acr.data.windows import Windows
+from acr.training.frame import recording_logits
 
 
 class TransformerTests(unittest.TestCase):

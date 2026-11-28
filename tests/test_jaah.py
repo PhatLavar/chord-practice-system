@@ -4,13 +4,13 @@ import unittest
 from pathlib import Path
 import numpy as np
 import torch
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src/acr'))
-from prepare_jaah import external_label, parse_intervals, normalize_title
-from p1_data import encode
-from data_e import Events, collate_events
-from teacher_e import EventTeacher
-from teacher_f import losses
-from experiment_jaah import MultiInputEventTeacher, replacement_steps
+
+from acr.data.jaah import external_label, parse_intervals, normalize_title
+from acr.vocabulary import encode
+from acr.data.events import Events, collate_events
+from acr.models.tcn import EventTeacher
+from acr.models.components import losses
+from acr.experiments.jaah.event import MultiInputEventTeacher, replacement_steps
 
 
 class JaahTests(unittest.TestCase):

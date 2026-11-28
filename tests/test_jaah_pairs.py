@@ -6,13 +6,14 @@ import tempfile
 import unittest
 import numpy as np
 import torch
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src/acr'))
-from teacher_f import FrameTeacher, targets, losses
-from experiment_jaah import MultiInputFrameTeacher
-from train_f import QualityBalancedWindows
-from experiment_jaah_f import pool_events
-from compare_jaah_pairs import load_result, summarize_pair, complete_scores
-from diagnose_f import probabilities
+
+from acr.models.tcn import FrameTeacher
+from acr.models.components import targets, losses
+from acr.experiments.jaah.event import MultiInputFrameTeacher
+from acr.data.windows import QualityBalancedWindows
+from acr.experiments.jaah.frame import pool_events
+from acr.experiments.jaah.pairs import load_result, summarize_pair, complete_scores
+from acr.evaluation.frame import probabilities
 
 
 class JaahPairTests(unittest.TestCase):

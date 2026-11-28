@@ -5,9 +5,9 @@ from types import SimpleNamespace
 from contextlib import redirect_stdout
 from io import StringIO
 from pathlib import Path
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"src/acr"))
-from compare_e_mixtures import summarize
-from repeat_e import METRICS
+
+from acr.experiments.billboard.mixtures import summarize
+from acr.experiments.billboard.repeat_event import METRICS
 
 
 class MixtureTests(unittest.TestCase):
@@ -26,14 +26,14 @@ class MixtureTests(unittest.TestCase):
 
     def test_notebook_trains_only_two_jobs_then_reuses_them(self):
         repo=Path(__file__).resolve().parents[1]
-        nb=json.loads((repo/"notebooks/02e_teacher_e_mixture25_repeat.ipynb").read_text())
+        nb=json.loads((repo/"notebooks/p2/billboard/02e_teacher_e_mixture25_repeat.ipynb").read_text())
         source=next("".join(c["source"]) for c in nb["cells"]
                     if c["cell_type"]=="code" and "for seed in plan" in "".join(c["source"]))
         with tempfile.TemporaryDirectory() as directory:
             project=Path(directory)
-            (project/"configs").mkdir()
+            (project/"configs/p2").mkdir(parents=True)
             for name in ("p2-mixture25-seeds.json","p2-mixture25.json"):
-                (project/"configs"/name).write_text((repo/"configs"/name).read_text())
+                (project/"configs/p2"/name).write_text((repo/"configs/p2"/name).read_text())
 
             def execute(args,check):
                 config=json.loads(Path(args[args.index("--config")+1]).read_text())

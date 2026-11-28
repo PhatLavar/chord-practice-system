@@ -1,7 +1,7 @@
 {
   "stage": "B0",
   "seed": 20261119,
-  "data_config": "configs/p2-guitarset-cqt-player.json",
+  "data_config": "configs/p2/p2-guitarset-cqt-player.json",
   "cache": "data/processed/guitarset-cqt-player",
   "model": {
     "feature_size": 144,

@@ -10,14 +10,14 @@ E uses the same 48-channel, five-dilation TCN as the original F (37,225 paramete
 
 | File | Purpose |
 |---|---|
-| src/acr/teacher_e.py | Event pooling and component classifier |
-| src/acr/data_e.py | Timestamp-to-frame event mapping, variable-length batching and sampling |
-| src/acr/train_e.py | Train E, score reference events and compare F/E outcomes |
-| src/acr/prepare_p2_reference.py | Recreate frozen F interval predictions from its saved logits |
-| configs/p2-overfit.json | Two-song pipeline check |
-| configs/p2-oracle.json | Full oracle-event experiment |
+| src/acr/models/tcn.py | Event pooling and component classifier |
+| src/acr/data/events.py | Timestamp-to-frame event mapping, variable-length batching and sampling |
+| src/acr/training/event.py | Train E, score reference events and compare F/E outcomes |
+| src/acr/experiments/billboard/reference.py | Recreate frozen F interval predictions from its saved logits |
+| configs/p2/p2-overfit.json | Two-song pipeline check |
+| configs/p2/p2-oracle.json | Full oracle-event experiment |
 | reports/p2/f-reference/events.csv | Frozen F predictions and standalone component decisions |
-| notebooks/02_teacher_e_oracle.ipynb | Kaggle execution |
+| notebooks/p2/billboard/02_teacher_e_oracle.ipynb | Kaggle execution |
 
 The F reference is the existing balanced TCN at seed 20261119 (revision d250916), chosen before observing E results. Its reference-event accuracy is 57.92% and rare macro event recall is 4.19%. The small repeat-seed gains and their limitations remain documented in [the P1 report](../p1/P1_REPORT.md).
 
@@ -39,7 +39,7 @@ One event contributes one target, irrespective of duration. F trained frame targ
 
 ## Run on Kaggle
 
-1. Stop an older GPU session if necessary. Import notebooks/02_teacher_e_oracle.ipynb.
+1. Stop an older GPU session if necessary. Import notebooks/p2/billboard/02_teacher_e_oracle.ipynb.
 2. Enable Internet and GPU, then run setup and data preparation. It reuses the existing official data/P1 cache when available.
 3. Run the overfit cell. Inspect event_accuracy and overfit_pass. Each target is an event, so the scored count differs from P1's frame count.
 4. If the check passes, set RUN_FULL = True and execute the full cell. It trains E and writes comparison tables using the frozen F reference already stored in the repo. No upload of a P1 checkpoint is needed.
@@ -61,14 +61,14 @@ Run from the project root:
 
 ```powershell
 python -m unittest discover -s tests
-python src/acr/train_e.py --config configs/p2-overfit.json --output runs/p2-overfit-local --device cpu
-python src/acr/train_e.py --config configs/p2-oracle.json --output runs/p2-oracle/full --device cuda
+python -m acr.training.event --config configs/p2/p2-overfit.json --output runs/p2-overfit-local --device cpu
+python -m acr.training.event --config configs/p2/p2-oracle.json --output runs/p2-oracle/full --device cuda
 ```
 
 The frozen F reference is already versioned. To recreate it locally from the verified original F run, choose a fresh output directory:
 
 ```powershell
-python src/acr/prepare_p2_reference.py --run runs/p1-balanced-kaggle --output runs/p2-f-reference-check
+python -m acr.experiments.billboard.reference --run runs/p1-balanced-kaggle --output runs/p2-f-reference-check
 ```
 
 Compare that events.csv with reports/p2/f-reference/events.csv. The preparation script recomputes F probabilities on the gold intervals, matching the P1 diagnostic.
@@ -79,9 +79,9 @@ The first Kaggle run has completed and been independently verified. Read [P2_REP
 
 ## Continue P2: natural-event E baseline
 
-Import [02b_teacher_e_natural.ipynb](../../notebooks/02b_teacher_e_natural.ipynb), stop an older GPU session if needed, and enable Internet/GPU. Run the setup/data cells, then the natural-baseline training cell. The already verified overfit stage need not be repeated for this sampler-only change.
+Import [02b_teacher_e_natural.ipynb](../../notebooks/p2/billboard/02b_teacher_e_natural.ipynb), stop an older GPU session if needed, and enable Internet/GPU. Run the setup/data cells, then the natural-baseline training cell. The already verified overfit stage need not be repeated for this sampler-only change.
 
-The cell trains 30 epochs from a new seeded initialization, using configs/p2-natural.json. The next cell compares its metrics with the completed balanced E run recorded in the repository. The final cell exports /kaggle/working/p2-natural-results.zip. Save the executed notebook version and download the ZIP into local runs/imports/.
+The cell trains 30 epochs from a new seeded initialization, using configs/p2/p2-natural.json. The next cell compares its metrics with the completed balanced E run recorded in the repository. The final cell exports /kaggle/working/p2-natural-results.zip. Save the executed notebook version and download the ZIP into local runs/imports/.
 
 The output is runs/p2-natural-kaggle/. Its event logits, per-quality results and F/E complementarity use the same protocol as the original E run. Use a fresh output name if retrying an existing result. The first natural-E run has completed and been verified; see the measured results in P2_REPORT.md. Further E development and the deferred P3 transition are recorded in [P2_REPORT.md](P2_REPORT.md).
 
@@ -91,7 +91,7 @@ The natural-E results are recorded under reports/p2/kaggle-natural/. They show i
 
 ## Repeat natural and balanced E with matched seeds
 
-Import [02c_teacher_e_seed_repeat.ipynb](../../notebooks/02c_teacher_e_seed_repeat.ipynb) into Kaggle. Stop an older GPU session if needed, enable Internet/GPU and run setup/data preparation. Then run the training cell once. It automatically runs natural and balanced E for seeds 20261120 and 20261121 in sequence, each for 30 epochs, including F/E comparison. There is no need to rerun the already verified two-song check.
+Import [02c_teacher_e_seed_repeat.ipynb](../../notebooks/p2/billboard/02c_teacher_e_seed_repeat.ipynb) into Kaggle. Stop an older GPU session if needed, enable Internet/GPU and run setup/data preparation. Then run the training cell once. It automatically runs natural and balanced E for seeds 20261120 and 20261121 in sequence, each for 30 epochs, including F/E comparison. There is no need to rerun the already verified two-song check.
 
 When all four jobs complete, inspect per_seed.csv and summary.json. Run the final cell, save the executed notebook version and download /kaggle/working/p2-seed-repeat-results.zip into runs/imports/.
 
@@ -100,10 +100,10 @@ Outputs are in runs/p2-seed-repeat/. The original seed pair is read from committ
 Local command, from the project root:
 
 ```powershell
-python src/acr/repeat_e.py --output runs/p2-seed-repeat --device cuda
+python -m acr.experiments.billboard.repeat_event --output runs/p2-seed-repeat --device cuda
 ```
 
-The plan is configs/p2-seeds.json. The first E repeat sweep has completed and been verified; see the measured summary in P2_REPORT.md. See [P2_REPORT.md](P2_REPORT.md) for fixed controls, interpretation and the distinction between E-only seed variation and F/E paired-seed variation.
+The plan is configs/p2/p2-seeds.json. The first E repeat sweep has completed and been verified; see the measured summary in P2_REPORT.md. See [P2_REPORT.md](P2_REPORT.md) for fixed controls, interpretation and the distinction between E-only seed variation and F/E paired-seed variation.
 
 
 The E seed-repeat archive has been independently checked. Selected results and per-seed quality tables are under reports/p2/seed-repeat/. Natural and balanced show a repeatable overall-versus-rare tradeoff over these three seeds; inspect the report's precision and distinct-interval analysis before choosing another sampling policy.
@@ -111,7 +111,7 @@ The E seed-repeat archive has been independently checked. Selected results and p
 
 ## Run the 25% balanced-mixture screening
 
-Import [02d_teacher_e_mixture25.ipynb](../../notebooks/02d_teacher_e_mixture25.ipynb), stop an older active GPU session if needed, enable Internet/GPU and run its cells in order. The notebook trains one new E model for 30 epochs at seed 20261119. It compares the result with the committed natural and 50% balanced E results at the same seed.
+Import [02d_teacher_e_mixture25.ipynb](../../notebooks/p2/billboard/02d_teacher_e_mixture25.ipynb), stop an older active GPU session if needed, enable Internet/GPU and run its cells in order. The notebook trains one new E model for 30 epochs at seed 20261119. It compares the result with the committed natural and 50% balanced E results at the same seed.
 
 The new output is runs/p2-mixture25-kaggle/. Its run.json records balanced_probability=0.25 and natural_probability=0.75. The final cell exports /kaggle/working/p2-mixture25-results.zip. Save the executed version and download that ZIP to local runs/imports/.
 
@@ -123,7 +123,7 @@ The 25% screening archive has been audited. Selected metrics, quality scores, co
 
 ## Repeat only the two missing 25% seeds
 
-Import [02e_teacher_e_mixture25_repeat.ipynb](../../notebooks/02e_teacher_e_mixture25_repeat.ipynb), stop an older GPU session if necessary, enable Internet/GPU and run cells in order. The training cell runs only seeds 20261120 and 20261121 with the 25% mixture. Each is 30 epochs and writes a separate run under runs/p2-mixture25-repeat/.
+Import [02e_teacher_e_mixture25_repeat.ipynb](../../notebooks/p2/billboard/02e_teacher_e_mixture25_repeat.ipynb), stop an older GPU session if necessary, enable Internet/GPU and run cells in order. The training cell runs only seeds 20261120 and 20261121 with the 25% mixture. Each is 30 epochs and writes a separate run under runs/p2-mixture25-repeat/.
 
 The comparison cell combines those two runs with the seven verified results already in the repository. It writes analysis/per_seed.csv and analysis/summary.json inside the repeat directory, with all nine results and paired deltas for 25% versus each endpoint.
 
@@ -132,7 +132,7 @@ The final cell creates /kaggle/working/p2-mixture25-repeat-results.zip. Save the
 The aggregate can also be regenerated locally after import:
 
 ```powershell
-python src/acr/compare_e_mixtures.py --runs runs/p2-mixture25-repeat --output runs/p2-mixture25-repeat/analysis
+python -m acr.experiments.billboard.mixtures --runs runs/p2-mixture25-repeat --output runs/p2-mixture25-repeat/analysis
 ```
 
 Both additional GPU runs have completed and been verified. See P2_REPORT.md for the full three-seed comparison. The earlier single-seed screen and endpoint outputs remain preserved.
@@ -148,7 +148,7 @@ From the repository root, run:
 
 ```powershell
 .venv/Scripts/python.exe -m unittest discover -s tests
-.venv/Scripts/python.exe src/acr/audit_confidence.py --output runs/p2-confidence-audit
+.venv/Scripts/python.exe -m acr.evaluation.confidence --output runs/p2-confidence-audit
 ```
 
 Choose a fresh output directory; existing results are never overwritten. The verified first audit is versioned under reports/p2/confidence-audit/. The raw checkpoints and logits remain under runs/.
@@ -165,30 +165,30 @@ Read the confidence-audit section in P2_REPORT.md before interpreting the curves
 
 ## External-data pilot: JAAH for F and E
 
-Use [02g_teachers_fe_jaah_pilot.ipynb](../../notebooks/02g_teachers_fe_jaah_pilot.ipynb) for four fresh jobs: F-control, F-mixed, E-control and E-mixed, followed by all four pair diagnostics. It supersedes the E-only 02f notebook for the current experiment. Read [P2_JAAH_EXPERIMENT.md](P2_JAAH_EXPERIMENT.md) for the audited inventory, within-teacher budget controls, interpretation and retry behavior. Return p2-jaah-fe-results.zip to runs/imports/. Full training results are pending.
+Use [02g_teachers_fe_jaah_pilot.ipynb](../../notebooks/p2/jaah/02g_teachers_fe_jaah_pilot.ipynb) for four fresh jobs: F-control, F-mixed, E-control and E-mixed, followed by all four pair diagnostics. It supersedes the E-only 02f notebook for the current experiment. Read [jaah/P2_JAAH_EXPERIMENT.md](jaah/P2_JAAH_EXPERIMENT.md) for the audited inventory, within-teacher budget controls, interpretation and retry behavior. Return p2-jaah-fe-results.zip to runs/imports/. Full training results are pending.
 
 
 ## GuitarSet CQT audio pilot
 
-For the next GuitarSet-only audio experiment, use notebooks/02h_guitarset_cqt_teachers.ipynb and follow [GUITARSET_CQT_EXPERIMENT.md](GUITARSET_CQT_EXPERIMENT.md). This trains fresh 144-bin CQT–TCN F/E models on fold-0 train/validation only; it is not the older JAAH mixture experiment or a BTC reproduction. Download p2-guitarset-cqt-results.zip into runs/imports/. Outer-test evaluation and partial-target supervision remain disabled.
+For the next GuitarSet-only audio experiment, use notebooks/p2/guitarset/02h_guitarset_cqt_teachers.ipynb and follow [guitarset/GUITARSET_CQT_EXPERIMENT.md](guitarset/GUITARSET_CQT_EXPERIMENT.md). This trains fresh 144-bin CQT–TCN F/E models on fold-0 train/validation only; it is not the older JAAH mixture experiment or a BTC reproduction. Download p2-guitarset-cqt-results.zip into runs/imports/. Outer-test evaluation and partial-target supervision remain disabled.
 
 ## Current next run: player-held-out development
 
-The 02h results are imported and the training-only memorization check is complete. Use **notebooks/02i_guitarset_player_teachers.ipynb** for the next run, following [GUITARSET_PLAYER_EXPERIMENT.md](GUITARSET_PLAYER_EXPERIMENT.md). It trains both F and E on players 00–03 and validates on 05, with all three progression groups in training. Return **p2-guitarset-cqt-player-results.zip** to runs/imports/. This is a separate development protocol with known repertoire overlap and historical data exposure, not an independent final benchmark.
+The 02h results are imported and the training-only memorization check is complete. Use **notebooks/p2/guitarset/02i_guitarset_player_teachers.ipynb** for the next run, following [guitarset/GUITARSET_PLAYER_EXPERIMENT.md](guitarset/GUITARSET_PLAYER_EXPERIMENT.md). It trains both F and E on players 00–03 and validates on 05, with all three progression groups in training. Return **p2-guitarset-cqt-player-results.zip** to runs/imports/. This is a separate development protocol with known repertoire overlap and historical data exposure, not an independent final benchmark.
 
-Update, 21 November 2026: the full 02i ZIP is imported and verified. F/E validation Tetrads is 24.45%/29.41%; read the imported-result sections in P2_REPORT.md and GUITARSET_PLAYER_EXPERIMENT.md. A rerun of 02i is not currently required. Histories and verification are versioned in reports/p2/guitarset-cqt/player-results/.
+Update, 21 November 2026: the full 02i ZIP is imported and verified. F/E validation Tetrads is 24.45%/29.41%; read the imported-result sections in P2_REPORT.md and guitarset/GUITARSET_PLAYER_EXPERIMENT.md. A rerun of 02i is not currently required. Histories and verification are versioned in reports/p2/guitarset-cqt/player-results/.
 
 ## Current next run: transposition augmentation
 
-After the frozen train/validation component audit, use **notebooks/02j_guitarset_transposition_teachers.ipynb** following [GUITARSET_TRANSPOSITION_EXPERIMENT.md](GUITARSET_TRANSPOSITION_EXPERIMENT.md). It trains fresh F and E with training-only CQT/root-label transposition and unchanged 02i split, architecture and update budget. Reuse the original CQT cache, not original model weights. Return **p2-guitarset-cqt-transpose-results.zip** to runs/imports/. This single-seed augmentation ablation has no full GPU result yet.
+After the frozen train/validation component audit, use **notebooks/p2/guitarset/02j_guitarset_transposition_teachers.ipynb** following [guitarset/GUITARSET_TRANSPOSITION_EXPERIMENT.md](guitarset/GUITARSET_TRANSPOSITION_EXPERIMENT.md). It trains fresh F and E with training-only CQT/root-label transposition and unchanged 02i split, architecture and update budget. Reuse the original CQT cache, not original model weights. Return **p2-guitarset-cqt-transpose-results.zip** to runs/imports/. This single-seed augmentation ablation has no full GPU result yet.
 
 Update, 21 November 2026: the 02j ZIP is imported and independently verified. F/E Tetrads increases by 1.06/2.05 percentage points, with mixed per-quality outcomes. Read the full result section before interpreting the gain. No rerun of the original-seed notebook is required; matched-seed repeats are the proposed next experiment and have not run.
 
 ## Current next run: matched-seed augmentation repeats
 
-Use **notebooks/02k_guitarset_transposition_repeats.ipynb**, following [GUITARSET_TRANSPOSITION_REPEATS.md](GUITARSET_TRANSPOSITION_REPEATS.md). It runs eight fresh jobs: natural/transposition × F/E × seeds 20261120/20261121. The full comparison also includes the verified historical first seed. Return **p2-guitarset-transpose-repeat-results.zip** to runs/imports/. This takes more GPU time than 02j; all jobs run sequentially with matching original budgets. Full repeat results are pending.
+Use **notebooks/p2/guitarset/02k_guitarset_transposition_repeats.ipynb**, following [guitarset/GUITARSET_TRANSPOSITION_REPEATS.md](guitarset/GUITARSET_TRANSPOSITION_REPEATS.md). It runs eight fresh jobs: natural/transposition × F/E × seeds 20261120/20261121. The full comparison also includes the verified historical first seed. Return **p2-guitarset-transpose-repeat-results.zip** to runs/imports/. This takes more GPU time than 02j; all jobs run sequentially with matching original budgets. Full repeat results are pending.
 
-Update, 21 November 2026: full repeats imported and independently verified. Mean Tetrads is F natural 24.67% vs transpose 24.57%, E natural 28.40% vs transpose 31.76%. Retain natural F and prefer transposition E for the GuitarSet development branch, with documented quality tradeoffs. No rerun of 02k is currently needed. Read the completed-result section in GUITARSET_TRANSPOSITION_REPEATS.md and P2_REPORT.md before further experiments.
+Update, 21 November 2026: full repeats imported and independently verified. Mean Tetrads is F natural 24.67% vs transpose 24.57%, E natural 28.40% vs transpose 31.76%. Retain natural F and prefer transposition E for the GuitarSet development branch, with documented quality tradeoffs. No rerun of 02k is currently needed. Read the completed-result section in guitarset/GUITARSET_TRANSPOSITION_REPEATS.md and P2_REPORT.md before further experiments.
 
 ## Handoff: stronger literature baselines in Stage B
 

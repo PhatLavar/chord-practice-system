@@ -8,9 +8,9 @@ import numpy as np
 import torch
 from torch import nn
 
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src/acr'))
-from btc_adapter import BTCFrame,btc_loss,project_to_btc,btc_to_project,predict_frames
-from vendor.btc.utils.transformer_modules import MultiHeadAttention,_gen_bias_mask,LayerNorm
+
+from acr.models.btc import BTCFrame, btc_loss, project_to_btc, btc_to_project, predict_frames
+from acr.vendor.btc.utils.transformer_modules import MultiHeadAttention, _gen_bias_mask, LayerNorm
 
 
 class BTCCompatibility(unittest.TestCase):

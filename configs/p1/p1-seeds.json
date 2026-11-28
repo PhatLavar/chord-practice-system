@@ -1,0 +1,5 @@
+{
+  "seeds": [20261120, 20261121],
+  "baseline_config": "configs/p1/p1-baseline.json",
+  "balanced_config": "configs/p1/p1-balanced.json"
+}
